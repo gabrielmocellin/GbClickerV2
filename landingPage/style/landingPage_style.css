@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap');
+/* NUNITO -> font-family: 'Nunito', sans-serif; */ 
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+/* INTER -> font-family: 'Inter', sans-serif; */
+
+
+
+*{ /* Para tirar as configurações padrões de margin e padding */
+    box-sizing: border-box;
+    margin: 0; padding: 0; outline: 0;
+}
+
+body{ /* Corpo da página */
+    display:flex; flex-direction: column;
+    background: #efefef;
+    height:100vh; width:100vw;
+}
+
+/* Cabecalho onde o usuário poderá ir para página de login */
+header{
+    background: rgb(165, 165, 165);
+    min-height:55px; min-width:200px;
+    height:10%; width:100%;
+    font-size:40px;
+    display:grid; grid-template-columns: 0.9fr 0.1fr;
+}
+
+#header_logo{
+    min-height:55px; min-width:100px;
+    display:flex; align-items: center; justify-content: left; padding: 0 0 0 15px;
+    font-family: 'Nunito', sans-serif; font-size:1em; font-weight: bold; 
+}
+
+#header_login_button{
+    min-height:55px; min-width:50px;
+    font-family: 'Nunito', sans-serif; font-size:0.5em; font-weight: bold;
+    outline:none; border:none;
+    cursor:pointer;
+    background-color: #77C9D4;
+}
+
+
+
+
+main{
+    height:90%; width:100%;
+}
+
+/* Div de apresentacao que aparece no topo abaixo do header */
+#apresentacao_div{
+    min-height:100px; width:80%;
+    height:20%;
+    margin: 5% 10% 0 10%;
+    background-color: rgb(43, 134, 134);
+}
+
+#apresentacao_div p{
+    height:100%; width:100%;
+    font-size: 25px; font-family: 'Nunito', sans-serif;
+    box-shadow: 0px 0px 5px;
+}
+
+/* Div acima do footer e abaixo da apresentaçao, possui atualizacoes do conteúdo */
+#atualizacoes_div{
+    display:flex; align-items: center; flex-direction: column;
+    background: linear-gradient(#77C9D4,#57BC90);
+    overflow-x: hidden;
+    overflow-y: scroll;
+    width:80%; min-height:80%;
+    height:600px;
+    margin: 5% 10% 0 10%;
+    box-shadow: 0px 0px 5px;
+}
+
+.titulo_atualizacoes_div{
+    position:relative;
+    margin: 25px 0px 25px 0px;
+    font-family: 'Inter', sans-serif; font-size: 30px; font-weight: bold;
+}
+
+.titulo_atualizacoes_div::before{
+    content: '';
+    height:0.1em; width:10em; background-color: #57BC90;
+    position:absolute; bottom:0; left:0;
+}
+
+/* Cada postagem de atualizacao */
+.atualizacao{
+    min-height:600px;
+}
+
+.atualizacao_data{
+    display:flex; justify-content: center;
+    width:100%; height:50px;
+    font-size:20px; font-family: 'Nunito', sans-serif;;
+}
+
+.atualizacao_imagem{
+    max-height: 400px;
+}
+
+.atualizacao ul{
+    height:10%; list-style: none; list-style-type: none;
+}
