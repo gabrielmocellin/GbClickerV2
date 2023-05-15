@@ -63,6 +63,8 @@ header{
 }
 
 #header_login_button{
+    text-decoration: none;
+    display:flex; justify-content: center; align-items: center;
     min-height:55px; min-width:100px;
     font-family: var(--font-primary); font-size:0.8em; font-weight: bold; color:var(--60green);
     outline:none; border:none;
@@ -160,8 +162,8 @@ main{
 }
 
 .atualizacao_imagem{
-    max-height: 300px;
-    width:100%;
+    height: auto; max-height: 1100px;
+    width:80%; max-width:680px;
 }
 
 .atualizacao ul{
@@ -212,7 +214,7 @@ main{
     .atualizacao{
         min-height:300px;
         width:80%;
-        margin:20px 0 20px 0;
+        margin:50px 0 50px 0;
     }
 
     .atualizacao_data{
@@ -221,7 +223,7 @@ main{
     }
 
     .atualizacao_imagem{
-        max-height: auto;
+        height: auto;
         width: 100%;
     }
 

@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Zilla+Slab:ital,wght@1,700&display=swap');
+/* ZILLA -> font-family: 'Zilla Slab', serif; */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap');
+/* NUNITO -> font-family: 'Nunito', sans-serif; */ 
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+/* INTER -> font-family: 'Inter', sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=Kanit&display=swap');
+/* KANIT -> font-family: 'Kanit', sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans&display=swap');
+/* DM SANS -> font-family: 'DM Sans', sans-serif; */
+
+:root{
+    --60green:#D9EDDF;
+    --30green:#609D7C;
+    --10green:#28E597;
+    --font-primary: 'Zilla Slab', serif;
+    --font-text: 'DM Sans', sans-serif;;
+}
+
+*{ /* Para tirar as configurações padrões de margin e padding */
+    box-sizing: border-box;
+    outline:none; margin: 0; padding: 0; outline: 0;
+}
+
+body{
+    width:100vw;
+    height:100vh;
+    background: var(--60green);
+}
+
+header{
+    min-height: 50px;
+    height:10%;width:100%;
+}
+
+.back_button{
+    border:none; background:none;
+    height:100%; width:10%;
+    min-height:60px; max-width: 60px;
+    background-image: url('../../src/img/back_icon.png');
+    background-size: contain; background-repeat: no-repeat;
+    cursor:pointer;
+}
+
+main{
+    margin: 50px 0 0 0;
+    display:flex; justify-content: center;
+    font-size:25px;
+    width: 100%; height:60%;
+    min-width:300px;
+}
+
+main form{
+    display:flex; flex-direction: column; 
+    min-width:300px;width: 40%;
+    font-size:20px;
+    background: var(--30green);
+    box-shadow: 0px 0.5em 20px black;
+}
+
+#form-title{
+    font-size:35px; color: var(--10green);
+    position:relative; width:100%; height:1.5em;
+    display:flex; justify-content: center; align-items: center;
+    font-family: var(--font-primary);
+    background: white; border: var(--10green) 0.1em solid;
+}
+
+#login-button{
+    width:50%;
+    height:10%;
+    background: var(--10green);
+    color:white;
+    border-radius: 1em;
+}
