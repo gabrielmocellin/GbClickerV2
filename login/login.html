@@ -10,20 +10,24 @@
 </head>
 <body>
     <header>
-        <button title='Voltar para página inicial' class='back_button'></button>
+        <button title='Voltar para página inicial' class='back_button pointer'></button>
     </header>
     <main>
         <form>
-            <h1 id='form-title'>Login</h1>
-            <label for='email-input'>E-mail/Usuário :</label>
-            <input id='email-input' name='email-input' type='text'>
-            <label for='senha-input'>Senha :</label>
-            <input id='senha-input' name='senha-input' type='password'>
-            <section id='form-redirect-buttons'>
-                <a href='#esqueci_senha'>Esqueci minha senha</a>
-                <a href='#registro'>Já possuo conta</a>
+            <h1 id='form-title' class='flex-center-center'>Login</h1>
+            <section id="inputs-sec" class='flex-center-center'>
+                <label class='labels' for='email-input'>E-mail/Usuário :</label>
+                <input id='email-input' name='email-input' class='inputs' type='text'>
+                <label class='labels' for='senha-input'>Senha :</label>
+                <input id='senha-input' name='senha-input' class='inputs' type='password'>
             </section>
-            <button id='login-button'>Entrar</button>
+            <section id='form-redirect-buttons-sec'>
+                <a class='pointer' href='#esqueci_senha'>Esqueci minha senha</a>
+                <a class='pointer' href='#registro'>Já possuo conta</a>
+            </section>
+            <section id="login-button-sec" class='flex-center-center'>
+                <button id='login-button' class='pointer'>Entrar</button>
+            </section>
         </form>
     </main>
     
