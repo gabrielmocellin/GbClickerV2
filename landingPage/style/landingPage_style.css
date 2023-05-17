@@ -10,6 +10,7 @@
 /* DM SANS -> font-family: 'DM Sans', sans-serif; */
 
 :root{
+    --darkGreen: #00331E;
     --60green:#D9EDDF;
     --30green:#609D7C;
     --10green:#28E597;

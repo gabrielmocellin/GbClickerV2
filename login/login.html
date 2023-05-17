@@ -10,26 +10,30 @@
 </head>
 <body>
     <header>
-        <button title='Voltar para página inicial' class='back_button pointer'></button>
+        <button onclick='irParaLandingPage()' title='Voltar para página inicial' class='back_button pointer'></button>
     </header>
     <main>
-        <form>
+        <form method='POST'>
             <h1 id='form-title' class='flex-center-center'>Login</h1>
             <section id="inputs-sec" class='flex-center-center'>
-                <label class='labels' for='email-input'>E-mail/Usuário :</label>
-                <input id='email-input' name='email-input' class='inputs' type='text'>
+                <label class='labels' for='email-input'>E-mail ou Usuário :</label>
+                <input id='email-input' name='email-input' class='inputs' title='Campo para preencher com o usuario ou email' type='text' required maxlength='100'>
                 <label class='labels' for='senha-input'>Senha :</label>
-                <input id='senha-input' name='senha-input' class='inputs' type='password'>
+                <input id='senha-input' name='senha-input' class='inputs' title='Campo para preencher com a senha' type='password' required maxlength='20'>
             </section>
             <section id='form-redirect-buttons-sec'>
-                <a class='pointer' href='#esqueci_senha'>Esqueci minha senha</a>
-                <a class='pointer' href='#registro'>Já possuo conta</a>
+                <a class='pointer' href='#' title='Botão para recuperar senha'>Esqueci minha senha</a>
+                <a class='pointer' href='#' title='Botão redirencionador para página de registro'>Já possuo conta</a>
             </section>
             <section id="login-button-sec" class='flex-center-center'>
-                <button id='login-button' class='pointer'>Entrar</button>
+                <button id='login-button' class='pointer' type='submit' title='Botão para realizar o login'>Entrar</button>
             </section>
         </form>
     </main>
-    
+    <script language='JavaScript'>
+        function irParaLandingPage(){
+            window.location.href = '../landingPage/landingPage.html';
+        }
+    </script>
 </body>
 </html>

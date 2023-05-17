@@ -10,6 +10,7 @@
 /* DM SANS -> font-family: 'DM Sans', sans-serif; */
 
 :root{
+    --darkGreen: #00331E;
     --60green:#D9EDDF;
     --30green:#609D7C;
     --10green:#28E597;
@@ -47,7 +48,7 @@ header{
     height:100%; width:10%;
     min-height:50px; max-width: 50px;
     margin: 5px 0 0 5px;
-    background-image: url('../../src/img/back_arrow.png');
+    background-image: url('../../src/img/back_arrow3.png');
     background-size: contain; background-repeat: no-repeat;
 }
 
@@ -61,62 +62,98 @@ main{
 
 main form{
     display:flex; flex-direction: column;
-    min-width:300px;width: 40%;
-    min-height: 300px; height: 100%;
+    min-width:320px;width: 30%;
+    min-height: 320px; height: 100%;
     font-size:20px;
     background: var(--30green);
-    box-shadow: 5px 10px 20px rgb(91, 91, 91);
+    box-shadow: 5px 10px 20px rgb(90, 90, 90);
 }
 
 #form-title{
-    font-size:32px; color: var(--10green);
+    font-size:40px; color: var(--10green);
     position:relative; width:100%; height:15%;
     font-family: var(--font-primary);
-    background: white; border: var(--10green) 4px solid;
+    background: #efefef; border: var(--10green) 4px solid;
 }
 
 #inputs-sec{
     flex-direction: column;
-    height:40%; width:100%;
+    height:45%; width:100%;
 }
 
 .labels{
+    color:#efefef;
+    display:flex; justify-content: start;
+    width:70%;
     font-family: 'Inter', sans-serif;
-    font-size: 18px;
+    font-size: 24px;
     margin: 15px 0;
 }
+
 .inputs{
-    display:block;
-    outline: none; border: none; /*Tirando o padrão*/
     position: relative;
-    background:lightgray;
-    height: 15%;
-    width:70%;
+    outline: none; border: none; background: #efefef; /*Tirando o padrão*/
+    height: 15%; width:70%;
+    min-height: 20px;
+    padding: 0 0 0 16px;
+    border-bottom: gray 4px solid;
+    cursor:text;
+    font-family: var(--font-text); font-weight: bold;
+    transition: border ease-in-out 0.5s;
 }
-.inputs:before{
-    content: ""; position:absolute;
-    bottom: 0; width:10px; height: 10px;
-    background: red;
+.inputs:focus{
+    border-bottom: var(--10green) 4px solid;
 }
 
 
 #form-redirect-buttons-sec{
     height:20%;
-    font-size: 16px; 
+    font-size: 20px; 
     display:flex; justify-content: space-evenly; align-items: center;
 }
 #form-redirect-buttons-sec a{
     font-family: var(--font-text);
     text-decoration: none; color:white;
+    transition: all 0.5s ease-in-out;
+}
+#form-redirect-buttons-sec a:hover{
+    color:var(--10green);
 }
 
 #login-button-sec{
-    width:100%; height:25%;
+    width:100%; height:20%;
 }
 #login-button{
+    background: none;
     width:50%; height: 50%;
-    background: var(--10green);
-    color:white; font-family: var(--font-text);
-    border-radius: 1em;
+    color:darkgray; font-family: var(--font-text); font-size: 24px; 
+    border-radius: 16px; border: darkgray 2px solid;
     cursor: pointer;
+    box-shadow: 2px 4px 4px rgb(90, 90, 90);
+    
+    transition: all 0.5s ease-in-out;
+}
+#login-button:hover{
+    color:white; border: white 2px solid;
+    background: var(--10green);
+}
+
+@media screen and (max-width: 1200px){
+    #form-redirect-buttons-sec{
+        font-size: 15px; 
+    }
+}
+
+@media screen and (max-height:600px){
+    #form-title{
+        font-size:30px; color: var(--10green);
+    }
+    .labels{
+        color:white;
+        display:flex; justify-content: start;
+        width:70%;
+        font-family: 'Inter', sans-serif;
+        font-size: 20px;
+        margin: 10px 0;
+    }
 }
