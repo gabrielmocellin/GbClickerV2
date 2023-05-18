@@ -130,7 +130,8 @@ main form{
     height:     30%;  width:     50%;
     min-height: 50px; min-width: 50px;
     max-height: 150px; max-width: 150px;
-    border: black 2px solid;
+    border: var(--darkGreen) 2px solid;
+    border-radius: 50%;
 }
 
 
