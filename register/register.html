@@ -13,7 +13,7 @@
         <button onclick='irParaLandingPage()' title='Voltar para página inicial' class='back_button pointer'></button>
     </header>
     <main>
-        <form method='POST'>
+        <form method='POST' enctype='multipart/form-data'>
             <h1 id='form-title' class='flex-center-center'>Registro</h1>
             <div id="inputs-div" class='flex-center-center'>
 
@@ -25,6 +25,9 @@
                     <label class='labels' for='user-input'>Usuário :</label>
                     <input id='user-input' name='user-input' class='inputs' title='Campo para preencher com o usuario' type='text' required maxlength='100'>
 
+                    <label id='image-label' for='image-input' class='pointer'>Foto de Perfil</label>
+                    <input id='image-input' name='image-input' type='file'> <!-- Display: none para poder personalizar o label como um botão -->
+
                 </section>
 
                 <section class='lados-inputs-div'>
@@ -34,6 +37,8 @@
     
                     <label class='labels' for='confirm-input'>Confirmar senha :</label>
                     <input id='confirm-input' name='confirm-input' class='inputs' title='Campo para preencher com a mesma senha' type='password' required maxlength='20'>
+
+                    <img src='../src/img/none.png' id='image-preview'>
 
                 </section>
 
@@ -51,6 +56,13 @@
         function irParaLandingPage(){
             window.location.href = '../landingPage/landingPage.html';
         }
+
+        const image_input = document.getElementById('image-input');
+        const image_preview = document.getElementById('image-preview');
+        image_input.addEventListener("change", () => {
+            image_preview.src = URL.createObjectURL(image_input.files[0]);
+        })
+
     </script>
 </body>
 </html>
