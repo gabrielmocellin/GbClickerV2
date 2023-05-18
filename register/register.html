@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../src/img/icon.png">
+    <link rel="stylesheet" href="style/register_style.css">
+    <title>GBC | Registro</title>
+</head>
+<body>
+    <header>
+        <button onclick='irParaLandingPage()' title='Voltar para página inicial' class='back_button pointer'></button>
+    </header>
+    <main>
+        <form method='POST'>
+            <h1 id='form-title' class='flex-center-center'>Registro</h1>
+            <div id="inputs-div" class='flex-center-center'>
+
+                <section class='lados-inputs-div'>
+
+                    <label class='labels' for='email-input'>E-mail :</label>
+                    <input id='email-input' name='email-input' class='inputs' title='Campo para preencher com o email' type='text' required maxlength='100'>
+    
+                    <label class='labels' for='user-input'>Usuário :</label>
+                    <input id='user-input' name='user-input' class='inputs' title='Campo para preencher com o usuario' type='text' required maxlength='100'>
+
+                </section>
+
+                <section class='lados-inputs-div'>
+
+                    <label class='labels' for='senha-input'>Senha :</label>
+                    <input id='senha-input' name='senha-input' class='inputs' title='Campo para preencher com a senha' type='password' required maxlength='20'>
+    
+                    <label class='labels' for='confirm-input'>Confirmar senha :</label>
+                    <input id='confirm-input' name='confirm-input' class='inputs' title='Campo para preencher com a mesma senha' type='password' required maxlength='20'>
+
+                </section>
+
+            </div>
+            <section id='form-redirect-buttons-sec'>
+                <p title='Texto (Já possui conta?)'>Já possui conta?</p>
+                <a class='pointer' href='../login/login.html' title='Botão redirencionador para página de login'>Entre aqui</a>
+            </section>
+            <section id="register-button-sec" class='flex-center-center'>
+                <button id='register-button' class='pointer' type='submit' title='Botão para realizar o registro'>Registrar</button>
+            </section>
+        </form>
+    </main>
+    <script language='JavaScript'>
+        function irParaLandingPage(){
+            window.location.href = '../landingPage/landingPage.html';
+        }
+    </script>
+</body>
+</html>
