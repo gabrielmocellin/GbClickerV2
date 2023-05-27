@@ -59,9 +59,7 @@
 
         const image_input = document.getElementById('image-input');
         const image_preview = document.getElementById('image-preview');
-        image_input.addEventListener("change", () => {
-            image_preview.src = URL.createObjectURL(image_input.files[0]);
-        })
+        image_input.addEventListener("change", () => image_preview.src = URL.createObjectURL(image_input.files[0]))
 
     </script>
 </body>
