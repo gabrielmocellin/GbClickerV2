@@ -5,24 +5,56 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel='stylesheet' href='style/home_style.css'>
+    <link rel="icon" type="image/x-icon" href="../src\img\icon.png">
     <title>GBC | Home </title>
 </head>
 <body>
     <header>
         <h1 id="header_logo">GbClicker</h1>
-        <a title='Ir para página de login' href="../login/login.html" id="header_login_button">Login</a>
+        <a title='Ir para o perfil' href="#perfil" id="header_profile_button">Perfil</a>
     </header>
     <main>
         <div id='clicker-div'>
-            <img src='../src/img/gbClickerLogo.png'>
+            <section id='img-to-click-div'>
+                <img src='../src/img/gbClickerLogo.png'>
+            </section>
         </div>
-        <div id='shop-div'>
+        <div id='openShop' title='Botão para abrir a loja' class='buttonShop'>Shop</div>
+        <div id='shop-div' class="closedShop">
+            <div id='closeShop' title='Botão para fechar a loja' class='buttonShop'></div>
             <section class='itens'>
-                <img src='img/picareta.png'>
-                <p><span class='item-name'>Picareta</span><span class='item-value'>Valor:</span></p>
-
+                <div class='img-item-div'>
+                    <img src='img/picareta.png'>
+                </div>
+                <p>
+                    <span class='item-name'>Picareta</span>
+                    <span class='item-value'>R$ 500 Milhões</span>
+                    <span class='item-description'>5% + por clique!</span>
+                </p>
+            </section>
+            <section class='itens'>
+                <div class='img-item-div'>
+                    <img src='img/icon.png'>
+                </div>
+                <p>
+                    <span class='item-name'>Picareta</span>
+                    <span class='item-value'>R$ 10 Bilhões</span>
+                    <span class='item-description'>5% + por clique!</span>
+                </p>
+            </section>
+            <section class='itens'>
+                <div class='img-item-div'>
+                    <img src='img/gb.png'>
+                </div>
+                <p>
+                    <span class='item-name'>Picareta</span>
+                    <span class='item-value'>R$ 500 Mil</span>
+                    <span class='item-description'>1+ Minion!</span>
+                </p>
             </section>
         </div>
     </main>
+
+    <script src="js/shopOpenClose.js"></script>
 </body>
 </html>
