@@ -19,6 +19,7 @@
 
 
 
+
 *{
     margin: 0; padding: 0;
     box-sizing: border-box;
@@ -27,13 +28,15 @@
 
 
 
+
 body{
+    overflow-x: hidden;
     display: flex; flex-direction: column;
     height: 100vh;
     width: 100vw;
     background-color: var(--60green);
-    border: blue 2px solid;
 }
+
 
 
 
@@ -53,7 +56,7 @@ header{
     padding: 0 0 0 30px;
     font-family: var(--font-primary); font-size:1em; font-weight: bold; color:var(--60green);
 }
-#header_login_button{
+#header_profile_button{
     text-decoration: none;
     display:flex; justify-content: center; align-items: center;
     min-height:55px; min-width:100px;
@@ -64,48 +67,140 @@ header{
     transition: font 0.3s;
     margin: 0 15px 0 0;
 }
-#header_login_button:hover{
+#header_profile_button:hover{
     font-size:1em;
 }
 
 
 
+
 main{
+    position:relative;
     display:flex; flex-direction: row;
     height: 90%; width: 100%;
 }
 #clicker-div{
     width: 60%; height: 100%;
-    border: red 2px solid;
 }
 #clicker-div img{
-    max-width: 300px; max-height: 300px;
+    height: 100%; width:auto;
+}
+
+
+#img-to-click-div{
+    display:flex; justify-content: center;
+    width:100%;
+    height:30%;
+    border:#28E597 2px dashed;
 }
 
 
 
+/* Relacionados ao SHOP de itens */
 #shop-div{
+    position:absolute;
     width:40%; height:100%;
-    border: purple 2px solid;
+    background: linear-gradient(var(--darkGreen), var(--30green));
     overflow-y: scroll;
+    overflow-x:hidden;
+}
+/* !Utilitários! */
+.closedShop{
+    animation: 2s ease-in-out close_shop;
+    right:-100%;
+}
+.openedShop{
+    animation: 2s ease-in-out open_shop;
+    right:0;
+}
+
+#shop-div::-webkit-scrollbar{
+    width:10px;
+}
+
+#shop-div::-webkit-scrollbar-track{
+    background-color: #a0a0a0;
+}
+
+#shop-div::-webkit-scrollbar-thumb{
+    background-color: gray;
+}
+
+.buttonShop{
+    position:absolute; display:flex; justify-content: center; align-items: center;
+    right:4px;
+    width: 4%; height: 4%;
+    min-height: 25px; min-width: 25px;
+    cursor:pointer;
+}
+#closeShop{
+    background-image: url('../../src/img/icons8-x-48.png');
+    background-size: cover; background-repeat: no-repeat; background-position: 50%;
+}
+#openShop{
+    right:0; background-color: #00331E; color:white; font-weight: bold;
+    font-family: var(--font-primary);
+}
+/* Utilitários do botão de fechar/abrir loja */
+.button_closeShopOpened{
+    right:4px;
+}
+.button_closeShopClosed{
+    right:98%;
 }
 #shop-div .itens{
-    width:100%; height: 50px;
+    margin: 5% 0 0 0;
+    width:100%; height: 70px;
     display:flex; flex-direction: row;
+    background-color: #998f74;
+    border: var(--darkGreen) 4px solid;
 }
-.itens img{
-    min-width: 50px;
-    min-height: 50px;
-    width:10%; height: 100%;
+
+
+
+.itens .img-item-div{
+    width:15%; height: 100%;
+}
+.itens .img-item-div img{
+    max-width: 100%;
+    max-height: 100%;
 }
 .itens p{
-    width:90%; height: 100%;
+    display:flex; justify-content: space-between;
+    width:85%; height: 100%;
     font-size: 1em; font-weight: bold;
     font-family: var(--font-text);
 }
 .itens .item-name{
-    width: 30%; height:100%;
+    display:flex; justify-content: center; align-items: center;
+    width: 25%; height:100%;
+}
+.itens .item-description{
+    display:flex; justify-content: center; align-items: center;
+    width:25%; height: 100%;
 }
 .itens .item-value{
-    width: 30%; height: 100%;
+    display:flex; justify-content: center; align-items: center;
+    color:white; background-color: rgba(0, 255, 0, 0.338);
+    width: 25%; height: 100%;
+    cursor: pointer;
+}
+
+
+@keyframes open_shop{
+    0%{
+        right:-100%;
+    }
+    100%{
+        right:0;
+    }
+}
+
+@keyframes close_shop{
+    0%{
+        right:0;
+    }
+    100%{
+        right:-100%;
+    }
 }
