@@ -37,6 +37,10 @@ body{
     height: 100vh; width: 100vw;
     background-color: whitesmoke;
 }
+.disabled{
+    opacity: 0.4 !important;
+    background: gray;
+}
 
 
 
@@ -71,9 +75,13 @@ img.user_image{
 }
 
 
-div.hamburguer-navbar-button{
+#hamburguer-navbar-button{
     width: 3em; height:3em;
     cursor: pointer;
+}
+.menuClosed{
+    animation: closingMenu 0.2s ease-in-out;
+    display: none;
 }
 .menu-icons{
     width:100%; height: 100%;
@@ -83,17 +91,26 @@ div.hamburguer-navbar-button{
     min-width: 10em; max-width:15em; 
     height: 100%;
     border: black solid 2px;
-    overflow-y: auto;
+    overflow-y: auto; overflow-x: none;
     border-top-right-radius: 10px; border-bottom-right-radius: 10px;
     background-color: var(--lightGrayGreen);
     box-shadow: 0px 4px 4px 0px #424242;
+    animation: openingMenu 0.2s ease-in-out;
 }
 
 #div-menu-navbar ul li{
     font-family: var(--font-text);
     font-weight: 700;
     display:flex; align-items: center;
-    min-height: 4em;
+    min-height: 3.75em;
+    letter-spacing: 2px;
+    cursor:pointer;
+    transition:ease-in-out 0.2s;
+}
+
+#div-menu-navbar ul li:not(.disabled):hover{
+    background-color: #28E597;
+    color:white;
 }
 
 #div-menu-navbar ul li img{
@@ -104,5 +121,22 @@ div.hamburguer-navbar-button{
 @media (max-width: 800px) {
     body{
         font-size: 10px;
+    }
+}
+
+@keyframes openingMenu {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+}
+@keyframes closingMenu {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
     }
 }
