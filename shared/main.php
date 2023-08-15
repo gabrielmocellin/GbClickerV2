@@ -12,5 +12,6 @@
         require("header.php");
         require("navbar.php");
     ?>
+    <script language="JavaScript" src="js/navbar.js"></script>
 </body>
 </html>
