@@ -5,14 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel='stylesheet' href='style/home_style.css'>
+    <link rel='stylesheet' href='../shared/style/site.css'>
     <link rel="icon" type="image/x-icon" href="../src\img\icon.png">
     <title>GBC | Home </title>
 </head>
 <body>
-    <header>
-        <h1 id="header_logo">GbClicker</h1>
-        <a title='Ir para o perfil' href="#perfil" id="header_profile_button">Perfil</a>
-    </header>
+    <?php require("../shared/header.php") ?>
     <main>
         <div id='clicker-div'>
             <section id='img-to-click-div'>

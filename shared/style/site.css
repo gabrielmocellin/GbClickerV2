@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Zilla+Slab:ital,wght@1,700&display=swap');
+/* ZILLA -> font-family: 'Zilla Slab', serif; */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap');
+/* NUNITO -> font-family: 'Nunito', sans-serif; */ 
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+/* INTER -> font-family: 'Inter', sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=Kanit&display=swap');
+/* KANIT -> font-family: 'Kanit', sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans&display=swap');
+/* DM SANS -> font-family: 'DM Sans', sans-serif; */
+:root{
+    --darkGreen: #00331E;
+    --lightGrayGreen: #9CB0A4;
+    --60green:#D9EDDF;
+    --30green:#609D7C;
+    --10green:#28E597;
+    --font-primary: 'Zilla Slab', serif;
+    --font-text: 'DM Sans', sans-serif;
+    --font-size: 1rem;
+    --logo-font-size: 3em;
+    --money-font-size: 1em;
+    --header-shadow: 0 0 7px 1px #424242;
+    --header-profile-image-shadow: 0 0 4px 1px #424242;
+}
+
+
+
+/* RESET PRESETS */
+*{
+    margin: 0; padding: 0;
+    box-sizing: border-box;
+    outline: none;
+}
+body{
+    font-size: var(--font-size);
+    display: flex; flex-direction: column;
+    height: 100vh; width: 100vw;
+    background-color: whitesmoke;
+}
+
+
+
+/* Cabecalho onde o usuário poderá ir para página de login */
+header{
+    background: var(--30green);
+    display:flex; justify-content: space-between;
+    box-shadow: var(--header-shadow);
+}
+#header_logo{
+    cursor:pointer;
+    text-align: center;
+    padding-left: 25px;
+    font-family: var(--font-primary); font-size: var(--logo-font-size); font-weight: bold; color:var(--60green);
+    text-decoration: none;
+}
+ul.header_ul_userInfos{
+    min-width:100px; width:20%;
+    display:flex; align-items: center; justify-content: end;
+}
+p.user_money{
+    font-size: var(--money-font-size); color:var(--60green); font-family: var(--font-primary);
+    margin-right: var(--logo-font-size);
+}
+img.user_image{
+    height:var(--logo-font-size); width: var(--logo-font-size);
+    border-radius: 100%;
+    object-fit: cover;
+    margin-right: 10px;
+    border: 2px solid var(--30green);
+    box-shadow: var(--header-profile-image-shadow);
+}
+
+
+div.hamburguer-navbar-button{
+    width: 3em; height:3em;
+    cursor: pointer;
+}
+.menu-icons{
+    width:100%; height: 100%;
+    pointer-events: none;
+}
+#div-menu-navbar{
+    min-width: 10em; max-width:15em; 
+    height: 100%;
+    border: black solid 2px;
+    overflow-y: auto;
+    border-top-right-radius: 10px; border-bottom-right-radius: 10px;
+    background-color: var(--lightGrayGreen);
+    box-shadow: 0px 4px 4px 0px #424242;
+}
+
+#div-menu-navbar ul li{
+    font-family: var(--font-text);
+    font-weight: 700;
+    display:flex; align-items: center;
+    min-height: 4em;
+}
+
+#div-menu-navbar ul li img{
+    max-height: 2em;
+    margin: 0 0.625em;
+}
+
+@media (max-width: 800px) {
+    body{
+        font-size: 10px;
+    }
+}
