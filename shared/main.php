@@ -9,8 +9,8 @@
 </head>
 <body>
     <?php 
-        require("header.php");
-        require("navbar.php");
+        require "header.php";
+        require "navbar.php";
     ?>
     <script language="JavaScript" src="js/navbar.js"></script>
 </body>

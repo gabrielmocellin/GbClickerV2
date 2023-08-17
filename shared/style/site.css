@@ -25,7 +25,7 @@
 
 
 
-/* RESET PRESETS */
+/* ++++++ RESET PRESETS ++++++ */
 *{
     margin: 0; padding: 0;
     box-sizing: border-box;
@@ -41,14 +41,22 @@ body{
     opacity: 0.4 !important;
     background: gray;
 }
+.noSelect{
+    user-select:none;
+}
 
 
-
-/* Cabecalho onde o usuário poderá ir para página de login */
+/* ++++++ Cabecalho ++++++ */
 header{
     background: var(--30green);
     display:flex; justify-content: space-between;
     box-shadow: var(--header-shadow);
+    min-width: 320px;
+}
+div.header_logo_button{
+    display:flex; flex-direction: row;
+    align-items: center;
+    margin-left: 1em;
 }
 #header_logo{
     cursor:pointer;
@@ -73,12 +81,13 @@ img.user_image{
     border: 2px solid var(--30green);
     box-shadow: var(--header-profile-image-shadow);
 }
-
-
 #hamburguer-navbar-button{
     width: 3em; height:3em;
     cursor: pointer;
 }
+
+
+/* ++++++ NAV BAR ++++++ */
 .menuClosed{
     animation: closingMenu 0.2s ease-in-out;
     display: none;
@@ -88,16 +97,12 @@ img.user_image{
     pointer-events: none;
 }
 #div-menu-navbar{
-    min-width: 10em; max-width:15em; 
-    height: 100%;
-    border: black solid 2px;
+    min-width: 15em;
+    border: black solid 2.5px;
     overflow-y: auto; overflow-x: none;
-    border-top-right-radius: 10px; border-bottom-right-radius: 10px;
     background-color: var(--lightGrayGreen);
     box-shadow: 0px 4px 4px 0px #424242;
-    animation: openingMenu 0.2s ease-in-out;
 }
-
 #div-menu-navbar ul li{
     font-family: var(--font-text);
     font-weight: 700;
@@ -107,31 +112,73 @@ img.user_image{
     cursor:pointer;
     transition:ease-in-out 0.2s;
 }
-
 #div-menu-navbar ul li:not(.disabled):hover{
-    background-color: #28E597;
+    background-color: var(--30green);
     color:white;
 }
-
 #div-menu-navbar ul li img{
     max-height: 2em;
     margin: 0 0.625em;
 }
 
+
+
+/* ++++++ MAIN ++++++ */
+main{
+    display:flex;
+    height: 100%;
+    overflow-y: auto; overflow-x: hidden;
+}
+
+/* ++++++ Clicker Div ++++++ */
+div#clicker-parent-div{
+    width:100%;
+    min-width: 100px;
+    display:flex; flex-direction: row;
+}
+div#left-clicker-content-side,
+div#right-clicker-content-side{
+    display:flex; flex-direction: column; align-items: center;
+    width: 5%;
+    min-width:50px;
+    border: rgb(54, 243, 21) 2px solid;
+}
+div#middle-clicker-content-side{
+    width: 90%;
+    display:flex; align-items: center; flex-direction: column;
+}
+ul#clicker-infos{
+    list-style:none;
+    font-family: var(--font-text); color:var(--10green); font-weight: bold;
+}
+ul#clicker-infos li{
+    text-align: center;
+    margin: 1em 0; padding: 1em;
+    border: var(--10green) solid 4px; border-radius: 1em;
+    letter-spacing: 5px;
+}
+div#level-info{
+    background-color: #28E597;
+    font-weight: bold;
+    border-radius: 1em;
+    width: 250px;
+}
+#clicker-img{
+    min-height: 150px; min-width: 150px;
+    width: 15%;
+}
+
+
+/* ++++++ MEDIA QUERYS ++++++ */
 @media (max-width: 800px) {
     body{
         font-size: 10px;
     }
 }
 
-@keyframes openingMenu {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-}
+
+/* ++++++ KEY FRAMES ++++++ */
+
 @keyframes closingMenu {
     0% {
       opacity: 1;

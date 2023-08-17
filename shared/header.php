@@ -1,7 +1,12 @@
 <header>
-    <a href='../landingPage/landingPage.html' id="header_logo">GbClicker</a>
-    <ul class="header_ul_userInfos">
-        <p class="user_money">R$ 100 mil</p>
-        <img class="user_image" src="tmp/zuckerberg_bowl.jpg">
+    <div class="header_logo_button">
+        <div id="hamburguer-navbar-button">
+            <img class="menu-icons" src="../shared/icons/menu.png" alt="Icone abrir/fechar menu">
+        </div>
+        <a href='#' id="header_logo" class="noSelect">GbClicker</a>
+    </div>
+    <ul class="header_ul_userInfos noSelect">
+        <p class="user_money noSelect">R$ 1500,99</p>
+        <img class="user_image noSelect" src="../shared/tmp/zuckerberg_bowl.jpg">
     </ul>
 </header>

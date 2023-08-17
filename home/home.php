@@ -2,57 +2,38 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel='stylesheet' href='style/home_style.css'>
     <link rel='stylesheet' href='../shared/style/site.css'>
-    <link rel="icon" type="image/x-icon" href="../src\img\icon.png">
-    <title>GBC | Home </title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <title>GbClickerII</title>
 </head>
 <body>
-    <?php require("../shared/header.php") ?>
+    <?php 
+        require "../shared/header.php";
+    ?>
     <main>
-        <div id='clicker-div'>
-            <section id='img-to-click-div'>
-                <img src='../src/img/gbClickerLogo.png'>
-            </section>
-        </div>
-        <div id='openShop' title='Botão para abrir a loja' class='buttonShop'>Shop</div>
-        <div id='shop-div' class="closedShop">
-            <div id='closeShop' title='Botão para fechar a loja' class='buttonShop'></div>
-            <section class='itens'>
-                <div class='img-item-div'>
-                    <img src='img/picareta.png'>
+        <?php require "../shared/navbar.php"; ?>
+        <div id="clicker-parent-div">
+            <div id="left-clicker-content-side">
+                <div>
+                    <img src="../shared/icons/account.png">
+                    <p>Bonus</p>
+                    <p>59:12</p>
                 </div>
-                <p>
-                    <span class='item-name'>Picareta</span>
-                    <span class='item-value'>R$ 500 Milhões</span>
-                    <span class='item-description'>5% + por clique!</span>
-                </p>
-            </section>
-            <section class='itens'>
-                <div class='img-item-div'>
-                    <img src='img/icon.png'>
-                </div>
-                <p>
-                    <span class='item-name'>Picareta</span>
-                    <span class='item-value'>R$ 10 Bilhões</span>
-                    <span class='item-description'>5% + por clique!</span>
-                </p>
-            </section>
-            <section class='itens'>
-                <div class='img-item-div'>
-                    <img src='img/gb.png'>
-                </div>
-                <p>
-                    <span class='item-name'>Picareta</span>
-                    <span class='item-value'>R$ 500 Mil</span>
-                    <span class='item-description'>1+ Minion!</span>
-                </p>
-            </section>
+            </div>
+            <div id="middle-clicker-content-side">
+                <ul id="clicker-infos">
+                    <li>123.3B R$/Sec</li>
+                    <li>Mult: 30000x</li>
+                </ul>
+                <img src="img/gb.png" id="clicker-img">
+                <div id="level-info">Nível: 45</div>
+            </div>
+            <div id="right-clicker-content-side">
+
+            </div>
         </div>
     </main>
-
-    <script src="js/shopOpenClose.js"></script>
+    <script language="JavaScript" src="../shared/js/navbar.js"></script>
 </body>
 </html>
