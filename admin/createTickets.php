@@ -14,17 +14,36 @@
     <main>
         <?php require "../shared/navbar.php"; ?>
         <div id="admin-tickets">
-            <table>
+            <table id="create-cupons-table">
                 <thead>
-                    <td>CÓDIGO</td>
-                    <td>DESCRICAO</td>
-                    <td>VALIDO ATÉ</td>
+                    <tr>
+                        <td>CÓDIGO</td>
+                        <td>DESCRICAO</td>
+                        <td>VALIDO ATÉ</td>
+                        <td>GERENCIADOR</td>
+                    </tr>
                 </thead>
-                <tr>
-                    <td>AXC3-A23D</td>
-                    <td>Vida infinita + 30mil em dinheiro</td>
-                    <td>20/08/2023 - 00:23</td>
-                </tr>
+                <tbody>
+                    <tr>
+                        <td>AXC3-A23D</td>
+                        <td>Vida infinita + 30mil em dinheiro</td>
+                        <td>20/08/2023 - 00:23</td>
+                        <td>
+                            <button>Editar</button>
+                            <button>Remover</button>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                        <tr>
+                            <td><input type="text"></td>
+                            <td><input type="text"></td>
+                            <td><input type="text"></td>
+                            <td>
+                                <button>Salvar</button>
+                            </td>
+                        </tr>
+                </tfoot>
             </table>
         </div>
     </main>

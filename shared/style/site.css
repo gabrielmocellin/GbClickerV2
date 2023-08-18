@@ -40,6 +40,7 @@ body{
 .disabled{
     opacity: 0.4 !important;
     background: gray;
+    cursor: default !important;
 }
 .noSelect{
     user-select:none;
@@ -138,11 +139,20 @@ div#clicker-parent-div{
 }
 div#left-clicker-content-side,
 div#right-clicker-content-side{
-    display:flex; flex-direction: column; align-items: center;
+    display:flex; align-items: center; flex-direction: column;
     width: 5%;
     min-width:50px;
-    border: rgb(54, 243, 21) 2px solid;
+    border: black 1px solid;
 }
+div#left-clicker-content-side div.buff-countdown-div{
+    margin-top: 2em;
+    text-align: center; font-weight: bold;
+    font-family: var(--font-primary);
+}
+div#left-clicker-content-side div.buff-countdown-div > img{
+    width:100%; height: auto;
+}
+
 div#middle-clicker-content-side{
     width: 90%;
     display:flex; align-items: center; flex-direction: column;
@@ -154,18 +164,65 @@ ul#clicker-infos{
 ul#clicker-infos li{
     text-align: center;
     margin: 1em 0; padding: 1em;
-    border: var(--10green) solid 4px; border-radius: 1em;
+    border: var(--30green) solid 2px; border-radius: 1em;
+    box-shadow: 0px 3px 5px 3px #424242, var(--30green) 0 0 0 4px;
+    outline: var(--10green) solid 2px;
     letter-spacing: 5px;
 }
-div#level-info{
-    background-color: #28E597;
-    font-weight: bold;
+div#level-progress{
+    background-color: gray;
+    font-weight: bold; font-size: 1em;
     border-radius: 1em;
     width: 250px;
+    height: 2em;
+    position: relative;
+}
+div#level-progress::after{
+    text-align: center;
+    content: "";
+    width:80%; height: 100%;
+    background-color: var(--10green);
+    border-radius: 1em;
+    position: absolute;
+    bottom: 0; left: 0;
 }
 #clicker-img{
     min-height: 150px; min-width: 150px;
     width: 15%;
+    cursor: pointer;
+}
+
+
+div#admin-tickets{
+    display:flex; justify-content: center; align-items: center;
+    width:100%;
+    overflow-x: auto;
+}
+table#create-cupons-table{
+    border-collapse: collapse;
+    font-family: var(--font-text);
+    background-color: var(--60green);
+    overflow-y: auto;
+}
+table#create-cupons-table > thead{
+    height: 4em;
+    background-color: var(--darkGreen);
+    color: white; font-weight: bold;
+    letter-spacing: 2px;
+}
+table#create-cupons-table > thead > tr > td,
+table#create-cupons-table > tbody > tr > td,
+table#create-cupons-table > tfoot > tr > td {text-align: center;}
+
+table#create-cupons-table > tbody > tr > td{
+    flex-wrap: wrap;
+    width:25%; height: 3em;
+}
+table#create-cupons-table tfoot tr td{
+    padding: 1em;
+}
+table#create-cupons-table tfoot tr td input{
+    height: 2em;
 }
 
 

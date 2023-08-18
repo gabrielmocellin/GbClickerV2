@@ -15,9 +15,14 @@
         <?php require "../shared/navbar.php"; ?>
         <div id="clicker-parent-div">
             <div id="left-clicker-content-side">
-                <div>
+                <div class="buff-countdown-div">
                     <img src="../shared/icons/account.png">
                     <p>Bonus</p>
+                    <p>59:12</p>
+                </div>
+                <div class="buff-countdown-div">
+                    <img src="../shared/icons/account.png">
+                    <p>Moedas</p>
                     <p>59:12</p>
                 </div>
             </div>
@@ -26,8 +31,9 @@
                     <li>123.3B R$/Sec</li>
                     <li>Mult: 30000x</li>
                 </ul>
-                <img src="img/gb.png" id="clicker-img">
-                <div id="level-info">Nível: 45</div>
+                <img draggable="false" src="img/gb.png" id="clicker-img">
+                <p>Level: 100</p>
+                <div id="level-progress"></div>
             </div>
             <div id="right-clicker-content-side">
 
