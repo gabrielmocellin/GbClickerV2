@@ -9,7 +9,7 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans&display=swap');
 /* DM SANS -> font-family: 'DM Sans', sans-serif; */
 :root{
-    --darkGreen: #00331E;
+    --darkGreen: #394B41;
     --lightGrayGreen: #9CB0A4;
     --60green:#D9EDDF;
     --30green:#609D7C;
@@ -21,6 +21,7 @@
     --money-font-size: 1em;
     --header-shadow: 0 0 7px 1px #424242;
     --header-profile-image-shadow: 0 0 4px 1px #424242;
+    --font-white-color: whitesmoke;
 }
 
 
@@ -35,7 +36,7 @@ body{
     font-size: var(--font-size);
     display: flex; flex-direction: column;
     height: 100vh; width: 100vw;
-    background-color: whitesmoke;
+    background-color: var(--font-white-color);
 }
 .disabled{
     opacity: 0.4 !important;
@@ -111,11 +112,11 @@ img.user_image{
     min-height: 3.75em;
     letter-spacing: 2px;
     cursor:pointer;
-    transition:ease-in-out 0.2s;
+    transition: ease-in-out 0.2s;
 }
 #div-menu-navbar ul li:not(.disabled):hover{
     background-color: var(--30green);
-    color:white;
+    color:var(--font-white-color);
 }
 #div-menu-navbar ul li img{
     max-height: 2em;
@@ -131,6 +132,9 @@ main{
     overflow-y: auto; overflow-x: hidden;
 }
 
+
+
+
 /* ++++++ Clicker Div ++++++ */
 div#clicker-parent-div{
     width:100%;
@@ -142,10 +146,10 @@ div#right-clicker-content-side{
     display:flex; align-items: center; flex-direction: column;
     width: 5%;
     min-width:50px;
-    border: black 1px solid;
+    padding-top: 2em;
+    gap: 2em;
 }
 div#left-clicker-content-side div.buff-countdown-div{
-    margin-top: 2em;
     text-align: center; font-weight: bold;
     font-family: var(--font-primary);
 }
@@ -155,11 +159,13 @@ div#left-clicker-content-side div.buff-countdown-div > img{
 
 div#middle-clicker-content-side{
     width: 90%;
-    display:flex; align-items: center; flex-direction: column;
+    display:flex; align-items: center; flex-direction: column; justify-content: space-between;
 }
 ul#clicker-infos{
     list-style:none;
     font-family: var(--font-text); color:var(--10green); font-weight: bold;
+    display:flex; flex-direction: row; justify-content: space-around;
+    width: 100%;
 }
 ul#clicker-infos li{
     text-align: center;
@@ -169,15 +175,30 @@ ul#clicker-infos li{
     outline: var(--10green) solid 2px;
     letter-spacing: 5px;
 }
-div#level-progress{
+.image-clicker-div{
+    width: 100%;
+    display:flex; justify-content: center;
+}
+#clicker-img{
+    min-height: 150px; min-width: 150px;
+    width: 20%;
+    cursor: pointer;
+}
+div.level-progress-div{
+    font-family: var(--font-text);
+    display: flex; flex-direction: column; align-items: center;
+    width: 100%;
+    padding: 1em;
+}
+div#level-progress-bar{
     background-color: gray;
     font-weight: bold; font-size: 1em;
     border-radius: 1em;
-    width: 250px;
+    width: 80%;
     height: 2em;
     position: relative;
 }
-div#level-progress::after{
+div#level-progress-bar::after{
     text-align: center;
     content: "";
     width:80%; height: 100%;
@@ -186,50 +207,106 @@ div#level-progress::after{
     position: absolute;
     bottom: 0; left: 0;
 }
-#clicker-img{
-    min-height: 150px; min-width: 150px;
-    width: 15%;
-    cursor: pointer;
-}
 
 
+
+/* ++++++ ADMIN TICKETS ++++++ */
 div#admin-tickets{
-    display:flex; justify-content: center; align-items: center;
     width:100%;
     overflow-x: auto;
 }
 table#create-cupons-table{
+    margin: auto;
     border-collapse: collapse;
     font-family: var(--font-text);
-    background-color: var(--60green);
-    overflow-y: auto;
+    background: var(--60green);
+    width: 100%; height:100%;
+    overflow-x: auto;
+}
+table#create-cupons-table button{
+    font-weight: bold;
+    font-family: var(--font-text);
+    font-size: 1em;
+    padding: 0.2em;
+    border-radius: 0.4em;
+    cursor: pointer;
+    position: relative;
+    transition: ease-in-out 0.2s;
 }
 table#create-cupons-table > thead{
-    height: 4em;
+    height: 3em;
     background-color: var(--darkGreen);
-    color: white; font-weight: bold;
-    letter-spacing: 2px;
+    color: var(--font-white-color); font-weight: bold;
+    letter-spacing: 3px;
 }
 table#create-cupons-table > thead > tr > td,
 table#create-cupons-table > tbody > tr > td,
 table#create-cupons-table > tfoot > tr > td {text-align: center;}
 
 table#create-cupons-table > tbody > tr > td{
-    flex-wrap: wrap;
-    width:25%; height: 3em;
+    width:25%; max-width: 25%;
+    white-space:nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+table#create-cupons-table tfoot{
+    background: var(--lightGrayGreen);
 }
 table#create-cupons-table tfoot tr td{
-    padding: 1em;
+    padding: 0.5em;
 }
 table#create-cupons-table tfoot tr td input{
-    height: 2em;
+    padding: 0.4em;
+    border-radius: 0.4em;
+    width:80%;
+    background-color: var(--font-white-color);
 }
+.save-code-button{
+    background-color: var(--30green);
+    color:var(--font-white-color);
+}
+button.save-code-button:not(.disabled):hover{
+    background-color: var(--font-white-color);
+    color:var(--30green);
+}
+.edit-button{
+    background-color: #429BBB;
+    color: var(--font-white-color);
+}
+button.edit-button:not(.disabled):hover{
+    background-color: rgb(200, 230, 230);
+    color: #429BBB;
+}
+.remove-button{
+    background-color: rgb(190, 50, 50);
+    color: var(--font-white-color);
+}
+button.remove-button:not(.disabled):hover{
+    background-color: rgb(230, 200, 200);
+    color: rgb(190, 50, 50);
+}
+
 
 
 /* ++++++ MEDIA QUERYS ++++++ */
 @media (max-width: 800px) {
     body{
         font-size: 10px;
+    }
+
+    ul#clicker-infos{
+        flex-direction: column; 
+        align-items: center;
+    }
+
+    ul#clicker-infos li{
+        width:50%;
+    }
+}
+@media (max-width: 1000px) {
+    div#admin-tickets{
+        display:block;
+        padding:0;
     }
 }
 

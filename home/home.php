@@ -28,12 +28,17 @@
             </div>
             <div id="middle-clicker-content-side">
                 <ul id="clicker-infos">
-                    <li>123.3B R$/Sec</li>
                     <li>Mult: 30000x</li>
+                    <li>123.3B R$/Sec</li>
+                    <li>Minions: 150k</li>
                 </ul>
-                <img draggable="false" src="img/gb.png" id="clicker-img">
-                <p>Level: 100</p>
-                <div id="level-progress"></div>
+                <div class="image-clicker-div">
+                    <img draggable="false" src="img/gb.png" id="clicker-img">
+                </div>
+                <div class="level-progress-div">
+                    <p>Level: 100</p>
+                    <div id="level-progress-bar"></div>
+                </div>
             </div>
             <div id="right-clicker-content-side">
 
