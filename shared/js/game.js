@@ -1,18 +1,27 @@
 class game{
-    constructor(clickValue){
+    constructor(clickValue, usermoney){
         this.clickValue = clickValue;
+        this.usermoney = usermoney;
     }
 
-    GetPosition(event){
+    setClickValue(newValue){
+        this.clickValue = newValue;
+    }
+
+    ClickOnClicker(event){
+        this.CreateNewCounterElement(event);
+        this.usermoney += this.clickValue;
+        this.UpdateUserMoney();
+    }
+
+    GetClickPosition(event){
         let cordX = event.clientX;
         let cordY = event.clientY;
-        console.log("Cordenada x: " + cordX);
-        console.log("Cordenada y: " + cordY);
         return [cordX, cordY];
     }
 
     CreateNewCounterElement(event){
-        let xytuple = this.GetPosition(event);
+        let xytuple = this.GetClickPosition(event);
 
         let newCounterElement = document.createElement("div");
         let clickerDiv = document.getElementById("clicker-img-div");
@@ -30,7 +39,8 @@ class game{
         },1500);
     }
 
-    newClickValue(newValue){
-        this.clickValue = newValue;
+    UpdateUserMoney(){
+        let pUsermoney = document.getElementById("user_money_p");
+        pUsermoney.textContent = "R$ " + this.usermoney;
     }
 }

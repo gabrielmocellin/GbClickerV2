@@ -22,6 +22,7 @@
     --header-shadow: 0 0 7px 1px #424242;
     --header-profile-image-shadow: 0 0 4px 1px #424242;
     --font-white-color: whitesmoke;
+    --counter-number-zindex: 100;
 }
 
 
@@ -198,6 +199,7 @@ ul#clicker-infos li{
     font-family: var(--font-text); font-weight: bold; color: black; font-size: 1em;
     position: absolute;
     animation: ease-in-out clickerCounter 1.5s;
+    z-index: var(--counter-number-zindex);
 }
 div.level-progress-div{
     font-family: var(--font-text);

@@ -1,3 +1,4 @@
+<?php /* if(!isset($_SESSION["gbclicker_logado"])){header("location:../login/login.html");}*/ ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -33,7 +34,7 @@
                     <li>Minions: 150k</li>
                 </ul>
                 <div id="clicker-img-div" class="image-clicker-div">
-                    <img draggable="false" src="img/gb.png" id="clicker-img" onclick="jogo.CreateNewCounterElement(event)">
+                    <img draggable="false" src="img/gb.png" id="clicker-img" onclick="jogo.ClickOnClicker(event)">
                 </div>
                 <div class="level-progress-div">
                     <p>Level: 100</p>
@@ -48,7 +49,7 @@
     <script language="JavaScript" src="../shared/js/navbar.js"></script>
     <script language="JavaScript" src="../shared/js/game.js"></script>
     <script language="JavaScript">
-        let jogo = new game(5000);
+        let jogo = new game(5000, 10000);
     </script>
 </body>
 </html>
