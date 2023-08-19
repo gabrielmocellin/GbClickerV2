@@ -2,9 +2,6 @@ var aberto = false;
 let menuButton = document.getElementById("hamburguer-navbar-button");
 let menu = document.getElementById("div-menu-navbar");
 
-console.log(menuButton);
-console.log(menu);
-
 menuButton.addEventListener("click", CloseOpenMenu);
 
 function CloseOpenMenu(){
@@ -14,5 +11,20 @@ function CloseOpenMenu(){
     } else{
         menu.classList.add("menuClosed");
         aberto = false;
+    }
+}
+
+function RedirectPage(op){
+    let path = "";
+    switch (op){
+        case "1":
+            path = "../home/home.php"; break;
+        case "2":
+            path = "../admin/createTickets.php"; break;
+        default:
+            path = "../home/home.php"; break;
+    }
+    if(path != ""){
+        window.location.href = path;
     }
 }

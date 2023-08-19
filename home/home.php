@@ -32,8 +32,8 @@
                     <li>123.3B R$/Sec</li>
                     <li>Minions: 150k</li>
                 </ul>
-                <div class="image-clicker-div">
-                    <img draggable="false" src="img/gb.png" id="clicker-img">
+                <div id="clicker-img-div" class="image-clicker-div">
+                    <img draggable="false" src="img/gb.png" id="clicker-img" onclick="jogo.CreateNewCounterElement(event)">
                 </div>
                 <div class="level-progress-div">
                     <p>Level: 100</p>
@@ -46,5 +46,9 @@
         </div>
     </main>
     <script language="JavaScript" src="../shared/js/navbar.js"></script>
+    <script language="JavaScript" src="../shared/js/game.js"></script>
+    <script language="JavaScript">
+        let jogo = new game(5000);
+    </script>
 </body>
 </html>

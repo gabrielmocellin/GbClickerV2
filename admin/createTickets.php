@@ -16,61 +16,37 @@
         <div id="admin-tickets">
             <table id="create-cupons-table">
                 <thead>
-                    <tr>
-                        <td>CÓDIGO</td>
-                        <td>DESCRIÇÃO</td>
-                        <td>VALIDADE</td>
-                        <td>FUNÇÕES</td>
+                    <tr class="thead">
+                        <th>CÓDIGO</th>
+                        <th>DESCRIÇÃO</th>
+                        <th>VALIDADE</th>
+                        <th>FUNÇÕES</th>
                     </tr>
                 </thead>
+
                 <tbody>
                     <tr>
-                        <td>AXC3-A23D</td>
-                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ss eum architecto modi. Voluptate temporibus odit quia fugit ea rerum! Amet fugiat dolores doloribus?</td>
-                        <td>20/08/2023 - 00:23</td>
-                        <td>
-                            <button class="edit-button">Editar</button>
-                            <button class="remove-button">Remover</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>AXC3-A23D</td>
-                        <td>Vida infinita + 30mil em dinheiro</td>
-                        <td>20/08/2023 - 00:23</td>
-                        <td>
-                            <button class="edit-button">Editar</button>
-                            <button class="remove-button">Remover</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>AXC3-A23D</td>
-                        <td>Vida infinita + 30mil em dinheiro</td>
-                        <td>20/08/2023 - 00:23</td>
-                        <td>
-                            <button class="edit-button">Editar</button>
-                            <button class="remove-button">Remover</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>AXC3-A23D</td>
-                        <td>Vida infinita + 30mil em dinheiro</td>
-                        <td>20/08/2023 - 00:23</td>
-                        <td>
+                        <td data-title="CÓDIGO">AXC3-A23D</td>
+                        <td data-title="DESCRIÇÃO">Lorem ipsum dolor sit amet consribus odit quia fugit ea rerum! Amet fugiat dolores doloribus? lor</td>
+                        <td data-title="VALIDADE">20/08/2023 - 00:23</td>
+                        <td data-title="FUNÇÕES">
                             <button class="edit-button">Editar</button>
                             <button class="remove-button">Remover</button>
                         </td>
                     </tr>
                 </tbody>
+                
                 <tfoot>
-                        <tr>
-                            <td><input placeholder="Código..." type="text"></td>
-                            <td><input placeholder="Descrição..." type="text"></td>
-                            <td><input placeholder="Validade..." type="text"></td>
-                            <td>
-                                <button class="save-code-button">Salvar</button>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td><input placeholder="Código..." type="text"></td>
+                        <td><input placeholder="Descrição..." type="text"></td>
+                        <td><input placeholder="Validade..." type="text"></td>
+                        <td>
+                            <button class="save-code-button">Salvar</button>
+                        </td>
+                    </tr>
                 </tfoot>
+
             </table>
         </div>
     </main>

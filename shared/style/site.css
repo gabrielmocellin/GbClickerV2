@@ -13,7 +13,7 @@
     --lightGrayGreen: #9CB0A4;
     --60green:#D9EDDF;
     --30green:#609D7C;
-    --10green:#28E597;
+    --10green:#00A767;
     --font-primary: 'Zilla Slab', serif;
     --font-text: 'DM Sans', sans-serif;
     --font-size: 1rem;
@@ -31,6 +31,7 @@
     margin: 0; padding: 0;
     box-sizing: border-box;
     outline: none;
+    user-select: none;
 }
 body{
     font-size: var(--font-size);
@@ -100,7 +101,6 @@ img.user_image{
 }
 #div-menu-navbar{
     min-width: 15em;
-    border: black solid 2.5px;
     overflow-y: auto; overflow-x: none;
     background-color: var(--lightGrayGreen);
     box-shadow: 0px 4px 4px 0px #424242;
@@ -154,7 +154,7 @@ div#left-clicker-content-side div.buff-countdown-div{
     font-family: var(--font-primary);
 }
 div#left-clicker-content-side div.buff-countdown-div > img{
-    width:100%; height: auto;
+    width:80%; height: auto;
 }
 
 div#middle-clicker-content-side{
@@ -169,20 +169,35 @@ ul#clicker-infos{
 }
 ul#clicker-infos li{
     text-align: center;
-    margin: 1em 0; padding: 1em;
+    margin: 1em 0; padding: 0.5em;
     border: var(--30green) solid 2px; border-radius: 1em;
     box-shadow: 0px 3px 5px 3px #424242, var(--30green) 0 0 0 4px;
     outline: var(--10green) solid 2px;
-    letter-spacing: 5px;
+    letter-spacing: 4px;
+    background-color: white;
 }
 .image-clicker-div{
-    width: 100%;
+    margin: 0 auto;
     display:flex; justify-content: center;
 }
 #clicker-img{
+    margin: 0 auto;
     min-height: 150px; min-width: 150px;
-    width: 20%;
+    width: 50%;
     cursor: pointer;
+}
+#clicker-img:hover{
+    transform: scale(1.05);
+    transition: ease-in-out 0.1s;
+}
+#clicker-img:active{
+    transform: scale(1.00);
+    transition: ease-in-out 0.1s;
+}
+.counter-number{
+    font-family: var(--font-text); font-weight: bold; color: black; font-size: 1em;
+    position: absolute;
+    animation: ease-in-out clickerCounter 1.5s;
 }
 div.level-progress-div{
     font-family: var(--font-text);
@@ -214,49 +229,41 @@ div#level-progress-bar::after{
 div#admin-tickets{
     width:100%;
     overflow-x: auto;
+    padding: 2em;
 }
 table#create-cupons-table{
-    margin: auto;
+    width: 100%;
     border-collapse: collapse;
     font-family: var(--font-text);
-    background: var(--60green);
-    width: 100%; height:100%;
-    overflow-x: auto;
+    background-color: var(--60green);
 }
 table#create-cupons-table button{
-    font-weight: bold;
-    font-family: var(--font-text);
-    font-size: 1em;
+    font-weight: bold; font-family: var(--font-text); font-size: 1em;
     padding: 0.2em;
     border-radius: 0.4em;
     cursor: pointer;
     position: relative;
     transition: ease-in-out 0.2s;
 }
-table#create-cupons-table > thead{
-    height: 3em;
+
+table#create-cupons-table thead tr{
+    font-size: 1.2em;
     background-color: var(--darkGreen);
     color: var(--font-white-color); font-weight: bold;
     letter-spacing: 3px;
 }
-table#create-cupons-table > thead > tr > td,
-table#create-cupons-table > tbody > tr > td,
-table#create-cupons-table > tfoot > tr > td {text-align: center;}
-
-table#create-cupons-table > tbody > tr > td{
-    width:25%; max-width: 25%;
-    white-space:nowrap;
+table#create-cupons-table tr{
+    padding: 0.5em;
+}
+table#create-cupons-table tbody tr td{
     overflow: hidden;
     text-overflow: ellipsis;
 }
-table#create-cupons-table tfoot{
+table#create-cupons-table tfoot tr{
+    height: 2em;
     background: var(--lightGrayGreen);
 }
-table#create-cupons-table tfoot tr td{
-    padding: 0.5em;
-}
 table#create-cupons-table tfoot tr td input{
-    padding: 0.4em;
     border-radius: 0.4em;
     width:80%;
     background-color: var(--font-white-color);
@@ -300,7 +307,7 @@ button.remove-button:not(.disabled):hover{
     }
 
     ul#clicker-infos li{
-        width:50%;
+        width:60%;
     }
 }
 @media (max-width: 1000px) {
@@ -319,5 +326,18 @@ button.remove-button:not(.disabled):hover{
     }
     100% {
       opacity: 0;
+    }
+}
+
+@keyframes clickerCounter{
+    0%{
+        opacity: 0;
+    }
+    10%{
+        opacity : 1;
+    }
+    100%{
+        opacity : 0;
+        transform: translateY(-350px);
     }
 }
