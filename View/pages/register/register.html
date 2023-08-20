@@ -4,16 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="../src/img/icon.png">
-    <link rel="stylesheet" href="style/register_style.css">
+    <link rel="stylesheet" href="View/pages/register/style/register_style.css">
     <title>GBC | Registro</title>
 </head>
 <body>
     <header>
-        <button onclick='irParaLandingPage()' title='Voltar para página inicial' class='back_button pointer'></button>
+        <a href="/" title='Voltar para página inicial' class='back_button pointer'></a>
     </header>
     <main>
-        <form method='POST' enctype='multipart/form-data'>
+        <form method='POST' enctype='multipart/form-data' action="/register/save">
             <h1 id='form-title' class='flex-center-center'>Registro</h1>
             <div id="inputs-div" class='flex-center-center'>
 
@@ -23,7 +22,7 @@
                     <input id='email-input' name='email-input' class='inputs' title='Campo para preencher com o email' type='text' required maxlength='100'>
     
                     <label class='labels' for='user-input'>Usuário :</label>
-                    <input id='user-input' name='user-input' class='inputs' title='Campo para preencher com o usuario' type='text' required maxlength='100'>
+                    <input id='nickname-input' name='nickname-input' class='inputs' title='Campo para preencher com o usuario' type='text' required maxlength='100'>
 
                     <label id='image-label' for='image-input' class='pointer' title='Botão para escolher foto de perfil'>Foto de Perfil</label>
                     <input id='image-input' name='image-input' type='file'> <!-- Display: none para poder personalizar o label como um botão -->
@@ -33,7 +32,7 @@
                 <section class='lados-inputs-div'>
 
                     <label class='labels' for='senha-input'>Senha :</label>
-                    <input id='senha-input' name='senha-input' class='inputs' title='Campo para preencher com a senha' type='password' required maxlength='20'>
+                    <input id='password-input' name='password-input' class='inputs' title='Campo para preencher com a senha' type='password' required maxlength='20'>
     
                     <label class='labels' for='confirm-input'>Confirmar senha :</label>
                     <input id='confirm-input' name='confirm-input' class='inputs' title='Campo para preencher com a mesma senha' type='password' required maxlength='20'>
@@ -45,7 +44,7 @@
             </div>
             <section id='form-redirect-buttons-sec'>
                 <p title='Texto (Já possui conta?)'>Já possui conta?</p>
-                <a class='pointer' href='../login/login.html' title='Botão redirencionador para página de login'>Entre aqui</a>
+                <a class='pointer' href='/login' title='Botão redirencionador para página de login'>Entre aqui</a>
             </section>
             <section id="register-button-sec" class='flex-center-center'>
                 <button id='register-button' class='pointer' type='submit' title='Botão para realizar o registro'>Registrar</button>
