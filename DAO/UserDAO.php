@@ -5,7 +5,7 @@
 
         public function __construct()
         {
-            $this->conexao = new mysqli('localhost', 'user', 'pass', 'db'); /*ALTERAR O NOME, SENHA E NOME DO BANCO DE DADOS!*/
+            $this->conexao = new mysqli('localhost', 'gb', 'mysql@204', 'gbclicker_db_mvc'); /*ALTERAR O NOME, SENHA E NOME DO BANCO DE DADOS!*/
         }
 
         public function insert(UserModel $model)

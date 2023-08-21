@@ -8,14 +8,11 @@ function saveUserData(){ /* Função criada para salvar o dinheiro valor do cliq
 
     let xml_request      = new XMLHttpRequest();
 
-    input_clickValue.value = jogo.clickValue;
-    input_money.value      = jogo.usermoney;
-    input_multiplier.value = jogo.multiplier;
-
-
     xml_request.onreadystatechange = function (){
         if(xml_request.readyState == 4 && xml_request.status == 200){
-            console.log(xml_request);
+            input_clickValue.value = jogo.clickValue;
+            input_money.value      = jogo.usermoney;
+            input_multiplier.value = jogo.multiplier;
         }
     }
 

@@ -31,8 +31,8 @@
             </div>
             <div id="middle-clicker-content-side">
                 <ul id="clicker-infos">
-                    <li id='user_mult_li'>Mult: 30000x</li>
-                    <li>123.3B R$/Sec</li>
+                    <li id='user_mult_li'></li>
+                    <li id='money_sec_li'></li>
                     <li>Minions: 150k</li>
                 </ul>
                 <div id="clicker-img-div" class="image-clicker-div">

@@ -3,15 +3,23 @@ class game{
         this.clickValue = clickValue;
         this.usermoney = usermoney;
         this.multiplier = multiplier;
+        this.clicksPerSec = 0;
 
         this.UpdateUserMoney();
         this.UpdateUserMultiplier();
+        this.UpdateUserMoneyPerSec();
+
+        setInterval(()=>{this.UpdateUserMoneyPerSec();}, 200);
     }
 
     ClickOnClicker(event){
         this.CreateNewCounterElement(event);
         this.AddClickMoneyUser();
         this.UpdateUserMoney();
+
+        this.clicksPerSec += 1;
+
+        setTimeout(()=>{if(this.clicksPerSec >= 1){this.clicksPerSec -= 1;}}, 1000); /* Depois de 1 segundo o click não será mais contado */
     }
 
     GetClickPosition(event){
@@ -44,6 +52,13 @@ class game{
     UpdateUserMultiplier(){
         let liUserMultiplier = document.getElementById("user_mult_li");
         liUserMultiplier.textContent = `Mult: ${this.multiplier}x`;
+    }
+
+    UpdateUserMoneyPerSec(){
+        let moneyPerSec = parseFloat(this.clickValue * this.multiplier * this.clicksPerSec);
+        let liMoneySec = document.getElementById("money_sec_li");
+
+        liMoneySec.textContent = `${moneyPerSec} R$/sec`;
     }
 
     AddClickMoneyUser(){
