@@ -1,7 +1,7 @@
 <?php
     class UserModel
     {
-        public $email, $password, $nickname, $clickValue, $money;
+        public $email, $password, $nickname, $clickValue, $money, $multiplier;
 
         public $rows;
 
@@ -29,10 +29,20 @@
 
             $dao = new UserDAO();
 
-            $arrayMoneyClick = $dao->selectByEmail($this->email, $this->password);
+            $dao_returnArray  = $dao->selectByEmail($this->email, $this->password);
 
-            $this->clickValue = $arrayMoneyClick['clickValue'];
-            $this->money = $arrayMoneyClick['money'];
+            $this->clickValue = $dao_returnArray['clickValue'];
+            $this->money      = $dao_returnArray['money'];
+            $this->multiplier = $dao_returnArray['multiplier'];
+        }
+
+        public function updateUserData()
+        {
+            include 'DAO/UserDAO.php';
+
+            $dao = new UserDAO();
+
+            $dao->update($this);
         }
     }
 ?>

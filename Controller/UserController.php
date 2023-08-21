@@ -11,6 +11,9 @@
 
             $model->getByEmail();
 
+            session_start();
+            $_SESSION['email'] = $model->email;
+
             require 'View/pages/home/home.php';
         }
 
@@ -30,6 +33,7 @@
             $model->nickname = $_POST['nickname-input'];
             $model->clickValue = 1;
             $model->money = 0;
+            $model->multiplier = 1;
 
             $model->save();
         }

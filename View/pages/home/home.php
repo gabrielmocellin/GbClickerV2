@@ -1,4 +1,3 @@
-<?php /* if(!isset($_SESSION["gbclicker_logado"])){header("location:../login/login.html");}*/ ?>
 <?php
     /** @var UserModel $model */
 ?>  
@@ -9,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel='stylesheet' href='View/pages/shared/style/site.css'>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <title>GbClickerII</title>
+    <title>Gb Clicker II</title>
 </head>
 <body>
     <?php 
@@ -32,7 +31,7 @@
             </div>
             <div id="middle-clicker-content-side">
                 <ul id="clicker-infos">
-                    <li>Mult: 30000x</li>
+                    <li id='user_mult_li'>Mult: 30000x</li>
                     <li>123.3B R$/Sec</li>
                     <li>Minions: 150k</li>
                 </ul>
@@ -49,10 +48,22 @@
             </div>
         </div>
     </main>
+
+    <form id="form-user-save-data" action='' style='display:none;'>
+        <input id='clickValue-input' name='clickValue-input' type='text'>
+        <input id='money-input' name='money-input' type='text'>
+        <input id='multiplier-input' name='multiplier-input' type='text'>
+    </form>
+
     <script language="JavaScript" src="View/pages/shared/js/navbar.js"></script>
     <script language="JavaScript" src="View/pages/shared/js/game.js"></script>
     <script language="JavaScript">
-        let jogo = new game(clickValue=<?php if(isset($model)){ echo $model->clickValue;} ?>, userMoney=<?= $model->money; ?>);
+        var jogo = new game(
+            clickValue = <?=$model->clickValue;?>,
+            userMoney  = <?=$model->money;?>,
+            multiplier = <?=$model->multiplier;?>
+        );
     </script>
+    <script language="JavaScript" src="View/pages/shared/js/xhr.js"></script>
 </body>
 </html>

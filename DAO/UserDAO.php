@@ -5,21 +5,22 @@
 
         public function __construct()
         {
-            $this->conexao = new mysqli('localhost', 'nome', 'senha', 'nomebanco'); /*ALTERAR O NOME, SENHA E NOME DO BANCO DE DADOS!*/
+            $this->conexao = new mysqli('localhost', 'user', 'pass', 'db'); /*ALTERAR O NOME, SENHA E NOME DO BANCO DE DADOS!*/
         }
 
         public function insert(UserModel $model)
         {
-            $sql = "INSERT INTO usuario (email, password, nickname, clickValue, money) VALUES (?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO usuario (email, password, nickname, clickValue, money, multiplier) VALUES (?, ?, ?, ?, ?, ?)";
 
             $stmt = $this->conexao->prepare($sql);
 
-            $stmt->bind_param('sssii', 
+            $stmt->bind_param('sssddi', 
             $model->email,
             $model->password,
             $model->nickname,
             $model->clickValue,
-            $model->money
+            $model->money,
+            $model->multiplier
         );
 
             $stmt->execute();
