@@ -114,6 +114,68 @@
                       </td>
                     </tr>
 
+                    <tr>
+                      <td>
+                        <div>
+                          <img src="View/pages/shared/icons/account.png">
+                          <p>VIP</p>
+                          <p>R$ 10,00</p>
+                        </div>
+                      </td>
+                      <td>
+                        <div>
+                          <img src="View/pages/shared/icons/account.png">
+                          <p>VIP +</p>
+                          <p>R$ 15,00</p>
+                        </div>
+                      </td>
+                      <td>
+                        <div>
+                          <img src="View/pages/shared/icons/account.png">
+                          <p>VIP Ruby</p>
+                          <p>R$ 30,00</p>
+                        </div>
+                      </td>
+                      <td>
+                        <div>
+                          <img src="View/pages/shared/icons/account.png">
+                          <p>VIP Safira</p>
+                          <p>R$ 50,00</p>
+                        </div>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>
+                        <div>
+                          <img src="View/pages/shared/icons/account.png">
+                          <p>VIP</p>
+                          <p>R$ 10,00</p>
+                        </div>
+                      </td>
+                      <td>
+                        <div>
+                          <img src="View/pages/shared/icons/account.png">
+                          <p>VIP +</p>
+                          <p>R$ 15,00</p>
+                        </div>
+                      </td>
+                      <td>
+                        <div>
+                          <img src="View/pages/shared/icons/account.png">
+                          <p>VIP Ruby</p>
+                          <p>R$ 30,00</p>
+                        </div>
+                      </td>
+                      <td>
+                        <div>
+                          <img src="View/pages/shared/icons/account.png">
+                          <p>VIP Safira</p>
+                          <p>R$ 50,00</p>
+                        </div>
+                      </td>
+                    </tr>
+
                 </table>
             </div>
         </main>

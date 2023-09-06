@@ -318,8 +318,9 @@ table#shop-table tr{width:100%; display:flex; justify-content: space-around;}
 table#shop-table tr.tableHead{position:sticky; top:0; font-size: 2em; color:var(--font-white-color); background-color: var(--darkGreen); letter-spacing: 4px; box-shadow: 0px 4px 6px -2px var(--shadow-color);}
 table#shop-table tr:not(.tableHead){margin-top:2em;}
 
-table#shop-table tr td{ width:15%; display:flex; justify-content: center; text-align: center; transition: ease-in-out 0.2s; cursor:pointer; border-radius: 1em; box-shadow: 0px 4px 6px -2px var(--shadow-color); background-color: var(--font-white-color); min-width: 60px;}
+table#shop-table tr td{ width:15%; display:flex; justify-content: center; text-align: center; transition: ease-in-out 0.2s; cursor:pointer; border-radius: 1em; box-shadow: 0px 4px 6px -2px var(--shadow-color); background-color: var(--font-white-color); min-width: 60px; border: black 2px solid;}
 table#shop-table tr td:not(.disabled):hover{background-color: lightgray;}
+table#shop-table tr td:not(.disabled):active{background-color: darkgray; font-weight: bold;}
 
 
 /* ++++++ MEDIA QUERYS ++++++ */
