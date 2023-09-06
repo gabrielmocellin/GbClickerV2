@@ -8,7 +8,7 @@
             <img draggable="false" src="View/pages/shared/icons/account.png" alt="Perfil">
             Perfil
         </li>
-        <li>
+        <li onclick="RedirectPage('3')">
             <img draggable="false" src="View/pages/shared/icons/shopping_cart.png" alt="Loja">
             Loja
         </li>

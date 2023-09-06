@@ -19,6 +19,9 @@
         case '/home':
             UserController::index();
             break;
+        case '/shop':
+            UserController::shop();
+            break;
         default:
             echo "<h1>Página não encontrada!</h1>";
             echo "<h3>$url</h3>";

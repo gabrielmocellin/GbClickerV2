@@ -18,11 +18,13 @@ function RedirectPage(op){
     let path = "";
     switch (op){
         case "1":
-            path = "../home/home.php"; break;
+            path = "/home"; break;
         case "2":
             path = "../admin/createTickets.php"; break;
+        case "3":
+            path = "/shop"; break;
         default:
-            path = "../home/home.php"; break;
+            path = "/home"; break;
     }
     if(path != ""){
         window.location.href = path;

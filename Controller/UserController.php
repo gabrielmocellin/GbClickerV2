@@ -3,18 +3,31 @@
     {
         public static function index(){
             include 'Model/UserModel.php';
-
-            $model = new UserModel();
-
-            $model->email = $_POST['email-input'];
-            $model->password = $_POST['password-input'];
-
-            $model->getByEmail();
-
+            
             session_start();
-            $_SESSION['email'] = $model->email;
+            
+            if(isset($_POST['email-input']) && isset($_POST['password-input'])){
 
+                $model = new UserModel();
+
+                $model->email = $_POST['email-input'];
+                $model->password = $_POST['password-input'];
+    
+                $model->getByEmailAndPassword();
+
+                $_SESSION['email'] = $model->email;
+                $_POST = array();
+
+            } else if(isset($_SESSION['email'])){
+
+                $model = new UserModel();
+
+                $model->email = $_SESSION['email'];
+        
+                $model->getByEmail();
+            }
             require 'View/pages/home/home.php';
+
         }
 
         public static function form()
@@ -36,6 +49,26 @@
             $model->multiplier = 1;
 
             $model->save();
+        }
+
+        /* Ao abrir a loja a sessão é iniciada para recuperar o email logado.
+           Após, caso a pessoa estiver logada já seus dados são recuperados do banco de dados.
+           Caso não estiver logada é levada a página "home". */
+        public static function shop()
+        {
+            include 'Model/UserModel.php';
+
+            session_start();
+
+            if(isset($_SESSION['email'])){
+                $model = new UserModel();
+        
+                $model->email = $_SESSION['email'];
+        
+                $model->getByEmail();
+    
+                include 'View/pages/shop/shop.php';
+            } else{header('location: /');}
         }
     }
 ?>

@@ -19,10 +19,11 @@
     --font-size: 1rem;
     --logo-font-size: 3em;
     --money-font-size: 1em;
-    --header-shadow: 0 0 7px 1px #424242;
-    --header-profile-image-shadow: 0 0 4px 1px #424242;
+    --header-shadow: 0 0 7px 1px var(--shadow-color);
+    --header-profile-image-shadow: 0 0 4px 1px var(--shadow-color);
     --font-white-color: whitesmoke;
     --counter-number-zindex: 100;
+    --shadow-color: #424242;
 }
 
 
@@ -104,7 +105,7 @@ img.user_image{
     min-width: 15em;
     overflow-y: auto; overflow-x: none;
     background-color: var(--lightGrayGreen);
-    box-shadow: 0px 4px 4px 0px #424242;
+    box-shadow: 0px 4px 4px 0px var(--shadow-color);
 }
 #div-menu-navbar ul li{
     font-family: var(--font-text);
@@ -172,7 +173,7 @@ ul#clicker-infos li{
     text-align: center;
     margin: 1em 0; padding: 0.5em;
     border: var(--30green) solid 2px; border-radius: 1em;
-    box-shadow: 0px 3px 5px 3px #424242, var(--30green) 0 0 0 4px;
+    box-shadow: 0px 3px 5px 3px var(--shadow-color), var(--30green) 0 0 0 4px;
     outline: var(--10green) solid 2px;
     letter-spacing: 4px;
     background-color: white;
@@ -295,6 +296,30 @@ button.remove-button:not(.disabled):hover{
     color: rgb(190, 50, 50);
 }
 
+/* ++++++ SHOP DIV ++++++ */
+div#shop-div{
+    display:flex; justify-content: center; align-items: center;
+    height: 100%; width: 100%;
+}
+
+table#shop-table{
+    display:block;
+    border-collapse: collapse;
+    font-family: var(--font-text);
+    width: 80%; height: 80%;
+    background-color: #609D7C;
+    box-shadow: var(--header-shadow);
+}
+
+table#shop-table tbody{width: 100%; display:block;}
+
+table#shop-table tr{width:100%; display:flex; justify-content: space-around;}
+
+table#shop-table tr.tableHead{position:sticky; top:0; font-size: 2em; color:var(--font-white-color); background-color: var(--darkGreen); letter-spacing: 4px; box-shadow: 0px 4px 6px -2px var(--shadow-color);}
+table#shop-table tr:not(.tableHead){margin-top:2em;}
+
+table#shop-table tr td{ width:15%; display:flex; justify-content: center; text-align: center; transition: ease-in-out 0.2s; cursor:pointer; border-radius: 1em; box-shadow: 0px 4px 6px -2px var(--shadow-color); background-color: var(--font-white-color); min-width: 60px;}
+table#shop-table tr td:not(.disabled):hover{background-color: lightgray;}
 
 
 /* ++++++ MEDIA QUERYS ++++++ */
@@ -312,11 +337,22 @@ button.remove-button:not(.disabled):hover{
         width:60%;
     }
 }
-@media (max-width: 1000px) {
+@media (max-width: 1000px), (max-height: 600px) {
     div#admin-tickets{
         display:block;
         padding:0;
     }
+
+    table#shop-table{
+        width: 100%; max-height: 100vh; overflow-y: auto;
+        height: 100%;
+    }
+}
+
+@media (max-width: 425px) {
+    table#shop-table{max-height:100vh; overflow-y: auto;}
+
+    table#shop-table tr{width:100%; display:flex; flex-direction: column; align-items: center; gap:2em}
 }
 
 

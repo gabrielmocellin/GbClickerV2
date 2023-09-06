@@ -50,7 +50,7 @@
             return $stmt->fetch_all(MYSQLI_ASSOC);
         }
 
-        public function selectByEmail(string $email, string $password){
+        public function selectByEmailAndPassword(string $email, string $password){
 
             $sql = "SELECT * FROM usuario WHERE email = '$email' and password = '$password'";
 
@@ -58,6 +58,16 @@
 
             return $stmt->fetch_assoc();
         }
+
+        public function selectByEmail(string $email){
+            $sql = "SELECT * FROM usuario WHERE email = '$email'";
+
+            $stmt = $this->conexao->query($sql);
+
+            return $stmt->fetch_assoc();
+        }
+
+
 
         public function delete(string $email)
         {

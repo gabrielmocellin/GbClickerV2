@@ -23,13 +23,26 @@
             $this->rows = $dao->select();
         }
 
+        public function getByEmailAndPassword()
+        {
+            include 'DAO/UserDAO.php';
+
+            $dao = new UserDAO();
+
+            $dao_returnArray  = $dao->selectByEmailAndPassword($this->email, $this->password);
+
+            $this->clickValue = $dao_returnArray['clickValue'];
+            $this->money      = $dao_returnArray['money'];
+            $this->multiplier = $dao_returnArray['multiplier'];
+        }
+
         public function getByEmail()
         {
             include 'DAO/UserDAO.php';
 
             $dao = new UserDAO();
 
-            $dao_returnArray  = $dao->selectByEmail($this->email, $this->password);
+            $dao_returnArray  = $dao->selectByEmail($this->email);
 
             $this->clickValue = $dao_returnArray['clickValue'];
             $this->money      = $dao_returnArray['money'];
