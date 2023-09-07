@@ -6,7 +6,13 @@
             
             session_start();
             
-            if(isset($_POST['email-input']) && isset($_POST['password-input'])){
+            if( isset( $_SESSION['email'] ) ){
+
+                $model = new UserModel();
+                $model->email = $_SESSION['email'];
+                $model->getByEmail();
+
+            } else if( isset( $_POST['email-input'] ) && isset( $_POST['password-input'] ) ){
 
                 $model = new UserModel();
 
@@ -18,14 +24,7 @@
                 $_SESSION['email'] = $model->email;
                 $_POST = array();
 
-            } else if(isset($_SESSION['email'])){
-
-                $model = new UserModel();
-
-                $model->email = $_SESSION['email'];
-        
-                $model->getByEmail();
-            }
+            } else{header("location: /");}
             require 'View/pages/home/home.php';
 
         }
@@ -35,7 +34,7 @@
             include "View/pages/register/register.html";
         }
 
-        public static function save()
+        public static function save() // Criando nova conta a partir dos dados fornecidos no registro.html
         {
             include 'Model/UserModel.php';
 

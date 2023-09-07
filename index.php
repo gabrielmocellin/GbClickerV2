@@ -1,5 +1,6 @@
 <?php
     include 'Controller/UserController.php';
+    include 'Controller/ItemController.php';
     /* Ao utilizar o XAMPP é necessário colocar o "GbClickerV2" na url! */
     $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
@@ -21,6 +22,9 @@
             break;
         case '/shop':
             UserController::shop();
+            break;
+        case '/items':
+            ItemController::index();
             break;
         default:
             echo "<h1>Página não encontrada!</h1>";

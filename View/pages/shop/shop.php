@@ -1,5 +1,23 @@
 <?php
     /** @var UserModel $model */
+    class item{
+      public $name;
+      public $value;
+      public $image_src;
+
+      public function __construct($name_param, $value_param, $image_src_param){
+        $this->name = $name_param;
+        $this->value = $value_param;
+        $this->image_src = $image_src_param;
+      }
+    }
+
+    $items = array(
+      new item("Gb", 100, "View/pages/shared/icons/account.png"),
+      new item("Gb2", 1000, "View/pages/shared/icons/account.png"),
+      new item("Gb++", 500, "View/pages/shared/icons/account.png"),
+      new item("Gb++", 500, "View/pages/shared/icons/account.png")
+    );
 ?>  
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -18,164 +36,20 @@
             <?php require "View/pages/shared/navbar.php"; ?>
             <div id="shop-div">
                 <table id="shop-table">
-                    <tr class='tableHead'>
-                      <th>Loja</th>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div>
-                          <img src="View/pages/shared/icons/account.png">
-                          <p>VIP</p>
-                          <p>R$ 10,00</p>
-                        </div>
-                      </td>
-                      <td>
-                        <div>
-                          <img src="View/pages/shared/icons/account.png">
-                          <p>VIP +</p>
-                          <p>R$ 15,00</p>
-                        </div>
-                      </td>
-                      <td>
-                        <div>
-                          <img src="View/pages/shared/icons/account.png">
-                          <p>VIP Ruby</p>
-                          <p>R$ 30,00</p>
-                        </div>
-                      </td>
-                      <td>
-                        <div>
-                          <img src="View/pages/shared/icons/account.png">
-                          <p>VIP Safira</p>
-                          <p>R$ 50,00</p>
-                        </div>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>
-                        <div>
-                          <img src="View/pages/shared/icons/account.png">
-                          <p>VIP</p>
-                          <p>R$ 10,00</p>
-                        </div>
-                      </td>
-                      <td>
-                        <div>
-                          <img src="View/pages/shared/icons/account.png">
-                          <p>VIP +</p>
-                          <p>R$ 15,00</p>
-                        </div>
-                      </td>
-                      <td>
-                        <div>
-                          <img src="View/pages/shared/icons/account.png">
-                          <p>VIP Ruby</p>
-                          <p>R$ 30,00</p>
-                        </div>
-                      </td>
-                      <td>
-                        <div>
-                          <img src="View/pages/shared/icons/account.png">
-                          <p>VIP Safira</p>
-                          <p>R$ 50,00</p>
-                        </div>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>
-                        <div>
-                          <img src="View/pages/shared/icons/account.png">
-                          <p>VIP</p>
-                          <p>R$ 10,00</p>
-                        </div>
-                      </td>
-                      <td>
-                        <div>
-                          <img src="View/pages/shared/icons/account.png">
-                          <p>VIP +</p>
-                          <p>R$ 15,00</p>
-                        </div>
-                      </td>
-                      <td>
-                        <div>
-                          <img src="View/pages/shared/icons/account.png">
-                          <p>VIP Ruby</p>
-                          <p>R$ 30,00</p>
-                        </div>
-                      </td>
-                      <td>
-                        <div>
-                          <img src="View/pages/shared/icons/account.png">
-                          <p>VIP Safira</p>
-                          <p>R$ 50,00</p>
-                        </div>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>
-                        <div>
-                          <img src="View/pages/shared/icons/account.png">
-                          <p>VIP</p>
-                          <p>R$ 10,00</p>
-                        </div>
-                      </td>
-                      <td>
-                        <div>
-                          <img src="View/pages/shared/icons/account.png">
-                          <p>VIP +</p>
-                          <p>R$ 15,00</p>
-                        </div>
-                      </td>
-                      <td>
-                        <div>
-                          <img src="View/pages/shared/icons/account.png">
-                          <p>VIP Ruby</p>
-                          <p>R$ 30,00</p>
-                        </div>
-                      </td>
-                      <td>
-                        <div>
-                          <img src="View/pages/shared/icons/account.png">
-                          <p>VIP Safira</p>
-                          <p>R$ 50,00</p>
-                        </div>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>
-                        <div>
-                          <img src="View/pages/shared/icons/account.png">
-                          <p>VIP</p>
-                          <p>R$ 10,00</p>
-                        </div>
-                      </td>
-                      <td>
-                        <div>
-                          <img src="View/pages/shared/icons/account.png">
-                          <p>VIP +</p>
-                          <p>R$ 15,00</p>
-                        </div>
-                      </td>
-                      <td>
-                        <div>
-                          <img src="View/pages/shared/icons/account.png">
-                          <p>VIP Ruby</p>
-                          <p>R$ 30,00</p>
-                        </div>
-                      </td>
-                      <td>
-                        <div>
-                          <img src="View/pages/shared/icons/account.png">
-                          <p>VIP Safira</p>
-                          <p>R$ 50,00</p>
-                        </div>
-                      </td>
-                    </tr>
-
+                    <tr class='tableHead'> <th>Loja</th> </tr>
+                    <?php for($i = 0; $i < 4; $i ++): ?>
+                      <tr>
+                      <?php foreach($items as $item): ?>
+                          <td>
+                          <div>
+                            <img src=<?=$item->image_src?>>
+                            <p><?=$item->name?></p>
+                            <p><?=$item->value?></p>
+                          </div>
+                        </td>
+                      <?php endforeach; ?>
+                      </tr>
+                    <?php endfor; ?> 
                 </table>
             </div>
         </main>

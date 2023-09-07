@@ -33,7 +33,7 @@
                 <ul id="clicker-infos">
                     <li id='user_mult_li'></li>
                     <li id='money_sec_li'></li>
-                    <li>Minions: 150k</li>
+                    <li>Minions: 0</li>
                 </ul>
                 <div id="clicker-img-div" class="image-clicker-div">
                     <img draggable="false" src="View/pages/home/img/gb.png" id="clicker-img" onclick="jogo.ClickOnClicker(event)">
