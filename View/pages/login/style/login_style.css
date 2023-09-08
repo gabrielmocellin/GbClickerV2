@@ -146,7 +146,7 @@ main form{
 
 @media screen and (max-height:600px){
     #form-title{
-        font-size:30px; color: var(--10green);
+        font-size:30px;
     }
     .labels{
         color:white;

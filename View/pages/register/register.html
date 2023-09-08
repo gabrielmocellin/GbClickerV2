@@ -12,16 +12,16 @@
         <a href="/" title='Voltar para página inicial' class='back_button pointer'></a>
     </header>
     <main>
-        <form method='POST' enctype='multipart/form-data' action="/register/save">
+        <form id="register-form" method='POST' enctype='multipart/form-data' action="/register/save">
             <h1 id='form-title' class='flex-center-center'>Registro</h1>
             <div id="inputs-div" class='flex-center-center'>
 
                 <section class='lados-inputs-div'>
 
-                    <label class='labels' for='email-input'>E-mail :</label>
+                    <label class='labels' for='email-input'>E-mail:</label>
                     <input id='email-input' name='email-input' class='inputs' title='Campo para preencher com o email' type='text' required maxlength='100'>
     
-                    <label class='labels' for='user-input'>Usuário :</label>
+                    <label class='labels' for='user-input'>Usuário:</label>
                     <input id='nickname-input' name='nickname-input' class='inputs' title='Campo para preencher com o usuario' type='text' required maxlength='100'>
 
                     <label id='image-label' for='image-input' class='pointer' title='Botão para escolher foto de perfil'>Foto de Perfil</label>
@@ -31,10 +31,10 @@
 
                 <section class='lados-inputs-div'>
 
-                    <label class='labels' for='senha-input'>Senha :</label>
+                    <label class='labels' for='senha-input'>Senha:</label>
                     <input id='password-input' name='password-input' class='inputs' title='Campo para preencher com a senha' type='password' required maxlength='20'>
     
-                    <label class='labels' for='confirm-input'>Confirmar senha :</label>
+                    <label class='labels' for='confirm-input'>Confirmar senha:</label>
                     <input id='confirm-input' name='confirm-input' class='inputs' title='Campo para preencher com a mesma senha' type='password' required maxlength='20'>
 
                     <img src='../src/img/none.png' id='image-preview' title='Local para pré-visualizar foto de perfil'>
@@ -51,15 +51,8 @@
             </section>
         </form>
     </main>
-    <script language='JavaScript'>
-        function irParaLandingPage(){
-            window.location.href = '/';
-        }
-
-        const image_input = document.getElementById('image-input');
-        const image_preview = document.getElementById('image-preview');
-        image_input.addEventListener("change", () => image_preview.src = URL.createObjectURL(image_input.files[0]))
-
-    </script>
+    <script language="JavaScript" src="View/pages/register/js/registerScript.js"></script>
+    <script language='JavaScript'>let registro = new Registro();</script>
+    
 </body>
 </html>
