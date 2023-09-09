@@ -32,9 +32,50 @@
 
 body{
     font-family: var(--font-primary);
-    width:100vw;
-    height:100vh;
+    width:100vw; min-width: 600px;
+    height:100vh; min-height: 600px;
     background: var(--60green);
+    position: relative;
+}
+#div-notificacao-div{
+    position: absolute;
+    top:5%;
+    height:20%; width: 100%; 
+    display:flex; justify-content: center; align-items: center;
+}
+
+#notificacao-div{
+    display:none; justify-content: center; align-items: center; flex-direction: column;
+    position: relative;
+    max-height: 200px; height: 100%;
+    max-width: 1000px; width: 60%;
+    border: 5px solid #AAAAAA;
+    background-color: #D9D9D9;
+    color:white;
+    box-shadow: inset 0 0 7px 5px rgba(0, 0, 0, 0.5);
+    animation: descendo_noti 8s ease-in-out;
+}
+#notificacao-div::before{
+    content: "";
+    height: 5px;
+    position: absolute;
+    width: 100%;
+    left:0; bottom: 0;
+    background-color: var(--60green);
+    animation: timer_noti 6s linear;
+}
+
+
+/* Animações CSS */
+@keyframes descendo_noti {
+    0% {top: -150%;}
+    10% {top: 0%;}
+    80%{top: 0%;}
+    100%{top: -150%;}
+}
+@keyframes timer_noti{
+    0%{width:0;}
+    100%{width:100%;}
 }
 
 header{
@@ -87,10 +128,10 @@ img#image-preview{
     border-radius: 50%;
     min-height: 200px; min-width: 200px;
     height: 200px; width: 200px;
-    contain: content;
     border: 2px solid black;
     background-color: white;
     box-shadow: 0 4px 4px 4px rgba(0, 0, 0, 0.25);
+    object-fit:cover;
 }
 div#have-account-div{
     font-size: 1.5rem;

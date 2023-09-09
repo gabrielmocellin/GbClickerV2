@@ -12,13 +12,17 @@ class Registro {
         this.usernameRegex = /^[a-zA-Z0-9_-]{3,20}$/;
         this.passwordRegex = /^(?=.*[A-Z]+)(?=.*\d)[a-zA-Z0-9_-]{4,16}$/;
 
+        this.imageVerified = false;
+
         this.iniciarEventListenerImagem();
         this.previnirEventoPadrao();
         this.iniciarEventListenerLoginButton();
     }
 
     iniciarEventListenerImagem(){
-        this.imageInput.addEventListener("change", () => this.imagePreview.src = URL.createObjectURL(this.imageInput.files[0]));
+        this.imageInput.addEventListener("change", () => {
+            this.validarImagem();
+        });
     }
 
     iniciarEventListenerLoginButton(){
@@ -44,8 +48,26 @@ class Registro {
         if(!this.validarUsuario()){alert("Usuário inválido!")}
         if(!this.validarSenha(passwordValue)){alert("Senha inválida!")}
         if(!this.validarConfirmacao(passwordValue)){alert("Senhas não coincidem!")}
+        if(this.imageInput.files.length == 0){
+            alert("Imagem não selecionada!")
+        } else if(this.imageVerified == false){
+            alert("Imagem inválida!")
+        }
     }
 
+    validarImagem(){
+        let tipo_do_arquivo = this.imageInput.files[0].type
+
+        if (tipo_do_arquivo === "image/png" || tipo_do_arquivo === "image/jpeg" || tipo_do_arquivo === "image/jpg") {
+            this.imagePreview.src = URL.createObjectURL(this.imageInput.files[0]);
+            this.imageVerified = true;
+            return;
+        }
+        alert("Imagem inválida!");
+        this.imagePreview.src = "";
+        this.imageVerified = false;
+        return;
+    }
     validarEmail(){
         let emailValue = document.getElementById("email").value;
         if(this.emailRegex.test(emailValue)){
@@ -67,10 +89,16 @@ class Registro {
         return false;
     }
     validarConfirmacao(senha){
-        let confirmValue = document.getElementById("confirm").value;
+        let confirmValue = document.getElementById("confirm-password").value;
         if(confirmValue == senha){
             return true;
         }
         return false;
+    }
+
+    iniciarNotificacao(){
+        let notificacaoDiv = document.getElementById("notificacao-div").style;
+        notificacaoDiv.display = "flex";
+        setTimeout(()=>{notificacaoDiv.display = "none"}, 8000);
     }
 }
