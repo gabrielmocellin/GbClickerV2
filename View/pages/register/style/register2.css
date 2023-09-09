@@ -194,6 +194,9 @@ div#inputs-div{
     transition: ease-in-out 0.2s;
 }
 #submit-button:hover{
+    letter-spacing: 0.05rem;
     box-shadow: 0 4px 4px 4px rgba(0, 0, 0, 0.25);
+}
+#submit-button:active{
     background-color: var(--30darkgreen);
 }
