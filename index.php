@@ -9,7 +9,7 @@
             require "View/pages/landingPage/landingPage.html";
             break;
         case '/login':
-            require "View/pages/login/login.html";
+            UserController::login();
             break;
         case '/register':
             UserController::form();

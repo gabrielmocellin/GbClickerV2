@@ -29,6 +29,11 @@
 
         }
 
+        public static function login()
+        {
+            include "View/pages/login/login2.html";
+        }
+
         public static function form()
         {
             include "View/pages/register/register.html";
