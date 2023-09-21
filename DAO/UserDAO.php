@@ -15,15 +15,18 @@
             $stmt = $this->conexao->prepare($sql);
 
             $stmt->bind_param('sssddi', 
-            $model->email,
-            $model->password,
-            $model->nickname,
-            $model->clickValue,
-            $model->money,
-            $model->multiplier
-        );
+                $model->email,
+                $model->password,
+                $model->nickname,
+                $model->clickValue,
+                $model->money,
+                $model->multiplier
+            );
 
-            $stmt->execute();
+            if($stmt->execute()){
+                return true;
+            }
+            return false;
         }
 
         public function update(UserModel $model)

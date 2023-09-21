@@ -19,7 +19,11 @@
                 $model->email = $_POST['email-input'];
                 $model->password = $_POST['password-input'];
     
-                $model->getByEmailAndPassword();
+                if(!$model->getByEmailAndPassword()){
+                    //header("location: /?error=0");
+                    //return;
+                    var_dump($model);
+                };
 
                 $_SESSION['email'] = $model->email;
                 $_POST = array();
@@ -31,7 +35,7 @@
 
         public static function login()
         {
-            include "View/pages/login/login2.html";
+            include "View/pages/login/login.html";
         }
 
         public static function form()
@@ -52,7 +56,11 @@
             $model->money = 0;
             $model->multiplier = 1;
 
-            $model->save();
+            if($model->save()){
+                header("location: /login");
+                return;
+            };
+            header("location: /?error=1"); //Não foi possível salvar no bando de dados
         }
 
         /* Ao abrir a loja a sessão é iniciada para recuperar o email logado.
@@ -73,6 +81,12 @@
     
                 include 'View/pages/shop/shop.php';
             } else{header('location: /');}
+        }
+
+        public static function logout(){
+            var_dump($_SESSION);
+            session_destroy();
+            unset ($_SESSION);
         }
     }
 ?>

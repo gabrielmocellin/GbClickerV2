@@ -7,17 +7,21 @@ class Formulario {
         this.passwordInput = document.getElementById("password");
 
         this.emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-        this.passwordRegex = /^(?=.*[A-Z]+)(?=.*\d)[a-zA-Z0-9_-]{4,16}$/;
-
     }
 
     validateInputs(){ // Validar todos os inputs
-        let notificationMsg = Array(2);
+        let notificationMsg = Array(1);
         
-        if(!this.validateEmail()){notificationMsg.push("Email inválido!")}
-        if(!this.validatePassword()){notificationMsg.push("Senha inválida!")}
+        if(!this.validateEmail()){
+            notificationMsg.push("Email inválido!")
+            return notificationMsg;
+        }
 
-        return notificationMsg;
+        if(this.validatePassword()){
+            return this.form.submit();
+        }
+
+        alert("Preencha os campos!");
     }
 
 //Validações de inputs presentes no formulário.
@@ -28,11 +32,10 @@ class Formulario {
         }
         return false;
     }
+
     validatePassword(){
         let password = this.passwordInput.value;
-        if(this.passwordRegex.test(password)){
-            return true;
-        }
-        return false;
+        if(password.length > 0){return true;}
+        return false;        
     }
 }

@@ -3,7 +3,7 @@ class Login {
         this.form = new Formulario();
         this.notification = new Notificacao();
 
-        this.registerBtn = document.getElementById("regiter-button");
+        this.registerBtn = document.getElementById("register-button");
         this.loginBtn = document.getElementById("login-button");
 
         this.preventDefaultEvent();

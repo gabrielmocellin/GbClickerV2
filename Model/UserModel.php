@@ -11,7 +11,8 @@
 
             $dao = new UserDAO();
 
-            $dao->insert($this);
+            if($dao->insert($this)){return true;}
+            return false;
         }
 
         public function getAllRows()
@@ -31,9 +32,14 @@
 
             $dao_returnArray  = $dao->selectByEmailAndPassword($this->email, $this->password);
 
+            if($dao_returnArray == null){
+                return false;
+            }
+
             $this->clickValue = $dao_returnArray['clickValue'];
             $this->money      = $dao_returnArray['money'];
             $this->multiplier = $dao_returnArray['multiplier'];
+
         }
 
         public function getByEmail()
@@ -43,6 +49,7 @@
             $dao = new UserDAO();
 
             $dao_returnArray  = $dao->selectByEmail($this->email);
+            if($dao_returnArray == null){return false;}
 
             $this->clickValue = $dao_returnArray['clickValue'];
             $this->money      = $dao_returnArray['money'];

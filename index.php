@@ -26,6 +26,9 @@
         case '/items':
             ItemController::index();
             break;
+        case '/logout':
+            UserController::logout();
+            break;
         default:
             echo "<h1>Página não encontrada!</h1>";
             echo "<h3>$url</h3>";
