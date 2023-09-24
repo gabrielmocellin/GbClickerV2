@@ -11,10 +11,6 @@
     <title>Gb Clicker II</title>
 </head>
 <body>
-    <?php
-        var_dump($_SESSION);
-    ?>
-
     <?php 
         require "View/pages/shared/header.php";
     ?>

@@ -32,13 +32,15 @@
 
             $dao_returnArray  = $dao->selectByEmailAndPassword($this->email, $this->password);
 
-            if($dao_returnArray == null){
+            if($dao_returnArray == null){ // Caso não tenha encontrado no banco de dados a conta
                 return false;
             }
 
             $this->clickValue = $dao_returnArray['clickValue'];
             $this->money      = $dao_returnArray['money'];
             $this->multiplier = $dao_returnArray['multiplier'];
+
+            return true;
 
         }
 

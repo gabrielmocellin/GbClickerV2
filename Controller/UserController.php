@@ -5,14 +5,16 @@
             include 'Model/UserModel.php';
             
             session_start();
-            
-            if( isset( $_SESSION['email'] ) ){
+            if(session_status()!=2){
+                header("location: /login?error=erro_ao_criar_sessao");
+            }
 
+            if(isset($_SESSION['email'])){ // Caso o usuário já esteja logado no sistema
                 $model = new UserModel();
                 $model->email = $_SESSION['email'];
                 $model->getByEmail();
 
-            } else if( isset( $_POST['email-input'] ) && isset( $_POST['password-input'] ) ){
+            } else if(isset($_POST['email-input']) && isset($_POST['password-input'])){ // Caso o usuário não esteja logado no sistema
 
                 $model = new UserModel();
 
@@ -20,15 +22,15 @@
                 $model->password = $_POST['password-input'];
     
                 if(!$model->getByEmailAndPassword()){
-                    //header("location: /?error=0");
-                    //return;
-                    var_dump($model);
+                    header("location: /login?error=nao_foi_possivel_encontrar_a_conta");
+                    return;
                 };
+
 
                 $_SESSION['email'] = $model->email;
                 $_POST = array();
 
-            } else{header("location: /");}
+            } else{header("location: /login?error=nao_foi_possivel_entrar");}
             require 'View/pages/home/home.php';
 
         }
@@ -84,6 +86,7 @@
         }
 
         public static function logout(){
+            session_start();
             var_dump($_SESSION);
             session_destroy();
             unset ($_SESSION);
