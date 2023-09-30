@@ -1,6 +1,6 @@
 var form_dataUser    = document.getElementById("form-user-save-data");
 
-function saveUserData(){ /* Função criada para salvar o dinheiro valor do clique atual do usuário */
+function saveUserData(){ /* Função criada para salvar as informações atuais do usuário */
 
     let xml_request      = new XMLHttpRequest();
 

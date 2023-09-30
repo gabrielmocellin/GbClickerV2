@@ -2,6 +2,7 @@
     class UserModel
     {
         public $email, $password, $nickname, $clickValue, $money, $multiplier;
+        public $level_data;
 
         public $rows;
 
@@ -40,8 +41,9 @@
             $this->money      = $dao_returnArray['money'];
             $this->multiplier = $dao_returnArray['multiplier'];
 
-            return true;
+            $this->getLevelData();
 
+            return true;
         }
 
         public function getByEmail()
@@ -56,6 +58,8 @@
             $this->clickValue = $dao_returnArray['clickValue'];
             $this->money      = $dao_returnArray['money'];
             $this->multiplier = $dao_returnArray['multiplier'];
+
+            $this->getLevelData();
         }
 
         public function updateUserData()
@@ -65,6 +69,11 @@
             $dao = new UserDAO();
 
             $dao->update($this);
+        }
+
+        public function getLevelData(){
+            include "Model/LevelModel.php";
+            $this->level_data = new LevelModel($this->email);
         }
     }
 ?>
