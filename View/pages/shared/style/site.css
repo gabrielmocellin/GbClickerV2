@@ -219,7 +219,7 @@ div#level-progress-bar{
 div#level-progress-bar::after{
     text-align: center;
     content: "";
-    width:80%; height: 100%;
+    width: var(--progress-width, 0); height: 100%;
     background-color: var(--10green);
     border-radius: 1em;
     position: absolute;

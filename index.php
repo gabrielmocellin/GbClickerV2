@@ -9,7 +9,7 @@
             require "View/pages/landingPage/landingPage.html";
             break;
         case '/login':
-            require "View/pages/login/login.html";
+            UserController::login();
             break;
         case '/register':
             UserController::form();
@@ -25,6 +25,9 @@
             break;
         case '/items':
             ItemController::index();
+            break;
+        case '/logout':
+            UserController::logout();
             break;
         default:
             echo "<h1>Página não encontrada!</h1>";

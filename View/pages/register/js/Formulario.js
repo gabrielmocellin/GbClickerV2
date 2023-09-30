@@ -13,7 +13,7 @@ class Formulario {
 
         this.emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
         this.userRegex = /^[a-zA-Z0-9_-]{3,20}$/;
-        this.passwordRegex = /^(?=.*[A-Z]+)(?=.*\d)[a-zA-Z0-9_-]{4,16}$/;
+        this.passwordRegex = /^(?=.*[A-Z]+)(?=.*\d)(?=.*[-_!@#$%^&*+=]+)[a-zA-Z0-9_-_!@#$%^&*+=]{4,16}$/;
 
         this.imgVerified = false;
 
@@ -27,7 +27,7 @@ class Formulario {
     }
 
     validateInputs(){ // Validar todos os inputs
-        let notificationMsg = Array(5);
+        let notificationMsg = [];
         
         if(!this.validateEmail()){notificationMsg.push("Email inválido!")}
         if(!this.validateUser()){notificationMsg.push("Usuário inválido!")}
@@ -39,8 +39,12 @@ class Formulario {
         } else if(this.imgVerified == false){
             notificationMsg.push("Imagem inválida!");
         }
-
-        return notificationMsg;
+        
+        if (notificationMsg.length > 0) {
+            return notificationMsg;
+        }
+        
+        this.form.submit();
 
     }
 

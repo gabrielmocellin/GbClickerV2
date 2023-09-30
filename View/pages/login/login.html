@@ -4,30 +4,47 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="View/pages/login/style/login_style.css">
+    <link rel="stylesheet" href="View/pages/login/style/login.css">
     <title>GBC | Login</title>
 </head>
 <body>
+    <div id="div-notificacao-div">
+        <div id="notificacao-div">
+        </div>
+    </div>
     <header>
-        <a href="/" title='Voltar para página inicial' class='back_button pointer'></a>
+        <p class="pointer">GbClicker</p>
+        <p class="pointer" id="register-button">Registrar</p>
     </header>
-    <main>
-        <form method='POST' action="/home">
-            <h1 id='form-title' class='flex-center-center'>Login</h1>
-            <section id="inputs-sec" class='flex-center-center'>
-                <label class='labels' for='email-input'>E-mail ou Usuário :</label>
-                <input id='email-input' name='email-input' class='inputs' title='Campo para preencher com o usuario ou email' type='text' required maxlength='100'>
-                <label class='labels' for='password-input'>Senha :</label>
-                <input id='password-input' name='password-input' class='inputs' title='Campo para preencher com a senha' type='password' required maxlength='20'>
-            </section>
-            <section id='form-redirect-buttons-sec'>
-                <a class='pointer' href='#' title='Botão para recuperar senha'>Esqueci minha senha</a>
-                <a class='pointer' href='/register' title='Botão redirencionador para página de registro'>Registrar conta</a>
-            </section>
-            <section id="login-button-sec" class='flex-center-center'>
-                <button id='login-button' class='pointer' type='submit' title='Botão para realizar o login'>Entrar</button>
-            </section>
+    <main> 
+
+        <form id="login-form" method='POST' action="/home">
+            <div id="img-logo-div">
+                <img src="View/pages/src/img/GbGamesLogo(White&Green).png">
+            </div>
+            <div id="inputs-div">
+
+                <label for="email">Email:</label>
+                <input name="email-input" id="email" type="email" maxlength="120" required>
+
+                <label for="password">Senha:</label>
+                <input name="password-input" id="password" type="password" maxlength="30" required>
+                
+                <div id="checkbox-div">
+                    <input class="checkbox-input" type="checkbox"> <label for="cookie-checkbox">Lembrar conta?</label>
+                </div>
+
+            </div>
+            
+            <div id="submit-button-div">
+                <button id="login-button" type="submit">Login</button>
+            </div>
         </form>
+
     </main>
+    <script lang="JavaScript" src="View/pages/login/js/Notificacao.js"></script> 
+    <script lang="JavaScript" src="View/pages/login/js/Formulario.js"></script> 
+    <script lang="JavaScript" src="View/pages/login/js/Login.js"></script>
+    <script>let login = new Login();</script>
 </body>
 </html>

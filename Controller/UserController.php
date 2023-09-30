@@ -5,28 +5,39 @@
             include 'Model/UserModel.php';
             
             session_start();
-            
-            if( isset( $_SESSION['email'] ) ){
+            if(session_status()!=2){
+                header("location: /login?error=erro_ao_criar_sessao");
+            }
 
+            if(isset($_SESSION['email'])){ // Caso o usuário já esteja logado no sistema
                 $model = new UserModel();
                 $model->email = $_SESSION['email'];
                 $model->getByEmail();
 
-            } else if( isset( $_POST['email-input'] ) && isset( $_POST['password-input'] ) ){
+            } else if(isset($_POST['email-input']) && isset($_POST['password-input'])){ // Caso o usuário não esteja logado no sistema
 
                 $model = new UserModel();
 
                 $model->email = $_POST['email-input'];
                 $model->password = $_POST['password-input'];
     
-                $model->getByEmailAndPassword();
+                if(!$model->getByEmailAndPassword()){
+                    header("location: /login?error=nao_foi_possivel_encontrar_a_conta");
+                    return;
+                };
+
 
                 $_SESSION['email'] = $model->email;
                 $_POST = array();
 
-            } else{header("location: /");}
+            } else{header("location: /login?error=nao_foi_possivel_entrar");}
             require 'View/pages/home/home.php';
 
+        }
+
+        public static function login()
+        {
+            include "View/pages/login/login.html";
         }
 
         public static function form()
@@ -47,7 +58,11 @@
             $model->money = 0;
             $model->multiplier = 1;
 
-            $model->save();
+            if($model->save()){
+                header("location: /login");
+                return;
+            };
+            header("location: /?error=1"); //Não foi possível salvar no bando de dados
         }
 
         /* Ao abrir a loja a sessão é iniciada para recuperar o email logado.
@@ -68,6 +83,13 @@
     
                 include 'View/pages/shop/shop.php';
             } else{header('location: /');}
+        }
+
+        public static function logout(){
+            session_start();
+            var_dump($_SESSION);
+            session_destroy();
+            unset ($_SESSION);
         }
     }
 ?>

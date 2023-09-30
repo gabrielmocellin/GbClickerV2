@@ -1,13 +1,20 @@
 class game{
-    constructor(clickValue, usermoney, multiplier){
+    constructor(clickValue, usermoney, multiplier, level, xp_points, max_to_up){
         this.clickValue = clickValue;
         this.usermoney = usermoney;
         this.multiplier = multiplier;
+
+        this.level = level;
+        this.xp_points = xp_points;
+        this.max_to_up = max_to_up;
+
         this.clicksPerSec = 0;
         
         this.UpdateUserMoney();
         this.UpdateUserMultiplier();
         this.UpdateUserMoneyPerSec();
+        this.UpdateLevel();
+        this.UpdateLevelBar();
         
         setInterval(()=>{this.UpdateUserMoneyPerSec();}, 200);
     }
@@ -15,7 +22,7 @@ class game{
     ClickOnClicker(event){
         this.CreateNewCounterElement(event);
         this.AddClickMoneyUser();
-        this.UpdateUserMoney();
+        this.AddClickXp();
         
         this.clicksPerSec += 1;
         
@@ -24,6 +31,12 @@ class game{
     
     AddClickMoneyUser(){
         this.usermoney += this.clickValue * this.multiplier;
+        this.UpdateUserMoney();
+    }
+    AddClickXp(){
+        this.xp_points += 1;
+        this.LevelUpVerify();
+        this.UpdateLevelBar();
     }
 
     UpdateUserMoney(){ // Atualiza com o valor salvo nesse objeto a navbar
@@ -34,24 +47,48 @@ class game{
         let liUserMultiplier = document.getElementById("user_mult_li");
         liUserMultiplier.textContent = `Mult: ${this.multiplier}x`;
     }
-    
     UpdateUserMoneyPerSec(){
         let moneyPerSec = parseFloat(this.clickValue * this.multiplier * this.clicksPerSec);
         let liMoneySec = document.getElementById("money_sec_li");
         
         liMoneySec.textContent = `${moneyPerSec} R$/sec`;
     }
-    
+    UpdateLevelBar(){
+        const levelBar = document.getElementById('level-progress-bar');
+        let new_percent = (this.xp_points/this.max_to_up) * 100;
+        levelBar.style.setProperty('--progress-width', new_percent + '%');
+    }
+    UpdateLevel(){
+        let level_p = document.getElementById("level-info-p");
+
+        level_p.textContent = `LEVEL: ${this.level}`;
+    }
+
+    LevelUpVerify(){
+        if(this.xp_points >= this.max_to_up){
+            this.level += 1;
+            this.xp_points -= this.max_to_up;
+            this.UpdateLevel();
+        }
+    }
+
     UpdateFormUserData(){
         let input_clickValue = document.getElementById("clickValue-input");
         let input_money      = document.getElementById("money-input");
         let input_multiplier = document.getElementById("multiplier-input");
+        let input_level = document.getElementById("level-input");
+        let input_xp_points = document.getElementById("xp-points-input");
+        let input_max_to_up = document.getElementById("max-to-up-input");
         
         input_clickValue.value = jogo.clickValue;
         input_money.value      = jogo.usermoney;
         input_multiplier.value = jogo.multiplier;
+        input_level.value      = jogo.level;
+        input_xp_points.value  = jogo.xp_points;
+        input_max_to_up.value  = jogo.max_to_up;
     }
     
+
     /* Verificando a posição que o jogador clicou na foto do clicker */
     GetClickPosition(event){
         let cordX = event.clientX;
@@ -59,6 +96,7 @@ class game{
         return [cordX, cordY];
     }
     
+
     /* Com as informações recebidas da função GetClickPosition(), será criado uma div onde será mostrado ao usuário quanto ele ganhou em 1 click */
     CreateNewCounterElement(event){
         let xytuple = this.GetClickPosition(event);
@@ -76,4 +114,5 @@ class game{
         
         setTimeout(()=>{newCounterElement.remove();}, 1500);
     }
+
 }

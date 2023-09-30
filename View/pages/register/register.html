@@ -4,55 +4,56 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="View/pages/register/style/register_style.css">
+    <link rel="stylesheet" href="View/pages/register/style/register.css">
     <title>GBC | Registro</title>
 </head>
 <body>
+    <div id="div-notificacao-div">
+        <div id="notificacao-div">
+        </div>
+    </div>
     <header>
-        <a href="/" title='Voltar para página inicial' class='back_button pointer'></a>
+        <p class="pointer">GbClicker</p>
+        <p class="pointer" id="login-button">Login</p>
     </header>
-    <main>
+    <main> 
         <form id="register-form" method='POST' enctype='multipart/form-data' action="/register/save">
-            <h1 id='form-title' class='flex-center-center'>Registro</h1>
-            <div id="inputs-div" class='flex-center-center'>
 
-                <section class='lados-inputs-div'>
+            <div id="left-side">
+                <label id="image-input-label" for="image-input">Selecionar Foto</label>
+                <input style="display:none;" id="image-input" type="file" accept="image/png, image/jpeg">
 
-                    <label class='labels' for='email-input'>E-mail:</label>
-                    <input id='email-input' name='email-input' class='inputs' title='Campo para preencher com o email' type='text' required maxlength='100'>
-    
-                    <label class='labels' for='user-input'>Usuário:</label>
-                    <input id='nickname-input' name='nickname-input' class='inputs' title='Campo para preencher com o usuario' type='text' required maxlength='100'>
-
-                    <label id='image-label' for='image-input' class='pointer' title='Botão para escolher foto de perfil'>Foto de Perfil</label>
-                    <input id='image-input' name='image-input' type='file'> <!-- Display: none para poder personalizar o label como um botão -->
-
-                </section>
-
-                <section class='lados-inputs-div'>
-
-                    <label class='labels' for='senha-input'>Senha:</label>
-                    <input id='password-input' name='password-input' class='inputs' title='Campo para preencher com a senha' type='password' required maxlength='20'>
-    
-                    <label class='labels' for='confirm-input'>Confirmar senha:</label>
-                    <input id='confirm-input' name='confirm-input' class='inputs' title='Campo para preencher com a mesma senha' type='password' required maxlength='20'>
-
-                    <img src='../src/img/none.png' id='image-preview' title='Local para pré-visualizar foto de perfil'>
-
-                </section>
-
+                <img id="image-preview" src="">
+                <div id="have-account-div">
+                    <p id="have-account-question">Já possui uma conta?</p>
+                    <p id="login-here-button">Entre aqui</p>
+                </div>
             </div>
-            <section id='form-redirect-buttons-sec'>
-                <p title='Texto (Já possui conta?)'>Já possui conta?</p>
-                <a class='pointer' href='/login' title='Botão redirencionador para página de login'>Entre aqui</a>
-            </section>
-            <section id="register-button-sec" class='flex-center-center'>
-                <button id='register-button' class='pointer' type='submit' title='Botão para realizar o registro'>Registrar</button>
-            </section>
+
+            <div id="right-side">
+                <div id="inputs-div">
+                    <label for="email">Email:</label>
+                    <input name="email-input" id="email" type="email" maxlength="120" required>
+
+                    <label for="username">Usuário:</label>
+                    <input name="nickname-input" id="username" type="text" maxlength="120" required>
+
+                    <label for="password">Senha:</label>
+                    <input name="password-input" id="password" type="password" maxlength="30" required>
+
+                    <label for="confirm-password">Confirmar senha:</label>
+                    <input id="confirm-password" type="password" maxlength="30" required>
+                </div>
+                
+                <div id="submit-button-div">
+                    <button id="submit-button" type="submit">Registrar</button>
+                </div>
+            </div>
         </form>
     </main>
-    <script language="JavaScript" src="View/pages/register/js/registerScript.js"></script>
-    <script language='JavaScript'>let registro = new Registro();</script>
-    
+    <script lang="JavaScript" src="View/pages/register/js/Notificacao.js"></script> 
+    <script lang="JavaScript" src="View/pages/register/js/Formulario.js"></script> 
+    <script lang="JavaScript" src="View/pages/register/js/Registro.js"></script>
+    <script>let registro = new Registro();</script>
 </body>
 </html>

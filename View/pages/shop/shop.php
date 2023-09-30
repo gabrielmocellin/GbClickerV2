@@ -5,7 +5,7 @@
       public $value;
       public $image_src;
 
-      public function __construct($name_param, $value_param, $image_src_param){
+      public function __construct($name_param, $value_param, $image_src_param, $level_required){
         $this->name = $name_param;
         $this->value = $value_param;
         $this->image_src = $image_src_param;
@@ -13,10 +13,10 @@
     }
 
     $items = array(
-      new item("Gb", 100, "View/pages/shared/icons/account.png"),
-      new item("Gb2", 1000, "View/pages/shared/icons/account.png"),
-      new item("Gb++", 500, "View/pages/shared/icons/account.png"),
-      new item("Gb++", 500, "View/pages/shared/icons/account.png")
+      new item("Multiplicador x1", 100, "View/pages/shared/icons/account.png", 10),
+      new item("Minion +1", 1000, "View/pages/shared/icons/account.png", 5),
+      new item("Gb++", 500, "View/pages/shared/icons/account.png", 6),
+      new item("Gb++", 500, "View/pages/shared/icons/account.png", 5)
     );
 ?>  
 <!DOCTYPE html>
@@ -37,19 +37,19 @@
             <div id="shop-div">
                 <table id="shop-table">
                     <tr class='tableHead'> <th>Loja</th> </tr>
-                    <?php for($i = 0; $i < 4; $i ++): ?>
+                    <!-- php for($i = 0; $i < 5; $i ++): -->
                       <tr>
                       <?php foreach($items as $item): ?>
                           <td>
                           <div>
                             <img src=<?=$item->image_src?>>
                             <p><?=$item->name?></p>
-                            <p><?=$item->value?></p>
+                            <p>R$ <?=$item->value?></p>
                           </div>
                         </td>
                       <?php endforeach; ?>
                       </tr>
-                    <?php endfor; ?> 
+                    <!-- php endfor; -->  
                 </table>
             </div>
         </main>

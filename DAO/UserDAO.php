@@ -10,20 +10,27 @@
 
         public function insert(UserModel $model)
         {
-            $sql = "INSERT INTO usuario (email, password, nickname, clickValue, money, multiplier) VALUES (?, ?, ?, ?, ?, ?)";
+            $sqlUser = "INSERT INTO usuario (email, password, nickname, clickValue, money, multiplier) VALUES (?, ?, ?, ?, ?, ?)";
+            $sqlLevel = "INSERT INTO nivel (FK_user_email, level, xp_points, max_to_up) VALUES (?, 1, 0, 10)";
 
-            $stmt = $this->conexao->prepare($sql);
+            $stmtUser = $this->conexao->prepare($sqlUser);
+            $stmtLevel = $this->conexao->prepare($sqlLevel);
 
-            $stmt->bind_param('sssddi', 
-            $model->email,
-            $model->password,
-            $model->nickname,
-            $model->clickValue,
-            $model->money,
-            $model->multiplier
-        );
+            $stmtUser->bind_param('sssddi', 
+                $model->email,
+                $model->password,
+                $model->nickname,
+                $model->clickValue,
+                $model->money,
+                $model->multiplier
+            );
 
-            $stmt->execute();
+            $stmtLevel->bind_param('s', $model->email);
+
+            if($stmtUser->execute() && $stmtLevel->execute()){
+                return true;
+            }
+            return false;
         }
 
         public function update(UserModel $model)
@@ -52,7 +59,7 @@
 
         public function selectByEmailAndPassword(string $email, string $password){
 
-            $sql = "SELECT * FROM usuario WHERE email = '$email' and password = '$password'";
+            $sql = "SELECT * FROM usuario JOIN nivel WHERE usuario.email = nivel.FK_user_email and usuario.email = '$email' and password = '$password'";
 
             $stmt = $this->conexao->query($sql);
 
