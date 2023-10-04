@@ -43,7 +43,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES ('a','a','a',1,0,1),('gabriel2Teste@gmail.com','Teste#1','teste',1,0,1),('gb','gb','gb',1,1225,1),('gbex@gmail.com','Gbex#1','Gbex',0,0,0);
+INSERT INTO `usuario` VALUES ('gb@gb.com','Gbex#1','Gbola',1,425,1),('gbex@gmail.com','Gbex#1','Gbex',100,121000,5),('gbTeste@gmail.com','Gbex#1','GbTestes',1,50,1);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -56,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-09-29 22:53:46
+-- Dump completed on 2023-09-30 19:24:38

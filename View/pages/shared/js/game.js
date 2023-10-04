@@ -41,27 +41,46 @@ class game{
 
     UpdateUserMoney(){ // Atualiza com o valor salvo nesse objeto a navbar
         let pUserMoney = document.getElementById("user_money_p");
-        pUserMoney.textContent = "R$ " + this.usermoney;
+        let existInPage = pUserMoney != null;
+        if(existInPage){
+            pUserMoney.textContent = "R$ " + this.usermoney;
+        }
     }
     UpdateUserMultiplier(){ // Atualiza com o valor salvo nesse objeto a navbar
         let liUserMultiplier = document.getElementById("user_mult_li");
-        liUserMultiplier.textContent = `Mult: ${this.multiplier}x`;
+        let existInPage = liUserMultiplier != null;
+        if(existInPage){
+            liUserMultiplier.textContent = `Mult: ${this.multiplier}x`;
+        }
     }
     UpdateUserMoneyPerSec(){
         let moneyPerSec = parseFloat(this.clickValue * this.multiplier * this.clicksPerSec);
+
         let liMoneySec = document.getElementById("money_sec_li");
-        
-        liMoneySec.textContent = `${moneyPerSec} R$/sec`;
+        let existInPage = liMoneySec != null;
+
+        if(existInPage){
+            liMoneySec.textContent = `${moneyPerSec} R$/sec`;
+        }
     }
     UpdateLevelBar(){
-        const levelBar = document.getElementById('level-progress-bar');
-        let new_percent = (this.xp_points/this.max_to_up) * 100;
-        levelBar.style.setProperty('--progress-width', new_percent + '%');
+        let levelBar = document.getElementById('level-progress-bar');
+        let existInPage = levelBar != null;
+
+        if(existInPage){
+            let new_percent = (this.xp_points/this.max_to_up) * 100;
+            levelBar.style.setProperty('--progress-width', new_percent + '%');
+        }
     }
     UpdateLevel(){
         let level_p = document.getElementById("level-info-p");
+        let existInPage = level_p != null;
 
-        level_p.textContent = `LEVEL: ${this.level}`;
+        if(existInPage){
+            level_p.textContent = `LEVEL: ${this.level}`;
+            
+            this.max_to_up += this.max_to_up*0.25;
+        }
     }
 
     LevelUpVerify(){
@@ -76,16 +95,30 @@ class game{
         let input_clickValue = document.getElementById("clickValue-input");
         let input_money      = document.getElementById("money-input");
         let input_multiplier = document.getElementById("multiplier-input");
-        let input_level = document.getElementById("level-input");
-        let input_xp_points = document.getElementById("xp-points-input");
-        let input_max_to_up = document.getElementById("max-to-up-input");
+        let input_level      = document.getElementById("level-input");
+        let input_xp_points  = document.getElementById("xp-points-input");
+        let input_max_to_up  = document.getElementById("max-to-up-input");
         
-        input_clickValue.value = jogo.clickValue;
-        input_money.value      = jogo.usermoney;
-        input_multiplier.value = jogo.multiplier;
-        input_level.value      = jogo.level;
-        input_xp_points.value  = jogo.xp_points;
-        input_max_to_up.value  = jogo.max_to_up;
+        input_clickValue.value = this.clickValue;
+        input_money.value      = this.usermoney;
+        input_multiplier.value = this.multiplier;
+        input_level.value      = this.level;
+        input_xp_points.value  = this.xp_points;
+        input_max_to_up.value  = this.max_to_up;
+    }
+
+    UpdateFormPurchase(){
+        let input_clickValue = document.getElementById("clickValue-input");
+        let input_money      = document.getElementById("money-input");
+        let input_multiplier = document.getElementById("multiplier-input");
+        
+        input_clickValue.value = this.clickValue;
+        input_money.value      = this.usermoney;
+        input_multiplier.value = this.multiplier;
+
+        console.log("Valor a salvar [clickValue] : " + this.clickValue);
+        console.log("Valor a salvar [usermoney] : " + this.usermoney);
+        console.log("Valor a salvar [multiplier] : " + this.multiplier);
     }
     
 

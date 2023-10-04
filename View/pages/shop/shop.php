@@ -1,23 +1,5 @@
 <?php
     /** @var UserModel $model */
-    class item{
-      public $name;
-      public $value;
-      public $image_src;
-
-      public function __construct($name_param, $value_param, $image_src_param, $level_required){
-        $this->name = $name_param;
-        $this->value = $value_param;
-        $this->image_src = $image_src_param;
-      }
-    }
-
-    $items = array(
-      new item("Multiplicador x1", 100, "View/pages/shared/icons/account.png", 10),
-      new item("Minion +1", 1000, "View/pages/shared/icons/account.png", 5),
-      new item("Gb++", 500, "View/pages/shared/icons/account.png", 6),
-      new item("Gb++", 500, "View/pages/shared/icons/account.png", 5)
-    );
 ?>  
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -37,27 +19,75 @@
             <div id="shop-div">
                 <table id="shop-table">
                     <tr class='tableHead'> <th>Loja</th> </tr>
-                    <!-- php for($i = 0; $i < 5; $i ++): -->
                       <tr>
-                      <?php foreach($items as $item): ?>
-                          <td>
+                      <?php
+                        if($itemsArrayNotNull):
+                          foreach($itemsArray as $item):
+                      ?>
+
+                          <td id="item-<?=$item['id']?>" title="<?=$item['descricao']?>">
                           <div>
-                            <img src=<?=$item->image_src?>>
-                            <p><?=$item->name?></p>
-                            <p>R$ <?=$item->value?></p>
+                            <img src=<?=$item['image_src']?>>
+                            <p><?=$item['nome']?></p>
+                            <p>R$ <?=$item['preco']?></p>
                           </div>
                         </td>
-                      <?php endforeach; ?>
-                      </tr>
-                    <!-- php endfor; -->  
+
+                      <?php 
+                        endforeach;
+                        else:
+                      ?>
+                        <td>
+                          <p>Não há itens disponíveis no momento...</p>
+                        </td>
+                      <?php endif;?>
+                      </tr> 
                 </table>
             </div>
         </main>
+
+        <form method="POST" id="form-purchase" action='View/pages/shop/exe/savePurchase.php' style=''>
+          <input id='clickValue-input' name='clickValue-input' type='text'>
+          <input id='money-input' name='money-input' type='text'>
+          <input id='multiplier-input' name='multiplier-input' type='text'>
+          <button>Enviar</button>
+        </form>
+
+        <script language="JavaScript" src="View/pages/shop/js/Item.js"></script>
+        <script language="JavaScript" src="View/pages/shop/js/items/Minion.js"></script>
+        <script language="JavaScript" src="View/pages/shop/js/items/Multiplier.js"></script>
+        <script language="JavaScript" src="View/pages/shop/js/items/ClickValue.js"></script>
+        <script language="JavaScript" src="View/pages/shop/js/XhrShop.js"></script>
         <script language="JavaScript" src="View/pages/shared/js/navbar.js"></script>
         <script language="JavaScript" src="View/pages/shared/js/game.js"></script>
         <script language="JavaScript">
-            let jogo = new game(clickValue=<?= $model->clickValue ?> , usermoney=<?= $model->money ?>, multiplier=<?= $model->multiplier ?>);
-            jogo.UpdateUserMoney();
+          var itensArray = Array();
+          var xhrShop = new XhrShop();
+          var jogo = new game(
+              clickValue = <?=$model->clickValue;?>,
+              userMoney  = <?=$model->money;?>,
+              multiplier = <?=$model->multiplier;?>,
+              level      = <?=$model->level_data->level;?>,
+              xp_points  = <?=$model->level_data->xp_points;?>,
+              max_to_up  = <?=$model->level_data->max_to_up;?>
+          );
+
+          <?php if($itemsArrayNotNull): foreach($itemsArray as $item): ?>
+            <?php if($item['id'] == 6): ?>
+              itensArray.push( new Multiplier(<?=$item['id']?>, <?=$item['preco']?>, <?=$item['minimum_level']?>, <?=$item['quantidade']?>) );
+            <?php elseif($item['id'] == 7): ?>
+              itensArray.push( new Minion(<?=$item['id']?>, <?=$item['preco']?>, <?=$item['minimum_level']?>, <?=$item['quantidade']?>) );
+            <?php else: ?>
+              itensArray.push( new ClickValue(<?=$item['id']?>, <?=$item['preco']?>, <?=$item['minimum_level']?>, <?=$item['quantidade']?>))
+
+
+          <?php endif; endforeach; endif; ?>
+
+          itensArray.forEach(function(item){
+              let itemTd = document.getElementById(`item-${item.id}`);
+              itemTd.addEventListener('click', item.comprar.bind(item)); // bind é utilizado para dizer para a função que o "this" se refere ao objeto, e não o "td".
+            });
+
         </script>
     </body>
 </html>

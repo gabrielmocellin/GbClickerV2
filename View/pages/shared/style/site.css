@@ -224,6 +224,7 @@ div#level-progress-bar::after{
     border-radius: 1em;
     position: absolute;
     bottom: 0; left: 0;
+    transition: linear 0.3s;
 }
 
 
