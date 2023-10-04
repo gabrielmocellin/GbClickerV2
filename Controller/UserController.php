@@ -71,15 +71,19 @@
         public static function shop()
         {
             include 'Model/UserModel.php';
+            include 'Model/ItemModel.php';
 
             session_start();
 
             if(isset($_SESSION['email'])){
                 $model = new UserModel();
+                $itemModel = new ItemModel();
         
                 $model->email = $_SESSION['email'];
         
                 $model->getByEmail();
+                $itemsArray = $itemModel->getAllItems();
+                $itemsArrayNotNull = $itemsArray != null;
     
                 include 'View/pages/shop/shop.php';
             } else{header('location: /');}

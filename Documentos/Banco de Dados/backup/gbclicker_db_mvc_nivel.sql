@@ -40,7 +40,7 @@ CREATE TABLE `nivel` (
 
 LOCK TABLES `nivel` WRITE;
 /*!40000 ALTER TABLE `nivel` DISABLE KEYS */;
-INSERT INTO `nivel` VALUES ('gbex@gmail.com',1,0,10);
+INSERT INTO `nivel` VALUES ('gbex@gmail.com',23,2,10),('gbTeste@gmail.com',6,0,10),('gb@gb.com',9,19,340);
 /*!40000 ALTER TABLE `nivel` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -53,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-09-29 22:53:46
+-- Dump completed on 2023-09-30 19:24:38
