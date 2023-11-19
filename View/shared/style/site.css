@@ -323,6 +323,10 @@ table#shop-table tr td{ width:15%; display:flex; justify-content: center; text-a
 table#shop-table tr td:not(.disabled):hover{background-color: lightgray;}
 table#shop-table tr td:not(.disabled):active{background-color: darkgray; font-weight: bold;}
 
+.item-img{
+    height:auto; max-width:100%; border-radius:100%; padding:2rem;
+}
+
 
 /* ++++++ MEDIA QUERYS ++++++ */
 @media (max-width: 800px) {

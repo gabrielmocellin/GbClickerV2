@@ -4,6 +4,6 @@
         
         public function __construct(){
             // Alterar usuario, senha e nome do bd!
-            $this->conexao = new mysqli('localhost', 'xx', 'xx', 'gbclicker_db_mvc'); 
+            $this->conexao = new mysqli('localhost', 'gb', 'mysql@204', 'gbclicker_db_mvc'); 
         }
     }

@@ -19,6 +19,8 @@
 
         <label for="quantidade">Quantidade:</label>          <input type="text" name="quantidade" id="quantidade">
 
+        <label for="tipo">Tipo:</label>          <input type="text" name="tipo" id="tipo">
+
         <label for="image_src">Imagem (PNG ou JPG):</label>  <input type="file" name="image_src" id="image_src" accept=".png, .jpg" onchange="previewImage(this)">
 
         <img id="preview" class="preview" alt="Preview">

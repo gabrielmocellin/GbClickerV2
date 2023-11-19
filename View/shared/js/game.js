@@ -18,6 +18,27 @@ class game{
         
         setInterval(()=>{this.UpdateUserMoneyPerSec();}, 200);
     }
+
+    nFormatter(num, digits) { //formatador de números
+        var si = [
+          { value: 1, symbol: "" },
+          { value: 1E3, symbol: "K" },
+          { value: 1E6, symbol: "M" },
+          { value: 1E9, symbol: "B" },
+          { value: 1E12, symbol: "T" },
+          { value: 1E15, symbol: "q" },
+          { value: 1E18, symbol: "Q" }
+        ];
+        var rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
+        var i;
+        // for negative value is work
+        for (i = si.length - 1; i > 0; i--) {
+          if (Math.abs(num) >= si[i].value) {
+            break;
+          }
+        }
+        return (num / si[i].value).toFixed(digits).replace(rx, "$1") + si[i].symbol;
+    }
     
     ClickOnClicker(event){
         this.CreateNewCounterElement(event);
@@ -42,8 +63,9 @@ class game{
     UpdateUserMoney(){ // Atualiza com o valor salvo nesse objeto a navbar
         let pUserMoney = document.getElementById("user_money_p");
         let existInPage = pUserMoney != null;
+        let formatedNumber = this.nFormatter(this.usermoney, 2);
         if(existInPage){
-            pUserMoney.textContent = "R$ " + this.usermoney;
+            pUserMoney.textContent = "R$ " + formatedNumber;
         }
     }
     UpdateUserMultiplier(){ // Atualiza com o valor salvo nesse objeto a navbar
@@ -58,9 +80,10 @@ class game{
 
         let liMoneySec = document.getElementById("money_sec_li");
         let existInPage = liMoneySec != null;
-
+        let formatedNumber = this.nFormatter(moneyPerSec, 2);
+        
         if(existInPage){
-            liMoneySec.textContent = `${moneyPerSec} R$/sec`;
+            liMoneySec.textContent = `${formatedNumber} R$/sec`;
         }
     }
     UpdateLevelBar(){

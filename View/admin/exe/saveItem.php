@@ -8,7 +8,7 @@
             $dirFile = "View/uploads" . $name;
 
             $item = new ItemModel();
-            $item->construtor($_POST['nome'], $_POST['descricao'], $_POST['preco'], $_POST['minimum_level'], $_POST['quantidade'], $dirFile);
+            $item->construtor($_POST['nome'], $_POST['descricao'], $_POST['preco'], $_POST['minimum_level'], $_POST['quantidade'], $dirFile, $_POST['tipo']);
             if($item->save()) header('location: /items');
         }
     }

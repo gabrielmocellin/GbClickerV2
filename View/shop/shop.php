@@ -20,27 +20,7 @@
                 <table id="shop-table">
                     <tr class='tableHead'> <th>Loja</th> </tr>
                       <tr>
-                      <?php
-                        if(!empty($itemsArray)):
-                          foreach($itemsArray as $item):
-                      ?>
-
-                          <td id="item-<?=$item['id']?>" title="<?=$item['descricao']?>">
-                          <div>
-                            <img style="height:auto; max-width:100%; border-radius:100%; padding:2rem;" src=<?=$item['image_src']?>>
-                            <p><?=$item['nome']?></p>
-                            <p>R$ <?=$item['preco']?></p>
-                          </div>
-                        </td>
-
-                      <?php 
-                        endforeach;
-                        else:
-                      ?>
-                        <td>
-                          <p>Não há itens disponíveis no momento...</p>
-                        </td>
-                      <?php endif;?>
+                      <?php require "View/shop/exe/showItems.php"; ?>
                       </tr> 
                 </table>
             </div>
@@ -62,8 +42,8 @@
         <script language="JavaScript" src="View/shared/js/game.js"></script>
         <script language="JavaScript">
           var itensArray = Array();
-          var xhrShop = new XhrShop();
-          var jogo = new game(
+          var xhrShop    = new XhrShop();
+          var jogo       = new game(
               clickValue = <?=$model->clickValue;?>,
               userMoney  = <?=$model->money;?>,
               multiplier = <?=$model->multiplier;?>,
@@ -71,23 +51,8 @@
               xp_points  = <?=$model->level_data->xp_points;?>,
               max_to_up  = <?=$model->level_data->max_to_up;?>
           );
-
-          <?php if($itemsArrayNotNull): foreach($itemsArray as $item): ?>
-            <?php if($item['id'] == 6): ?>
-              itensArray.push( new Multiplier(<?=$item['id']?>, <?=$item['preco']?>, <?=$item['minimum_level']?>, <?=$item['quantidade']?>) );
-            <?php elseif($item['id'] == 7): ?>
-              itensArray.push( new Minion(<?=$item['id']?>, <?=$item['preco']?>, <?=$item['minimum_level']?>, <?=$item['quantidade']?>) );
-            <?php else: ?>
-              itensArray.push( new ClickValue(<?=$item['id']?>, <?=$item['preco']?>, <?=$item['minimum_level']?>, <?=$item['quantidade']?>))
-
-
-          <?php endif; endforeach; endif; ?>
-
-          itensArray.forEach(function(item){
-              let itemTd = document.getElementById(`item-${item.id}`);
-              itemTd.addEventListener('click', item.comprar.bind(item)); // bind é utilizado para dizer para a função que o "this" se refere ao objeto, e não o "td".
-            });
-
+          <?php require "View/shop/exe/identifyItems.php"; ?>
+          itensArray.forEach( function(item){ let itemTd = document.getElementById(`item-${item.id}`); itemTd.addEventListener('click', item.comprar.bind(item)); } );
         </script>
     </body>
 </html>
