@@ -10,7 +10,7 @@ function saveUserData(){ /* Função criada para salvar as informações atuais 
         }
     }
 
-    xml_request.open('POST', 'View/pages/home/exe/saveUserData.php', true);
+    xml_request.open('POST', 'View/home/exe/saveUserData.php', true);
     xml_request.send(new FormData(form_dataUser));
 }
 

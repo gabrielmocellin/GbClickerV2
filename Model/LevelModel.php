@@ -8,11 +8,12 @@
 
         private function getLevelData(string $FK_user_email){
 
-            include "DAO/LevelDAO.php";$dao = new LevelDAO();
+            include "DAO/LevelDAO.php";
+            $dao = new LevelDAO();
 
-            $dao_result_array = $dao->select($FK_user_email);
+            $dao_result_array = $dao->selectByEmail($FK_user_email);
 
-            $this->level = $dao_result_array['level'];
+            $this->level     = $dao_result_array['level'];
             $this->xp_points = $dao_result_array['xp_points'];
             $this->max_to_up = $dao_result_array['max_to_up'];
         }

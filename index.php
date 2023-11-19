@@ -1,15 +1,19 @@
 <?php
     include 'Controller/UserController.php';
     include 'Controller/ItemController.php';
+    include 'Controller/ImportController.php';
+    include 'Controller/LoginController.php';
+    include 'Controller/ShopController.php';
+
     /* Ao utilizar o XAMPP é necessário colocar o "GbClickerV2" na url! */
     $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
     switch($url){
         case '/':
-            require "View/pages/landingPage/landingPage.html";
+            require "View/landingPage/landingPage.php";
             break;
         case '/login':
-            UserController::login();
+            LoginController::index();
             break;
         case '/register':
             UserController::form();
@@ -18,16 +22,21 @@
             UserController::save();
             break;
         case '/home':
-            UserController::index();
+            LoginController::login();
             break;
         case '/shop':
-            UserController::shop();
+            ShopController::shop();
             break;
         case '/items':
             ItemController::index();
             break;
+        case '/items/save':
+            ImportController::dao();
+            ImportController::items();
+            ItemController::create();
+            break;
         case '/logout':
-            UserController::logout();
+            LoginController::logout();
             break;
         default:
             echo "<h1>Página não encontrada!</h1>";

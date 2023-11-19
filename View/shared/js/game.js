@@ -79,7 +79,7 @@ class game{
         if(existInPage){
             level_p.textContent = `LEVEL: ${this.level}`;
             
-            this.max_to_up += this.max_to_up*0.25;
+            this.max_to_up += this.max_to_up*0.10;
         }
     }
 
