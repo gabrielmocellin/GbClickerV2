@@ -96,6 +96,11 @@ main{
     display:flex; justify-content: center; align-items: center;
 }
 
+#header-logo{
+    text-decoration: none;
+    color: white;
+}
+
 form#login-form{
     display:flex; flex-direction: column;
     height: max(640px, 60vh);

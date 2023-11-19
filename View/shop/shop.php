@@ -6,28 +6,28 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel='stylesheet' href='View/pages/shared/style/site.css'>
+        <link rel='stylesheet' href='View/shared/style/site.css'>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <title>Gb Clicker II</title>
     </head>
     <body>
         <?php 
-            require "View/pages/shared/header.php";
+            require "View/shared/header.php";
         ?>
         <main>
-            <?php require "View/pages/shared/navbar.php"; ?>
+            <?php require "View/shared/navbar.php"; ?>
             <div id="shop-div">
                 <table id="shop-table">
                     <tr class='tableHead'> <th>Loja</th> </tr>
                       <tr>
                       <?php
-                        if($itemsArrayNotNull):
+                        if(!empty($itemsArray)):
                           foreach($itemsArray as $item):
                       ?>
 
                           <td id="item-<?=$item['id']?>" title="<?=$item['descricao']?>">
                           <div>
-                            <img src=<?=$item['image_src']?>>
+                            <img style="height:auto; max-width:100%; border-radius:100%; padding:2rem;" src=<?=$item['image_src']?>>
                             <p><?=$item['nome']?></p>
                             <p>R$ <?=$item['preco']?></p>
                           </div>
@@ -46,20 +46,20 @@
             </div>
         </main>
 
-        <form method="POST" id="form-purchase" action='View/pages/shop/exe/savePurchase.php' style=''>
+        <form method="POST" id="form-purchase" action='View/shop/exe/savePurchase.php' style='display:none'>
           <input id='clickValue-input' name='clickValue-input' type='text'>
           <input id='money-input' name='money-input' type='text'>
           <input id='multiplier-input' name='multiplier-input' type='text'>
           <button>Enviar</button>
         </form>
 
-        <script language="JavaScript" src="View/pages/shop/js/Item.js"></script>
-        <script language="JavaScript" src="View/pages/shop/js/items/Minion.js"></script>
-        <script language="JavaScript" src="View/pages/shop/js/items/Multiplier.js"></script>
-        <script language="JavaScript" src="View/pages/shop/js/items/ClickValue.js"></script>
-        <script language="JavaScript" src="View/pages/shop/js/XhrShop.js"></script>
-        <script language="JavaScript" src="View/pages/shared/js/navbar.js"></script>
-        <script language="JavaScript" src="View/pages/shared/js/game.js"></script>
+        <script language="JavaScript" src="View/shop/js/Item.js"></script>
+        <script language="JavaScript" src="View/shop/js/items/Minion.js"></script>
+        <script language="JavaScript" src="View/shop/js/items/Multiplier.js"></script>
+        <script language="JavaScript" src="View/shop/js/items/ClickValue.js"></script>
+        <script language="JavaScript" src="View/shop/js/XhrShop.js"></script>
+        <script language="JavaScript" src="View/shared/js/navbar.js"></script>
+        <script language="JavaScript" src="View/shared/js/game.js"></script>
         <script language="JavaScript">
           var itensArray = Array();
           var xhrShop = new XhrShop();

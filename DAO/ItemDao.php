@@ -1,28 +1,43 @@
 <?php
-    class ItemDAO{
-        private $conexao;
+    class ItemDAO extends Dao implements IDAO{
+        
+        public function insert($model){
+            $sql = "INSERT INTO itens (nome, descricao, preco, minimum_level, quantidade, image_src) VALUES (?, ?, ?, ?, ?, ?)";
+            $stmt = $this->conexao->prepare($sql);
 
-        public function __construct()
-        {
-            $this->conexao = new mysqli('localhost', 'gb', 'mysql@204', 'gbclicker_db_mvc'); /*ALTERAR O NOME, SENHA E NOME DO BANCO DE DADOS!*/
+            $stmt->bind_param('ssiiis', 
+                $model->getNome(),
+                $model->getDescricao(),
+                $model->getPreco(),
+                $model->getMinimumLevel(),
+                $model->getQuantidade(),
+                $model->getImageSrc()
+            );
+
+            if($stmt->execute()) return true;
+            return false;
         }
 
         public function select(){
             $sql = "SELECT * FROM itens";
-            $query_result = $this->conexao->query($sql);
+            $sql_result = $this->conexao->query($sql);
             $results_array = array();
 
-            if($query_result->num_rows > 0){
-                while($row = $query_result->fetch_assoc()){
+            if($sql_result->num_rows > 0){
+                while($row = $sql_result->fetch_assoc()){
                     $results_array[] = $row;
                 }
-            } else{
-                $results_array = null;
             }
-
+            
             return $results_array;
         }
 
-    }
+        public function update($model){
+            return false;
+        }
 
+        public function delete($identifier){
+            return false;
+        }
+    }
 ?>

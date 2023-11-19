@@ -20,7 +20,7 @@ function RedirectPage(op){
         case "1":
             path = "/home"; break;
         case "2":
-            path = "../admin/createTickets.php"; break;
+            path = "/items"; break;
         case "3":
             path = "/shop"; break;
         default:
