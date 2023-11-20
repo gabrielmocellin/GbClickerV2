@@ -2,16 +2,17 @@
     class ItemDAO extends Dao implements IDAO{
         
         public function insert($model){
-            $sql = "INSERT INTO itens (nome, descricao, preco, minimum_level, quantidade, image_src) VALUES (?, ?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO itens (nome, descricao, preco, minimum_level, quantidade, image_src, tipo) VALUES (?, ?, ?, ?, ?, ?, ?)";
             $stmt = $this->conexao->prepare($sql);
 
-            $stmt->bind_param('ssiiis', 
+            $stmt->bind_param('ssiiiss', 
                 $model->getNome(),
                 $model->getDescricao(),
                 $model->getPreco(),
                 $model->getMinimumLevel(),
                 $model->getQuantidade(),
-                $model->getImageSrc()
+                $model->getImageSrc(),
+                $model->getTipo()
             );
 
             if($stmt->execute()) return true;

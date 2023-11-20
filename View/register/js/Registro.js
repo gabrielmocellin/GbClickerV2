@@ -1,11 +1,11 @@
 class Registro {
     constructor() {
-        this.form = new Formulario();
+        this.form         = new Formulario();
         this.notification = new Notificacao();
 
         this.loginHereBtn = document.getElementById("login-here-button");
-        this.loginBtn = document.getElementById("login-button");
-        this.submitBtn = document.getElementById("submit-button");
+        this.loginBtn     = document.getElementById("login-button");
+        this.submitBtn    = document.getElementById("submit-button");
 
         this.preventDefaultEvent();
         this.initEventListenerLoginButtons();

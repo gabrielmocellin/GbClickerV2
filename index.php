@@ -3,6 +3,7 @@
     include 'Controller/ItemController.php';
     include 'Controller/ImportController.php';
     include 'Controller/LoginController.php';
+    include 'Controller/RegisterController.php';
     include 'Controller/ShopController.php';
 
     /* Ao utilizar o XAMPP é necessário colocar o "GbClickerV2" na url! */
@@ -16,12 +17,13 @@
             LoginController::index();
             break;
         case '/register':
-            UserController::form();
+            RegisterController::index();
             break;
         case '/register/save':
-            UserController::save();
+            RegisterController::register();
             break;
         case '/home':
+            ImportController::dao();
             LoginController::login();
             break;
         case '/shop':

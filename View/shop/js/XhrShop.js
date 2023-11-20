@@ -13,7 +13,7 @@ class XhrShop{
             }
         }
 
-        request.open('POST', 'View/pages/shop/exe/savePurchase.php', true);
+        request.open('POST', 'View/shop/exe/savePurchase.php', true);
         request.send(new FormData(this.formPurchase));
     }
 }

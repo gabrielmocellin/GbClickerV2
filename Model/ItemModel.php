@@ -1,14 +1,15 @@
 <?php
     class ItemModel{
-        public $id, $nome, $descricao, $preco, $minimum_level, $quantidade, $image_src;
+        public $id, $nome, $descricao, $preco, $minimum_level, $quantidade, $image_src, $tipo;
 
-        public function construtor($nm, $desc, $pr, $min, $qt, $im){
+        public function construtor($nm, $desc, $pr, $min, $qt, $im, $tp){
             $this->setNome($nm);
             $this->setDescricao($desc);
             $this->setPreco($pr);
             $this->setMinimumLevel($min);
             $this->setQuantidade($qt);
             $this->setImageSrc($im);
+            $this->setTipo($tp);
         }
 
         public function save()
@@ -31,6 +32,7 @@
         public function getMinimumLevel() {return $this->minimum_level;}
         public function getQuantidade()   {return $this->quantidade;}
         public function getImageSrc()     {return $this->image_src;}
+        public function getTipo()         {return $this->tipo;}
         // =-=-=-=-= SETTERS =-=-=-=-=
         public function setNome($nome)                  { $this->nome = $nome; }
         public function setDescricao($descricao)        { $this->descricao = $descricao; }
@@ -38,6 +40,7 @@
         public function setMinimumLevel($minimum_level) {$this->minimum_level = $minimum_level;}
         public function setQuantidade($quantidade)      {$this->quantidade = $quantidade;}
         public function setImageSrc($image_src)         {$this->image_src = $image_src;}
+        public function setTipo($tipo)                  {$this->tipo = $tipo;}
 
     }
 ?>
