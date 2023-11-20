@@ -19,9 +19,7 @@
             <div id="shop-div">
                 <table id="shop-table">
                     <tr class='tableHead'> <th>Loja</th> </tr>
-                      <tr>
                       <?php require "View/shop/exe/showItems.php"; ?>
-                      </tr> 
                 </table>
             </div>
         </main>

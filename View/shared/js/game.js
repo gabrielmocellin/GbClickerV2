@@ -21,17 +21,16 @@ class game{
 
     nFormatter(num, digits) { //formatador de números
         var si = [
-          { value: 1, symbol: "" },
-          { value: 1E3, symbol: "K" },
-          { value: 1E6, symbol: "M" },
-          { value: 1E9, symbol: "B" },
+          { value: 1,    symbol: ""  },
+          { value: 1E3,  symbol: "K" },
+          { value: 1E6,  symbol: "M" },
+          { value: 1E9,  symbol: "B" },
           { value: 1E12, symbol: "T" },
           { value: 1E15, symbol: "q" },
           { value: 1E18, symbol: "Q" }
         ];
         var rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
         var i;
-        // for negative value is work
         for (i = si.length - 1; i > 0; i--) {
           if (Math.abs(num) >= si[i].value) {
             break;
@@ -61,18 +60,20 @@ class game{
     }
 
     UpdateUserMoney(){ // Atualiza com o valor salvo nesse objeto a navbar
-        let pUserMoney = document.getElementById("user_money_p");
-        let existInPage = pUserMoney != null;
-        let formatedNumber = this.nFormatter(this.usermoney, 2);
+        let pUserMoney     = document.getElementById("user_money_p");
+        let existInPage    = pUserMoney != null;
+        let formatedNumber = this.nFormatter(this.usermoney, 1);
         if(existInPage){
             pUserMoney.textContent = "R$ " + formatedNumber;
         }
     }
     UpdateUserMultiplier(){ // Atualiza com o valor salvo nesse objeto a navbar
         let liUserMultiplier = document.getElementById("user_mult_li");
-        let existInPage = liUserMultiplier != null;
+        let existInPage      = liUserMultiplier != null;
+        let formatedNumber = this.nFormatter(this.multiplier, 1);
+
         if(existInPage){
-            liUserMultiplier.textContent = `Mult: ${this.multiplier}x`;
+            liUserMultiplier.textContent = `Mult: ${formatedNumber} x`;
         }
     }
     UpdateUserMoneyPerSec(){
@@ -80,7 +81,7 @@ class game{
 
         let liMoneySec = document.getElementById("money_sec_li");
         let existInPage = liMoneySec != null;
-        let formatedNumber = this.nFormatter(moneyPerSec, 2);
+        let formatedNumber = this.nFormatter(moneyPerSec, 1);
         
         if(existInPage){
             liMoneySec.textContent = `${formatedNumber} R$/sec`;
@@ -107,20 +108,20 @@ class game{
     }
 
     LevelUpVerify(){
-        if(this.xp_points >= this.max_to_up){
-            this.level += 1;
+        if(this.xp_points  >= this.max_to_up){
+            this.level     += 1;
             this.xp_points -= this.max_to_up;
             this.UpdateLevel();
         }
     }
 
     UpdateFormUserData(){
-        let input_clickValue = document.getElementById("clickValue-input");
-        let input_money      = document.getElementById("money-input");
-        let input_multiplier = document.getElementById("multiplier-input");
-        let input_level      = document.getElementById("level-input");
-        let input_xp_points  = document.getElementById("xp-points-input");
-        let input_max_to_up  = document.getElementById("max-to-up-input");
+        let input_clickValue   = document.getElementById("clickValue-input");
+        let input_money        = document.getElementById("money-input");
+        let input_multiplier   = document.getElementById("multiplier-input");
+        let input_level        = document.getElementById("level-input");
+        let input_xp_points    = document.getElementById("xp-points-input");
+        let input_max_to_up    = document.getElementById("max-to-up-input");
         
         input_clickValue.value = this.clickValue;
         input_money.value      = this.usermoney;
@@ -131,16 +132,16 @@ class game{
     }
 
     UpdateFormPurchase(){
-        let input_clickValue = document.getElementById("clickValue-input");
-        let input_money      = document.getElementById("money-input");
-        let input_multiplier = document.getElementById("multiplier-input");
+        let input_clickValue   = document.getElementById("clickValue-input");
+        let input_money        = document.getElementById("money-input");
+        let input_multiplier   = document.getElementById("multiplier-input");
         
         input_clickValue.value = this.clickValue;
         input_money.value      = this.usermoney;
         input_multiplier.value = this.multiplier;
 
         console.log("Valor a salvar [clickValue] : " + this.clickValue);
-        console.log("Valor a salvar [usermoney] : " + this.usermoney);
+        console.log("Valor a salvar [usermoney] : "  + this.usermoney);
         console.log("Valor a salvar [multiplier] : " + this.multiplier);
     }
     
@@ -155,18 +156,19 @@ class game{
 
     /* Com as informações recebidas da função GetClickPosition(), será criado uma div onde será mostrado ao usuário quanto ele ganhou em 1 click */
     CreateNewCounterElement(event){
-        let xytuple = this.GetClickPosition(event);
+        let xytuple           = this.GetClickPosition(event);
         
         let newCounterElement = document.createElement("div");
-        let clickerDiv = document.getElementById("clicker-img-div");
+        let clickerDiv        = document.getElementById("clicker-img-div");
+        let formatedNumber    = this.nFormatter((this.clickValue*this.multiplier), 1);
         
         newCounterElement.classList.add("counter-number");
-        newCounterElement.textContent = "+" + (this.clickValue * this.multiplier);
+        newCounterElement.textContent = "+" + formatedNumber;
         
         clickerDiv.appendChild(newCounterElement);
         
-        newCounterElement.style.left = xytuple[0] + "px";
-        newCounterElement.style.top  = xytuple[1]-55 + "px";
+        newCounterElement.style.left  = xytuple[0]    + "px";
+        newCounterElement.style.top   = xytuple[1]-55 + "px";
         
         setTimeout(()=>{newCounterElement.remove();}, 1500);
     }
