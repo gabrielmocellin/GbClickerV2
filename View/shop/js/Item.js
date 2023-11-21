@@ -14,10 +14,6 @@ class Item{
         essas mudanças devem ser salvas no banco.
     */
 
-    add(){
-        console.log("add Ativado!");
-    }
-
     comprar(){
         if(jogo.usermoney < this.preco){
             alert(`Dinheiro insuficiente para ${this.name}!`);
