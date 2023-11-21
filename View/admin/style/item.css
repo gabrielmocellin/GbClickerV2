@@ -44,9 +44,12 @@ input[type="file"] {
 }
 
 .preview {
-    max-width: 100%;
+    width: 80%; max-width: 300px;
     height: auto;
     margin-bottom: 1rem;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
 input[type="submit"] {

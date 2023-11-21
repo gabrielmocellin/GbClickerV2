@@ -117,8 +117,6 @@ class game{
 
         if(existInPage){
             level_p.textContent = `LEVEL: ${this.level}`;
-            
-            this.max_to_up += this.max_to_up*0.10;
         }
     }
 
@@ -126,6 +124,7 @@ class game{
         if(this.xp_points  >= this.max_to_up){
             this.level     += 1;
             this.xp_points -= this.max_to_up;
+            this.max_to_up += this.max_to_up*0.10;
             this.UpdateLevel();
         }
     }

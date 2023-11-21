@@ -1,11 +1,11 @@
-class Minion extends Item{
+class Minions extends Item{
     constructor(id, preco, minimum_level, quantidade){
         super(id, preco, minimum_level, quantidade);
-        this.name = "Minion";
+        this.name = "Minions";
     }
 
     add(){
-        jogo.minion = parseInt(jogo.minion) + parseInt(this.quantidade);
-        console.log("Novo minion : " + jogo.minion); // TEMPORÁRIO
+        jogo.minions = parseInt(jogo.minions) + parseInt(this.quantidade);
+        console.log("Novo minion : " + jogo.minions); // TEMPORÁRIO
     }
 }
