@@ -12,7 +12,9 @@
 
         public static function user(){
             require "DAO/UserDAO.php";
+            require "DAO/LevelDAO.php";
             require "Model/UserModel.php";
+            require "Model/LevelModel.php";
         }
 
         public static function login(){
