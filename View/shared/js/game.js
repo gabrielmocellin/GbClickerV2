@@ -1,24 +1,24 @@
 class game{
-    constructor(clickValue, usermoney, multiplier, minions, level, xp_points, max_to_up){
+    constructor(clickValue, money, multiplier, minions, level, xp_points, max_to_up){
         this.clickValue = clickValue;
-        this.usermoney  = usermoney;
+        this.money      = money;
         this.multiplier = multiplier;
         this.minions    = minions;
 
         this.level      = level;
         this.xp_points  = xp_points;
         this.max_to_up  = max_to_up;
-
+        
         this.clicksPerSec = 0;
         
-        this.UpdateUserMoney();
-        this.UpdateUserMultiplier();
-        this.UpdateUserMinions();
-        this.UpdateUserMoneyPerSec();
-        this.UpdateLevel();
+        this.UpdateInfo("user_money_p", this.money, "R$ ");               // Atualizando Dinheiro atual
+        this.UpdateInfo("user_mult_li", this.multiplier, "Mult: ", " x"); // Atualizando Multiplicador atual
+        this.UpdateInfo("minions_sec_li", this.minions, "Minions: ");     // Atualizando Minions atual
+        this.UpdateInfo("money_sec_li", parseFloat(this.clickValue*this.multiplier*this.clicksPerSec) + parseFloat(this.minions*this.clickValue*this.multiplier), "", "R$/sec");     // Atualizando R$/sec atual
+        this.UpdateInfo("level-info-p", this.level, "LEVEL: ");          // Atualizando Level atual
         this.UpdateLevelBar();
         
-        setInterval(()=>{ this.UpdateUserMoneyPerSec(); }, 200);
+        setInterval(()=>{ this.UpdateInfo("money_sec_li", parseFloat(this.clickValue*this.multiplier*this.clicksPerSec) + parseFloat(this.minions*this.clickValue*this.multiplier), "", "R$/sec"); }, 200);
         setInterval(()=>{ this.AddMinionMoney();        }, 1000);
     }
 
@@ -53,12 +53,12 @@ class game{
     }
     
     AddClickMoneyUser(){
-        this.usermoney += this.clickValue * this.multiplier;
-        this.UpdateUserMoney();
+        this.money += this.clickValue * this.multiplier;
+        this.UpdateInfo("user_money_p", this.money, "R$ "); // Atualizando o dinheiro atual do usuário
     }
     AddMinionMoney(){
-        this.usermoney += this.clickValue * this.minions * this.multiplier;
-        this.UpdateUserMoney();
+        this.money += this.clickValue * this.minions * this.multiplier;
+        this.UpdateInfo("user_money_p", this.money, "R$ "); // Atualizando o dinheiro atual do usuário
     }
     AddClickXp(){
         this.xp_points += 1;
@@ -66,42 +66,17 @@ class game{
         this.UpdateLevelBar();
     }
 
-    UpdateUserMoney(){ // Atualiza com o valor salvo nesse objeto a navbar
-        let pUserMoney     = document.getElementById("user_money_p");
-        let existInPage    = pUserMoney != null;
-        let formatedNumber = this.nFormatter(this.usermoney, 1);
-        if(existInPage){
-            pUserMoney.textContent = "R$ " + formatedNumber;
-        }
-    }
-    UpdateUserMultiplier(){ // Atualiza com o valor salvo nesse objeto a navbar
-        let liUserMultiplier = document.getElementById("user_mult_li");
-        let existInPage      = liUserMultiplier != null;
-        let formatedNumber = this.nFormatter(this.multiplier, 1);
+    UpdateInfo(elementId, valor, prefixo = "", sufixo = ""){
+        let element        = document.getElementById(elementId);
+        let existInPage    = element != null;
+        let formatedNumber = this.nFormatter(valor, 1);
 
-        if(existInPage){
-            liUserMultiplier.textContent = `Mult: ${formatedNumber} x`;
-        }
+        // console.log(`Valor encontrado: ${valor}`);
+        if(existInPage) element.textContent = prefixo + formatedNumber + sufixo;
     }
-    UpdateUserMinions(){
-        let liUserMinions  = document.getElementById("minions_sec_li");
-        let existInPage    = liUserMinions != null;
-        let formatedNumber = this.nFormatter(this.minions, 1);
 
-        if(existInPage){
-            liUserMinions.textContent = `Minions: ${formatedNumber}`;
-        }
-    }
-    UpdateUserMoneyPerSec(){
-        let moneyPerSec    = parseFloat(this.clickValue * this.multiplier * this.clicksPerSec) + parseFloat(this.minions * this.clickValue * this.multiplier);
-        let liMoneySec     = document.getElementById("money_sec_li");
-        let existInPage    = liMoneySec != null;
-        let formatedNumber = this.nFormatter(moneyPerSec, 1);
-        
-        if(existInPage){
-            liMoneySec.textContent = `${formatedNumber} R$/sec`;
-        }
-    }
+
+    
     UpdateLevelBar(){
         let levelBar = document.getElementById('level-progress-bar');
         let existInPage = levelBar != null;
@@ -111,21 +86,13 @@ class game{
             levelBar.style.setProperty('--progress-width', new_percent + '%');
         }
     }
-    UpdateLevel(){
-        let level_p = document.getElementById("level-info-p");
-        let existInPage = level_p != null;
-
-        if(existInPage){
-            level_p.textContent = `LEVEL: ${this.level}`;
-        }
-    }
 
     LevelUpVerify(){
         if(this.xp_points  >= this.max_to_up){
             this.level     += 1;
             this.xp_points -= this.max_to_up;
             this.max_to_up += this.max_to_up*0.10;
-            this.UpdateLevel();
+            this.UpdateInfo("level-info-p", this.level, "LEVEL: ");
         }
     }
 
@@ -139,7 +106,7 @@ class game{
         let input_max_to_up    = document.getElementById("max-to-up-input");
         
         input_clickValue.value = this.clickValue;
-        input_money.value      = this.usermoney;
+        input_money.value      = this.money;
         input_multiplier.value = this.multiplier;
         input_minions.value    = this.minions;
         input_level.value      = this.level;
@@ -154,7 +121,7 @@ class game{
         let input_minions      = document.getElementById("minions-input");
         
         input_clickValue.value = this.clickValue;
-        input_money.value      = this.usermoney;
+        input_money.value      = this.money;
         input_multiplier.value = this.multiplier;
         input_minions.value    = this.minions;
     }

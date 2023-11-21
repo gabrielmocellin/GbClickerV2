@@ -30,9 +30,9 @@
     }
 
     function verifyPostInputs(){
-        if(isset($_SESSION['email']) && 
+        if(isset($_SESSION['email'])          && 
             isset($_POST['clickValue-input']) && 
-            isset($_POST['money-input']) && 
+            isset($_POST['money-input'])      && 
             isset($_POST['multiplier-input']) &&
             isset($_POST['minions-input'])
         ){return true;}

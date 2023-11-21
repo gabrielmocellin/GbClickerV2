@@ -11,9 +11,7 @@
         <title>Gb Clicker II</title>
     </head>
     <body>
-        <?php 
-            require "View/shared/header.php";
-        ?>
+        <?php require "View/shared/header.php"; ?>
         <main>
             <?php require "View/shared/navbar.php"; ?>
             <div id="shop-div">
@@ -26,9 +24,9 @@
 
         <form method="POST" id="form-purchase" action='View/shop/exe/savePurchase.php' style='display:none'>
           <input id='clickValue-input' name='clickValue-input' type='text'>
-          <input id='money-input' name='money-input' type='text'>
+          <input id='money-input'      name='money-input'      type='text'>
           <input id='multiplier-input' name='multiplier-input' type='text'>
-          <input id='minions-input' name='minions-input' type='text'>
+          <input id='minions-input'    name='minions-input'    type='text'>
           <button>Enviar</button>
         </form>
 
@@ -42,15 +40,15 @@
         <script language="JavaScript">
           var itensArray = Array();
           var xhrShop    = new XhrShop();
-          var jogo = new game(
-            clickValue = <?= $model->getClickValue(); ?>,
-            userMoney  = <?= $model->getMoney(); ?>,
-            multiplier = <?= $model->getMultiplier(); ?>,
-            minions    = <?= $model->getMinions(); ?>,
-            level      = <?= $model->getLevelData()->level; ?>,
+          var jogo       = new game(
+            clickValue = <?= $model->getClickValue();           ?>,
+            money      = <?= $model->getMoney();                ?>,
+            multiplier = <?= $model->getMultiplier();           ?>,
+            minions    = <?= $model->getMinions();              ?>,
+            level      = <?= $model->getLevelData()->level;     ?>,
             xp_points  = <?= $model->getLevelData()->xp_points; ?>,
             max_to_up  = <?= $model->getLevelData()->max_to_up; ?>
-        );
+          );
           <?php require "View/shop/exe/identifyItems.php"; ?>
           itensArray.forEach( function(item){ let itemTd = document.getElementById(`item-${item.id}`); itemTd.addEventListener('click', item.comprar.bind(item)); } );
         </script>

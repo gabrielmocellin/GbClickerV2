@@ -1,10 +1,10 @@
 class Item{
-    constructor(id, preco, minimum_level, quantidade){
+    constructor(id, preco, minimum_level, quantidade, nome){
         this.id            = id;
         this.preco         = preco;
         this.minimum_level = minimum_level;
         this.quantidade    = quantidade;
-        this.name = "";
+        this.nome          = nome;
     }
 
     /* 
@@ -15,22 +15,22 @@ class Item{
     */
 
     comprar(){
-        if(jogo.usermoney < this.preco){
-            alert(`Dinheiro insuficiente para ${this.name}!`);
+        if(jogo.money < this.preco){
+            alert(`Dinheiro insuficiente para ${this.nome}!`);
             return;
         }
 
         this.add();
         this.cashOut();
 
-        jogo.UpdateUserMoney();
+        jogo.UpdateInfo("user_money_p", jogo.money, "R$ "); // Atualizando o dinheiro atual do usuário;
         jogo.UpdateFormPurchase();
 
         xhrShop.savePurchase();
     }
 
     cashOut(){
-        jogo.usermoney = parseInt(jogo.usermoney) - parseInt(this.preco);
+        jogo.money = parseInt(jogo.money) - parseInt(this.preco);
     }
 
 }

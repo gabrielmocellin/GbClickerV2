@@ -60,7 +60,7 @@
     <script language="JavaScript">
         var jogo = new game(
             clickValue = <?= $model->getClickValue(); ?>,
-            userMoney  = <?= $model->getMoney(); ?>,
+            money      = <?= $model->getMoney(); ?>,
             multiplier = <?= $model->getMultiplier(); ?>,
             minions    = <?= $model->getMinions(); ?>,
             level      = <?= $model->getLevelData()->level; ?>,
