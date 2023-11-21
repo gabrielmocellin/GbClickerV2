@@ -9,16 +9,11 @@
 
         public static function register() // Criando nova conta a partir dos dados fornecidos no registro.html
         {
-            include 'Model/UserModel.php';
+            $path = 'View/uploads/profile/' . basename($_FILES['image_src']['name']);
+            move_uploaded_file($_FILES['image_src']['tmp_name'], $path);
 
             $model = new UserModel();
-
-            $model->email      = $_POST['email-input'];
-            $model->password   = $_POST['password-input'];
-            $model->nickname   = $_POST['nickname-input'];
-            $model->clickValue = 1;
-            $model->money      = 0;
-            $model->multiplier = 1;
+            $model->construtor($_POST['email-input'], $_POST['password-input'], $_POST['nickname-input'], $path);
 
             if($model->save()){
                 header("location: /login");

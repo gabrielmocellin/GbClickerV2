@@ -1,8 +1,8 @@
-var form_dataUser    = document.getElementById("form-user-save-data");
+var form_dataUser = document.getElementById("form-user-save-data");
 
 function saveUserData(){ /* Função criada para salvar as informações atuais do usuário */
 
-    let xml_request      = new XMLHttpRequest();
+    let xml_request = new XMLHttpRequest();
 
     xml_request.onreadystatechange = function (){
         if(xml_request.readyState == 4 && xml_request.status == 200){

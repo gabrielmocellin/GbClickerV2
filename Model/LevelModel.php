@@ -7,8 +7,6 @@
         }
 
         private function getLevelData(string $FK_user_email){
-
-            include "DAO/LevelDAO.php";
             $dao = new LevelDAO();
 
             $dao_result_array = $dao->selectByEmail($FK_user_email);

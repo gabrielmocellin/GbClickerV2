@@ -7,6 +7,6 @@
     </div>
     <ul class="header_ul_userInfos noSelect">
         <p id="user_money_p" class="user_money noSelect"></p>
-        <img draggable="false" class="user_image noSelect" src="View/shared/icons/maintenance.png">
+        <img draggable="false" class="user_image noSelect" src="<?=$model->getImageSrc();?>">
     </ul>
 </header>

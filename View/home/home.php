@@ -1,6 +1,4 @@
-<?php
-    /** @var UserModel $model */
-?>  
+<?php /** @var UserModel $model */ ?>  
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -11,9 +9,7 @@
     <title>Gb Clicker II</title>
 </head>
 <body>
-    <?php 
-        require "View/shared/header.php";
-    ?>
+    <?php require "View/shared/header.php"; ?>
     <main>
         <?php require "View/shared/navbar.php"; ?>
         <div id="clicker-parent-div">
@@ -33,13 +29,13 @@
                 <ul id="clicker-infos">
                     <li id='user_mult_li'></li>
                     <li id='money_sec_li'></li>
-                    <li>Minions: 0</li>
+                    <li id='minions_sec_li'></li>
                 </ul>
                 <div id="clicker-img-div" class="image-clicker-div">
                     <img draggable="false" src="View/home/img/gb.png" id="clicker-img" onclick="jogo.ClickOnClicker(event)">
                 </div>
                 <div class="level-progress-div">
-                    <p id="level-info-p">Level: 100</p>
+                    <p id="level-info-p"></p>
                     <div id="level-progress-bar"></div>
                 </div>
             </div>
@@ -51,23 +47,25 @@
 
     <form id="form-user-save-data" action='' style='display:none;'>
         <input id='clickValue-input' name='clickValue-input' type='text'>
-        <input id='money-input' name='money-input' type='text'>
+        <input id='money-input'      name='money-input' type='text'>
         <input id='multiplier-input' name='multiplier-input' type='text'>
-        <input id='level-input' name='level-input' type='text'>
-        <input id='xp-points-input' name='xp-points-input' type='text'>
-        <input id='max-to-up-input' name='max-to-up-input' type='text'>
+        <input id='minions-input'    name='minions-input' type='text'>
+        <input id='level-input'      name='level-input' type='text'>
+        <input id='xp-points-input'  name='xp-points-input' type='text'>
+        <input id='max-to-up-input'  name='max-to-up-input' type='text'>
     </form>
 
     <script language="JavaScript" src="View/shared/js/navbar.js"></script>
     <script language="JavaScript" src="View/shared/js/game.js"></script>
     <script language="JavaScript">
         var jogo = new game(
-            clickValue = <?=$model->clickValue;?>,
-            userMoney  = <?=$model->money;?>,
-            multiplier = <?=$model->multiplier;?>,
-            level      = <?=$model->level_data->level;?>,
-            xp_points  = <?=$model->level_data->xp_points;?>,
-            max_to_up  = <?=$model->level_data->max_to_up;?>
+            clickValue = <?= $model->getClickValue(); ?>,
+            userMoney  = <?= $model->getMoney(); ?>,
+            multiplier = <?= $model->getMultiplier(); ?>,
+            minions    = <?= $model->getMinions(); ?>,
+            level      = <?= $model->getLevelData()->level; ?>,
+            xp_points  = <?= $model->getLevelData()->xp_points; ?>,
+            max_to_up  = <?= $model->getLevelData()->max_to_up; ?>
         );
     </script>
     <script language="JavaScript" src="View/shared/js/xhr.js"></script>
