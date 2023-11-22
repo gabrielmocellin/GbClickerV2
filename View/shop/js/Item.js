@@ -23,14 +23,11 @@ class Item{
         this.add();
         this.cashOut();
 
-        jogo.UpdateInfo("user_money_p", jogo.money, "R$ "); // Atualizando o dinheiro atual do usuário;
-        jogo.UpdateFormPurchase();
-
-        xhrShop.savePurchase();
+        jogo.AtualizarValorNoElemento("user_money_p", jogo.usuario.getDinheiro(), "R$ "); // Atualizando o dinheiro atual do usuário;
     }
 
     cashOut(){
-        jogo.money = parseInt(jogo.money) - parseInt(this.preco);
+        jogo.usuario.setDinheiro(jogo.usuario.getDinheiro() - this.preco);
     }
 
 }

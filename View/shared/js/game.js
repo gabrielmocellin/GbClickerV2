@@ -25,7 +25,7 @@ class game{
             this.usuario.AddDinheiroPorMinion();
             this.AtualizarValorNoElemento("user_money_p", this.usuario.getDinheiro(), "R$ ");
         }, 1000);
-        
+
         this.salvarDadosDoUsuarioNoBancoPeriodicamente();
     }
 
@@ -85,22 +85,44 @@ class game{
         }
     }
 
-    UpdateFormUserData(){
-        let input_clickValue   = document.getElementById("clickValue-input");
-        let input_money        = document.getElementById("money-input");
-        let input_multiplier   = document.getElementById("multiplier-input");
-        let input_minions      = document.getElementById("minions-input");
-        let input_level        = document.getElementById("level-input");
-        let input_xp_points    = document.getElementById("xp-points-input");
-        let input_max_to_up    = document.getElementById("max-to-up-input");
-        
-        input_clickValue.value = this.usuario.getValorDoClique();
-        input_money.value      = this.usuario.getDinheiro();
-        input_multiplier.value = this.usuario.getMultiplicador();
-        input_minions.value    = this.usuario.getMinions();
-        input_level.value      = this.usuario.getNivel();
-        input_xp_points.value  = this.usuario.getPontosAtuaisDeNivel();
-        input_max_to_up.value  = this.usuario.getPontosNecessariosParaSubirDeNivel();
+    criarFormulario() {
+        let formularioParaSalvarDados = document.createElement('form');
+
+        let valoresParaColocarNosInputs = [
+            this.usuario.getValorDoClique(),
+            this.usuario.getDinheiro(),
+            this.usuario.getMultiplicador(),
+            this.usuario.getMinions(),
+            this.usuario.getNivel(),
+            this.usuario.getPontosAtuaisDeNivel(),
+            this.usuario.getPontosNecessariosParaSubirDeNivel()
+        ];
+        let inputs = [
+            'clickValue',
+            'money',
+            'multiplier',
+            'minions',
+            'level',
+            'xp-points',
+            'max-to-up'
+        ];
+
+        formularioParaSalvarDados.id = 'form-user-save-data';
+        formularioParaSalvarDados.action = '';
+        formularioParaSalvarDados.style.display = 'none';
+    
+        inputs.forEach(function (inputName, indiceRespectivo) {
+            let input   = document.createElement('input');
+            input.id    = inputName + '-input';
+            input.name  = inputName + '-input';
+            input.type  = 'text';
+            input.value = valoresParaColocarNosInputs[indiceRespectivo]; 
+            formularioParaSalvarDados.appendChild(input);
+        });
+
+        document.body.appendChild(formularioParaSalvarDados);
+
+        return formularioParaSalvarDados;
     }
 
     UpdateFormPurchase(){
@@ -146,12 +168,17 @@ class game{
 
     salvarDadosDoUsuarioNoBancoPeriodicamente(){
         setInterval(()=>{
-            let formularioDadosDoUsuario = document.getElementById("form-user-save-data");
+            let formularioParaSalvarDados = this.criarFormulario();
+
             let xml_request = new XMLHttpRequest();
 
-            xml_request.onreadystatechange = function (){ if(xml_request.readyState == 4 && xml_request.status == 200) jogo.UpdateFormUserData(); }
+            xml_request.onreadystatechange = function (){ if(xml_request.readyState == 4 && xml_request.status == 200) console.log("Salvando no banco...") }
             xml_request.open('POST', 'View/home/exe/saveUserData.php', true);
-            xml_request.send(new FormData(formularioDadosDoUsuario));
-        }, 800);
+            xml_request.send(new FormData(formularioParaSalvarDados));
+
+            document.body.removeChild(formularioParaSalvarDados);
+        }, 1000);
+
+        
     }
 }

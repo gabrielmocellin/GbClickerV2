@@ -45,16 +45,6 @@
         </div>
     </main>
 
-    <form id="form-user-save-data" action='' style='display:none;'>
-        <input id='clickValue-input' name='clickValue-input' type='text'>
-        <input id='money-input'      name='money-input' type='text'>
-        <input id='multiplier-input' name='multiplier-input' type='text'>
-        <input id='minions-input'    name='minions-input' type='text'>
-        <input id='level-input'      name='level-input' type='text'>
-        <input id='xp-points-input'  name='xp-points-input' type='text'>
-        <input id='max-to-up-input'  name='max-to-up-input' type='text'>
-    </form>
-
     <script language="JavaScript" src="View/shared/js/navbar.js"></script>
     <script language="JavaScript" src="View/shared/js/User.js"></script>
     <script language="JavaScript" src="View/shared/js/game.js"></script>

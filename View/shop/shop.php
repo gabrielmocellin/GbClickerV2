@@ -34,13 +34,11 @@
         <script language="JavaScript" src="View/shop/js/items/Minion.js"></script>
         <script language="JavaScript" src="View/shop/js/items/Multiplier.js"></script>
         <script language="JavaScript" src="View/shop/js/items/ClickValue.js"></script>
-        <script language="JavaScript" src="View/shop/js/XhrShop.js"></script>
         <script language="JavaScript" src="View/shared/js/navbar.js"></script>
         <script language="JavaScript" src="View/shared/js/User.js"></script>
         <script language="JavaScript" src="View/shared/js/game.js"></script>
         <script language="JavaScript">
           var itensArray = Array();
-          var xhrShop    = new XhrShop();
           var jogo = new game(
             valorDoClique                     = <?= $model->getClickValue(); ?>,
             dinheiro                          = <?= $model->getMoney(); ?>,
