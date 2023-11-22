@@ -13,17 +13,17 @@ class game{
 
         this.cliquesPorSegundo = 0;
         
-        this.AtualizarValorNoElemento("user_money_p",   this.usuario.getDinheiro(), "R$ ");               // Atualizando Dinheiro atual
+        this.AtualizarValorNoElemento("user_money_p",   this.usuario.getDinheiro(), " R$ ");               // Atualizando Dinheiro atual
         this.AtualizarValorNoElemento("user_mult_li",   this.usuario.getMultiplicador(), "Mult: ", " x"); // Atualizando Multiplicador atual
         this.AtualizarValorNoElemento("minions_sec_li", this.usuario.getMinions(), "Minions: ");          // Atualizando Minions atual
-        this.AtualizarValorNoElemento("money_sec_li",   this.CalcularDinheiroPorSegundo(), "", "R$/sec"); // Atualizando R$/sec atual
+        this.AtualizarValorNoElemento("money_sec_li",   this.CalcularDinheiroPorSegundo(), "", " R$/sec"); // Atualizando R$/sec atual
         this.AtualizarValorNoElemento("level-info-p",   this.usuario.getNivel(), "LEVEL: ");              // Atualizando Level atual
         this.AtualizarBarraDeProgressoDeNivel();
         
-        setInterval(()=>{ this.AtualizarValorNoElemento("money_sec_li", this.CalcularDinheiroPorSegundo(), "", "R$/sec"); }, 250);
+        setInterval(()=>{ this.AtualizarValorNoElemento("money_sec_li", this.CalcularDinheiroPorSegundo(), "", " R$/sec"); }, 250);
         setInterval(()=>{
             this.usuario.AddDinheiroPorMinion();
-            this.AtualizarValorNoElemento("user_money_p", this.usuario.getDinheiro(), "R$ ");
+            this.AtualizarValorNoElemento("user_money_p", this.usuario.getDinheiro(), " R$ ");
         }, 1000);
 
         this.salvarDadosDoUsuarioNoBancoPeriodicamente();
@@ -55,7 +55,7 @@ class game{
         this.CreateNewCounterElement(event);
 
         this.usuario.AddDinheiroPorClique();
-        this.AtualizarValorNoElemento("user_money_p", this.usuario.getDinheiro(), "R$ "); // Atualizando o dinheiro atual do usuário
+        this.AtualizarValorNoElemento("user_money_p", this.usuario.getDinheiro(), " R$ "); // Atualizando o dinheiro atual do usuário
 
         this.usuario.AddPontosAtuaisDeNivel();
         this.AtualizarValorNoElemento("level-info-p", this.usuario.getNivel(), "LEVEL: ");
