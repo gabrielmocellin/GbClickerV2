@@ -1,28 +1,35 @@
 class game{
-    constructor(clickValue, money, multiplier, minions, level, xp_points, max_to_up){
-        this.clickValue = clickValue;
-        this.money      = money;
-        this.multiplier = multiplier;
-        this.minions    = minions;
+    constructor(valorDoClique, dinheiro, multiplicador, minions, nivel, pontosAtuaisDeNivel, pontosNecessariosParaSubirDeNivel){
 
-        this.level      = level;
-        this.xp_points  = xp_points;
-        this.max_to_up  = max_to_up;
+        this.usuario = new User(
+            valorDoClique,
+            dinheiro,
+            multiplicador,
+            minions,
+            nivel,
+            pontosAtuaisDeNivel,
+            pontosNecessariosParaSubirDeNivel
+        );
+
+        this.cliquesPorSegundo = 0;
         
-        this.clicksPerSec = 0;
+        this.AtualizarValorNoElemento("user_money_p",   this.usuario.getDinheiro(), "R$ ");               // Atualizando Dinheiro atual
+        this.AtualizarValorNoElemento("user_mult_li",   this.usuario.getMultiplicador(), "Mult: ", " x"); // Atualizando Multiplicador atual
+        this.AtualizarValorNoElemento("minions_sec_li", this.usuario.getMinions(), "Minions: ");          // Atualizando Minions atual
+        this.AtualizarValorNoElemento("money_sec_li",   this.CalcularDinheiroPorSegundo(), "", "R$/sec"); // Atualizando R$/sec atual
+        this.AtualizarValorNoElemento("level-info-p",   this.usuario.getNivel(), "LEVEL: ");              // Atualizando Level atual
+        this.AtualizarBarraDeProgressoDeNivel();
         
-        this.UpdateInfo("user_money_p", this.money, "R$ ");               // Atualizando Dinheiro atual
-        this.UpdateInfo("user_mult_li", this.multiplier, "Mult: ", " x"); // Atualizando Multiplicador atual
-        this.UpdateInfo("minions_sec_li", this.minions, "Minions: ");     // Atualizando Minions atual
-        this.UpdateInfo("money_sec_li", parseFloat(this.clickValue*this.multiplier*this.clicksPerSec) + parseFloat(this.minions*this.clickValue*this.multiplier), "", "R$/sec");     // Atualizando R$/sec atual
-        this.UpdateInfo("level-info-p", this.level, "LEVEL: ");          // Atualizando Level atual
-        this.UpdateLevelBar();
+        setInterval(()=>{ this.AtualizarValorNoElemento("money_sec_li", this.CalcularDinheiroPorSegundo(), "", "R$/sec"); }, 250);
+        setInterval(()=>{
+            this.usuario.AddDinheiroPorMinion();
+            this.AtualizarValorNoElemento("user_money_p", this.usuario.getDinheiro(), "R$ ");
+        }, 1000);
         
-        setInterval(()=>{ this.UpdateInfo("money_sec_li", parseFloat(this.clickValue*this.multiplier*this.clicksPerSec) + parseFloat(this.minions*this.clickValue*this.multiplier), "", "R$/sec"); }, 200);
-        setInterval(()=>{ this.AddMinionMoney();        }, 1000);
+        this.salvarDadosDoUsuarioNoBancoPeriodicamente();
     }
 
-    nFormatter(num, digits) { //formatador de números
+    FormatadorParaDinheiro(num, digits) { // Formatador de números!
         var si = [
           { value: 1,    symbol: ""  },
           { value: 1E3,  symbol: "K" },
@@ -35,64 +42,46 @@ class game{
         var rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
         var i;
         for (i = si.length - 1; i > 0; i--) {
-          if (Math.abs(num) >= si[i].value) {
-            break;
-          }
+          if (Math.abs(num) >= si[i].value) break;
         }
         return (num / si[i].value).toFixed(digits).replace(rx, "$1") + si[i].symbol;
+    }
+
+    CalcularDinheiroPorSegundo(){
+        return parseFloat( (this.usuario.getValorDoClique() * this.usuario.getMultiplicador() * this.cliquesPorSegundo) + (this.usuario.getMinions() * this.usuario.getValorDoClique() * this.usuario.getMultiplicador()) );
     }
     
     ClickOnClicker(event){
         this.CreateNewCounterElement(event);
-        this.AddClickMoneyUser();
-        this.AddClickXp();
+
+        this.usuario.AddDinheiroPorClique();
+        this.AtualizarValorNoElemento("user_money_p", this.usuario.getDinheiro(), "R$ "); // Atualizando o dinheiro atual do usuário
+
+        this.usuario.AddPontosAtuaisDeNivel();
+        this.AtualizarValorNoElemento("level-info-p", this.usuario.getNivel(), "LEVEL: ");
+        this.AtualizarBarraDeProgressoDeNivel();
         
-        this.clicksPerSec += 1;
-        
-        setTimeout(()=>{if(this.clicksPerSec >= 1){this.clicksPerSec -= 1;}}, 1000); /* Depois de 1 segundo o click não será mais contado */
-    }
-    
-    AddClickMoneyUser(){
-        this.money += this.clickValue * this.multiplier;
-        this.UpdateInfo("user_money_p", this.money, "R$ "); // Atualizando o dinheiro atual do usuário
-    }
-    AddMinionMoney(){
-        this.money += this.clickValue * this.minions * this.multiplier;
-        this.UpdateInfo("user_money_p", this.money, "R$ "); // Atualizando o dinheiro atual do usuário
-    }
-    AddClickXp(){
-        this.xp_points += 1;
-        this.LevelUpVerify();
-        this.UpdateLevelBar();
+        this.cliquesPorSegundo += 1;
+
+        setTimeout(()=>{if(this.cliquesPorSegundo > 0){this.cliquesPorSegundo -= 1;}}, 1000); /* Depois de 1 segundo o click não será mais contado */
     }
 
-    UpdateInfo(elementId, valor, prefixo = "", sufixo = ""){
-        let element        = document.getElementById(elementId);
-        let existInPage    = element != null;
-        let formatedNumber = this.nFormatter(valor, 1);
+    AtualizarValorNoElemento(idDoElemento, valor, prefixo = "", sufixo = ""){
+        const QUANTIDADE_CASAS_DEPOIS_DA_VIRGULA = 1;
+        let elementoHtml        = document.getElementById(idDoElemento);
+        let contidoNaPagina     = elementoHtml != null;
+        let numeroFormatado     = this.FormatadorParaDinheiro(valor, QUANTIDADE_CASAS_DEPOIS_DA_VIRGULA);
 
-        // console.log(`Valor encontrado: ${valor}`);
-        if(existInPage) element.textContent = prefixo + formatedNumber + sufixo;
+        if(contidoNaPagina) elementoHtml.textContent = prefixo + numeroFormatado + sufixo;
     }
 
+    AtualizarBarraDeProgressoDeNivel(){
+        let barraDeProgressoDeNivel = document.getElementById('level-progress-bar');
+        let contidoNaPagina = barraDeProgressoDeNivel != null;
 
-    
-    UpdateLevelBar(){
-        let levelBar = document.getElementById('level-progress-bar');
-        let existInPage = levelBar != null;
-
-        if(existInPage){
-            let new_percent = (this.xp_points/this.max_to_up) * 100;
-            levelBar.style.setProperty('--progress-width', new_percent + '%');
-        }
-    }
-
-    LevelUpVerify(){
-        if(this.xp_points  >= this.max_to_up){
-            this.level     += 1;
-            this.xp_points -= this.max_to_up;
-            this.max_to_up += this.max_to_up*0.10;
-            this.UpdateInfo("level-info-p", this.level, "LEVEL: ");
+        if(contidoNaPagina){
+            let novoPercentual = (this.usuario.getPontosAtuaisDeNivel() / this.usuario.getPontosNecessariosParaSubirDeNivel()) * 100;
+            barraDeProgressoDeNivel.style.setProperty('--progress-width', novoPercentual + '%');
         }
     }
 
@@ -105,13 +94,13 @@ class game{
         let input_xp_points    = document.getElementById("xp-points-input");
         let input_max_to_up    = document.getElementById("max-to-up-input");
         
-        input_clickValue.value = this.clickValue;
-        input_money.value      = this.money;
-        input_multiplier.value = this.multiplier;
-        input_minions.value    = this.minions;
-        input_level.value      = this.level;
-        input_xp_points.value  = this.xp_points;
-        input_max_to_up.value  = this.max_to_up;
+        input_clickValue.value = this.usuario.getValorDoClique();
+        input_money.value      = this.usuario.getDinheiro();
+        input_multiplier.value = this.usuario.getMultiplicador();
+        input_minions.value    = this.usuario.getMinions();
+        input_level.value      = this.usuario.getNivel();
+        input_xp_points.value  = this.usuario.getPontosAtuaisDeNivel();
+        input_max_to_up.value  = this.usuario.getPontosNecessariosParaSubirDeNivel();
     }
 
     UpdateFormPurchase(){
@@ -120,10 +109,10 @@ class game{
         let input_multiplier   = document.getElementById("multiplier-input");
         let input_minions      = document.getElementById("minions-input");
         
-        input_clickValue.value = this.clickValue;
-        input_money.value      = this.money;
-        input_multiplier.value = this.multiplier;
-        input_minions.value    = this.minions;
+        input_clickValue.value = this.usuario.getValorDoClique();
+        input_money.value      = this.usuario.getDinheiro();
+        input_multiplier.value = this.usuario.getMultiplicador();
+        input_minions.value    = this.usuario.getMinions();
     }
     
 
@@ -137,14 +126,15 @@ class game{
 
     /* Com as informações recebidas da função GetClickPosition(), será criado uma div onde será mostrado ao usuário quanto ele ganhou em 1 click */
     CreateNewCounterElement(event){
+        const QUANTIDADE_CASAS_DEPOIS_DA_VIRGULA = 1;
         let xytuple           = this.GetClickPosition(event);
         
         let newCounterElement = document.createElement("div");
         let clickerDiv        = document.getElementById("clicker-img-div");
-        let formatedNumber    = this.nFormatter((this.clickValue*this.multiplier), 1);
+        let numeroFormatado    = this.FormatadorParaDinheiro( (this.usuario.getValorDoClique() * this.usuario.getMultiplicador()), QUANTIDADE_CASAS_DEPOIS_DA_VIRGULA);
         
         newCounterElement.classList.add("counter-number");
-        newCounterElement.textContent = "+" + formatedNumber;
+        newCounterElement.textContent = "+" + numeroFormatado;
         
         clickerDiv.appendChild(newCounterElement);
         
@@ -154,4 +144,14 @@ class game{
         setTimeout(()=>{newCounterElement.remove();}, 1500);
     }
 
+    salvarDadosDoUsuarioNoBancoPeriodicamente(){
+        setInterval(()=>{
+            let formularioDadosDoUsuario = document.getElementById("form-user-save-data");
+            let xml_request = new XMLHttpRequest();
+
+            xml_request.onreadystatechange = function (){ if(xml_request.readyState == 4 && xml_request.status == 200) jogo.UpdateFormUserData(); }
+            xml_request.open('POST', 'View/home/exe/saveUserData.php', true);
+            xml_request.send(new FormData(formularioDadosDoUsuario));
+        }, 800);
+    }
 }

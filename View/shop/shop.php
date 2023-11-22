@@ -36,18 +36,19 @@
         <script language="JavaScript" src="View/shop/js/items/ClickValue.js"></script>
         <script language="JavaScript" src="View/shop/js/XhrShop.js"></script>
         <script language="JavaScript" src="View/shared/js/navbar.js"></script>
+        <script language="JavaScript" src="View/shared/js/User.js"></script>
         <script language="JavaScript" src="View/shared/js/game.js"></script>
         <script language="JavaScript">
           var itensArray = Array();
           var xhrShop    = new XhrShop();
-          var jogo       = new game(
-            clickValue = <?= $model->getClickValue();           ?>,
-            money      = <?= $model->getMoney();                ?>,
-            multiplier = <?= $model->getMultiplier();           ?>,
-            minions    = <?= $model->getMinions();              ?>,
-            level      = <?= $model->getLevelData()->level;     ?>,
-            xp_points  = <?= $model->getLevelData()->xp_points; ?>,
-            max_to_up  = <?= $model->getLevelData()->max_to_up; ?>
+          var jogo = new game(
+            valorDoClique                     = <?= $model->getClickValue(); ?>,
+            dinheiro                          = <?= $model->getMoney(); ?>,
+            multiplicador                     = <?= $model->getMultiplier(); ?>,
+            minions                           = <?= $model->getMinions(); ?>,
+            nivel                             = <?= $model->getLevelData()->level; ?>,
+            pontosAtuaisDeNivel               = <?= $model->getLevelData()->xp_points; ?>,
+            pontosNecessariosParaSubirDeNivel = <?= $model->getLevelData()->max_to_up; ?>
           );
           <?php require "View/shop/exe/identifyItems.php"; ?>
           itensArray.forEach( function(item){ let itemTd = document.getElementById(`item-${item.id}`); itemTd.addEventListener('click', item.comprar.bind(item)); } );
