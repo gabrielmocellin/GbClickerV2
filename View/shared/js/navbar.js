@@ -23,6 +23,8 @@ function RedirectPage(op){
             path = "/items"; break;
         case "3":
             path = "/shop"; break;
+        case "4":
+            path = "/logout"; break;
         default:
             path = "/home"; break;
     }

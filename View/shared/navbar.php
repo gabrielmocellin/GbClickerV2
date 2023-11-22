@@ -32,5 +32,9 @@
             <img draggable="false" src="View/shared/icons/maintenance.png" alt="Em breve">
             Em breve...
         </li>
+        <li onclick="RedirectPage('4')">
+            <img draggable="false" src="View/shared/icons/maintenance.png" alt="Deslogar">
+            Sair | Logout
+        </li>
     </ul>
 </div>

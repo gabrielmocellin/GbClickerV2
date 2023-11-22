@@ -45,27 +45,18 @@
         </div>
     </main>
 
-    <form id="form-user-save-data" action='' style='display:none;'>
-        <input id='clickValue-input' name='clickValue-input' type='text'>
-        <input id='money-input'      name='money-input' type='text'>
-        <input id='multiplier-input' name='multiplier-input' type='text'>
-        <input id='minions-input'    name='minions-input' type='text'>
-        <input id='level-input'      name='level-input' type='text'>
-        <input id='xp-points-input'  name='xp-points-input' type='text'>
-        <input id='max-to-up-input'  name='max-to-up-input' type='text'>
-    </form>
-
     <script language="JavaScript" src="View/shared/js/navbar.js"></script>
+    <script language="JavaScript" src="View/shared/js/User.js"></script>
     <script language="JavaScript" src="View/shared/js/game.js"></script>
     <script language="JavaScript">
         var jogo = new game(
-            clickValue = <?= $model->getClickValue(); ?>,
-            userMoney  = <?= $model->getMoney(); ?>,
-            multiplier = <?= $model->getMultiplier(); ?>,
-            minions    = <?= $model->getMinions(); ?>,
-            level      = <?= $model->getLevelData()->level; ?>,
-            xp_points  = <?= $model->getLevelData()->xp_points; ?>,
-            max_to_up  = <?= $model->getLevelData()->max_to_up; ?>
+            valorDoClique                     = <?= $model->getClickValue(); ?>,
+            dinheiro                          = <?= $model->getMoney(); ?>,
+            multiplicador                     = <?= $model->getMultiplier(); ?>,
+            minions                           = <?= $model->getMinions(); ?>,
+            nivel                             = <?= $model->getLevelData()->level; ?>,
+            pontosAtuaisDeNivel               = <?= $model->getLevelData()->xp_points; ?>,
+            pontosNecessariosParaSubirDeNivel = <?= $model->getLevelData()->max_to_up; ?>
         );
     </script>
     <script language="JavaScript" src="View/shared/js/xhr.js"></script>
