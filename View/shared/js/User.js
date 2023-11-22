@@ -16,7 +16,7 @@ class User{
 
     AddPontosAtuaisDeNivel(){
         const PONTO_POR_CLIQUE = 1;
-        this.setPontosAtuaisDeNivel(this.getPontosAtuaisDeNivel + PONTO_POR_CLIQUE);
+        this.setPontosAtuaisDeNivel(this.getPontosAtuaisDeNivel() + PONTO_POR_CLIQUE);
         this.VerificarProgressoNivel();
     }
 
@@ -26,7 +26,7 @@ class User{
 
         if(this.pontosAtuaisDeNivel  >= this.pontosNecessariosParaSubirDeNivel){
             this.setNivel(this.getNivel() + QUANTIDADE_NIVEIS_AVANCADOS);
-            this.setPontosAtuaisDeNivel(this.getPontosAtuaisDeNivel - this.getPontosNecessariosParaSubirDeNivel());
+            this.setPontosAtuaisDeNivel(this.getPontosAtuaisDeNivel() - this.getPontosNecessariosParaSubirDeNivel());
             this.setPontosNecessariosParaSubirDeNivel(this.getPontosNecessariosParaSubirDeNivel() + this.getPontosNecessariosParaSubirDeNivel() * PORCENTAGEM_INCREMENTADA_PONTOS_PARA_UPAR);
         }
     }
