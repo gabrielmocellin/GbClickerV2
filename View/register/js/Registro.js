@@ -4,7 +4,6 @@ class Registro {
         this.notification = new Notificacao();
 
         this.loginHereBtn = document.getElementById("login-here-button");
-        this.loginBtn     = document.getElementById("login-button");
         this.submitBtn    = document.getElementById("submit-button");
 
         this.preventDefaultEvent();
@@ -23,10 +22,6 @@ class Registro {
     
     initEventListenerLoginButtons(){
         this.loginHereBtn.addEventListener('click', (event) => {
-            window.location.href = "/login";
-        });
-
-        this.loginBtn.addEventListener('click', (event) => {
             window.location.href = "/login";
         });
     }
