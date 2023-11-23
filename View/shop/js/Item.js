@@ -15,7 +15,7 @@ class Item{
     */
 
     comprar(){
-        if(jogo.money < this.preco){
+        if(jogo.usuario.getDinheiro() < this.preco){
             alert(`Dinheiro insuficiente para ${this.nome}!`);
             return;
         }

@@ -55,15 +55,17 @@ class game{
         this.CreateNewCounterElement(event);
 
         this.usuario.AddDinheiroPorClique();
-        this.AtualizarValorNoElemento("user_money_p", this.usuario.getDinheiro(), " R$ "); // Atualizando o dinheiro atual do usuário
-
         this.usuario.AddPontosAtuaisDeNivel();
+        this.AtualizarValorNoElemento("user_money_p", this.usuario.getDinheiro(), " R$ "); // Atualizando o dinheiro atual do usuário
         this.AtualizarValorNoElemento("level-info-p", this.usuario.getNivel(), "LEVEL: ");
         this.AtualizarBarraDeProgressoDeNivel();
         
         this.cliquesPorSegundo += 1;
 
-        setTimeout(()=>{if(this.cliquesPorSegundo > 0){this.cliquesPorSegundo -= 1;}}, 1000); /* Depois de 1 segundo o click não será mais contado */
+        setTimeout(()=>{
+            if(this.cliquesPorSegundo > 0){
+                this.cliquesPorSegundo -= 1;}
+            }, 1000); /* Depois de 1 segundo o click não será mais contado */
     }
 
     AtualizarValorNoElemento(idDoElemento, valor, prefixo = "", sufixo = ""){
@@ -124,19 +126,6 @@ class game{
 
         return formularioParaSalvarDados;
     }
-
-    UpdateFormPurchase(){
-        let input_clickValue   = document.getElementById("clickValue-input");
-        let input_money        = document.getElementById("money-input");
-        let input_multiplier   = document.getElementById("multiplier-input");
-        let input_minions      = document.getElementById("minions-input");
-        
-        input_clickValue.value = this.usuario.getValorDoClique();
-        input_money.value      = this.usuario.getDinheiro();
-        input_multiplier.value = this.usuario.getMultiplicador();
-        input_minions.value    = this.usuario.getMinions();
-    }
-    
 
     /* Verificando a posição que o jogador clicou na foto do clicker */
     GetClickPosition(event){
