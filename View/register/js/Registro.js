@@ -17,7 +17,7 @@ class Registro {
     preventDefaultEvent(){
         this.submitBtn.addEventListener('click', (event) => {
             event.preventDefault();
-            this.notification.initNotification(this.form.validateInputs());
+            this.notification.iniciarNotificacao(this.form.validateInputs());
         });
     }
     
