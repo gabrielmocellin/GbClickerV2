@@ -1,7 +1,7 @@
 form#login-form{
     display:flex; flex-direction: column;
-    height: max(640px, 60vh);
-    width: max(600px, 34vw);
+    height: max(500px, 65%);
+    width: max(400px, 35%);
     box-shadow: 0 0 5px 2.5px rgba(0, 0, 0, 0.5);
 
     border: 1rem solid var(--30green);
@@ -12,8 +12,8 @@ form#login-form{
 }
 
 form#login-form img{
-    width: 110px; height: auto; object-fit: contain;
-    padding: 10px;
+    width: 25%; height: auto; object-fit: contain;
+    aspect-ratio: 1/1;
     border: white 2px solid;
     border-radius: 5%;
 }
@@ -25,10 +25,11 @@ form#login-form div#img-logo-div{
 }
 
 #inputs-div{
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column; 
     min-width: 80%;
-    height: 50%;
 }
 
 #inputs-div label{
@@ -97,4 +98,17 @@ input.checkbox-input{
 
 #login-button:active{
     background-color: var(--30darkgreen);
+}
+
+@media (max-width: 720px){
+    form#login-form{
+        height: 100%;
+        width: 100%;
+        box-shadow: none;
+        border-radius: 0;
+        border: none;
+    }
+    main{
+        height: 100%;
+    }
 }

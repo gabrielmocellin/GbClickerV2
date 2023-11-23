@@ -1,0 +1,78 @@
+main{
+    flex-direction: column;
+    gap:5%;
+}
+
+/* =-=-= Apresentação =-=-= */
+#apresentacao_div{
+    display: flex; flex-direction: row;
+    width: 40%;
+    background: var(--30green);
+    box-shadow: 0px 0px 5px;
+    overflow-y:auto;
+    border-radius: 1em;
+}
+
+#apresentacao_div .texto{
+    padding: 1em;
+    font-family: var(--font-text);
+    color: var(--60green);
+}
+
+/* =-=-= Atualizações DIV =-=-= */
+#atualizacoes_div{
+    display:flex;
+    align-items: center;
+    flex-direction: column;
+    background: var(--30green);
+    overflow-x: hidden;
+    overflow-y: scroll;
+    width:60%; height: 70%;
+    box-shadow: 0px 0px 5px;
+    border-radius: 1em;
+    row-gap: 2em;
+}
+
+.titulo_atualizacoes_div{
+    text-align: center;
+    position: sticky;
+    font-weight: bold;
+    top:0;
+    width: 100%;
+    font-size: 2em;
+    color: var(--30green);
+    background-color: whitesmoke;
+    font-family: 'Zilla Slab', serif;
+}
+
+/* =-=-= Atualização =-=-= */
+.atualizacao{
+    display:flex; justify-content: center; align-items: center; flex-direction: column;
+    min-height:500px;
+    width:80%;
+    gap: 1em;
+}
+
+.atualizacao_data{
+    text-align: center;
+    width:100%; padding: 1em;
+    font-size: 1em; font-family: 'Zilla Slab', serif; font-weight: bold; color:#00331E;
+}
+
+.atualizacao_imagem{
+    display: block;
+    height: auto; width: 80%;
+    object-fit: contain;
+    aspect-ratio: 16/9;
+    border-radius: 1em;
+}
+
+.listaDeMudancas{
+    width: 100%;
+}
+
+.textoMudanca{
+    width: 100%;
+    word-wrap: break-word;
+    font-family: 'DM Sans', sans-serif;
+}
