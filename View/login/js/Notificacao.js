@@ -1,29 +1,31 @@
 class Notificacao{
     constructor(){
-        this.centerNotificationDiv = document.getElementById("div-notificacao-div");
-        this.notificationDiv = document.getElementById("notificacao-div");
-        this.active = false;
+        this.divExternaParaCentralizar = document.getElementById("div-notificacao-div");
+        this.divInterna = document.getElementById("notificacao-div");
+        this.ativa = false;
     }
 
-    initNotification(arrayMsgs){
-
-        if(!this.active){
-
-            this.centerNotificationDiv.style.display = "flex";
-
-            this.active = true;
-            arrayMsgs.forEach(element => {this.notificationDiv.innerHTML += "<p>" + element + "</p>";});
-
-            this.notificationDiv.style.display = "flex";
-
-            setTimeout(()=>{
-                this.notificationDiv.style.display = "none";
-                this.centerNotificationDiv.style.display = "none";
-                this.notificationDiv.innerHTML = "";
-                this.active = false;
-            }, 8000);
+    iniciarNotificacao(arrayDeAvisos){
+        if(!this.ativa){
+            this.mostrarNotificacao();
+            arrayDeAvisos.forEach(element => {
+                this.divInterna.innerHTML += "<p>" + element + "</p>";
+            } );
+            this.setTempoParaEsconderNotificacao();
         }
-
+    }
+    
+    mostrarNotificacao(){
+        this.divExternaParaCentralizar.style.display = "flex";
+        this.divInterna.style.display = "flex";
+        this.ativa = true;
     }
 
+    setTempoParaEsconderNotificacao(){
+        setTimeout(()=>{
+            this.divInterna.style.display = "none";
+            this.divExternaParaCentralizar.style.display = "none";
+            this.ativa = false;
+        }, 8000);
+    }
 }
