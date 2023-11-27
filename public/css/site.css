@@ -186,6 +186,7 @@ ul#clicker-infos li{
     min-height: 150px; min-width: 150px;
     width: 50%;
     cursor: pointer;
+    object-fit: contain;
 }
 #clicker-img:hover{
     transform: scale(1.05);

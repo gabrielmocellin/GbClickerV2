@@ -32,7 +32,7 @@
                     <li id='minions_sec_li'></li>
                 </ul>
                 <div id="clicker-img-div" class="image-clicker-div">
-                    <img draggable="false" src="../../View/uploads/items/GbMicrosoftAi.png" id="clicker-img" onclick="jogo.ClickOnClicker(event)">
+                    <img draggable="false" src="img/logo.png" id="clicker-img" onclick="jogo.ClickOnClicker(event)">
                 </div>
                 <div class="level-progress-div">
                     <p id="level-info-p"></p>
