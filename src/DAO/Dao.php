@@ -2,12 +2,14 @@
 
 namespace GbClicker\DAO;
 
+use GbClicker\Conexao\Conexao;
+
 class Dao
 {
     protected $conexao;
 
-    public function __construct(\PDO $pdo)
+    public function __construct()
     {
-        $this->conexao = $pdo;
+        $this->conexao = Conexao::criarConexao();
     }
 }

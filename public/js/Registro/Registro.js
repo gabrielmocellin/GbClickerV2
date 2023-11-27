@@ -1,5 +1,7 @@
-class Registro {
-    constructor() {
+class Registro
+{
+    constructor()
+    {
         this.form         = new Formulario();
         this.notification = new Notificacao();
 
@@ -10,17 +12,16 @@ class Registro {
         this.initEventListenerLoginButtons();
     }
 
-    
-
-    
-    preventDefaultEvent(){
+    preventDefaultEvent()
+    {
         this.submitBtn.addEventListener('click', (event) => {
             event.preventDefault();
             this.notification.iniciarNotificacao(this.form.validateInputs());
         });
     }
     
-    initEventListenerLoginButtons(){
+    initEventListenerLoginButtons()
+    {
         this.loginHereBtn.addEventListener('click', (event) => {
             window.location.href = "/login";
         });

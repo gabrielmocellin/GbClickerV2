@@ -1,12 +1,15 @@
-class Notificacao{
-    constructor(){
+class Notificacao
+{
+    constructor()
+    {
         this.divExternaParaCentralizar = document.getElementById("div-notificacao-div");
         this.divInterna = document.getElementById("notificacao-div");
         this.ativa = false;
     }
 
-    iniciarNotificacao(arrayDeAvisos){
-        if(!this.ativa){
+    iniciarNotificacao(arrayDeAvisos)
+    {
+        if (!this.ativa) {
             this.mostrarNotificacao();
             arrayDeAvisos.forEach(element => {
                 this.divInterna.innerHTML += "<p>" + element + "</p>";
@@ -15,16 +18,19 @@ class Notificacao{
         }
     }
     
-    mostrarNotificacao(){
+    mostrarNotificacao()
+    {
         this.divExternaParaCentralizar.style.display = "flex";
         this.divInterna.style.display = "flex";
         this.ativa = true;
     }
 
-    setTempoParaEsconderNotificacao(){
+    setTempoParaEsconderNotificacao()
+    {
         setTimeout(()=>{
             this.divInterna.style.display = "none";
             this.divExternaParaCentralizar.style.display = "none";
+            this.divInterna.innerHTML = "";
             this.ativa = false;
         }, 8000);
     }

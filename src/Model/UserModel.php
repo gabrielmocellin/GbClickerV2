@@ -17,16 +17,16 @@ class UserModel
     public $level_data;
     public $rows;
 
-    public function construtor($em, $ps, $nk, $im, $cv = 1, $mo = 0, $mu = 1, $mi = 0)
+    public function construtor($email, $password, $nickname, $image, $clickValue = 1, $money = 0, $multiplier = 1, $minions = 0)
     {
-        $this->setEmail($em);
-        $this->setPassword($ps);
-        $this->setNickname($nk);
-        $this->setImageSrc($im);
-        $this->setClickValue($cv);
-        $this->setMoney($mo);
-        $this->setMultiplier($mu);
-        $this->setMinions($mi);
+        $this->setEmail($email);
+        $this->setPassword($password);
+        $this->setNickname($nickname);
+        $this->setImageSrc($image);
+        $this->setClickValue($clickValue);
+        $this->setMoney($money);
+        $this->setMultiplier($multiplier);
+        $this->setMinions($minions);
     }
 
     public function save()

@@ -7,25 +7,13 @@ class UserDAO extends Dao implements IDAO
     public function insert($model)
     {
         $sqlUser = "INSERT INTO usuario (email, password, nickname, clickValue, money, multiplier, minions, image_src) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        $sqlLevel = "INSERT INTO nivel (FK_user_email, level, xp_points, max_to_up) VALUES (?, 1, 0, 10)";
-        $stmtUser = $this->conexao->prepare($sqlUser);
-        $stmtLevel = $this->conexao->prepare($sqlLevel);
-        $stmtUser->bind_param(
-            'sssddiis',
-            $model->getEmail(),
-            $model->getPassword(),
-            $model->getNickname(),
-            $model->getClickValue(),
-            $model->getMoney(),
-            $model->getMultiplier(),
-            $model->getMinions(),
-            $model->getImageSrc()
-        );
+        VALUES (:email, :password, :nickname, :clickValue, :money, :multiplier, :minions, :image_src)";
+        $sqlLevel = "INSERT INTO nivel (FK_user_email, level, xp_points, max_to_up) VALUES (:FK_user_email, 1, 0, 10)";
 
-        $stmtLevel->bind_param('s', $model->getEmail());
-
-        if ($stmtUser->execute() && $stmtLevel->execute()) {
+        $sqlUsuarioPreparado = $this->prepararSqlUser($sqlUser, $model);
+        $sqlLevelPreparado = $this->prepararSqlLevel($sqlLevel, $model);
+        
+        if ($sqlUsuarioPreparado->execute() && $sqlLevelPreparado->execute()) {
             return true;
         }
         return false;
@@ -74,5 +62,30 @@ class UserDAO extends Dao implements IDAO
         $stmt = $this->conexao->prepare($sql);
         $stmt->bind_param('s', $identifier);
         $stmt->execute();
+    }
+
+    public function prepararSqlUser($sql, $model)
+    {
+        $sqlUsuarioPreparado = $this->conexao->prepare($sql);
+
+        $sqlUsuarioPreparado->bindParam(':email', $model->getEmail(), \PDO::PARAM_STR);
+        $sqlUsuarioPreparado->bindParam(':password', $model->getPassword(), \PDO::PARAM_STR);
+        $sqlUsuarioPreparado->bindParam(':nickname', $model->getNickname(), \PDO::PARAM_STR);
+        $sqlUsuarioPreparado->bindParam(':clickValue', $model->getClickValue(), \PDO::PARAM_STR);
+        $sqlUsuarioPreparado->bindParam(':money', $model->getMoney(), \PDO::PARAM_INT);
+        $sqlUsuarioPreparado->bindParam(':multiplier', $model->getMultiplier(), \PDO::PARAM_INT);
+        $sqlUsuarioPreparado->bindParam(':minions', $model->getMinions(), \PDO::PARAM_INT);
+        $sqlUsuarioPreparado->bindParam(':image_src', $model->getImageSrc(), \PDO::PARAM_STR);
+
+        return $sqlUsuarioPreparado;
+    }
+
+    public function prepararSqlLevel($sql, $model)
+    {
+        $sqlLevelPreparado = $this->conexao->prepare($sql);
+
+        $sqlLevelPreparado->bindParam(':FK_user_email', $model->getEmail(), \PDO::PARAM_STR);
+
+        return $sqlLevelPreparado;
     }
 }
