@@ -8,16 +8,9 @@
         "squizlabs/php_codesniffer": "^3.7"
     },
     "scripts": {
-        "cs": "phpcs --standard=PSR12 src/",
-        "server-start": "php -S localhost:8080 -t public",
-        "gbstart": [
-            "@cs",
-            "@server-start"
-        ]
+        "cs": "phpcs --standard=PSR12 src/"
     },
     "scripts-descriptions": {
-        "cs": "Inicia a verificação do código com PSR12 (PHPCS)",
-        "server-start": "Inicia o servidor localmente apenas mostrando a pasta public",
-        "gbstart": "Inicia o servidor GbClicker após verificações"
+        "cs": "Inicia a verificação do código com PSR12 (PHPCS)"
     }
 }

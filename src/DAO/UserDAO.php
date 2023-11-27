@@ -21,47 +21,48 @@ class UserDAO extends Dao implements IDAO
 
     public function update($model)
     {
-        $sql = "UPDATE usuario SET clickValue=?, money=?, minions=? WHERE email = ?";
-        $stmt = $this->conexao->prepare($sql);
-        $stmt->bind_param(
-            'ddis',
-            $model->getClickValue(),
-            $model->getMoney(),
-            $model->getMinions(),
-            $model->getEmail(),
-        );
-        $stmt->execute();
+        $sql = "UPDATE usuario SET clickValue=:clickValue, money=:money, multiplier=:multiplier, minions=:minions 
+        WHERE email = :email";
+        $sqlPreparado = $this->conexao->prepare($sql);
+
+        $sqlPreparado->bindParam(':email', $model->getEmail(), \PDO::PARAM_STR);
+        $sqlPreparado->bindParam(':clickValue', $model->getClickValue(), \PDO::PARAM_STR);
+        $sqlPreparado->bindParam(':money', $model->getMoney(), \PDO::PARAM_INT);
+        $sqlPreparado->bindParam(':multiplier', $model->getMultiplier(), \PDO::PARAM_INT);
+        $sqlPreparado->bindParam(':minions', $model->getMinions(), \PDO::PARAM_INT);
+        
+        $sqlPreparado->execute();
     }
 
     public function select()
     {
         $sql = "SELECT * FROM usuario";
-        $stmt = $this->conexao->query($sql);
-        return $stmt->fetch_all(MYSQLI_ASSOC);
+        $sqlPreparado = $this->conexao->query($sql);
+        return $sqlPreparado->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public function selectByEmailAndPassword(string $email, string $password)
     {
         $sql = "SELECT * FROM usuario JOIN nivel 
         WHERE usuario.email = nivel.FK_user_email and usuario.email = '$email' and password = '$password'";
-        $stmt = $this->conexao->query($sql);
-        return $stmt->fetch_assoc();
+        $sqlPreparado = $this->conexao->query($sql);
+        return $sqlPreparado->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public function selectByEmail(string $email)
     {
         $sql = "SELECT * FROM usuario JOIN nivel 
         WHERE usuario.email = nivel.FK_user_email and usuario.email = '$email'";
-        $stmt = $this->conexao->query($sql);
-        return $stmt->fetch_assoc();
+        $sqlPreparado = $this->conexao->query($sql);
+        return $sqlPreparado->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public function delete($identifier)
     {
-        $sql = "DELETE FROM usuario WHERE email = ?";
-        $stmt = $this->conexao->prepare($sql);
-        $stmt->bind_param('s', $identifier);
-        $stmt->execute();
+        $sql = "DELETE FROM usuario WHERE email = :email";
+        $sqlPreparado = $this->conexao->prepare($sql);
+        $sqlPreparado->bindParam(':email', $identifier, \PDO::PARAM_STR);
+        $sqlPreparado->execute();
     }
 
     public function prepararSqlUser($sql, $model)

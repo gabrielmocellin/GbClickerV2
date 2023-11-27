@@ -5,10 +5,10 @@
 
     use GbClicker\Controller\{
         LandingpageController,
-        ImportController,
-        ItemController,
         LoginController,
         RegisterController,
+        HomeController,
+        ItemController,
         SaveRegisterController,
         ShopController,
         Error404Controller

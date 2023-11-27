@@ -1,11 +1,11 @@
-<?php
+<?php /*
     include 'Controller/ItemController.php';
     include 'Controller/ImportController.php';
     include 'Controller/LoginController.php';
     include 'Controller/RegisterController.php';
     include 'Controller/ShopController.php';
 
-    /* Ao utilizar o XAMPP é necessário colocar o "GbClickerV2" na url! */
+    // Ao utilizar o XAMPP é necessário colocar o "GbClickerV2" na url!
     $url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
     switch($url){
@@ -56,4 +56,5 @@
             echo "<h3>$url</h3>";
             break;
     }
+    */
 ?>

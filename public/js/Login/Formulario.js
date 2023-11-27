@@ -6,7 +6,7 @@ class Formulario {
         this.emailInput = document.getElementById("email");
         this.passwordInput = document.getElementById("password");
 
-        this.emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        this.emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]+$/;
     }
 
     validateInputs(){ // Validar todos os inputs

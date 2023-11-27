@@ -29,11 +29,11 @@ class game
         this.AtualizarValorNoElemento("level-info-p",   this.usuario.getNivel(), "LEVEL: ");              // Atualizando Level atual
         this.AtualizarBarraDeProgressoDeNivel();
         
-        setInterval(()=>{
+        setInterval(() => {
             this.AtualizarValorNoElemento("money_sec_li", this.CalcularDinheiroPorSegundo(), "", " R$/sec");
         }, 250);
 
-        setInterval(()=>{
+        setInterval(() => {
             this.usuario.AddDinheiroPorMinion();
             this.AtualizarValorNoElemento("user_money_p", this.usuario.getDinheiro(), " R$ ");
         }, 1000);
@@ -78,7 +78,7 @@ class game
         
         this.cliquesPorSegundo += 1;
 
-        setTimeout(()=>{
+        setTimeout(() => {
             if (this.cliquesPorSegundo > 0) {
                 this.cliquesPorSegundo -= 1;
             }
@@ -177,20 +177,23 @@ class game
         newCounterElement.style.left  = xytuple[0]    + "px";
         newCounterElement.style.top   = xytuple[1]-55 + "px";
         
-        setTimeout(()=>{
+        setTimeout(() => {
             newCounterElement.remove();
         }, 1500);
     }
 
     salvarDadosDoUsuarioNoBancoPeriodicamente()
     {
-        setInterval(()=>{
+        setInterval(() => {
             let formularioParaSalvarDados = this.criarFormulario();
-
             let xml_request = new XMLHttpRequest();
 
-            xml_request.onreadystatechange = function (){ if(xml_request.readyState == 4 && xml_request.status == 200) console.log("Salvando no banco...") }
-            xml_request.open('POST', 'View/home/exe/saveUserData.php', true);
+            xml_request.onreadystatechange = function (){
+                if (xml_request.readyState == 4 && xml_request.status == 200) {
+                    console.log("Salvando no banco...");
+                }
+            }
+            xml_request.open('POST', '/home/save', true);
             xml_request.send(new FormData(formularioParaSalvarDados));
 
             document.body.removeChild(formularioParaSalvarDados);
