@@ -17,10 +17,16 @@ class SaveRegisterController
             $path = SaveRegisterController::salvarImagemLocalmente($_FILES['image_src']);
             $model = new UserModel();
             $model->construtor($_POST['email-input'], $_POST['password-input'], $_POST['nickname-input'], $path);
-            if ($model->save()) {
-                header("location: /login?sucesso=1");
-                return;
-            };
+            try{
+                if ($model->save()) {
+                    header("location: /login?sucesso=1");
+                    return;
+                };
+            } catch(\Exception $exception){
+                if ($exception->getCode() == 23000) {
+                    header("location: /register?emailDuplicado=1");
+                };
+            }
         }
     }
 
@@ -90,8 +96,8 @@ class SaveRegisterController
 
     public static function salvarImagemLocalmente($imagem)
     {
-        $pathRelativo = 'img/uploads/profile/';
-        $pathCompleto = __DIR__ . "/$pathRelativo";
+        $pathRelativo = "img\\uploads\\profile\\";
+        $pathCompleto = __DIR__ . "\\..\\..\\public\\$pathRelativo" . basename($imagem['name']);
         if (!move_uploaded_file($imagem['tmp_name'], $pathCompleto)) {
             header("location: /register?erroImagem=7");
             return;

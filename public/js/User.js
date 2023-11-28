@@ -10,21 +10,29 @@ class User{
         this.pontosNecessariosParaSubirDeNivel  = pontosNecessariosParaSubirDeNivel;        
     }
 
-    AddDinheiroPorClique(){ this.setDinheiro( this.getDinheiro() + this.getValorDoClique() * this.getMultiplicador() ); }
+    AddDinheiroPorClique()
+    {
+        this.setDinheiro( this.getDinheiro() + this.getValorDoClique() * this.getMultiplicador() );
+    }
 
-    AddDinheiroPorMinion(){ this.setDinheiro( this.getDinheiro() + this.getValorDoClique() * this.getMinions() * this.getMultiplicador() ); }
+    AddDinheiroPorMinion()
+    {
+        this.setDinheiro( this.getDinheiro() + this.getMinions() * this.getMultiplicador() );
+    }
 
-    AddPontosAtuaisDeNivel(){
+    AddPontosAtuaisDeNivel()
+    {
         const PONTO_POR_CLIQUE = 1;
         this.setPontosAtuaisDeNivel(this.getPontosAtuaisDeNivel() + PONTO_POR_CLIQUE);
         this.VerificarProgressoNivel();
     }
 
-    VerificarProgressoNivel(){
-        const PORCENTAGEM_INCREMENTADA_PONTOS_PARA_UPAR = 10/100;
+    VerificarProgressoNivel()
+    {
+        const PORCENTAGEM_INCREMENTADA_PONTOS_PARA_UPAR = 15/100;
         const QUANTIDADE_NIVEIS_AVANCADOS = 1;
 
-        if(this.pontosAtuaisDeNivel  >= this.pontosNecessariosParaSubirDeNivel){
+        if (this.pontosAtuaisDeNivel  >= this.pontosNecessariosParaSubirDeNivel) {
             this.setNivel(this.getNivel() + QUANTIDADE_NIVEIS_AVANCADOS);
             this.setPontosAtuaisDeNivel(this.getPontosAtuaisDeNivel() - this.getPontosNecessariosParaSubirDeNivel());
             this.setPontosNecessariosParaSubirDeNivel(this.getPontosNecessariosParaSubirDeNivel() + this.getPontosNecessariosParaSubirDeNivel() * PORCENTAGEM_INCREMENTADA_PONTOS_PARA_UPAR);

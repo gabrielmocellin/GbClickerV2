@@ -6,6 +6,7 @@
     use GbClicker\Controller\{
         LandingpageController,
         LoginController,
+        LogoutController,
         RegisterController,
         HomeController,
         ItemController,

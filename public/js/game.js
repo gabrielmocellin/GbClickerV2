@@ -62,7 +62,7 @@ class game
 
     CalcularDinheiroPorSegundo()
     {
-        let dinheiroPsec = parseFloat( (this.usuario.getValorDoClique() * this.usuario.getMultiplicador() * this.cliquesPorSegundo) + (this.usuario.getMinions() * this.usuario.getValorDoClique() * this.usuario.getMultiplicador()) );
+        let dinheiroPsec = parseFloat( (this.usuario.getValorDoClique() * this.usuario.getMultiplicador() * this.cliquesPorSegundo) + (this.usuario.getMinions() * this.usuario.getMultiplicador()) );
         return dinheiroPsec;
     }
     

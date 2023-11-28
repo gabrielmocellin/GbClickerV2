@@ -7,6 +7,10 @@ class HomeController
     public static function index()
     {
         $model = LoginController::login();
-        require_once __DIR__ . '/../../View/home/home.php';
+        if ($model != null) {
+            require_once __DIR__ . '/../../View/home/home.php';
+        } else {
+            header("location: \\login");
+        }
     }
 }

@@ -2,6 +2,8 @@
 
 namespace GbClicker\Model;
 
+use GbClicker\DAO\ItemDao;
+
 class ItemModel
 {
     public $id;

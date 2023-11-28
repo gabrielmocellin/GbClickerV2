@@ -2,14 +2,12 @@
 
 namespace GbClicker\Controller;
 
+use GbClicker\Model\ItemModel;
+
 class ItemController
 {
     public static function index()
     {
-        require "View/admin/createItems.php";
-    }
-    public static function create()
-    {
-        require "View/admin/exe/saveItem.php";
+        require __DIR__ . "\\..\\..\\View\\admin\\createItems.php";
     }
 }

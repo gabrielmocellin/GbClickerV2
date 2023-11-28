@@ -1,7 +1,7 @@
 <header>
     <div class="header_logo_button">
         <div id="hamburguer-navbar-button">
-            <img class="menu-icons" src="icons/menu.png" alt="Icone abrir/fechar menu">
+            <img class="menu-icons" src="img/icons/menu.png" alt="Icone abrir/fechar menu">
         </div>
         <a href='#' id="header_logo" class="noSelect">GbClicker</a>
     </div>
