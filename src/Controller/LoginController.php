@@ -8,7 +8,16 @@ class LoginController
 {
     public static function index()
     {
-        require_once __DIR__ . '/../../View/login/login.php';
+        session_start();
+        if (session_status() == 2) {
+            if (
+                isset($_SESSION['email']) &&
+                session_status() == 2
+            ) {
+                header("location: /home");
+            }
+        }
+        include_once __DIR__ . '/../../View/login/login.php';
     }
 
     public static function login()

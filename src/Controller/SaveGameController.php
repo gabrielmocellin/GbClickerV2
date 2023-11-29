@@ -8,7 +8,7 @@ class SaveGameController
 {
     public static function index()
     {
-        if($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             header("location: /erro404");
         }
         if (!isset($_SESSION['email'])) {
@@ -28,11 +28,11 @@ class SaveGameController
                     nivel.xp_points=:xp_points, 
                     nivel.max_to_up=:max_to_up 
                     WHERE usuario.email = :email AND usuario.email = nivel.FK_user_email";
-                
+
                 $conexao = Conexao::criarConexao();
 
                 $sqlUsuarioPreparado = $conexao->prepare($sql);
-                
+
                 $email      = $_SESSION['email'];
                 $clickValue = $dadosDecodificados['clickValue'];
                 $money      = $dadosDecodificados['money'];
@@ -43,13 +43,13 @@ class SaveGameController
                 $max_to_up  = $dadosDecodificados['max-to-up'];
 
                 $sqlUsuarioPreparado->bindParam(':clickValue', $clickValue, \PDO::PARAM_INT);
-                $sqlUsuarioPreparado->bindParam(':money',      $money,      \PDO::PARAM_INT);
+                $sqlUsuarioPreparado->bindParam(':money', $money, \PDO::PARAM_INT);
                 $sqlUsuarioPreparado->bindParam(':multiplier', $multiplier, \PDO::PARAM_INT);
-                $sqlUsuarioPreparado->bindParam(':minions',    $minions,    \PDO::PARAM_INT);
-                $sqlUsuarioPreparado->bindParam(':level',      $level,      \PDO::PARAM_INT);
-                $sqlUsuarioPreparado->bindParam(':xp_points',  $xp_points,  \PDO::PARAM_INT);
-                $sqlUsuarioPreparado->bindParam(':max_to_up',  $max_to_up,  \PDO::PARAM_INT);
-                $sqlUsuarioPreparado->bindParam(':email',      $email,      \PDO::PARAM_STR);
+                $sqlUsuarioPreparado->bindParam(':minions', $minions, \PDO::PARAM_INT);
+                $sqlUsuarioPreparado->bindParam(':level', $level, \PDO::PARAM_INT);
+                $sqlUsuarioPreparado->bindParam(':xp_points', $xp_points, \PDO::PARAM_INT);
+                $sqlUsuarioPreparado->bindParam(':max_to_up', $max_to_up, \PDO::PARAM_INT);
+                $sqlUsuarioPreparado->bindParam(':email', $email, \PDO::PARAM_STR);
 
                 $sqlUsuarioPreparado->execute();
             }

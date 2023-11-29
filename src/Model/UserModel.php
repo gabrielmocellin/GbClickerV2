@@ -18,8 +18,16 @@ class UserModel
     public $level_data;
     public $rows;
 
-    public function construtor($email, $password, $nickname, $image, $clickValue = 1, $money = 0, $multiplier = 1, $minions = 0)
-    {
+    public function construtor(
+        $email,
+        $password,
+        $nickname,
+        $image,
+        $clickValue = 1,
+        $money = 0,
+        $multiplier = 1,
+        $minions = 0
+    ) {
         $this->setEmail($email);
         $this->setPassword($password);
         $this->setNickname($nickname);

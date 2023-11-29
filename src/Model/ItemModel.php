@@ -82,7 +82,7 @@ class ItemModel
     }
 
     // =-=-=-=-= SETTERS =-=-=-=-=
-    public function setNome($nome)           
+    public function setNome($nome)
     {
         $this->nome = $nome;
     }

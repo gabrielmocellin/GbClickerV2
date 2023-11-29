@@ -33,7 +33,7 @@ class SaveRegisterController
 
     public static function validarInputs()
     {
-        if(
+        if (
             isset($_POST['email-input']) &&
             isset($_POST['password-input']) &&
             isset($_POST['nickname-input']) &&

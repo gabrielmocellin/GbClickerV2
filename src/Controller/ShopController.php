@@ -13,7 +13,7 @@ class ShopController
     {
         $model = LoginController::login();
         $itemsArray = ShopController::pegarItens();
-        require_once __DIR__ . '/../../View/shop/shop.php';
+        include_once __DIR__ . '/../../View/shop/shop.php';
     }
 
     public static function pegarItens()

@@ -8,6 +8,6 @@ class ItemController
 {
     public static function index()
     {
-        require __DIR__ . "\\..\\..\\View\\admin\\createItems.php";
+        include __DIR__ . "\\..\\..\\View\\admin\\createItems.php";
     }
 }
