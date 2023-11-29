@@ -26,4 +26,24 @@ class Registro
             window.location.href = "/login";
         });
     }
+
+    verificarAvisos(codigoDoAviso)
+    {
+        let avisos = {
+            "0":"Um dos inputs está inválido!",
+            "1":"Email inválido!",
+            "2":"Senha inválida!",
+            "3":"Apelido inválido!",
+            "4":"Nenhuma imagem foi enviada!",
+            "5":"Tamanho de imagem excedido!",
+            "6":"Tamanho de imagem excedido!",
+            "7":"Não foi possível mover a imagem!",
+            "8":"Email já cadastrado!",
+            "9":"Apelido já cadastrado!"
+        }
+        
+        if (avisos.hasOwnProperty(codigoDoAviso)) {
+            this.notification.iniciarNotificacao(avisos[codigoDoAviso]);
+        }
+    }
 }

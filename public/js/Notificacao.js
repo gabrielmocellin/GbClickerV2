@@ -7,13 +7,18 @@ class Notificacao
         this.ativa = false;
     }
 
-    iniciarNotificacao(arrayDeAvisos)
+    iniciarNotificacao(avisos)
     {
         if (!this.ativa) {
             this.mostrarNotificacao();
-            arrayDeAvisos.forEach(element => {
-                this.divInterna.innerHTML += "<p>" + element + "</p>";
-            } );
+            if (typeof avisos != 'string') {
+                avisos.forEach(element => {
+                    this.divInterna.innerHTML += "<p>" + element + "</p>";
+                } );
+            } else {
+                this.divInterna.innerHTML += "<p>" + avisos + "</p>";
+            }
+            
             this.setTempoParaEsconderNotificacao();
         }
     }

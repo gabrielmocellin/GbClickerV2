@@ -8,14 +8,14 @@ class LoginController
 {
     public static function index()
     {
-        require_once __DIR__ . '/../../View/login/login.html';
+        require_once __DIR__ . '/../../View/login/login.php';
     }
 
     public static function login()
     {
         session_start();
         if (session_status() != 2) {
-            header("location: /login?erro=criarSessao");
+            header("location: /login?erro=3");
         }
         if (isset($_SESSION['email'])) { // Caso o usuário já esteja logado no sistema
             $model = new UserModel();
@@ -27,7 +27,7 @@ class LoginController
             $model->setEmail($_POST['email-input']);
             $model->setPassword($_POST['password-input']);
             if (!$model->getByEmailAndPassword()) {
-                header("location: /login?sucesso=0");
+                header("location: /login?erro=1");
                 return;
             };
             $_SESSION['email'] = $model->getEmail();
@@ -36,11 +36,11 @@ class LoginController
         }
     }
 
-    public static function logout()
+    public static function verificarAvisos()
     {
-        session_start();
-        session_unset();
-        session_destroy();
-        header("location: /?sessao=0");
+        if (isset($_GET['aviso'])) {
+            $codigoDoAviso = $_GET['aviso'];
+            echo "<script>login.verificarAvisos('$codigoDoAviso')</script>";
+        }
     }
 }

@@ -108,48 +108,6 @@ class game
         }
     }
 
-    criarFormulario()
-    {
-        let formularioParaSalvarDados = document.createElement('form');
-
-        let valoresParaColocarNosInputs = [
-            this.usuario.getValorDoClique(),
-            this.usuario.getDinheiro(),
-            this.usuario.getMultiplicador(),
-            this.usuario.getMinions(),
-            this.usuario.getNivel(),
-            this.usuario.getPontosAtuaisDeNivel(),
-            this.usuario.getPontosNecessariosParaSubirDeNivel()
-        ];
-
-        let inputs = [
-            'clickValue',
-            'money',
-            'multiplier',
-            'minions',
-            'level',
-            'xp-points',
-            'max-to-up'
-        ];
-
-        formularioParaSalvarDados.id = 'form-user-save-data';
-        formularioParaSalvarDados.action = '';
-        formularioParaSalvarDados.style.display = 'none';
-    
-        inputs.forEach(function (inputName, indiceRespectivo) {
-            let input   = document.createElement('input');
-            input.id    = inputName + '-input';
-            input.name  = inputName + '-input';
-            input.type  = 'text';
-            input.value = valoresParaColocarNosInputs[indiceRespectivo]; 
-            formularioParaSalvarDados.appendChild(input);
-        });
-
-        document.body.appendChild(formularioParaSalvarDados);
-
-        return formularioParaSalvarDados;
-    }
-
     /* Verificando a posição que o jogador clicou na foto do clicker */
     GetClickPosition(event)
     {
@@ -184,19 +142,31 @@ class game
 
     salvarDadosDoUsuarioNoBancoPeriodicamente()
     {
-        setInterval(() => {
-            let formularioParaSalvarDados = this.criarFormulario();
-            let xml_request = new XMLHttpRequest();
+        var intervaloSalvamento = setInterval(() => {
+            let dadosUsuarioAtuais = {
+                "clickValue":this.usuario.getValorDoClique(),
+                "money":this.usuario.getDinheiro(),
+                "multiplier":this.usuario.getMultiplicador(),
+                "minions":this.usuario.getMinions(),
+                "level":this.usuario.getNivel(),
+                "xp-points":this.usuario.getPontosAtuaisDeNivel(),
+                "max-to-up":this.usuario.getPontosNecessariosParaSubirDeNivel(),
+            };
 
-            xml_request.onreadystatechange = function (){
-                if (xml_request.readyState == 4 && xml_request.status == 200) {
-                    console.log("Salvando no banco...");
+            let xhr = new XMLHttpRequest();
+
+            xhr.onreadystatechange = function (){
+                let statusComuns = xhr.status == 200 || xhr.status == 0;
+                if (!statusComuns) {
+                    console.log("[ERRO] Erro inesperado: " + xhr.status);
+                    xhr.abort();
+                    clearInterval(intervaloSalvamento);
                 }
             }
-            xml_request.open('POST', '/home/save', true);
-            xml_request.send(new FormData(formularioParaSalvarDados));
 
-            document.body.removeChild(formularioParaSalvarDados);
+            xhr.open('POST', '/home/save', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify(dadosUsuarioAtuais));
         }, 1000);
     }
 }

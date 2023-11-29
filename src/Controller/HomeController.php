@@ -10,7 +10,7 @@ class HomeController
         if ($model != null) {
             require_once __DIR__ . '/../../View/home/home.php';
         } else {
-            header("location: \\login");
+            header("location: \\login?aviso=1");
         }
     }
 }

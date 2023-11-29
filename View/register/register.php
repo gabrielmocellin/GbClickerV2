@@ -1,4 +1,8 @@
-<!DOCTYPE html>
+<?php
+
+    use GbClicker\Controller\RegisterController;
+
+?><!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -56,5 +60,6 @@
     <script lang="JavaScript" src="js/Registro/Formulario.js"></script> 
     <script lang="JavaScript" src="js/Registro/Registro.js"></script>
     <script>let registro = new Registro();</script>
+    <?php RegisterController::verificarAvisos(); ?>
 </body>
 </html>

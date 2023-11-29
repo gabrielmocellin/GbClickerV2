@@ -1,4 +1,8 @@
-<!DOCTYPE html>
+<?php
+
+    use GbClicker\Controller\LoginController;
+
+?><!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -46,6 +50,7 @@
     <script lang="JavaScript" src="js/Notificacao.js"></script> 
     <script lang="JavaScript" src="js/Login/Formulario.js"></script> 
     <script lang="JavaScript" src="js/Login/Login.js"></script>
-    <script>let login = new Login();</script>
+    <script>var login = new Login();</script>
+    <?php LoginController::verificarAvisos(); ?>
 </body>
 </html>
