@@ -9,6 +9,6 @@ class LogoutController
         session_start();
         session_unset();
         session_destroy();
-        header("location: /login?aviso=1");
+        header("location: /login?aviso=2");
     }
 }

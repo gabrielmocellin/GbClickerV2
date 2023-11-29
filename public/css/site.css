@@ -120,9 +120,14 @@ img.user_image{
     background-color: var(--30green);
     color:var(--font-white-color);
 }
+#div-menu-navbar ul li:not(.disabled):active{
+    background-color: #467c5f;
+    color:var(--font-white-color);
+}
 #div-menu-navbar ul li img{
     max-height: 2em;
     margin: 0 0.625em;
+    aspect-ratio: 1;
 }
 
 
