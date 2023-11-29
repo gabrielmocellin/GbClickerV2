@@ -1,0 +1,16 @@
+{
+    "autoload": {
+        "psr-4": {
+            "GbClicker\\": "src/"
+        }
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.7"
+    },
+    "scripts": {
+        "cs": "phpcs --standard=PSR12 src/"
+    },
+    "scripts-descriptions": {
+        "cs": "Inicia a verificação do código com PSR12 (PHPCS)"
+    }
+}

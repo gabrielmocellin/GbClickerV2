@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="View/shared/style/siteTmp.css">
-    <link rel="stylesheet" href="View/landingPage/style/landingPage.css">
+    <link rel="stylesheet" href="css/siteTmp.css">
+    <link rel="stylesheet" href="css/landingPage.css">
     <title>Landing Page</title>
 </head>
 <body>
@@ -28,14 +28,14 @@
 
             <div class='atualizacao'>
                 <p class='atualizacao_data'>Atualização (06/05/2023)</p>
-                <img class='atualizacao_imagem' src='View\shared\img\gbClicker_print.png'>
+                <img class='atualizacao_imagem' src='img/att_test.png'>
                 <li class='textoMudanca'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel expedita voluptatum quae sint harum ea esse aperiam eligendi ex doloremque voluptate, tempore aspernatur minus! Perferendis atque corporis eveniet corrupti ipsam.</li>
                 <li class='textoMudanca'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel expedita voluptatum quae sint harum ea esse aperiam eligendi ex doloremque voluptate, tempore aspernatur minus! Perferendis atque corporis eveniet corrupti ipsam.</li>
             </div>
 
             <div class='atualizacao'>
                 <p class='atualizacao_data'>Atualização (07/10/2023)</p>
-                <img class='atualizacao_imagem' src='View\shared\img\gbClicker_print.png'>
+                <img class='atualizacao_imagem' src='img/att_test.png'>
                 <ul class='listaDeMudancas'>
                     <li class='textoMudanca'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel expedita voluptatum quae sint harum ea esse aperiam eligendi ex doloremque voluptate, tempore aspernatur minus! Perferendis atque corporis eveniet corrupti ipsam.</li>
                 </ul>

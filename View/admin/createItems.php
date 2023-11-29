@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="View/admin/style/item.css"></link>
+    <link rel="stylesheet" href="css/item.css"></link>
     <title>ADMIN | Itens</title>
     
 </head>
 <body>
     <form action="items/save" method="POST" enctype="multipart/form-data">
-        <label for="nome">Nome:</label>                      <input type="text" name="nome" id="nome">
-
-        <label for="descricao">Descrição:</label>            <textarea name="descricao" id="descricao"></textarea>
-
-        <label for="preco">Preço:</label>                    <input type="text" name="preco" id="preco">
-
-        <label for="minimum_level">Nível Mínimo:</label>     <input type="text" name="minimum_level" id="minimum_level">
-
-        <label for="quantidade">Quantidade:</label>          <input type="text" name="quantidade" id="quantidade">
-
-        <label for="tipo">Tipo:</label>          <input type="text" name="tipo" id="tipo">
-
-        <label for="image_src">Imagem (PNG ou JPG):</label>  <input type="file" name="image_src" id="image_src" accept=".png, .jpg" onchange="previewImage(this)">
+        <label for="nome">Nome:</label>
+            <input type="text" name="nome" id="nome" required>
+        <label for="descricao">Descrição:</label>
+            <textarea name="descricao" id="descricao" required></textarea>
+        <label for="preco">Preço:</label>
+            <input type="text" name="preco" id="preco" required>
+        <label for="minimum_level">Nível Mínimo:</label>
+            <input type="text" name="minimum_level" id="minimum_level" required>
+        <label for="quantidade">Quantidade:</label>
+            <input type="text" name="quantidade" id="quantidade" required>
+        <label for="tipo">Tipo:</label>
+            <input type="text" name="tipo" id="tipo" required>
+        <label for="image_src">Imagem (PNG ou JPG):</label>  <input type="file" name="image_src" id="image_src" accept=".png, .jpg, .jpeg" onchange="previewImage(this)" required>
 
         <img id="preview" class="preview" alt="Preview">
 
