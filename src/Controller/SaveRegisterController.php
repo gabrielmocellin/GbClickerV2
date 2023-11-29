@@ -34,15 +34,15 @@ class SaveRegisterController
     public static function validarInputs()
     {
         if(
-            isset($_POST['email-input']) && 
-            isset($_POST['password-input']) && 
-            isset($_POST['nickname-input']) && 
+            isset($_POST['email-input']) &&
+            isset($_POST['password-input']) &&
+            isset($_POST['nickname-input']) &&
             isset($_FILES['image_src'])
         ) {
             if (
-                SaveRegisterController::validarEmailInput($_POST['email-input']) && 
-                SaveRegisterController::validarSenhaInput($_POST['password-input']) && 
-                SaveRegisterController::validarNicknameInput($_POST['nickname-input']) && 
+                SaveRegisterController::validarEmailInput($_POST['email-input']) &&
+                SaveRegisterController::validarSenhaInput($_POST['password-input']) &&
+                SaveRegisterController::validarNicknameInput($_POST['nickname-input']) &&
                 SaveRegisterController::validarImagemInput($_FILES['image_src'])
             ) {
                 return true;
@@ -86,7 +86,7 @@ class SaveRegisterController
     public static function validarImagemInput($imagem)
     {
         $tiposPermitidos = ["image/jpeg", "image/jpg", "image/png"];
-        
+
         if (in_array($imagem['type'], $tiposPermitidos)) {
             return true;
         }

@@ -12,7 +12,7 @@ class UserDAO extends Dao implements IDAO
 
         $sqlUsuarioPreparado = $this->prepararSqlUser($sqlUser, $model);
         $sqlLevelPreparado = $this->prepararSqlLevel($sqlLevel, $model);
-        
+
         if ($sqlUsuarioPreparado->execute() && $sqlLevelPreparado->execute()) {
             return true;
         }
@@ -30,7 +30,7 @@ class UserDAO extends Dao implements IDAO
         $sqlPreparado->bindParam(':money', $model->getMoney(), \PDO::PARAM_INT);
         $sqlPreparado->bindParam(':multiplier', $model->getMultiplier(), \PDO::PARAM_INT);
         $sqlPreparado->bindParam(':minions', $model->getMinions(), \PDO::PARAM_INT);
-        
+
         $sqlPreparado->execute();
     }
 

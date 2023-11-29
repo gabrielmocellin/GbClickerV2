@@ -9,7 +9,7 @@ class ItemDAO extends Dao implements IDAO
         $sql = "INSERT INTO itens (nome, descricao, preco, minimum_level, quantidade, image_src, tipo) 
         VALUES (:nome, :descricao, :preco, :minimum_level, :quantidade, :image_src, :tipo)";
         $stmt = $this->conexao->prepare($sql);
-        
+
         $stmt->bindParam(":nome", $model->getNome(), \PDO::PARAM_STR);
         $stmt->bindParam(":descricao", $model->getDescricao(), \PDO::PARAM_STR);
         $stmt->bindParam(":preco", $model->getPreco(), \PDO::PARAM_INT);

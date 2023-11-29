@@ -31,12 +31,12 @@ class ShopController
             foreach ($itemsArray as $item) {
                 $itemsInTr++;
                 echo "
-                    <td id='item-".$item['id']."' title='". $item['descricao'] ."'>
+                    <td id='item-" . $item['id'] . "' title='" . $item['descricao'] . "'>
                         <div>
-                            <img class='item-img' src='".$item['image_src']."'>
-                            <p class='item-name'>".   $item['nome'] .       "</p>
-                            <p>".   $item['quantidade'] . "x</p>
-                            <p class='item-price'>R$ ". $item['preco'] .      "</p>
+                            <img class='item-img' src='" . $item['image_src'] . "'>
+                            <p class='item-name'>" . $item['nome'] . "</p>
+                            <p>" . $item['quantidade'] . "x</p>
+                            <p class='item-price'>R$ " . $item['preco'] . "</p>
                         </div>
                     </td>
                 ";
@@ -57,8 +57,8 @@ class ShopController
     public static function identificarItens($itemsArray)
     {
         if (!empty($itemsArray)) {
-            foreach($itemsArray as $item){
-               echo "itensArray.push(new " . $item['tipo'] . "(" . $item['id'] . ", "
+            foreach ($itemsArray as $item) {
+                echo "itensArray.push(new " . $item['tipo'] . "(" . $item['id'] . ", "
                 . $item['preco'] . ", " . $item['minimum_level'] . ", "
                 . $item['quantidade'] . ", '" . $item['nome'] . "') );
                 ";
