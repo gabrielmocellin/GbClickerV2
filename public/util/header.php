@@ -3,7 +3,7 @@
         <div id="hamburguer-navbar-button">
             <img class="menu-icons" src="img/icons/menu.png" alt="Icone abrir/fechar menu">
         </div>
-        <a href='#' id="header_logo" class="noSelect">GbClicker</a>
+        <a href='/home' id="header_logo" class="noSelect">GbClicker</a>
     </div>
     <div></div>
     <ul class="header_ul_userInfos noSelect">
