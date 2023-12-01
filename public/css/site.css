@@ -43,7 +43,7 @@ body{
 }
 .disabled{
     opacity: 0.4 !important;
-    background: gray;
+    background: rgb(85, 85, 85);
     cursor: default !important;
 }
 .noSelect{
@@ -52,85 +52,172 @@ body{
 
 
 /* ++++++ Cabecalho ++++++ */
-header{
+header
+{
     background: var(--30green);
-    display:flex; justify-content: space-between;
+    display:grid;
+    grid-template-columns: 2fr 8fr 2fr;
     box-shadow: var(--header-shadow);
-    min-width: 320px;
+    min-width: 20em;
+    position:relative;
 }
-div.header_logo_button{
-    display:flex; flex-direction: row;
+
+div.header_logo_button
+{
+    display: grid;
+    grid-template-columns: 1fr 3fr;
     align-items: center;
-    margin-left: 1em;
+    margin-left: 1rem;
 }
-#header_logo{
+
+#header_logo
+{
     cursor:pointer;
     text-align: center;
-    padding-left: 25px;
-    font-family: var(--font-primary); font-size: var(--logo-font-size); font-weight: bold; color:var(--60green);
+    padding-left: 1rem;
+    font-family: var(--font-primary);
+    font-size: var(--logo-font-size);
+    font-weight: bold;
+    color:var(--60green);
     text-decoration: none;
 }
-ul.header_ul_userInfos{
-    min-width:100px; width:20%;
-    display:flex; align-items: center; justify-content: end;
+
+ul.header_ul_userInfos
+{
+    margin-right: 1rem;
+    display:flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: end;
 }
-p.user_money{
-    font-size: var(--money-font-size); color:var(--60green); font-family: var(--font-primary);
-    margin-right: var(--logo-font-size);
+
+p.user_money
+{
+    font-size: var(--money-font-size);
+    font-family: var(--font-primary);
+    color: var(--60green);
+    margin-right: 1rem;
 }
-img.user_image{
-    height:var(--logo-font-size); width: var(--logo-font-size);
-    border-radius: 100%;
+
+img.user_image
+{
+    cursor: pointer;
+    height:var(--logo-font-size);
+    aspect-ratio: 1;
+    border-radius: 50%;
     object-fit: cover;
-    margin-right: 10px;
     border: 2px solid var(--30green);
     box-shadow: var(--header-profile-image-shadow);
 }
-#hamburguer-navbar-button{
-    width: 3em; height:3em;
+
+#hamburguer-navbar-button
+{
+    width: 3em;
     cursor: pointer;
+    aspect-ratio: 1;
+}
+
+#navbar-conta-dropdown
+{
+    font-family: var(--font-text);
+    display:grid;
+    grid-template-rows: repeat(6, 1fr);
+    position:absolute;
+    top:100%;
+    right:1em;
+    background-color:#efefef;
+    width: max(10%, 12em);
+    gap: 0.5em;
+    aspect-ratio:1;
+    padding: 0.5em;
+    border-radius: 0.5em;
+}
+
+#navbar-conta-dropdown a
+{
+    padding: 0.3em;
+    cursor: pointer;
+    color: black;
+    font-size: 1em;
+    border-radius: 0.5em;
+}
+
+#navbar-conta-dropdown a:hover
+{
+    background-color: #ddd;
+}
+
+#navbar-conta-dropdown a:active
+{
+    background-color: #aaa;
+}
+
+#navbar-conta-dropdown a:last-child
+{
+    color: darkred;
+}
+
+#navbar-conta-dropdown a img
+{
+    width: 1.5em;
+    aspect-ratio: 1;
+    vertical-align: middle;
+    margin-right: 0.5em;
 }
 
 
 /* ++++++ NAV BAR ++++++ */
-.menuClosed{
-    animation: closingMenu 0.2s ease-in-out;
-    display: none;
+.menuClosed
+{
+    display: none !important;
 }
-.menu-icons{
-    width:100%; height: 100%;
+
+.menu-icons
+{
+    width: 100%; 
+    height: 100%;
     pointer-events: none;
 }
-#div-menu-navbar{
+
+#div-menu-navbar
+{
     min-width: 15em;
-    overflow-y: auto; overflow-x: none;
+    overflow-y: auto;
+    overflow-x: none;
     background-color: var(--lightGrayGreen);
     box-shadow: 0px 4px 4px 0px var(--shadow-color);
 }
-#div-menu-navbar ul li{
+
+#div-menu-navbar ul li
+{
     font-family: var(--font-text);
     font-weight: 700;
-    display:flex; align-items: center;
+    display:flex;
+    align-items: center;
     min-height: 3.75em;
     letter-spacing: 2px;
     cursor:pointer;
     transition: ease-in-out 0.2s;
 }
-#div-menu-navbar ul li:not(.disabled):hover{
+
+#div-menu-navbar ul li:not(.disabled):hover
+{
     background-color: var(--30green);
-    color:var(--font-white-color);
+    color: var(--font-white-color);
 }
-#div-menu-navbar ul li:not(.disabled):active{
+
+#div-menu-navbar ul li:not(.disabled):active
+{
     background-color: #467c5f;
     color:var(--font-white-color);
 }
-#div-menu-navbar ul li img{
+
+#div-menu-navbar ul li img
+{
     max-height: 2em;
     margin: 0 0.625em;
     aspect-ratio: 1;
 }
-
-
 
 /* ++++++ MAIN ++++++ */
 main{
@@ -144,48 +231,67 @@ main{
 
 /* ++++++ Clicker Div ++++++ */
 div#clicker-parent-div{
-    width:100%;
+    width: 100%;
     min-width: 100px;
-    display:flex; flex-direction: row;
+    display: flex;
+    flex-direction: row;
 }
 div#left-clicker-content-side,
 div#right-clicker-content-side{
-    display:flex; align-items: center; flex-direction: column;
+    display:flex;
+    align-items: center;
+    flex-direction: column;
     width: 5%;
     min-width:50px;
     padding-top: 2em;
     gap: 2em;
 }
+
 div#left-clicker-content-side div.buff-countdown-div{
-    text-align: center; font-weight: bold;
+    text-align: center;
+    font-weight: bold;
     font-family: var(--font-primary);
 }
+
 div#left-clicker-content-side div.buff-countdown-div > img{
-    width:80%; height: auto;
+    width:80%;
+    height: auto;
 }
 
 div#middle-clicker-content-side{
     width: 90%;
-    display:flex; align-items: center; flex-direction: column; justify-content: space-between;
+    display:flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
 }
+
 ul#clicker-infos{
     list-style:none;
-    font-family: var(--font-text); color:var(--10green); font-weight: bold;
-    display:flex; flex-direction: row; justify-content: space-around;
+    font-family: var(--font-text);
+    color:var(--10green);
+    font-weight: bold;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
     width: 100%;
 }
+
 ul#clicker-infos li{
     text-align: center;
-    margin: 1em 0; padding: 0.5em;
+    margin: 1em 0;
+    padding: 0.5em;
     border: var(--30green) solid 2px; border-radius: 1em;
     box-shadow: 0px 3px 5px 3px var(--shadow-color), var(--30green) 0 0 0 4px;
     outline: var(--10green) solid 2px;
     background-color: white;
 }
+
 .image-clicker-div{
     margin: 0 auto;
     display:flex; justify-content: center;
 }
+
 #clicker-img{
     margin: 0 auto;
     min-height: 150px; min-width: 150px;
@@ -193,10 +299,12 @@ ul#clicker-infos li{
     cursor: pointer;
     object-fit: contain;
 }
+
 #clicker-img:hover{
     transform: scale(1.05);
     transition: ease-in-out 0.1s;
 }
+
 #clicker-img:active{
     transform: scale(1.00);
     transition: ease-in-out 0.1s;
