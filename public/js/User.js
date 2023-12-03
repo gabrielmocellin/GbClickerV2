@@ -1,13 +1,30 @@
-class User{
-    constructor(valorDoClique, dinheiro, multiplicador, minions, nivel, pontosAtuaisDeNivel, pontosNecessariosParaSubirDeNivel){
-        this.valorDoClique = valorDoClique;
-        this.dinheiro      = dinheiro;
-        this.multiplicador = multiplicador;
-        this.minions       = minions;
+class User
+{
+    #valorDoClique;
+    #dinheiro;
+    #multiplicador;
+    #minions;
+    #nivel;
+    #pontosAtuaisDeNivel;
+    #pontosNecessariosParaSubirDeNivel;
 
-        this.nivel                              = nivel;
-        this.pontosAtuaisDeNivel                = pontosAtuaisDeNivel;
-        this.pontosNecessariosParaSubirDeNivel  = pontosNecessariosParaSubirDeNivel;        
+    constructor(
+        valorDoClique,
+        dinheiro,
+        multiplicador,
+        minions,
+        nivel,
+        pontosAtuaisDeNivel,
+        pontosNecessariosParaSubirDeNivel
+    )
+    {
+        this.#valorDoClique = valorDoClique;
+        this.#dinheiro = dinheiro;
+        this.#multiplicador = multiplicador;
+        this.#minions = minions;
+        this.#nivel = nivel;
+        this.#pontosAtuaisDeNivel = pontosAtuaisDeNivel;
+        this.#pontosNecessariosParaSubirDeNivel = pontosNecessariosParaSubirDeNivel;        
     }
 
     AddDinheiroPorClique()
@@ -32,7 +49,7 @@ class User{
         const PORCENTAGEM_INCREMENTADA_PONTOS_PARA_UPAR = 15/100;
         const QUANTIDADE_NIVEIS_AVANCADOS = 1;
 
-        if (this.pontosAtuaisDeNivel  >= this.pontosNecessariosParaSubirDeNivel) {
+        if (this.getPontosAtuaisDeNivel()  >= this.getPontosNecessariosParaSubirDeNivel()) {
             this.setNivel(this.getNivel() + QUANTIDADE_NIVEIS_AVANCADOS);
             this.setPontosAtuaisDeNivel(this.getPontosAtuaisDeNivel() - this.getPontosNecessariosParaSubirDeNivel());
             this.setPontosNecessariosParaSubirDeNivel(this.getPontosNecessariosParaSubirDeNivel() + this.getPontosNecessariosParaSubirDeNivel() * PORCENTAGEM_INCREMENTADA_PONTOS_PARA_UPAR);
@@ -40,20 +57,20 @@ class User{
     }
 
     // =-=-=-=-=-= Getters =-=-=-=-=-=
-    getValorDoClique()                     { return this.valorDoClique; }
-    getDinheiro()                          { return this.dinheiro; }
-    getMultiplicador()                     { return this.multiplicador; }
-    getMinions()                           { return this.minions; }
-    getNivel()                             { return this.nivel; }
-    getPontosAtuaisDeNivel()               { return this.pontosAtuaisDeNivel; }
-    getPontosNecessariosParaSubirDeNivel() { return this.pontosNecessariosParaSubirDeNivel; }
+    getValorDoClique()                     { return this.#valorDoClique; }
+    getDinheiro()                          { return this.#dinheiro; }
+    getMultiplicador()                     { return this.#multiplicador; }
+    getMinions()                           { return this.#minions; }
+    getNivel()                             { return this.#nivel; }
+    getPontosAtuaisDeNivel()               { return this.#pontosAtuaisDeNivel; }
+    getPontosNecessariosParaSubirDeNivel() { return this.#pontosNecessariosParaSubirDeNivel; }
 
     // =-=-=-=-=-= Setters =-=-=-=-=-=
-    setValorDoClique(valor)                     { this.valorDoClique = valor; }
-    setDinheiro(valor)                          { this.dinheiro = valor; }
-    setMultiplicador(valor)                     { this.multiplicador = valor; }
-    setMinions(valor)                           { this.minions = valor; }
-    setNivel(valor)                             { this.nivel = valor; }
-    setPontosAtuaisDeNivel(valor)               { this.pontosAtuaisDeNivel = valor; }
-    setPontosNecessariosParaSubirDeNivel(valor) { this.pontosNecessariosParaSubirDeNivel = valor; }
+    setValorDoClique(valor)                     { this.#valorDoClique = valor; }
+    setDinheiro(valor)                          { this.#dinheiro = valor; }
+    setMultiplicador(valor)                     { this.#multiplicador = valor; }
+    setMinions(valor)                           { this.#minions = valor; }
+    setNivel(valor)                             { this.#nivel = valor; }
+    setPontosAtuaisDeNivel(valor)               { this.#pontosAtuaisDeNivel = valor; }
+    setPontosNecessariosParaSubirDeNivel(valor) { this.#pontosNecessariosParaSubirDeNivel = valor; }
 }

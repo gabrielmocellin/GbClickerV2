@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="img/favicon.png">
     <link rel='stylesheet' href='css/site.css'>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <title>Gb Clicker II</title>
+    <title>Gb Clicker</title>
 </head>
 <body>
     <?php require_once "util/header.php"; ?>
@@ -32,7 +33,7 @@
                     <li id='minions_sec_li'></li>
                 </ul>
                 <div id="clicker-img-div" class="image-clicker-div">
-                    <img draggable="false" src="img/logo.png" id="clicker-img" onclick="jogo.ClickOnClicker(event)">
+                    <img draggable="false" src="img/logo.png" id="clicker-img" onclick="gioco.ClickOnClicker(event)">
                 </div>
                 <div class="level-progress-div">
                     <p id="level-info-p"></p>

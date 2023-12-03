@@ -86,7 +86,6 @@ class SaveRegisterController
     public static function validarImagemInput($imagem)
     {
         $tiposPermitidos = ["image/jpeg", "image/jpg", "image/png"];
-
         if (in_array($imagem['type'], $tiposPermitidos)) {
             return true;
         }
@@ -102,13 +101,13 @@ class SaveRegisterController
                 break;
             case UPLOAD_ERR_NO_FILE:
                 header("location: /register?aviso=4"); // Nenhum arquivo encontrado
-                break;
+                exit;
             case UPLOAD_ERR_FORM_SIZE: // Maior que o limite do form html
                 header("location: /register?aviso=5");
-                break;
+                exit;
             case UPLOAD_ERR_INI_SIZE: // Maior que o limite do php.ini
                 header("location: /register?aviso=6");
-                break;
+                exit;
             default:
                 echo "Erro desconhecido.";
                 break;
@@ -117,12 +116,14 @@ class SaveRegisterController
 
     public static function salvarImagemLocalmente($imagem)
     {
-        $pathRelativo = "img\\uploads\\profile\\";
-        $pathCompleto = __DIR__ . "\\..\\..\\public\\$pathRelativo" . basename($imagem['name']);
+        $pathRelativo = "img/uploads/profile/";
+        $pathCompleto = __DIR__ . "/../../public/$pathRelativo" . basename($imagem['name']);
         if (!move_uploaded_file($imagem['tmp_name'], $pathCompleto)) {
             header("location: /register?aviso=7");
-            return;
+            exit;
         };
         return $pathRelativo . basename($imagem['name']);
     }
+
 }
+

@@ -8,15 +8,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="img/favicon.png">
     <link rel="stylesheet" href="css/siteTmp.css">
     <link rel="stylesheet" href="css/register.css">
-    <title>GBC | Registro</title>
+    <title>Registro</title>
 </head>
 <body>
-    <div id="div-notificacao-div">
-        <div id="notificacao-div">
-        </div>
-    </div>
+    <?php require_once "util/notificacao.php"; ?>
     <header>
         <a class="pointer header-a" id="header-logo" href="/">GbClicker</a>
         <a class="pointer header-a" id="login-button" href="/login">Login</a>

@@ -1,5 +1,13 @@
-class Item{
-    constructor(id, preco, minimum_level, quantidade, nome){
+class Item
+{
+    constructor(
+        id,
+        preco,
+        minimum_level,
+        quantidade,
+        nome
+    )
+    {
         this.id            = id;
         this.preco         = preco;
         this.minimum_level = minimum_level;
@@ -14,8 +22,9 @@ class Item{
         essas mudanças devem ser salvas no banco.
     */
 
-    comprar(){
-        if(jogo.usuario.getDinheiro() < this.preco){
+    comprar()
+    {
+        if (gioco.usuario.getDinheiro() < this.preco) {
             alert(`Dinheiro insuficiente para ${this.nome}!`);
             return;
         }
@@ -23,11 +32,12 @@ class Item{
         this.add();
         this.cashOut();
 
-        jogo.AtualizarValorNoElemento("user_money_p", jogo.usuario.getDinheiro(), "R$ "); // Atualizando o dinheiro atual do usuário;
+        gioco.AtualizarValorNoElemento("user_money_p", gioco.usuario.getDinheiro(), "R$ "); // Atualizando o dinheiro atual do usuário;
     }
 
-    cashOut(){
-        jogo.usuario.setDinheiro(jogo.usuario.getDinheiro() - this.preco);
+    cashOut()
+    {
+        gioco.usuario.setDinheiro(gioco.usuario.getDinheiro() - this.preco);
     }
 
 }
