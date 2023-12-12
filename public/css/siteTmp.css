@@ -36,65 +36,6 @@ body{
 }
 
 
-/* =-=-= Notificacao =-=-= */
-#div-notificacao-div{
-    position: absolute;
-    display:none;
-    justify-content: center;
-    align-items: center;
-    top: 5%;
-    height: 20%;
-    width: 100%;
-}
-
-#notificacao-div
-{
-    position: relative;
-    display:none;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    height: max(100%, 10em);
-    /*height: 100%;
-    max-height: 200px; */
-    width: 60%;
-    max-width: 1000px; 
-    border: 0.2em solid #666;
-    background-color: #D9D9D9;
-    color: white;
-    box-shadow: inset 0 0 2px 1px rgba(0, 0, 0, 0.5);
-    animation: descendoNotificacao 8s ease-in-out;
-    z-index: 2;
-}
-
-#notificacao-div h2
-{
-    letter-spacing: 0.1em;
-    color: #666;
-}
-
-#notificacao-div h3
-{
-    width: 100%;
-    display: block;
-    text-align: center;
-    letter-spacing: 0.1em;
-}
-
-#notificacao-div::before
-{
-    content: "";
-    height: 5px;
-    position: absolute;
-    width: 100%;
-    left:0;
-    bottom: 0;
-    background-color: var(--60green);
-    animation: tempoParaExpirarNotificacao 6s linear;
-    z-index: 1;
-}
-
-
 /* =-=-= Header =-=-= */
 header{
     display: flex;
@@ -184,19 +125,6 @@ main{
     max-height: 2em;
     margin: 0 0.625em;
     aspect-ratio: 1;
-}
-
-
-/* =-=-= Animações =-=-= */
-@keyframes descendoNotificacao {
-    0% { top: -150%; }
-    10% { top: 0%; }
-    80% { top: 0%; }
-    100% { top: -150%; }
-}
-@keyframes tempoParaExpirarNotificacao{
-    0% { width:0; }
-    100% { width:100%; }
 }
 
 @media (max-width: 720px){

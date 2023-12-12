@@ -7,11 +7,14 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="image/x-icon" href="img/favicon.png">
+        <link rel='stylesheet' href='css/notificacao.css'>
         <link rel='stylesheet' href='css/site.css'>
+        <link rel='stylesheet' href='css/shop.css'>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <title>Loja</title>
     </head>
     <body>
+        <?php require_once "util/notificacao.php"; ?>
         <?php require_once "util/header.php"; ?>
         <main>
             <?php require "util/navbar.php"; ?>

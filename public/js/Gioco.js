@@ -1,7 +1,5 @@
 class Gioco
 {
-    #cliquesPorSegundo;
-
     constructor(
         valorDoClique,
         dinheiro,
@@ -22,7 +20,7 @@ class Gioco
             pontosNecessariosParaSubirDeNivel
         );
 
-        this.#cliquesPorSegundo = 0;
+        this.cliquesPorSegundo = 0;
         
         this.AtualizarValorNoElemento("user_money_p",   this.usuario.getDinheiro(), " R$ ");               // Atualizando Dinheiro atual
         this.AtualizarValorNoElemento("user_mult_li",   this.usuario.getMultiplicador(), "Mult: ", " x"); // Atualizando Multiplicador atual
@@ -71,7 +69,7 @@ class Gioco
 
     CalcularDinheiroPorSegundo()
     {
-        let dinheiroPsec = parseFloat( (this.usuario.getValorDoClique() * this.usuario.getMultiplicador() * this.#cliquesPorSegundo) + (this.usuario.getMinions() * this.usuario.getMultiplicador()) );
+        let dinheiroPsec = parseFloat( (this.usuario.getValorDoClique() * this.usuario.getMultiplicador() * this.cliquesPorSegundo) + (this.usuario.getMinions() * this.usuario.getMultiplicador()) );
         return dinheiroPsec;
     }
     
@@ -85,11 +83,11 @@ class Gioco
         this.AtualizarValorNoElemento("level-info-p", this.usuario.getNivel(), "LEVEL: ");
         this.AtualizarBarraDeProgressoDeNivel();
         
-        this.#cliquesPorSegundo += 1;
+        this.cliquesPorSegundo += 1;
 
         setTimeout(() => {
-            if (this.#cliquesPorSegundo > 0) {
-                this.#cliquesPorSegundo -= 1;
+            if (this.cliquesPorSegundo > 0) {
+                this.cliquesPorSegundo -= 1;
             }
         }, 1000); /* Depois de 1 segundo o click não será mais contado */
     }
@@ -124,7 +122,7 @@ class Gioco
         let cordY = event.clientY;
         return [cordX, cordY];
     }
-    
+
 
     /* Com as informações recebidas da função GetClickPosition(), será criado uma div onde será mostrado ao usuário quanto ele ganhou em 1 click */
     CreateNewCounterElement(event)

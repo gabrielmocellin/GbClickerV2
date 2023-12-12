@@ -10,12 +10,16 @@ class UserDAO extends Dao implements IDAO
         VALUES (:email, :password, :nickname, :clickValue, :money, :multiplier, :minions, :image_src)";
         $sqlLevel = "INSERT INTO nivel (FK_user_email, level, xp_points, max_to_up) VALUES (:FK_user_email, 1, 0, 10)";
 
+        $transacao = $this->conexao->beginTransaction();
         $sqlUsuarioPreparado = $this->prepararSqlUser($sqlUser, $model);
         $sqlLevelPreparado = $this->prepararSqlLevel($sqlLevel, $model);
 
         if ($sqlUsuarioPreparado->execute() && $sqlLevelPreparado->execute()) {
+            $this->conexao->commit();
             return true;
         }
+
+        $this->conexao->rollBack();
         return false;
     }
 
