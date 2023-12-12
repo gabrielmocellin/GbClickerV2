@@ -4,4 +4,4 @@
 - Processo de aprendizagem
 - Não está relacionado à projetos da faculdade
 
-###### *OBS:* utilizar `composer install` antes de iniciar o projeto.
+###### *OBS:* utilizar `composer install` antes de iniciar o projeto e criar o banco com o SQL fornecido na Documentos\Banco de Dados\backup.
