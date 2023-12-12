@@ -7,8 +7,8 @@ class Conexao
     public static function criarConexao()
     {
         $dsn = "mysql:host=localhost;dbname=gbclicker_db_mvc";
-        $user = "gb";
-        $pass = "mysql@204";
+        $user = "x";
+        $pass = "x";
         return new \PDO($dsn, $user, $pass);
     }
 }

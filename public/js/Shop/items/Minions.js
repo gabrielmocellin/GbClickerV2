@@ -1,5 +1,7 @@
-class Minions extends Item{
-    add(){
-        jogo.usuario.setMinions( jogo.usuario.getMinions() + this.quantidade );
+class Minions extends Item
+{
+    add()
+    {
+        gioco.usuario.setMinions( gioco.usuario.getMinions() + this.quantidade );
     }
 }

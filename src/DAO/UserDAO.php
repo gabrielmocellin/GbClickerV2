@@ -10,12 +10,16 @@ class UserDAO extends Dao implements IDAO
         VALUES (:email, :password, :nickname, :clickValue, :money, :multiplier, :minions, :image_src)";
         $sqlLevel = "INSERT INTO nivel (FK_user_email, level, xp_points, max_to_up) VALUES (:FK_user_email, 1, 0, 10)";
 
+        $transacao = $this->conexao->beginTransaction();
         $sqlUsuarioPreparado = $this->prepararSqlUser($sqlUser, $model);
         $sqlLevelPreparado = $this->prepararSqlLevel($sqlLevel, $model);
 
         if ($sqlUsuarioPreparado->execute() && $sqlLevelPreparado->execute()) {
+            $this->conexao->commit();
             return true;
         }
+
+        $this->conexao->rollBack();
         return false;
     }
 
@@ -25,11 +29,11 @@ class UserDAO extends Dao implements IDAO
         WHERE email = :email";
         $sqlPreparado = $this->conexao->prepare($sql);
 
-        $sqlPreparado->bindParam(':email', $model->getEmail(), \PDO::PARAM_STR);
-        $sqlPreparado->bindParam(':clickValue', $model->getClickValue(), \PDO::PARAM_STR);
-        $sqlPreparado->bindParam(':money', $model->getMoney(), \PDO::PARAM_INT);
-        $sqlPreparado->bindParam(':multiplier', $model->getMultiplier(), \PDO::PARAM_INT);
-        $sqlPreparado->bindParam(':minions', $model->getMinions(), \PDO::PARAM_INT);
+        $sqlPreparado->bindValue(':email', $model->getEmail(), \PDO::PARAM_STR);
+        $sqlPreparado->bindValue(':clickValue', $model->getClickValue(), \PDO::PARAM_STR);
+        $sqlPreparado->bindValue(':money', $model->getMoney(), \PDO::PARAM_INT);
+        $sqlPreparado->bindValue(':multiplier', $model->getMultiplier(), \PDO::PARAM_INT);
+        $sqlPreparado->bindValue(':minions', $model->getMinions(), \PDO::PARAM_INT);
 
         $sqlPreparado->execute();
     }
@@ -38,7 +42,7 @@ class UserDAO extends Dao implements IDAO
     {
         $sql = "SELECT * FROM usuario";
         $sqlPreparado = $this->conexao->query($sql);
-        return $sqlPreparado->fetchAll(\PDO::FETCH_ASSOC);
+        return $sqlPreparado->fetch(\PDO::FETCH_ASSOC);
     }
 
     public function selectByEmailAndPassword(string $email, string $password)
@@ -46,7 +50,7 @@ class UserDAO extends Dao implements IDAO
         $sql = "SELECT * FROM usuario JOIN nivel 
         WHERE usuario.email = nivel.FK_user_email and usuario.email = '$email' and password = '$password'";
         $sqlPreparado = $this->conexao->query($sql);
-        return $sqlPreparado->fetchAll(\PDO::FETCH_ASSOC);
+        return $sqlPreparado->fetch(\PDO::FETCH_ASSOC);
     }
 
     public function selectByEmail(string $email)
@@ -54,14 +58,14 @@ class UserDAO extends Dao implements IDAO
         $sql = "SELECT * FROM usuario JOIN nivel 
         WHERE usuario.email = nivel.FK_user_email and usuario.email = '$email'";
         $sqlPreparado = $this->conexao->query($sql);
-        return $sqlPreparado->fetchAll(\PDO::FETCH_ASSOC);
+        return $sqlPreparado->fetch(\PDO::FETCH_ASSOC);
     }
 
     public function delete($identifier)
     {
         $sql = "DELETE FROM usuario WHERE email = :email";
         $sqlPreparado = $this->conexao->prepare($sql);
-        $sqlPreparado->bindParam(':email', $identifier, \PDO::PARAM_STR);
+        $sqlPreparado->bindValue(':email', $identifier, \PDO::PARAM_STR);
         $sqlPreparado->execute();
     }
 
@@ -69,14 +73,14 @@ class UserDAO extends Dao implements IDAO
     {
         $sqlUsuarioPreparado = $this->conexao->prepare($sql);
 
-        $sqlUsuarioPreparado->bindParam(':email', $model->getEmail(), \PDO::PARAM_STR);
-        $sqlUsuarioPreparado->bindParam(':password', $model->getPassword(), \PDO::PARAM_STR);
-        $sqlUsuarioPreparado->bindParam(':nickname', $model->getNickname(), \PDO::PARAM_STR);
-        $sqlUsuarioPreparado->bindParam(':clickValue', $model->getClickValue(), \PDO::PARAM_STR);
-        $sqlUsuarioPreparado->bindParam(':money', $model->getMoney(), \PDO::PARAM_INT);
-        $sqlUsuarioPreparado->bindParam(':multiplier', $model->getMultiplier(), \PDO::PARAM_INT);
-        $sqlUsuarioPreparado->bindParam(':minions', $model->getMinions(), \PDO::PARAM_INT);
-        $sqlUsuarioPreparado->bindParam(':image_src', $model->getImageSrc(), \PDO::PARAM_STR);
+        $sqlUsuarioPreparado->bindValue(':email', $model->getEmail(), \PDO::PARAM_STR);
+        $sqlUsuarioPreparado->bindValue(':password', $model->getPassword(), \PDO::PARAM_STR);
+        $sqlUsuarioPreparado->bindValue(':nickname', $model->getNickname(), \PDO::PARAM_STR);
+        $sqlUsuarioPreparado->bindValue(':clickValue', $model->getClickValue(), \PDO::PARAM_STR);
+        $sqlUsuarioPreparado->bindValue(':money', $model->getMoney(), \PDO::PARAM_INT);
+        $sqlUsuarioPreparado->bindValue(':multiplier', $model->getMultiplier(), \PDO::PARAM_INT);
+        $sqlUsuarioPreparado->bindValue(':minions', $model->getMinions(), \PDO::PARAM_INT);
+        $sqlUsuarioPreparado->bindValue(':image_src', $model->getImageSrc(), \PDO::PARAM_STR);
 
         return $sqlUsuarioPreparado;
     }
@@ -85,7 +89,7 @@ class UserDAO extends Dao implements IDAO
     {
         $sqlLevelPreparado = $this->conexao->prepare($sql);
 
-        $sqlLevelPreparado->bindParam(':FK_user_email', $model->getEmail(), \PDO::PARAM_STR);
+        $sqlLevelPreparado->bindValue(':FK_user_email', $model->getEmail(), \PDO::PARAM_STR);
 
         return $sqlLevelPreparado;
     }

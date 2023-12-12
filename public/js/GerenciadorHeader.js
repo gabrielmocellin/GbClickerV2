@@ -1,4 +1,4 @@
-class gerenciadorHeader
+class GerenciadorHeader
 {
     constructor()
     {

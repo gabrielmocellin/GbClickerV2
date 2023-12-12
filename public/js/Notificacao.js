@@ -4,6 +4,7 @@ class Notificacao
     {
         this.divExternaParaCentralizar = document.getElementById("div-notificacao-div");
         this.divInterna = document.getElementById("notificacao-div");
+        this.divTextosInterna = document.getElementById("notificacao-textos-div");
         this.ativa = false;
     }
 
@@ -13,10 +14,10 @@ class Notificacao
             this.mostrarNotificacao();
             if (typeof avisos != 'string') {
                 avisos.forEach(element => {
-                    this.divInterna.innerHTML += "<p>" + element + "</p>";
+                    this.divTextosInterna.innerHTML += element + "</br>";
                 } );
             } else {
-                this.divInterna.innerHTML += "<p>" + avisos + "</p>";
+                this.divTextosInterna.innerHTML += avisos + "</br>";
             }
             
             this.setTempoParaEsconderNotificacao();
@@ -35,7 +36,7 @@ class Notificacao
         setTimeout(()=>{
             this.divInterna.style.display = "none";
             this.divExternaParaCentralizar.style.display = "none";
-            this.divInterna.innerHTML = "";
+            this.divTextosInterna.innerHTML = "";
             this.ativa = false;
         }, 8000);
     }

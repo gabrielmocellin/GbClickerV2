@@ -60,11 +60,11 @@ class UserModel
         if ($dao_returnArray == null) {
             return false;
         } // Caso não tenha encontrado no banco de dados a conta
-        $this->setClickValue($dao_returnArray[0]['clickValue']);
-        $this->setMoney($dao_returnArray[0]['money']);
-        $this->setMultiplier($dao_returnArray[0]['multiplier']);
-        $this->setMinions($dao_returnArray[0]['minions']);
-        $this->setImageSrc($dao_returnArray[0]['image_src']);
+        $this->setClickValue($dao_returnArray['clickValue']);
+        $this->setMoney($dao_returnArray['money']);
+        $this->setMultiplier($dao_returnArray['multiplier']);
+        $this->setMinions($dao_returnArray['minions']);
+        $this->setImageSrc($dao_returnArray['image_src']);
         $this->setLevelData(new LevelModel($this->getEmail()));
         return true;
     }
@@ -77,11 +77,11 @@ class UserModel
         if ($dao_returnArray == null) {
             return false;
         }
-        $this->setClickValue($dao_returnArray[0]['clickValue']);
-        $this->setMoney($dao_returnArray[0]['money']);
-        $this->setMultiplier($dao_returnArray[0]['multiplier']);
-        $this->setMinions($dao_returnArray[0]['minions']);
-        $this->setImageSrc($dao_returnArray[0]['image_src']);
+        $this->setClickValue($dao_returnArray['clickValue']);
+        $this->setMoney($dao_returnArray['money']);
+        $this->setMultiplier($dao_returnArray['multiplier']);
+        $this->setMinions($dao_returnArray['minions']);
+        $this->setImageSrc($dao_returnArray['image_src']);
         $this->setLevelData(new LevelModel($this->email));
     }
 

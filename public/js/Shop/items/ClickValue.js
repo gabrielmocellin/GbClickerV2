@@ -1,5 +1,7 @@
-class ClickValue extends Item{
-    add(){
-        jogo.usuario.setValorDoClique( jogo.usuario.getValorDoClique() + this.quantidade );
+class ClickValue extends Item
+{
+    add()
+    {
+        gioco.usuario.setValorDoClique( gioco.usuario.getValorDoClique() + this.quantidade );
     }
 }
