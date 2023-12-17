@@ -6,8 +6,8 @@ class UserDAO extends Dao implements IDAO
 {
     public function insert($model)
     {
-        $sqlUser = "INSERT INTO usuario (email, password, nickname, clickValue, money, multiplier, minions, image_src) 
-        VALUES (:email, :password, :nickname, :clickValue, :money, :multiplier, :minions, :image_src)";
+        $sqlUser = "INSERT INTO usuario (email, password, nickname, clickValue, money, multiplier, minions, image_src, FK_id_tipos_contas) 
+        VALUES (:email, :password, :nickname, :clickValue, :money, :multiplier, :minions, :image_src, 1)";
         $sqlLevel = "INSERT INTO nivel (FK_user_email, level, xp_points, max_to_up) VALUES (:FK_user_email, 1, 0, 10)";
 
         $transacao = $this->conexao->beginTransaction();
@@ -47,16 +47,23 @@ class UserDAO extends Dao implements IDAO
 
     public function selectByEmailAndPassword(string $email, string $password)
     {
-        $sql = "SELECT * FROM usuario JOIN nivel 
-        WHERE usuario.email = nivel.FK_user_email and usuario.email = '$email' and password = '$password'";
+        /*$sql = "SELECT * FROM usuario JOIN nivel 
+        WHERE usuario.email = nivel.FK_user_email and usuario.email = '$email' and usuario.password = '$password'";*/
+        $sql = "SELECT usuario.*, nivel.*, tipos_contas.nome AS tipo_conta FROM usuario JOIN nivel JOIN tipos_contas
+        WHERE usuario.email = nivel.FK_user_email
+        AND usuario.FK_id_tipos_contas = tipos_contas.id
+        AND usuario.email =  '$email'
+        AND usuario.password = '$password';";
         $sqlPreparado = $this->conexao->query($sql);
         return $sqlPreparado->fetch(\PDO::FETCH_ASSOC);
     }
 
     public function selectByEmail(string $email)
     {
-        $sql = "SELECT * FROM usuario JOIN nivel 
-        WHERE usuario.email = nivel.FK_user_email and usuario.email = '$email'";
+        /*$sql = "SELECT * FROM usuario JOIN nivel 
+        WHERE usuario.email = nivel.FK_user_email and usuario.email = '$email'";*/
+        $sql = "SELECT usuario.*, nivel.*, tipos_contas.nome AS tipo_conta FROM usuario JOIN nivel JOIN tipos_contas
+        WHERE usuario.email = nivel.FK_user_email AND usuario.FK_id_tipos_contas = tipos_contas.id AND usuario.email =  '$email';";
         $sqlPreparado = $this->conexao->query($sql);
         return $sqlPreparado->fetch(\PDO::FETCH_ASSOC);
     }

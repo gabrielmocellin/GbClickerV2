@@ -32,7 +32,7 @@ div#profile .bottom
     grid-template-rows: repeat(2, 1fr);
 
     background: #EFEFEF;
-    box-shadow: inset 0px 0px 6px 3px #AAAAAA;
+    box-shadow: inset 0px 0px 3px 1.5px #AAAAAA;
     border-radius: 1em;
     padding: 1em;
 

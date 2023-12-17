@@ -52,13 +52,13 @@ class GerenciadorHeader
                 path = "/home";
                 break;
             case 2:
-                path = "/items";
-                break;
-            case 3:
                 path = "/shop";
                 break;
-            case 4:
+            case 3:
                 path = "/logout";
+                break;
+            case 101:
+                path = "/admin";
                 break;
             default:
                 path = "/home";

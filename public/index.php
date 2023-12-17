@@ -13,6 +13,7 @@
         SaveRegisterController,
         ShopController,
         ProfileController,
+        AdminPageController,
         Error404Controller
     };
 
