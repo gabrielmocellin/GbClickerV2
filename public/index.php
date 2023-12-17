@@ -12,6 +12,7 @@
         ItemController,
         SaveRegisterController,
         ShopController,
+        ProfileController,
         Error404Controller
     };
 

@@ -1,0 +1,24 @@
+<?php
+
+namespace GbClicker\DAO;
+
+class ProfileDAO extends Dao
+{
+    public function selectByIdentifier($identifier)
+    {
+        $sql = "SELECT nickname, clickValue, money, multiplier, minions, image_src, nivel.level,
+        (SELECT COUNT(*) FROM gbclicker_db_mvc.usuario WHERE money > (SELECT money FROM usuario WHERE id = :idFirst)) AS rank_atual
+        FROM gbclicker_db_mvc.usuario JOIN nivel where usuario.id = :idSecond AND usuario.email = nivel.FK_user_email";
+
+        
+        $sqlPreparado = $this->conexao->prepare($sql);
+        $sqlPreparado->bindValue(':idFirst', $identifier, \PDO::PARAM_INT);
+        $sqlPreparado->bindValue(':idSecond', $identifier, \PDO::PARAM_INT);
+
+        if ($sqlPreparado->execute()) {
+            return $sqlPreparado->fetch(\PDO::FETCH_ASSOC);
+        }
+        
+        return false;
+    }
+}

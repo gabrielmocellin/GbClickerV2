@@ -11,4 +11,5 @@
         "POST|/home/save" => GbClicker\Controller\SaveGameController::class,
         "POST|/items/save" => GbClicker\Controller\AdminController\SaveItemController::class,
         "GET|/items" => GbClicker\Controller\ItemController::class,
+        "GET|/profile" => GbClicker\Controller\ProfileController::class,
     ];
