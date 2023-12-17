@@ -1,8 +1,12 @@
-CREATE DATABASE  IF NOT EXISTS `gbclicker_db`;
-USE `gbclicker_db`;
+CREATE DATABASE  IF NOT EXISTS `gbclicker_db_mvc`;
+USE `gbclicker_db_mvc`;
 
 DROP TABLE IF EXISTS `usuario`;
+DROP TABLE IF EXISTS `nivel`;
+DROP TABLE IF EXISTS `itens`;
+
 CREATE TABLE `usuario` (
+  `id` int NOT NULL AUTO_INCREMENT,
   `email` varchar(255) NOT NULL,
   `password` varchar(20) NOT NULL,
   `nickname` varchar(16) NOT NULL,
@@ -11,12 +15,11 @@ CREATE TABLE `usuario` (
   `multiplier` int NOT NULL,
   `minions` int NOT NULL,
   `image_src` varchar(500) NOT NULL,
-  PRIMARY KEY (`email`),
+  PRIMARY KEY (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`),
   UNIQUE KEY `apelido_UNIQUE` (`nickname`)
 );
 
-DROP TABLE IF EXISTS `nivel`;
 CREATE TABLE `nivel` (
   `FK_user_email` varchar(255) NOT NULL,
   `level` int NOT NULL,
@@ -26,7 +29,6 @@ CREATE TABLE `nivel` (
   CONSTRAINT `nivel_ibfk_1` FOREIGN KEY (`FK_user_email`) REFERENCES `usuario` (`email`) ON DELETE CASCADE
 );
 
-DROP TABLE IF EXISTS `itens`;
 CREATE TABLE `itens` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,

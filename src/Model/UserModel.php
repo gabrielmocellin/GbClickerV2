@@ -7,6 +7,7 @@ use GbClicker\Model\LevelModel;
 
 class UserModel
 {
+    public $id;
     public $email;
     public $password;
     public $nickname;
@@ -60,6 +61,7 @@ class UserModel
         if ($dao_returnArray == null) {
             return false;
         } // Caso não tenha encontrado no banco de dados a conta
+        $this->setId($dao_returnArray['id']);
         $this->setClickValue($dao_returnArray['clickValue']);
         $this->setMoney($dao_returnArray['money']);
         $this->setMultiplier($dao_returnArray['multiplier']);
@@ -77,6 +79,7 @@ class UserModel
         if ($dao_returnArray == null) {
             return false;
         }
+        $this->setId($dao_returnArray['id']);
         $this->setClickValue($dao_returnArray['clickValue']);
         $this->setMoney($dao_returnArray['money']);
         $this->setMultiplier($dao_returnArray['multiplier']);
@@ -92,6 +95,11 @@ class UserModel
     }
 
     // =-=-=-=-= GETTERS =-=-=-=-=
+    public function getId()
+    {
+        return $this->id;
+    }
+
     public function getEmail()
     {
         return $this->email;
@@ -137,7 +145,13 @@ class UserModel
         return $this->image_src;
     }
 
+
     // =-=-=-=-= SETTERS =-=-=-=-=
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
     public function setEmail($email)
     {
         $this->email = $email;

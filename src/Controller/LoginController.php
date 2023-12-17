@@ -22,16 +22,16 @@ class LoginController
 
     public static function login()
     {
-        session_start();
-        if (session_status() != 2) {
-            header("location: /login?erro=3");
-        }
+        LoginController::verificarSessao();
         if (isset($_SESSION['email'])) { // Caso o usuário já esteja logado no sistema
             $model = new UserModel();
             $model->setEmail($_SESSION['email']);
             $model->getByEmail();
             return $model;
-        } elseif (isset($_POST['email-input']) && isset($_POST['password-input'])) {
+        } elseif (
+            isset($_POST['email-input']) &&
+            isset($_POST['password-input'])
+            ) {
             $model = new UserModel();
             $model->setEmail($_POST['email-input']);
             $model->setPassword($_POST['password-input']);
@@ -50,6 +50,14 @@ class LoginController
         if (isset($_GET['aviso'])) {
             $codigoDoAviso = $_GET['aviso'];
             echo "<script>login.verificarAvisos('$codigoDoAviso')</script>";
+        }
+    }
+
+    public static function verificarSessao()
+    {
+        session_start();
+        if (session_status() != 2) {
+            header("location: /login?erro=3");
         }
     }
 }
