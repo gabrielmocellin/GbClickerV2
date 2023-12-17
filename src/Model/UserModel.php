@@ -17,6 +17,7 @@ class UserModel
     public $minions;
     public $image_src;
     public $level_data;
+    public $tipo_conta;
     public $rows;
 
     public function construtor(
@@ -27,7 +28,8 @@ class UserModel
         $clickValue = 1,
         $money = 0,
         $multiplier = 1,
-        $minions = 0
+        $minions = 0,
+        $tipo_conta = 1
     ) {
         $this->setEmail($email);
         $this->setPassword($password);
@@ -37,6 +39,7 @@ class UserModel
         $this->setMoney($money);
         $this->setMultiplier($multiplier);
         $this->setMinions($minions);
+        $this->setTipoConta($tipo_conta);
     }
 
     public function save()
@@ -62,11 +65,13 @@ class UserModel
             return false;
         } // Caso não tenha encontrado no banco de dados a conta
         $this->setId($dao_returnArray['id']);
+        $this->setNickname($dao_returnArray['nickname']);
         $this->setClickValue($dao_returnArray['clickValue']);
         $this->setMoney($dao_returnArray['money']);
         $this->setMultiplier($dao_returnArray['multiplier']);
         $this->setMinions($dao_returnArray['minions']);
         $this->setImageSrc($dao_returnArray['image_src']);
+        $this->setTipoConta($dao_returnArray['tipo_conta']);
         $this->setLevelData(new LevelModel($this->getEmail()));
         return true;
     }
@@ -80,11 +85,13 @@ class UserModel
             return false;
         }
         $this->setId($dao_returnArray['id']);
+        $this->setNickname($dao_returnArray['nickname']);
         $this->setClickValue($dao_returnArray['clickValue']);
         $this->setMoney($dao_returnArray['money']);
         $this->setMultiplier($dao_returnArray['multiplier']);
         $this->setMinions($dao_returnArray['minions']);
         $this->setImageSrc($dao_returnArray['image_src']);
+        $this->setTipoConta($dao_returnArray['tipo_conta']);
         $this->setLevelData(new LevelModel($this->email));
     }
 
@@ -145,6 +152,11 @@ class UserModel
         return $this->image_src;
     }
 
+    public function getTipoConta()
+    {
+        return $this->tipo_conta;
+    }
+
 
     // =-=-=-=-= SETTERS =-=-=-=-=
     public function setId($id)
@@ -195,5 +207,10 @@ class UserModel
     public function setImageSrc($image_src)
     {
         $this->image_src = $image_src;
+    }
+
+    public function setTipoConta($tipo_conta)
+    {
+        $this->tipo_conta = $tipo_conta;
     }
 }
