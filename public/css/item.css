@@ -1,58 +1,111 @@
-@import url('https://fonts.googleapis.com/css2?family=Zilla+Slab:ital,wght@1,700&display=swap');
-/* ZILLA -> font-family: 'Zilla Slab', serif; */
-
-*{
-    margin: 0; padding: 0;
-    box-sizing: border-box;
-    outline: none;
+div#admin
+{
+    font-family: "DM Sans";
+    width: 70%;
+    height: 90%;
+    margin: 1em auto;
+    border-radius: 1em;
+    display: grid;
+    grid-template-rows: 1fr 3fr;
+    box-shadow: #888 0 0 0.2em 0;
 }
 
-body {
+div#admin .top
+{
+    background-color: #EEE;
+    display: flex;
+    gap: 3em;
+    align-items: center;
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+    flex-wrap: wrap;
+    border-bottom: 2px solid #aaa;;
+    box-shadow: 0px 0px 3px 1.5px #aaa;
+}
+
+div#admin .boas_vindas
+{
+    margin-left: 5%;
+    letter-spacing: 0.05em;
+    color: #aaa;
+}
+
+div#admin .bottom
+{
+    width: 90%;
+    margin: 5% auto;
+    justify-items: center;
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2em;
+
+    background: #EFEFEF;
+    box-shadow: inset 0px 0px 3px 1.5px #AAAAAA;
+    border-radius: 1em;
+    padding: 1em;
+
+}
+
+#admin .bottom label
+{
     display: flex;
     align-items: center;
-    justify-content: center;
-    height: 100vh;
-    font-family: 'Zilla Slab', serif; 
-}
-
-form {
-    background-color: #fff;
-    border-radius: 0.5rem;
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
-    padding: 1rem;
-    width: 60%;
-    height: 80%;
-    overflow-y: auto;
-}
-
-label {
-    display: block;
-    margin-bottom: 0.5rem;
-}
-
-input, textarea {
+    justify-content: space-between;
+    height: 3em;
     width: 100%;
-    padding: 0.25rem;
-    margin-bottom: 16px;
-    box-sizing: border-box;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    border-radius: 1em;
+    text-decoration: none;
+    padding: 1em;
+    color: black;
+    font-weight: 700;
+    transition: ease-in-out 0.2s;
 }
 
-input[type="file"] {
-    width: calc(100% - 16px);
-    margin-bottom: 16px;
+#admin .bottom label:hover{
+    background-color: #DDD;
+    box-shadow: inset 0px 0px 4px 2px #AAA;
 }
 
-.preview {
-    width: 80%; max-width: 300px;
-    height: auto;
-    margin-bottom: 1rem;
-    aspect-ratio: 1/1;
-    object-fit: cover;
+#admin .bottom label input,
+#admin .bottom label select
+{
+    border: none;
+    outline: none;
+    font-size: 1em;
+    background-color: transparent;
+    width: 80%;
+}
+
+#admin .bottom img
+{
+    height: 6em;
+    aspect-ratio: 1;
     border-radius: 50%;
 }
 
-input[type="submit"] {
-    background-color: #4CAF50;
-    color: #fff;
+#admin .bottom .botao_enviar /* Botão de "enviar" */
+{
+    grid-column: span 2;
     cursor: pointer;
+    width:50%;
+    border-radius: 1em;
+}
+
+#admin .bottom .botao_enviar:hover
+{
+    color: white;
+    background-color: var(--30green);
+}
+
+@media (max-width: 800px) or (max-height: 450px)
+{
+    div#admin
+    {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+    }
 }

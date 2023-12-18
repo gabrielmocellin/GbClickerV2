@@ -58,7 +58,7 @@ class ShopController
     {
         if (!empty($itemsArray)) {
             foreach ($itemsArray as $item) {
-                echo "itensArray.push(new " . $item['tipo'] . "(" . $item['id'] . ", "
+                echo "itensArray.push(new " . $item['classificacao'] . "(" . $item['id'] . ", "
                 . $item['preco'] . ", " . $item['minimum_level'] . ", "
                 . $item['quantidade'] . ", '" . $item['nome'] . "') );
                 ";

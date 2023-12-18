@@ -6,7 +6,7 @@ class ItemDAO extends Dao implements IDAO
 {
     public function insert($model)
     {
-        $sql = "INSERT INTO itens (nome, descricao, preco, minimum_level, quantidade, image_src, tipo) 
+        $sql = "INSERT INTO itens (nome, descricao, preco, minimum_level, quantidade, image_src, FK_id_tipos_itens)
         VALUES (:nome, :descricao, :preco, :minimum_level, :quantidade, :image_src, :tipo)";
         $stmt = $this->conexao->prepare($sql);
 
@@ -27,10 +27,19 @@ class ItemDAO extends Dao implements IDAO
 
     public function select()
     {
-        $sql = "SELECT * FROM itens";
+        $sql = "SELECT itens.*, tipos_itens.classificacao FROM itens JOIN tipos_itens WHERE tipos_itens.id = itens.FK_id_tipos_itens";
         $sql_result = $this->conexao->query($sql);
         $sql_result = $sql_result->fetchAll(\PDO::FETCH_ASSOC);
         return $sql_result;
+    }
+
+    public function selectTipos()
+    {
+        $sql = "SELECT * FROM tipos_itens";
+        $sql_result = $this->conexao->query($sql);
+        $sql_result = $sql_result->fetchAll(\PDO::FETCH_ASSOC);
+        return $sql_result;
+
     }
 
     public function update($model)

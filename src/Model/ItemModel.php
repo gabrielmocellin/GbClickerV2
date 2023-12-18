@@ -14,6 +14,7 @@ class ItemModel
     public $quantidade;
     public $image_src;
     public $tipo;
+    
     public function construtor($nm, $desc, $pr, $min, $qt, $im, $tp)
     {
         $this->setNome($nm);
@@ -38,6 +39,12 @@ class ItemModel
     {
         $itemDao = new ItemDAO();
         return $itemDao->select();
+    }
+
+    public function getAllTypes()
+    {
+        $itemDao = new ItemDao();
+        return $itemDao->selectTipos();
     }
 
     // =-=-=-=-= GETTERS =-=-=-=-=
