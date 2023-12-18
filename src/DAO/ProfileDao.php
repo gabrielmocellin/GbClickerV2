@@ -7,8 +7,8 @@ class ProfileDAO extends Dao
     public function selectByIdentifier($identifier)
     {
         $sql = "SELECT nickname, clickValue, money, multiplier, minions, image_src, nivel.level,
-        (SELECT COUNT(*) FROM gbclicker_db_mvc.usuario WHERE money > (SELECT money FROM usuario WHERE id = :idFirst)) AS rank_atual
-        FROM gbclicker_db_mvc.usuario JOIN nivel where usuario.id = :idSecond AND usuario.email = nivel.FK_user_email";
+        (SELECT COUNT(*) FROM usuario WHERE money > (SELECT money FROM usuario WHERE id = :idFirst)) AS rank_atual
+        FROM usuario JOIN nivel where usuario.id = :idSecond AND usuario.email = nivel.FK_user_email";
 
         
         $sqlPreparado = $this->conexao->prepare($sql);

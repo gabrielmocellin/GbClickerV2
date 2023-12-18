@@ -20,7 +20,7 @@ div#admin .top
     border-top-right-radius: 1em;
     flex-wrap: wrap;
     border-bottom: 2px solid #aaa;;
-    box-shadow: 0px 4px 4px #aaa;
+    box-shadow: 0px 0px 3px 1.5px #aaa;
 }
 
 div#admin .boas_vindas
@@ -42,7 +42,7 @@ div#admin .bottom
     gap: 2em;
 
     background: #EFEFEF;
-    box-shadow: inset 0px 0px 3px 1.5px #AAAAAA;
+    /*box-shadow: inset 0px 0px 3px 1.5px #AAAAAA;*/
     border-radius: 1em;
     padding: 1em;
 

@@ -3,11 +3,18 @@
 namespace GbClicker\Controller\AdminController;
 
 use GbClicker\Model\ItemModel;
+use GbClicker\Controller\AdminPageController;
 
 class SaveItemController
 {
     public static function index()
     {
+        $model = AdminPageController::verifyAdminAccount();
+        if ($model == false) {
+            header("location: \\login?aviso=1");
+            return;
+        }
+
         if (isset($_FILES['image_src'])) {
             $dirFile = SaveItemController::salvarImagemLocalmente($_FILES['image_src']);
             if ($dirFile !== false) { // Pegando o arquivo que está temporário e salvando em uma pasta dentro do projeto
