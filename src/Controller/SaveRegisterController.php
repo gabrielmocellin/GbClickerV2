@@ -116,8 +116,8 @@ class SaveRegisterController
 
     public static function salvarImagemLocalmente($imagem)
     {
-        $pathRelativo = "img/uploads/profile/";
-        $pathCompleto = __DIR__ . "/../../public/$pathRelativo" . basename($imagem['name']);
+        $pathRelativo = "img\\uploads\\profile\\";
+        $pathCompleto = __DIR__ . "\\..\\..\\public\\$pathRelativo" . basename($imagem['name']);
         if (!move_uploaded_file($imagem['tmp_name'], $pathCompleto)) {
             header("location: /register?aviso=7");
             exit;
