@@ -77,9 +77,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `itens` WRITE;
 INSERT INTO `itens` VALUES
-(1, 'Picareta', 'Adiciona 1 no seu valor de clique!', 25, 1, 1, 'img\\uploads\\items\\Wooden_Pickaxe.png', 1),
-(2, 'Picareta de Diamante', 'Adiciona 10 no seu valor de clique!', 150, 10, 10, 'img\\uploads\\items\\picareta.png', 1),
-(3, 'Picareta Forte', 'Adiciona 50 no seu valor de clique!', 750, 1, 50,'img\\uploads\\items\\picaretaFort.png', 1),
-(4, 'Multiplicador Único', 'Adiciona 1 no seu multiplicador!', 10000, 1, 1,'img\\uploads\\items\\estrela.png', 2),
-(5, 'Minion Único', 'Adiciona 1 minion para sua equipe!', 25000, 0, 1, 'img\\uploads\\items\\minion.png', 3);
+(1, 'Picareta', 'Adiciona 1 no seu valor de clique!', 25, 1, 1, 'img\\uploads\\items\\picareta.png', 1),
+(2, 'Multiplicador Único', 'Adiciona 1 no seu multiplicador!', 1000, 1, 1,'img\\uploads\\items\\multiplier.png', 2),
+(3, 'Minion Único', 'Adiciona 1 minion para sua equipe!', 2500, 0, 1, 'img\\uploads\\items\\minion.png', 3);
 UNLOCK TABLES;
