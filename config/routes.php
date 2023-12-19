@@ -13,4 +13,5 @@
         "GET|/items" => GbClicker\Controller\ItemController::class,
         "GET|/profile" => GbClicker\Controller\ProfileController::class,
         "GET|/admin" => GbClicker\Controller\AdminPageController::class,
+        "GET|/ranking" => \GbClicker\Controller\RankingController::class,
     ];

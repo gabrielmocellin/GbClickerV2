@@ -8,8 +8,9 @@
     <link rel="icon" type="image/x-icon" href="img/favicon.png">
     <link rel='stylesheet' href='css/site.css'>
     <link rel="stylesheet" href="css/item.css">
+    <link rel="stylesheet" href="css/adminpages.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <title>Admin</title>
+    <title>Admin | Itens</title>
 </head>
 <body>
     <?php require_once "util/header.php"; ?>
@@ -23,7 +24,7 @@
                 <label for="nome">Nome:<input type="text" name="nome" id="nome" required></label>
                 <label for="descricao">Descrição:<input name="descricao" id="descricao" required></input></label>
                 <label for="preco">Preço:<input type="text" name="preco" id="preco" required></label>
-                <label for="minimum_level">Nível Mínimo:<input type="text" name="minimum_level" id="minimum_level" required></label>
+                <label for="minimum_level">Nível:<input type="text" name="minimum_level" id="minimum_level" required></label>
                 <label for="quantidade">Quantidade:<input type="text" name="quantidade" id="quantidade" required></label>
                 <label for="tipo">Tipo:
                     <?php if (!empty($tipos)) { ?>

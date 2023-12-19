@@ -29,25 +29,35 @@
 
 
 /* ++++++ RESET PRESETS ++++++ */
-*{
-    margin: 0; padding: 0;
+*
+{
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
     outline: none;
     user-select: none;
 }
-body{
+
+body
+{
     font-size: var(--font-size);
-    display: flex; flex-direction: column;
-    height: 100vh; width: 100vw;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
     background-color: var(--font-white-color);
 }
-.disabled{
+
+.disabled
+{
     opacity: 0.4 !important;
     background: rgb(85, 85, 85);
     cursor: default !important;
 }
-.noSelect{
-    user-select:none;
+
+.noSelect
+{
+    user-select: none;
 }
 
 
@@ -55,11 +65,11 @@ body{
 header
 {
     background: var(--30green);
-    display:grid;
+    display: grid;
     grid-template-columns: 2fr 8fr 2fr;
     box-shadow: var(--header-shadow);
     min-width: 20em;
-    position:relative;
+    position: relative;
 }
 
 div.header_logo_button
@@ -72,7 +82,7 @@ div.header_logo_button
 
 #header_logo
 {
-    cursor:pointer;
+    cursor: pointer;
     text-align: center;
     padding-left: 1rem;
     font-family: var(--font-primary);
@@ -184,6 +194,7 @@ img.user_image
 
 #div-menu-navbar
 {
+    position: relative;
     min-width: 15em;
     overflow-y: auto;
     overflow-x: none;

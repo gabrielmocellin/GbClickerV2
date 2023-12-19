@@ -13,12 +13,14 @@ class ProfileModel
     public $minions;
     public $image_src;
     public $level;
+    public $id;
     public $rank;
 
     function __construct($id)
     {
         $profileDao = new ProfileDao();
         $profileInfo = $profileDao->selectByIdentifier($id);
+        $this->id = $id;
         $this->nickname = $profileInfo['nickname'];
         $this->clickValue = $profileInfo['clickValue'];
         $this->money = $profileInfo['money'];
@@ -30,6 +32,11 @@ class ProfileModel
     }
 
     // =-=-=-=-= GETTERS =-=-=-=-=
+    public function getId()
+    {
+        return $this->id;
+    }
+
     public function getNickname()
     {
         return $this->nickname;

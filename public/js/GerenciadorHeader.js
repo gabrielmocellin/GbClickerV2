@@ -57,6 +57,9 @@ class GerenciadorHeader
             case 3:
                 path = "/logout";
                 break;
+            case 4:
+                path = "/ranking";
+                break;
             case 101:
                 path = "/admin";
                 break;

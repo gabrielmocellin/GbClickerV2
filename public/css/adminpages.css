@@ -1,0 +1,65 @@
+div#admin
+{
+    font-family: "DM Sans";
+    width: 70%;
+    height: 90%;
+    margin: 1em auto;
+    border-radius: 1em;
+    display: grid;
+    grid-template-rows: 1fr 3fr;
+    box-shadow: #888 0 0 0.2em 0;
+}
+
+div#admin .top
+{
+    background-color: #EEE;
+    display: flex;
+    gap: 3em;
+    align-items: center;
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+    flex-wrap: wrap;
+    border-bottom: 2px solid #aaa;;
+    box-shadow: 0px 0px 3px 1.5px #aaa;
+}
+
+div#admin .boas_vindas
+{
+    margin-left: 5%;
+    letter-spacing: 0.05em;
+    color: #aaa;
+}
+
+div#admin .bottom
+{
+    width: 90%;
+    height: auto;
+    margin: 5% auto;
+    text-align: center;
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2em;
+
+    background: #EFEFEF;
+    box-shadow: inset 0px 0px 3px 1.5px #AAAAAA;
+    border-radius: 1em;
+    padding: 1em;
+
+}
+
+@media (max-width: 800px) or (max-height: 450px)
+{
+    div#admin
+    {
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        border-radius: 0px;
+    }
+
+    div#admin .top
+    {
+        border-radius: 0px;
+    }
+}

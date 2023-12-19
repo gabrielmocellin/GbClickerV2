@@ -21,4 +21,11 @@ class ProfileDAO extends Dao
         
         return false;
     }
+
+    public function selectIdFromRankedPlayers()
+    {
+        $sql = "SELECT id FROM usuario ORDER BY money DESC LIMIT 10;";
+        $sql_result = $this->conexao->query($sql);
+        return $sql_result->fetchAll(\PDO::FETCH_ASSOC);
+    }
 }

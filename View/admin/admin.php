@@ -8,6 +8,7 @@
     <link rel="icon" type="image/x-icon" href="img/favicon.png">
     <link rel='stylesheet' href='css/site.css'>
     <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/adminpages.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <title>Admin</title>
 </head>

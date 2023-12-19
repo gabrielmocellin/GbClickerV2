@@ -11,6 +11,9 @@ class ProfileController
         if ($model != null) {
             if (isset($_GET['id'])) {
                 $profile = ProfileController::getProfileInfoById($_GET['id']);
+                if ($profile->getNickname() == NULL) { // Caso o usuário não exista!
+                    header("location: \\profile");
+                }
             } else {
                 $profile = ProfileController::getProfileInfoById($model->getId());
             }

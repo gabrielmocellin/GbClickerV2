@@ -18,6 +18,10 @@
             <img draggable="false" src="img/icons/shopping_cart.png" alt="Loja">
             Loja
         </li>
+        <li onclick="gerenciadorDoHeader.RedirectPage(4)">
+            <img draggable="false" src="img/icons/trophy.png" alt="Ranking">
+            Ranking
+        </li>
         <li>
             <img draggable="false" src="img/icons/inventory.png" alt="Inventário">
             Inventário
