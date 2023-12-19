@@ -48,5 +48,11 @@
         </div>
     </main>
     <?php require 'util/importJScreateGame.php'; ?>
+    <script lang='JavaScript' src='js/util/formatadorNums.js'></script>
+    <script>
+        window.onload = function() {
+            formatarNumerosNasDivs('.bottom section h1', 1);
+        };
+    </script>
 </body>
 </html>
