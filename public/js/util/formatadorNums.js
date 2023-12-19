@@ -24,12 +24,12 @@ function formatador(num, digits)
     return (num / si[i].value).toFixed(digits).replace(regex, "$1") + si[i].symbol;
 }
 
-function formatarNumerosNasDivs()
+function formatarNumerosNasDivs(querySelector, casasDecimais)
 {
-    var divs = document.querySelectorAll('.linha p');
+    var divs = document.querySelectorAll(querySelector);
     divs.forEach(function(div) {
       var numero = div.textContent;
-      div.textContent = formatador(numero, 2);
+      div.textContent = formatador(numero, casasDecimais);
     });
 }
 

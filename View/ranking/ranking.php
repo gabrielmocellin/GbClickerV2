@@ -35,6 +35,11 @@ use GbClicker\Controller\RankingController;
         </div>
     </main>
     <?php require 'util/importJScreateGame.php'; ?>
-    <script lang='JavaScript' src='js/Ranking/ranking.js'></script>
+    <script lang='JavaScript' src='js/util/formatadorNums.js'></script>
+    <script>
+        window.onload = function() {
+            formatarNumerosNasDivs('.linha p', 1);
+        };
+    </script>
 </body>
 </html>

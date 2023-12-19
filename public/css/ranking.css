@@ -49,7 +49,7 @@ div#admin .linha .rank
 div#admin .linha img
 {
     border-radius: 50%;
-    border: #aaa 0.2em solid;
+    border: white 0.1em solid;
     object-fit: cover;
     height: 3em;
     aspect-ratio: 1;
