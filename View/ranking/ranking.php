@@ -21,7 +21,7 @@ use GbClicker\Controller\RankingController;
         <?php require_once "util/navbar.php"; ?>
         <div id='admin'>
             <div class='top'>
-                <h1 class='boas_vindas'>Ranking</h1>
+                <h1 class='boas_vindas'>TOP 10 Magnatas</h1>
             </div>
             <div class='header'>
                 <p>Rank</p>

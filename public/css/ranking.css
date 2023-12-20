@@ -54,3 +54,28 @@ div#admin .linha img
     height: 3em;
     aspect-ratio: 1;
 }
+
+.rank:first-child
+{
+	background: linear-gradient(-45deg, #ffbb00, rgb(255, 254, 169), #ffbb00);
+	background-size: 250% 250%;
+	animation: fundoRanking 6s ease-in-out infinite;
+}
+
+@keyframes fundoRanking
+{
+	0%
+    {
+		background-position: 0% 50%;
+	}
+
+	50%
+    {
+		background-position: 100% 50%;
+	}
+
+    100%
+    {
+		background-position: 0% 50%;
+	}
+}

@@ -22,10 +22,11 @@ class Gioco
 
         this.cliquesPorSegundo = 0;
         
-        this.AtualizarValorNoElemento("user_money_p",   this.usuario.getDinheiro(), " R$ ");               // Atualizando Dinheiro atual
-        this.AtualizarValorNoElemento("user_mult_li",   this.usuario.getMultiplicador(), "Mult: ", " x"); // Atualizando Multiplicador atual
-        this.AtualizarValorNoElemento("minions_sec_li", this.usuario.getMinions(), "Minions: ");          // Atualizando Minions atual
-        this.AtualizarValorNoElemento("money_sec_li",   this.CalcularDinheiroPorSegundo(), "", " R$/sec"); // Atualizando R$/sec atual
+        this.AtualizarValorNoElemento("user_money_p",   this.usuario.getDinheiro(), "R$ ");               // Atualizando Dinheiro atual
+        this.AtualizarValorNoElemento("clickValue",   this.usuario.getValorDoClique(), "R$ ", ""); // Atualizando R$ do clique atual
+        this.AtualizarValorNoElemento("multiplier",   this.usuario.getMultiplicador(), "Mult: ", " x"); // Atualizando Multiplicador atual
+        this.AtualizarValorNoElemento("minions", this.usuario.getMinions(), "Minions: ");          // Atualizando Minions atual
+        this.AtualizarValorNoElemento("money",   this.CalcularDinheiroPorSegundo(), "", " R$/sec"); // Atualizando R$/sec atual
         this.AtualizarValorNoElemento("level-info-p",   this.usuario.getNivel(), "LEVEL: ");              // Atualizando Level atual
         this.AtualizarBarraDeProgressoDeNivel();
         

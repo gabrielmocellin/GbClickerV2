@@ -27,11 +27,12 @@
                 </div>
             </div>
             <div id="middle-clicker-content-side">
-                <ul id="clicker-infos">
-                    <li id='user_mult_li'></li>
-                    <li id='money_sec_li'></li>
-                    <li id='minions_sec_li'></li>
-                </ul>
+                <div class="clicker-info">
+                    <p id='clickValue'></p>
+                    <p id='multiplier'></p>
+                    <p id='money'></p>
+                    <p id='minions'></p>
+                </div>
                 <div id="clicker-img-div" class="image-clicker-div">
                     <img draggable="false" src="img/logo.png" id="clicker-img" onclick="gioco.ClickOnClicker(event)">
                 </div>

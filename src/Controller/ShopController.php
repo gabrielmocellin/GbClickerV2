@@ -13,7 +13,7 @@ class ShopController
     {
         $model = LoginController::login();
         $itemsArray = ShopController::pegarItens();
-        include_once __DIR__ . '/../../View/shop/shop.php';
+        include_once __DIR__ . '/../../View/shop/newShop.php';
     }
 
     public static function pegarItens()
@@ -63,6 +63,28 @@ class ShopController
                 . $item['quantidade'] . ", '" . $item['nome'] . "') );
                 ";
             }
+        }
+    }
+
+    public static function novoMostrarItens($itemsArray)
+    {
+        if (!empty($itemsArray)) {
+            foreach ($itemsArray as $item) {
+                echo "
+                    <div title='" . $item['descricao'] . "' class='item'>
+                        <img class='item-img' src='" . $item['image_src'] . "'>
+                        <p class='item-name'>" . $item['nome'] . "</p>
+                        <section class='botoes-manipulacao-input'><button class='add'>+</button><input type='text' value='" . $item['quantidade'] . "'><button class='remove'>-</button></section>
+                        <button id='item-" . $item['id'] . "' class='botao-comprar'>Comprar R$<p class='item-price'>" . $item['preco'] . "</p></button>
+                    </div>
+                ";
+            }
+        } else {
+            echo "
+                <div class='item'>
+                    <p>Não há itens disponíveis no momento...</p>
+                </div>
+            ";
         }
     }
 }
