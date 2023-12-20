@@ -13,23 +13,45 @@ class Item
         this.minimum_level   = minimum_level;
         this.quantidade      = quantidade;
         this.nome            = nome;
+
         this.compraBotao     = document.getElementById(`item-${this.id}`);
         this.quantidadeInput = document.getElementById(`input-${this.id}`);
         this.precoP          = document.getElementById(`item-price-${this.id}`);
+        this.addBotao        = document.getElementById(`add-${this.id}`);
+        this.removeBotao     = document.getElementById(`remove-${this.id}`);
+
         this.porcentagem     = 0.05;
         this.iniciarEventListener();
     }
 
     iniciarEventListener()
     {
+        /* Botão para realizar a compra do item */
         this.compraBotao.addEventListener(
             'click',
             this.comprar.bind(this)
         );
-
+        
+        /* Input de quantidade do item */
         this.quantidadeInput.addEventListener(
             'change',
             this.atualizarQuantidade.bind(this)
+        );
+
+        /* Botão adicionar quantidade */
+        this.addBotao .addEventListener(
+            'click',
+            () => {
+                this.gerenciarQuantidade(true);
+            }
+        );
+        
+        /* Botão remover quantidade */
+        this.removeBotao.addEventListener(
+            'click',
+            () => {
+                this.gerenciarQuantidade(false);
+            }
         );
     }
 
@@ -50,6 +72,21 @@ class Item
     {
         let dinheiroDescontado = gioco.usuario.getDinheiro() - this.calcularPreco(this.quantidade);
         gioco.usuario.setDinheiro(dinheiroDescontado);
+    }
+
+    gerenciarQuantidade(opcao)
+    {
+        let novaQuantidade = 0;
+        if (opcao) {
+            novaQuantidade = this.quantidade + 1;
+        } else {
+            novaQuantidade = this.quantidade - 1;
+        }
+
+        if (this.validarNovaQuantidade(novaQuantidade)) {
+            this.quantidadeInput.value = novaQuantidade;
+            this.atualizarQuantidade();
+        }
     }
 
     atualizarQuantidade()

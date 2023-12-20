@@ -52,8 +52,14 @@ class ShopController
                     <div title='" . $item['descricao'] . "' class='item'>
                         <img class='item-img' src='" . $item['image_src'] . "'>
                         <p class='item-name'>" . $item['nome'] . "</p>
-                        <section class='botoes-manipulacao-input'><button class='add'>+</button><input type='number' id='input-" . $item['id'] . "' value='" . $item['quantidade'] . "'><button class='remove'>-</button></section>
-                        <button id='item-" . $item['id'] . "' class='botao-comprar'>Comprar R$<p id='item-price-" . $item['id'] . "' class='item-price'>" . $item['preco'] . "</p></button>
+                        <section class='botoes-manipulacao-input'>
+                            <button id='add-" . $item['id'] . "' class='add'>+</button>
+                            <input type='number' id='input-" . $item['id'] . "' value='" . $item['quantidade'] . "'>
+                            <button id='remove-" . $item['id'] . "' class='remove'>-</button>
+                        </section>
+                        <button id='item-" . $item['id'] . "' class='botao-comprar'>Comprar R$
+                            <p id='item-price-" . $item['id'] . "' class='item-price'>" . $item['preco'] . "</p>
+                        </button>
                     </div>
                 ";
             }
