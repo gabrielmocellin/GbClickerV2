@@ -25,7 +25,7 @@
                     <img src='img/icons/account.png'>
                     <h1>Contas</h1>
                 </a>
-                <a href='/items'>
+                <a href='admin/items'>
                     <img src='img/icons/add_item.png'>
                     <h1>Itens</h1>
                 </a>

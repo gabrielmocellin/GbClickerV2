@@ -19,22 +19,17 @@
         <main>
             <?php require "util/navbar.php"; ?>
             <div id="shop-div">
-                <table id="shop-table">
-                    <tr class='tableHead'> <th>Loja</th> </tr>
-                    <?php ShopController::mostrarItens($itemsArray); ?>
-                </table>
+                <?php ShopController::mostrarItens($itemsArray); ?>
             </div>
         </main>
-
-      <script language="JavaScript" src="js/Shop/Item.js"></script>
-      <script language="JavaScript" src="js/Shop/items/Minions.js"></script>
-      <script language="JavaScript" src="js/Shop/items/Multiplier.js"></script>
-      <script language="JavaScript" src="js/Shop/items/ClickValue.js"></script>
-      <?php require 'util/importJScreateGame.php'; ?>
-      <script>
-        var itensArray = Array();
-        <?php ShopController::identificarItens($itemsArray); ?>
-        itensArray.forEach( function(item){ let itemTd = document.getElementById(`item-${item.id}`); itemTd.addEventListener('click', item.comprar.bind(item)); } );
-      </script>
+        <?php
+            ShopController::importShopJs();
+            require 'util/importJScreateGame.php';
+        ?>
+        <script>
+            var itensArray = Array();
+            <?php ShopController::identificarItens($itemsArray); ?>
+        </script>
+        <script src='js/Shop/shop.js'></script>
     </body>
 </html>

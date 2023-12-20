@@ -1,149 +1,165 @@
 
 div#shop-div
 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    width: 100%;
+    height: 100%;
+    font-family: "DM Sans";
+    gap: 2em;
+    padding: 2em;
+    box-shadow: #888 0 0 0.2em 0;
+    overflow-y: auto;
+    background-color: #ddd;
+    
+}
+
+.item
+{
+    padding: 0.5em;
+    background-color: #688C67;
+    display: grid;
+    grid-template-rows: 1fr 1fr 0.5fr 1fr;
+    justify-items: center;
+    align-items: center;
+    border: 0.5em solid #886A46;
+    border-radius: 1em;
+    box-shadow: inset black 0 0 0.4em 0;
+}
+
+/* Imagem do ITEM */
+.item img
+{
+    border-radius: 50%;
+    height: auto;
+    width: 5em;
+    aspect-ratio: 1;
+    background-color: #efefef;
+    box-shadow: black 0 0.3em 0.3em 0;
+}
+
+/* Nome do ITEM */
+.item-name
+{
+    text-align: center;
+    color: black;
+    font-weight: bold;
+    font-size: 1.5em;
+    word-wrap: break-word;
+}
+
+/* Botões que manipulam o valor do INPUT */
+.botoes-manipulacao-input
+{
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    height: 100%;
+    font-size: 1em;
+}
+
+/* Input de QUANTIDADE */
+.item input
+{
+    font-family: "DM Sans";
+    text-align: center;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    appearance: textfield;
+}
+
+.add
+{
+    background-color: #73ab5a;
+}
+
+.add:hover
+{
+    background-color: #97C97F;
+}
+
+.remove
+{
+    background-color: #9a5353;
+}
+
+.remove:hover
+{
+    background-color: #C08181;
+}
+
+.botoes-manipulacao-input button
+{
+
+    width: 2em;
+    height: 2em;
+    font-size: 1em;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    color: white;
+    border-radius: 50%;
+    transition: linear 0.1s;
+}
+
+.botoes-manipulacao-input button:active
+{
+    box-shadow: inset black 0 0 0.2em 0;
+}
+
+.botao-comprar
+{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
-    width: 100%;
-}
-
-table#shop-table
-{
-    display:block;
-    border-collapse: collapse;
-    font-family: var(--font-text);
-    width: 80%;
-    height: 80%;
-    background-color: #609D7C;
-    box-shadow: var(--header-shadow);
-}
-
-table#shop-table tbody
-{
-    width: 100%;
-    display: block;
-}
-
-table#shop-table tr
-{
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-}
-
-table#shop-table tr.tableHead
-{
-    position: sticky;
-    top: 0;
-    font-size: 2em;
-    color: var(--font-white-color);
-    background-color: var(--darkGreen);
-    letter-spacing: 4px;
-    box-shadow: 0px 4px 6px -2px var(--shadow-color);
-}
-
-table#shop-table tr:not(.tableHead)
-{
-    margin-top:2em;
-}
-
-table#shop-table tr td
-{
-    width:15%;
-    max-height: 20%;
-    display:flex;
-    justify-content: center;
-    text-align: center;
-    transition: ease-in-out 0.2s;
-    cursor:pointer;
-    border-radius: 1em;
-    box-shadow: 0px 4px 6px -2px var(--shadow-color);
-    background-color: var(--font-white-color);
-    border: black 2px solid;
-}
-
-table#shop-table tr td:not(.disabled):hover
-{
-    background-color: lightgray;
-}
-
-table#shop-table tr td:not(.disabled):active
-{
-    background-color: darkgray;
+    background-color: #A3C1A2;
+    color: white;
     font-weight: bold;
+    border: white solid 2px;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    cursor: pointer;
+    transition: linear 0.1s;
+    font-size: 1em;
 }
 
-table#shop-table img.item-img
+.botao-comprar:hover
 {
-    max-height:auto;
-    max-width: 55%;
-    border-radius: 50%;
-    padding: 0.5rem;
-    object-fit: cover;
-    aspect-ratio: 1/1;
+    background-color: var(--30green);
 }
 
-table#shop-table p.item-name
+.botao-comprar:active
 {
-    font-weight: bold;
+    box-shadow: inset black 0 0 0.2em 0;
 }
 
-table#shop-table p.item-price
+@media (max-width: 1500px)
 {
-    color:green;
-}
-
-/* ++++++ MEDIA QUERYS ++++++ */
-@media (max-width: 800px)
-{
-    body
+    div#shop-div
     {
-        font-size: 10px;
-    }
-
-    ul#clicker-infos
-    {
-        flex-direction: column; 
-        align-items: center;
-    }
-
-    ul#clicker-infos li
-    {
-        width:60%;
-    }
-}
-@media (max-width: 1000px), (max-height: 600px)
-{
-    div#admin-tickets
-    {
-        display:block;
-        padding:0;
-    }
-
-    table#shop-table
-    {
-        width: 100%;
-        max-height: 100vh;
-        overflow-y: auto;
-        height: 100%;
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
-@media (max-width: 425px)
+@media (max-width: 900px)
 {
-    table#shop-table
+    div#shop-div
     {
-        max-height:100vh;
-        overflow-y: auto;
-    }
-
-    table#shop-table tr
-    {
-        width:100%;
-        display:flex;
-        flex-direction: column;
-        align-items: center;
-        gap:2em
+        grid-template-columns: 1fr;
     }
 }

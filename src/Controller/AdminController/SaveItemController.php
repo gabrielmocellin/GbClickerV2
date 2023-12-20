@@ -29,7 +29,7 @@ class SaveItemController
                     $_POST['tipo']
                 );
                 if ($item->save()) {
-                    header('location: /items');
+                    header('location: \\admin\\items');
                 }
             }
         }
@@ -40,7 +40,7 @@ class SaveItemController
         $pathRelativo = "img\\uploads\\items\\";
         $pathCompleto = __DIR__ . "\\..\\..\\..\\public\\$pathRelativo" . basename($imagem['name']);
         if (!move_uploaded_file($imagem['tmp_name'], $pathCompleto)) {
-            header("location: /items?erroImagem=7");
+            header("location: \\admin\\items?erroImagem=7");
             return;
         };
         return $pathRelativo . basename($imagem['name']);
