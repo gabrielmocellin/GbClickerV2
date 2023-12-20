@@ -79,7 +79,7 @@ div#shop-div
 
 .add:hover
 {
-    background-color: green;
+    background-color: #73ab5a;
 }
 
 .remove
@@ -89,7 +89,7 @@ div#shop-div
 
 .remove:hover
 {
-    background-color: darkred;
+    background-color: #9a5353;
 }
 
 .botoes-manipulacao-input button

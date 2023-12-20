@@ -30,7 +30,7 @@
                 <div class="clicker-info">
                     <p id='clickValue'></p>
                     <p id='multiplier'></p>
-                    <p id='money'></p>
+                    <p id='moneypsec'></p>
                     <p id='minions'></p>
                 </div>
                 <div id="clicker-img-div" class="image-clicker-div">
