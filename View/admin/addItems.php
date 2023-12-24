@@ -20,7 +20,7 @@
             <div class='top'>
                 <h1 class='boas_vindas'>Criação de itens</h1>
             </div>
-            <form action="admin/items/save" method="POST" enctype="multipart/form-data" class='bottom'>
+            <form action="items/save" method="POST" enctype="multipart/form-data" class='bottom'>
                 <label for="nome">Nome:<input type="text" name="nome" id="nome" required></label>
                 <label for="descricao">Descrição:<input name="descricao" id="descricao" required></input></label>
                 <label for="preco">Preço:<input type="text" name="preco" id="preco" required></label>
