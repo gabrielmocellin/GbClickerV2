@@ -11,7 +11,7 @@ class ItemController
         $model = AdminPageController::verifyAdminAccount();
         $itemModel = new ItemModel();
         $tipos = $itemModel->getAllTypes();
-        if ($model !== false) {
+        if ($model != null) {
             include __DIR__ . "\\..\\..\\View\\admin\\addItems.php";
             return;
         }

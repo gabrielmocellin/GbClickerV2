@@ -64,7 +64,6 @@ class User
     getNivel()                             { return this.#nivel; }
     getPontosAtuaisDeNivel()               { return this.#pontosAtuaisDeNivel; }
     getPontosNecessariosParaSubirDeNivel() { return this.#pontosNecessariosParaSubirDeNivel; }
-
     // =-=-=-=-=-= Setters =-=-=-=-=-=
     setValorDoClique(valor)                     { this.#valorDoClique = valor; }
     setDinheiro(valor)                          { this.#dinheiro = valor; }

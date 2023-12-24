@@ -12,8 +12,12 @@ class ShopController
     public static function index()
     {
         $model = LoginController::login();
-        $itemsArray = ShopController::pegarItens();
-        include_once __DIR__ . '/../../View/shop/shop.php';
+        if ($model != null) {
+            $itemsArray = ShopController::pegarItens();
+            include_once __DIR__ . '/../../View/shop/shop.php';
+        } else {
+            header("location: \\login?aviso=1");
+        }
     }
 
     public static function pegarItens()
@@ -23,46 +27,64 @@ class ShopController
         return $itemsArray;
     }
 
-    public static function mostrarItens($itemsArray)
-    {
-        if (!empty($itemsArray)) {
-            echo "<tr>";
-            $itemsInTr = 0;
-            foreach ($itemsArray as $item) {
-                $itemsInTr++;
-                echo "
-                    <td id='item-" . $item['id'] . "' title='" . $item['descricao'] . "'>
-                        <div>
-                            <img class='item-img' src='" . $item['image_src'] . "'>
-                            <p class='item-name'>" . $item['nome'] . "</p>
-                            <p>" . $item['quantidade'] . "x</p>
-                            <p class='item-price'>R$ " . $item['preco'] . "</p>
-                        </div>
-                    </td>
-                ";
-                if ($itemsInTr >= 4) {
-                    echo "</tr><tr>";
-                    $itemsInTr = 0;
-                }
-            }
-        } else {
-            echo "
-                <td>
-                    <p>Não há itens disponíveis no momento...</p>
-                </td>
-            ";
-        }
-    }
-
     public static function identificarItens($itemsArray)
     {
         if (!empty($itemsArray)) {
             foreach ($itemsArray as $item) {
-                echo "itensArray.push(new " . $item['classificacao'] . "(" . $item['id'] . ", "
-                . $item['preco'] . ", " . $item['minimum_level'] . ", "
-                . $item['quantidade'] . ", '" . $item['nome'] . "') );
+                echo "itensArray['" . $item['id'] . "'] =
+                    new " . $item['classificacao'] . "(
+                    " . $item['id'] . ",
+                    " . $item['preco'] . ",
+                    " . $item['minimum_level'] . ",
+                    " . $item['quantidade'] . ",
+                    '" . $item['nome'] . "'
+                    )
+                ;";
+            }
+        }
+    }
+
+    public static function mostrarItens($itemsArray)
+    {
+        if (!empty($itemsArray)) {
+            foreach ($itemsArray as $item) {
+                echo "
+                    <div title='" . $item['descricao'] . "' class='item'>
+                        <img class='item-img' src='" . $item['image_src'] . "'>
+                        <p class='item-name'>" . $item['nome'] . "</p>
+                        <section class='botoes-manipulacao-input'>
+                            <button id='add-" . $item['id'] . "' class='add'>+</button>
+                            <input type='number' id='input-" . $item['id'] . "' value='" . $item['quantidade'] . "'>
+                            <button id='remove-" . $item['id'] . "' class='remove'>-</button>
+                        </section>
+                        <button id='item-" . $item['id'] . "' class='botao-comprar'>Comprar R$
+                            <p id='item-price-" . $item['id'] . "' class='item-price'>" . $item['preco'] . "</p>
+                        </button>
+                    </div>
                 ";
             }
+        } else {
+            echo "
+                <div class='item'>
+                    <p>Não há itens disponíveis no momento...</p>
+                </div>
+            ";
+        }
+    }
+
+    public static function importShopJs()
+    {
+        $jsSourceUrlArray = [
+            'js/Shop/Item.js',
+            'js/Shop/items/ClickValue.js',
+            'js/Shop/items/Multiplier.js',
+            'js/Shop/items/Minions.js',
+            'js/util/formatadorNums.js',
+            'js/Notificacao.js'
+        ];
+
+        foreach ($jsSourceUrlArray as $srcUrl) {
+            echo "<script lang='JavaScript' src='$srcUrl'></script>";
         }
     }
 }

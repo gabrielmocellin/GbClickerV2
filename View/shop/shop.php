@@ -10,6 +10,7 @@
         <link rel='stylesheet' href='css/notificacao.css'>
         <link rel='stylesheet' href='css/site.css'>
         <link rel='stylesheet' href='css/shop.css'>
+        <link rel='stylesheet' href='css/notificacao.css'>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <title>Loja</title>
     </head>
@@ -19,22 +20,17 @@
         <main>
             <?php require "util/navbar.php"; ?>
             <div id="shop-div">
-                <table id="shop-table">
-                    <tr class='tableHead'> <th>Loja</th> </tr>
-                    <?php ShopController::mostrarItens($itemsArray); ?>
-                </table>
+                <?php ShopController::mostrarItens($itemsArray); ?>
             </div>
         </main>
-
-      <script language="JavaScript" src="js/Shop/Item.js"></script>
-      <script language="JavaScript" src="js/Shop/items/Minions.js"></script>
-      <script language="JavaScript" src="js/Shop/items/Multiplier.js"></script>
-      <script language="JavaScript" src="js/Shop/items/ClickValue.js"></script>
-      <?php require 'util/importJScreateGame.php'; ?>
-      <script>
-        var itensArray = Array();
-        <?php ShopController::identificarItens($itemsArray); ?>
-        itensArray.forEach( function(item){ let itemTd = document.getElementById(`item-${item.id}`); itemTd.addEventListener('click', item.comprar.bind(item)); } );
-      </script>
+        <?php
+            ShopController::importShopJs();
+            require 'util/importJsScripts.php';
+        ?>
+        <script>
+            var itensArray = Array();
+            <?php ShopController::identificarItens($itemsArray); ?>
+        </script>
+        <script src='js/Shop/shop.js'></script>
     </body>
 </html>
