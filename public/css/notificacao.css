@@ -1,7 +1,8 @@
 /* =-=-= Notificacao =-=-= */
-#div-notificacao-div{
+#div-notificacao-div
+{
     position: absolute;
-    display:none;
+    display: none;
     justify-content: center;
     align-items: center;
     top: 5%;
@@ -11,14 +12,13 @@
 
 #notificacao-div
 {
+    font-family: var(--font-text);
     position: relative;
-    display:none;
+    display: none;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     height: max(100%, 10em);
-    /*height: 100%;
-    max-height: 200px; */
     width: 60%;
     max-width: 1000px; 
     border: 0.2em solid #666;
@@ -46,10 +46,10 @@
 #notificacao-div::before
 {
     content: "";
-    height: 5px;
+    height: 0.3em;
     position: absolute;
     width: 100%;
-    left:0;
+    left: 0;
     bottom: 0;
     background-color: var(--60green);
     animation: tempoParaExpirarNotificacao 6s linear;

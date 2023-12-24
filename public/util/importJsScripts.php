@@ -1,7 +1,7 @@
-<script language="JavaScript" src="js/GerenciadorHeader.js"></script>
-<script language="JavaScript" src="js/User.js"></script>
-<script language="JavaScript" src="js/Gioco.js"></script>
-<script language="JavaScript">
+<script language='JavaScript' src='<?= $GLOBALS['prefix'] ?>js/GerenciadorHeader.js'></script>
+<script language='JavaScript' src='<?= $GLOBALS['prefix'] ?>js/User.js'></script>
+<script language='JavaScript' src='<?= $GLOBALS['prefix'] ?>js/Gioco.js'></script>
+<script language='JavaScript'>
   var gerenciadorDoHeader = new GerenciadorHeader();
   var gioco = new Gioco(
     valorDoClique = <?= $model->getClickValue(); ?>,

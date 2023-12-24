@@ -74,12 +74,17 @@ class ShopController
 
     public static function importShopJs()
     {
-        echo"
-        <script lang='JavaScript' src='js/Shop/Item.js'></script>
-        <script lang='JavaScript' src='js/Shop/items/Minions.js'></script>
-        <script lang='JavaScript' src='js/Shop/items/Multiplier.js'></script>
-        <script lang='JavaScript' src='js/Shop/items/ClickValue.js'></script>
-        <script lang='JavaScript' src='js/util/formatadorNums.js'></script>
-        ";
+        $jsSourceUrlArray = [
+            'js/Shop/Item.js',
+            'js/Shop/items/ClickValue.js',
+            'js/Shop/items/Multiplier.js',
+            'js/Shop/items/Minions.js',
+            'js/util/formatadorNums.js',
+            'js/Notificacao.js'
+        ];
+
+        foreach ($jsSourceUrlArray as $srcUrl) {
+            echo "<script lang='JavaScript' src='$srcUrl'></script>";
+        }
     }
 }

@@ -36,6 +36,14 @@
     $key = "$serverMethod|$path";
 
     if (array_key_exists($key, $routes)) {
+
+        $prefixChangesNeeded = (substr_count($path, '/') - 1);
+        $GLOBALS['prefix'] = "";
+        
+        for ($i = 0; $i < $prefixChangesNeeded; $i++) {
+            $GLOBALS['prefix'] .= "../";
+        }
+
         $controllerClass = new $routes[$key]();
         $controllerClass::index();
     } else {

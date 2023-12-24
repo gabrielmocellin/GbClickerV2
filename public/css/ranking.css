@@ -55,7 +55,7 @@ div#admin .linha img
     aspect-ratio: 1;
 }
 
-.rank:first-child
+.first_rank
 {
 	background: linear-gradient(-45deg, #ffbb00, rgb(255, 254, 169), #ffbb00);
 	background-size: 250% 250%;

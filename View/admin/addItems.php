@@ -5,10 +5,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="img/favicon.png">
-    <link rel='stylesheet' href='css/site.css'>
-    <link rel="stylesheet" href="css/item.css">
-    <link rel="stylesheet" href="css/adminpages.css">
+    <link rel="icon" type="image/x-icon" href="../img/favicon.png">
+    <link rel='stylesheet' href='../css/site.css'>
+    <link rel="stylesheet" href="../css/item.css">
+    <link rel="stylesheet" href="../css/adminpages.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <title>Admin | Itens</title>
 </head>
@@ -37,7 +37,7 @@
                 </label>
                 <label for="image_src">Imagem (PNG ou JPG):</label>  <input style='display:none' type="file" name="image_src" id="image_src" accept=".png, .jpg, .jpeg" onchange="previewImage(this)" required>
                 
-                <img id="preview" class="preview" alt="Preview" src='img/icons/account.png'>
+                <img id="preview" class="preview" alt="Preview" src='../img/icons/account.png'>
                 <input class="botao_enviar" type="submit" value="Enviar">
             </form>
         </div>
@@ -48,6 +48,6 @@
             preview.src = URL.createObjectURL(input.files[0]);
         }
     </script>
-    <?php require 'util/importJScreateGame.php'; ?>
+    <?php require 'util/importJsScripts.php'; ?>
 </body>
 </html>

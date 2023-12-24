@@ -27,7 +27,7 @@
                 <label id="image-input-label" for="image-input">Selecionar Foto</label>
                 <input style="display:none;" id="image-input" name="image_src" type="file" accept="image/png, image/jpeg, image/jpg">
 
-                <img id="image-preview" src="">
+                <img id="image-preview" src="img/icons/account.png">
                 <div id="have-account-div">
                     <p id="have-account-question">Já possui uma conta?</p>
                     <p id="login-here-button">Entre aqui</p>

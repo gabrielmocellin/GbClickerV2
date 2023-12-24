@@ -21,11 +21,12 @@ class RankingController
     public static function showUsers()
     {
         $rankModel = new RankModel();
+        $class = "rank first_rank";
         $usuarios = $rankModel->getArrayInfoRankedPlayers();
         foreach ($usuarios as $usuario) {
             echo  "
             <div class='linha'>
-                <p class='rank'>" . $usuario->getRank() . "</p>
+                <p class='$class'>" . $usuario->getRank() . "</p>
                 <img src='" . $usuario->getImageSrc() . "'>
                 <p>" . $usuario->getMoney() . "</p>
                 <p>" . $usuario->getClickValue() . "</p>
@@ -33,6 +34,7 @@ class RankingController
                 <p>" . $usuario->getMinions() . "</p>
             </div>
             ";
+            $class = "rank";
         }
     }
 }

@@ -46,6 +46,6 @@
             </div>
         </div>
     </main>
-    <?php require 'util/importJScreateGame.php'; ?>
+    <?php require 'util/importJsScripts.php'; ?>
 </body>
 </html>

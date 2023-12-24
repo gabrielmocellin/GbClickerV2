@@ -37,9 +37,8 @@ class Gioco
         setInterval(() => {
             this.usuario.AddDinheiroPorMinion();
             this.AtualizarValorNoElemento("user_money_p", this.usuario.getDinheiro(), " R$ ");
+            this.salvarDadosAtuais();
         }, 1000);
-
-        this.IniciarIntervaloSalvamentoDadosAtuais();
     }
 
     FormatadorParaDinheiro(num, digits)
@@ -70,8 +69,9 @@ class Gioco
 
     CalcularDinheiroPorSegundo()
     {
-        let dinheiroPsec = parseFloat( (this.usuario.getValorDoClique() * this.usuario.getMultiplicador() * this.cliquesPorSegundo) + (this.usuario.getMinions() * this.usuario.getMultiplicador()) );
-        return dinheiroPsec;
+        let dinheiroPorCliques = this.usuario.getValorDoClique() * this.usuario.getMultiplicador() * this.cliquesPorSegundo;
+        let dinheiroPorMinions = this.usuario.getMinions() * this.usuario.getMultiplicador();
+        return parseFloat(dinheiroPorCliques + dinheiroPorMinions);
     }
     
     ClickOnClicker(event)
@@ -91,6 +91,8 @@ class Gioco
                 this.cliquesPorSegundo -= 1;
             }
         }, 1000); /* Depois de 1 segundo o click não será mais contado */
+
+        this.salvarDadosAtuais()
     }
 
     AtualizarValorNoElemento(idDoElemento, valor, prefixo = "", sufixo = "")
@@ -148,33 +150,30 @@ class Gioco
         }, 1500);
     }
 
-    IniciarIntervaloSalvamentoDadosAtuais()
+    salvarDadosAtuais()
     {
-        var intervaloSalvamento = setInterval(() => {
-            let dadosUsuarioAtuais = {
-                "clickValue":this.usuario.getValorDoClique(),
-                "money":this.usuario.getDinheiro(),
-                "multiplier":this.usuario.getMultiplicador(),
-                "minions":this.usuario.getMinions(),
-                "level":this.usuario.getNivel(),
-                "xp-points":this.usuario.getPontosAtuaisDeNivel(),
-                "max-to-up":this.usuario.getPontosNecessariosParaSubirDeNivel(),
-            };
 
-            let xhr = new XMLHttpRequest();
+        let dadosUsuarioAtuais = {
+            "clickValue":this.usuario.getValorDoClique(),
+            "money":this.usuario.getDinheiro(),
+            "multiplier":this.usuario.getMultiplicador(),
+            "minions":this.usuario.getMinions(),
+            "level":this.usuario.getNivel(),
+            "xp-points":this.usuario.getPontosAtuaisDeNivel(),
+            "max-to-up":this.usuario.getPontosNecessariosParaSubirDeNivel(),
+        };
 
-            xhr.onreadystatechange = function (){
-                let statusComuns = xhr.status == 200 || xhr.status == 0;
-                if (!statusComuns) {
-                    console.log("[ERRO] Erro inesperado: " + xhr.status);
-                    xhr.abort();
-                    clearInterval(intervaloSalvamento);
-                }
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            let statusComuns = xhr.status == 200 || xhr.status == 0;
+            if (!statusComuns) {
+                console.log("[ERRO] Erro inesperado: " + xhr.status);
+                xhr.abort();
             }
+        }
 
-            xhr.open('POST', '/home/save', true);
-            xhr.setRequestHeader('Content-Type', 'application/json');
-            xhr.send(JSON.stringify(dadosUsuarioAtuais));
-        }, 1000);
+        xhr.open('POST', '/home/save', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify(dadosUsuarioAtuais));
     }
 }
