@@ -35,7 +35,7 @@
                 <input name="password-input" id="password" type="password" maxlength="30" required>
                 
                 <div id="checkbox-div">
-                    <input class="checkbox-input" type="checkbox"> <label for="cookie-checkbox">Lembrar conta?</label>
+                    <input name="cookie-checkbox" class="checkbox-input" type="checkbox"> <label for="cookie-checkbox">Lembrar conta?</label>
                 </div>
 
             </div>
