@@ -12,12 +12,8 @@ class ShopController
     public static function index()
     {
         $model = LoginController::login();
-        if ($model != null) {
-            $itemsArray = ShopController::pegarItens();
-            include_once __DIR__ . '/../../View/shop/shop.php';
-        } else {
-            header("location: \\login?aviso=1");
-        }
+        $itemsArray = ShopController::pegarItens();
+        include_once __DIR__ . '/../../View/shop/shop.php';
     }
 
     public static function pegarItens()

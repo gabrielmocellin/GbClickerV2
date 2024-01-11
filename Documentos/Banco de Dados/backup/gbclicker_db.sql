@@ -64,7 +64,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `usuario` WRITE;
 INSERT INTO `usuario` VALUES
-(1, 'admin@admin.com', 'Adminadmin0', 'GM | Gbex', 1, 0, 1, 0, 'img\\uploads\\profile\\Gb_Atualizado.png', 2);
+(1, 'admin@admin.com', 'Adminadmin0', 'GM | Gbex', 1, 0, 1, 0, 'img\\uploads\\profile\\avatarAdm.png', 2);
 UNLOCK TABLES;
 
 LOCK TABLES `nivel` WRITE;
@@ -77,7 +77,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `itens` WRITE;
 INSERT INTO `itens` VALUES
-(1, 'Picareta', 'Adiciona 1 no seu valor de clique!', 25, 1, 1, 'img\\uploads\\items\\picareta.png', 1),
-(2, 'Multiplicador Único', 'Adiciona 1 no seu multiplicador!', 1000, 1, 1,'img\\uploads\\items\\multiplier.png', 2),
-(3, 'Minion Único', 'Adiciona 1 minion para sua equipe!', 2500, 0, 1, 'img\\uploads\\items\\minion.png', 3);
+(1, 'Picareta', 'Adiciona R$ 1 no seu valor de clique!', 25, 1, 1, 'img\\uploads\\items\\picareta.png', 1),
+(2, 'Multiplicador', 'Adiciona 1 no seu multiplicador!', 1000, 1, 1,'img\\uploads\\items\\multiplier.png', 2),
+(3, 'Minion', 'Adiciona 1 minion para sua equipe!', 2500, 0, 1, 'img\\uploads\\items\\minion.png', 3);
 UNLOCK TABLES;

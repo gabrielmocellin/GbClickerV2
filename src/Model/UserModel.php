@@ -60,7 +60,7 @@ class UserModel
     public function getByEmailAndPassword()
     {
         $dao = new UserDAO();
-        $dao_returnArray  = $dao->selectByEmailAndPassword($this->getEmail(), $this->getPassword());
+        $dao_returnArray = $dao->selectByEmailAndPassword($this->getEmail(), $this->getPassword());
         if ($dao_returnArray == null) {
             return false;
         } // Caso não tenha encontrado no banco de dados a conta

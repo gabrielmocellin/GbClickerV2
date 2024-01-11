@@ -12,7 +12,8 @@ class LoginController
         if (session_status() == 2) {
             if (
                 (isset($_SESSION['email']) || isset($_COOKIE['email-logado'])) &&
-                session_status() == 2
+                session_status() == 2 &&
+                !isset($_GET['aviso'])
             ) {
                 header("location: /home");
             }

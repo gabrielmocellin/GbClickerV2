@@ -7,8 +7,8 @@ div#shop-div
     width: 100%;
     height: 100%;
     font-family: "DM Sans";
-    gap: 2em;
-    padding: 2em;
+    gap: 5em;
+    padding: 5em;
     box-shadow: #888 0 0 0.2em 0;
     overflow-y: auto;
     background-color: #ddd;
@@ -18,12 +18,12 @@ div#shop-div
 .item
 {
     padding: 0.5em;
-    background-color: #688C67;
+    background-color: var(--lightGrayGreen);
     display: grid;
     grid-template-rows: 1fr 1fr 0.5fr 1fr;
     justify-items: center;
     align-items: center;
-    border: 0.5em solid #886A46;
+    border: 0.5em solid #3b5142;
     border-radius: 1em;
     box-shadow: inset black 0 0 0.4em 0;
 }
