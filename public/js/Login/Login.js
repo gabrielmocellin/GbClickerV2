@@ -23,7 +23,8 @@ class Login
             "0":"Conta criada com sucesso!",
             "1":"Conta não encontrada!",
             "2":"Logout realizado com sucesso!",
-            "3":"Erro ao criar a sessão no PHP!"
+            "3":"Erro ao criar a sessão no PHP!",
+            "4":"Acesso apenas para ADMIN's!"
         }
         
         if (avisos.hasOwnProperty(codigoDoAviso)) {

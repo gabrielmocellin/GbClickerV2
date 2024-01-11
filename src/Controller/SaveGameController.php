@@ -11,26 +11,28 @@ class SaveGameController
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             header("location: /erro404");
         }
+
         if (!isset($_SESSION['email'])) {
             session_start();
         }
 
         if ($_SERVER['CONTENT_TYPE'] == "application/json") {
+
             $dadosRecebidos = file_get_contents("php://input");
             $dadosDecodificados = json_decode($dadosRecebidos, true);
+            
             if ($dadosDecodificados != null) {
-                $sql = "UPDATE usuario, nivel SET 
-                    usuario.clickValue=:clickValue, 
-                    usuario.money=:money, 
-                    usuario.multiplier=:multiplier, 
-                    usuario.minions=:minions, 
-                    nivel.level=:level, 
-                    nivel.xp_points=:xp_points, 
-                    nivel.max_to_up=:max_to_up 
-                    WHERE usuario.email = :email AND usuario.email = nivel.FK_user_email";
+                $sql = "UPDATE usuario, nivel
+                        SET usuario.clickValue=:clickValue, 
+                            usuario.money=:money, 
+                            usuario.multiplier=:multiplier, 
+                            usuario.minions=:minions, 
+                            nivel.level=:level, 
+                            nivel.xp_points=:xp_points, 
+                            nivel.max_to_up=:max_to_up 
+                        WHERE usuario.email = :email AND usuario.email = nivel.FK_user_email";
 
                 $conexao = Conexao::criarConexao();
-
                 $sqlUsuarioPreparado = $conexao->prepare($sql);
 
                 $email      = $_SESSION['email'];

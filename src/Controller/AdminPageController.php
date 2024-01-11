@@ -9,23 +9,15 @@ class AdminPageController
     public static function index()
     {
         $model = AdminPageController::verifyAdminAccount();
-        if ($model !== false) {
-            include_once __DIR__ . "\\..\\..\\View\\admin\\admin.php";
-            return;
-        }
-        header("location: \\login?aviso=1");
-        return;
+        include_once __DIR__ . "\\..\\..\\View\\admin\\admin.php";
     }
 
     public static function verifyAdminAccount()
     {
         $model = LoginController::login();
-        if (
-            $model != null &&
-            $model->getTipoConta() === "ADMIN"
-            ) {
+        if ($model->getTipoConta() === "ADMIN") {
             return $model;
         }
-        return false;
+        header("location: \\login?aviso=4");
     }
 }

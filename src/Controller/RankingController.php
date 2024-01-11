@@ -10,12 +10,7 @@ class RankingController
     public static function index()
     {
         $model = LoginController::login();
-        if ($model !== null) {
-            include_once __DIR__ . "\\..\\..\\View\\ranking\\ranking.php";
-            return;
-        }
-        header("location: \\login?aviso=1");
-        return;
+        include_once __DIR__ . "\\..\\..\\View\\ranking\\ranking.php";
     }
 
     public static function showUsers()

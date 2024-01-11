@@ -11,7 +11,13 @@ class SaveRegisterController
         if (SaveRegisterController::validarInputs()) {
             $path = SaveRegisterController::salvarImagemLocalmente($_FILES['image_src']);
             $model = new UserModel();
-            $model->construtor($_POST['email-input'], $_POST['password-input'], $_POST['nickname-input'], $path);
+            $model->construtor(
+                $_POST['email-input'],
+                $_POST['password-input'],
+                $_POST['nickname-input'],
+                $path
+            );
+            
             try {
                 if ($model->save()) {
                     header("location: /login?aviso=0");

@@ -42,6 +42,8 @@ class Item
         this.addBotao .addEventListener(
             'click',
             () => {
+                console.log(`
+                            Preco atual: ${this.preco}\nQuantidade atual: ${this.quantidade}`);
                 this.gerenciarQuantidade(true);
             }
         );
@@ -115,7 +117,8 @@ class Item
     calcularPreco(novaQuantidade)
     {
         if (novaQuantidade > 1) {
-            return this.preco * ((1 + this.porcentagem) ** novaQuantidade)
+            let precoCalculado = (this.preco * this.quantidade) + ((1 + this.porcentagem) ** novaQuantidade);
+            return precoCalculado;
         }
         return this.preco;
     }

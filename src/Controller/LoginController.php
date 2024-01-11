@@ -29,43 +29,13 @@ class LoginController
 
         LoginController::verificarSessao();
         $tipoLogin = LoginController::verificarTipoLogin();
-        $model = new UserModel();
+        $model = LoginController::efetuarLoginAPartirDoTipo($tipoLogin);
 
-        switch ($tipoLogin){
-            case COOKIE_LOGIN:
-                $model->setEmail($_COOKIE['email-logado']);
-                $model->getByEmail();
-                $_SESSION['email'] = $model->getEmail();
-                return $model;
-            case SESSION_LOGIN:
-                $model->setEmail($_SESSION['email']);
-                $model->getByEmail();
-                $_SESSION['email'] = $model->getEmail();
-                return $model;
-            case INPUT_LOGIN_CREATE_COOKIE:
-                $model->setEmail($_POST['email-input']);
-                $model->setPassword($_POST['password-input']);
-                if (!$model->getByEmailAndPassword()) {
-                    header("location: /login?erro=1");
-                    return;
-                };
-                setcookie("email-logado", $model->getEmail(), time()+86400);
-                $_SESSION['email'] = $model->getEmail();
-                $_POST = array();
-                return $model;
-            case INPUT_LOGIN:
-                $model->setEmail($_POST['email-input']);
-                $model->setPassword($_POST['password-input']);
-                if (!$model->getByEmailAndPassword()) {
-                    header("location: /login?erro=1");
-                    return;
-                };
-                $_SESSION['email'] = $model->getEmail();
-                $_POST = array();
-                return $model;
-            default:
-                return null;
+        if ($model == null) {
+            header("location: /login?aviso=1");
         }
+
+        return $model;
     }
 
     public static function verificarAvisos()
@@ -104,5 +74,44 @@ class LoginController
         } else {
             return 0;
         }
+    }
+
+    public static function efetuarLoginAPartirDoTipo($tipoLogin)
+    {
+        $model = new UserModel();
+
+        switch ($tipoLogin){
+            case COOKIE_LOGIN:
+                $model->setEmail($_COOKIE['email-logado']);
+                $model->getByEmail();
+                $_SESSION['email'] = $model->getEmail();
+                return $model;
+            case SESSION_LOGIN:
+                $model->setEmail($_SESSION['email']);
+                $model->getByEmail();
+                $_SESSION['email'] = $model->getEmail();
+                return $model;
+            case INPUT_LOGIN_CREATE_COOKIE:
+                $model->setEmail($_POST['email-input']);
+                $model->setPassword($_POST['password-input']);
+                if (!$model->getByEmailAndPassword()) {
+                    return null;
+                };
+                setcookie("email-logado", $model->getEmail(), time()+86400);
+                $_SESSION['email'] = $model->getEmail();
+                $_POST = array();
+                return $model;
+            case INPUT_LOGIN:
+                $model->setEmail($_POST['email-input']);
+                $model->setPassword($_POST['password-input']);
+                if (!$model->getByEmailAndPassword()) {
+                    return null;
+                };
+                $_SESSION['email'] = $model->getEmail();
+                $_POST = array();
+                return $model;
+            default:
+                return null;
+        }        
     }
 }
