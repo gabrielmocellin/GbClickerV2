@@ -57,6 +57,31 @@ class UserModel
         $this->rows = $dao->select();
     }
 
+    public function getFirstTenAccoutsByPage(int $page)
+    {
+        $fim    = $page * 10;
+        $inicio = $fim - 10;
+        $dao    = new UserDAO();
+        $contas = $dao->selectTenPerPage($inicio, $fim);
+        $contas = UserModel::elementosResultadosDeQueryParaUserModel($contas);
+        return $contas;
+    }
+
+    public static function elementosResultadosDeQueryParaUserModel($resultado)
+    {
+        $contas = array_map(
+            function ($conta) {
+                $contaCriada = new UserModel();
+                $contaCriada->setEmail($conta['email']);
+                $contaCriada->getByEmail();
+                return $contaCriada;
+            }, $resultado
+        );
+
+        return $contas;
+        
+    }
+
     public function getByEmailAndPassword()
     {
         $dao = new UserDAO();

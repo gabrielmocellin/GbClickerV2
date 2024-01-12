@@ -45,6 +45,22 @@ class UserDAO extends Dao implements IDAO
         return $sqlPreparado->fetch(\PDO::FETCH_ASSOC);
     }
 
+    public function selectTenPerPage(int $inicio, int $fim)
+    {
+        $sql = "SELECT usuario.id, usuario.email, usuario.nickname, usuario.image_src, usuario.clickValue,
+        usuario.money, usuario.multiplier, usuario.minions, nivel.level, tipos_contas.nome
+        FROM usuario
+        JOIN nivel
+        JOIN tipos_contas
+        WHERE usuario.email = nivel.FK_user_email
+        AND usuario.FK_id_tipos_contas = tipos_contas.id
+        AND tipos_contas.id = 1
+        ORDER BY money DESC LIMIT $inicio, $fim;
+        ";
+        $sqlPreparado = $this->conexao->query($sql);
+        return $sqlPreparado->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
     public function selectByEmailAndPassword(string $email, string $password)
     {
         /*$sql = "SELECT * FROM usuario JOIN nivel 

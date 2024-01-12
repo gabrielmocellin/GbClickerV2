@@ -29,7 +29,9 @@ function formatarNumerosNasDivs(querySelector, casasDecimais)
     var divs = document.querySelectorAll(querySelector);
     divs.forEach(function(div) {
       var numero = div.textContent;
-      div.textContent = formatador(numero, casasDecimais);
+      if (Number.isInteger(numero)) {
+        div.textContent = formatador(numero, casasDecimais);
+      }
     });
 }
 

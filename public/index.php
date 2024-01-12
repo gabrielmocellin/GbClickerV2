@@ -4,6 +4,7 @@
     $routes = require_once __DIR__ . '/../config/routes.php';
 
     use GbClicker\Controller\{
+        AccountsController,
         LandingpageController,
         LoginController,
         LogoutController,
@@ -43,7 +44,7 @@
         for ($i = 0; $i < $prefixChangesNeeded; $i++) {
             $GLOBALS['prefix'] .= "../";
         }
-
+        
         $controllerClass = new $routes[$key]();
         $controllerClass::index();
     } else {

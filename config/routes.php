@@ -11,6 +11,7 @@
         "POST|/home/save"        => GbClicker\Controller\SaveGameController::class,
         "POST|/admin/items/save" => GbClicker\Controller\AdminController\SaveItemController::class,
         "GET|/admin/items"       => GbClicker\Controller\ItemController::class,
+        "GET|/admin/accounts"    => GbClicker\Controller\AccountsController::class,
         "GET|/profile"           => GbClicker\Controller\ProfileController::class,
         "GET|/admin"             => GbClicker\Controller\AdminPageController::class,
         "GET|/ranking"           => \GbClicker\Controller\RankingController::class,

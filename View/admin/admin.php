@@ -21,7 +21,7 @@
                 <h1 class='boas_vindas'>Bem-vindo, <?= $model->getNickname(); ?>!</h1>
             </div>
             <div class='bottom'>
-                <a href='#' class='disabled'>
+                <a href='admin/accounts'>
                     <img src='img/icons/account.png'>
                     <h1>Contas</h1>
                 </a>
