@@ -89,6 +89,8 @@ main{
 
 #div-menu-navbar
 {
+    position: absolute;
+    z-index: 2;
     min-width: 15em;
     overflow-y: auto;
     overflow-x: none;

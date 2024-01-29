@@ -15,6 +15,7 @@
         ShopController,
         ProfileController,
         AdminPageController,
+        SaveAccountEditController,
         Error404Controller
     };
 

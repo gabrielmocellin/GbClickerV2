@@ -45,6 +45,8 @@ body
     flex-direction: column;
     height: 100vh;
     width: 100vw;
+    overflow-y: hidden;
+    overflow-x: hidden;
     background-color: var(--font-white-color);
 }
 
@@ -194,12 +196,15 @@ img.user_image
 
 #div-menu-navbar
 {
-    position: relative;
+    position: absolute;
+    z-index: 2;
     min-width: 15em;
     overflow-y: auto;
     overflow-x: none;
     background-color: var(--lightGrayGreen);
-    box-shadow: 0px 4px 4px 0px var(--shadow-color);
+    box-shadow: 0px 2px 5px 0px var(--shadow-color);
+    border-top-right-radius: 0.2em;
+    border-bottom-right-radius: 0.2em;
 }
 
 #div-menu-navbar ul li

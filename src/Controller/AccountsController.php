@@ -23,26 +23,27 @@ class AccountsController
         } else {
             $contas = $usermodel->getFirstTenAccoutsByPage($_GET['page']);
         }
-
+        echo "<div id='linhas_dados_usuarios'>";
         foreach ($contas as $conta) {
-            echo AccountsController::montarLinha($conta);
+            echo AccountsController::montarLinhas($conta);
         }
+        echo "</div>";
 
     }
 
-    public static function montarLinha($conta)
+    public static function montarLinhas($conta)
     {
         $informacoes_e_tipo_input_array = array(
-            [$conta->getNickname(), "text"],
-            [$conta->getImageSrc(), "image"],
-            [$conta->getMoney(), "number"],
-            [$conta->getClickValue(), "number"],
-            [$conta->getMultiplier(), "number"],
-            [$conta->getMinions(), "number"]
+            [$conta->getNickname(), "text", "nickname"],
+            [$conta->getImageSrc(), "image", "imagesrc"],
+            [$conta->getMoney(), "number", "money"],
+            [$conta->getClickValue(), "number", "clickValue"],
+            [$conta->getMultiplier(), "number", "multiplier"],
+            [$conta->getMinions(), "number", "minions"]
         );
 
         $comecoLinha = "
-        <form id='id_" . $conta->getId() . "' class='linha' method='POST' action='#'>
+        <form id='id_" . $conta->getId() . "' class='linha' method='POST' action='./accounts/save'>
             <p class='p_user_info'>" . $conta->getId() . "</p>
             <p class='p_user_info'>" . $conta->getEmail() . "</p>
         ";
@@ -57,14 +58,14 @@ class AccountsController
             }
             $meioLinha .= "
                 <p class='p_user_info info_editaveis'> " . $infos[0] . "</p>
-                <input style='display:none' class='inputs_edicao' type=" . $infos[1] . " value='" . $infos[0] . "'>
+                <input name='" . $infos[2] . "_input_" . $conta->getId() . "' style='display:none' class='inputs_edicao' type=" . $infos[1] . " value='" . $infos[0] . "'>
             ";
         }
 
         $fimLinha = "
             <a onclick='edicao(" . $conta->getId() . ")' class='botao-acoes blue'>Editar</a>
             <a id='botao-remover' class='botao-acoes red'>Remover</a>
-            <a id='botao-salvar' style='display:none' href='#' class='botao-acoes green'>Salvar</a>
+            <a onclick='salvarEdicao(" . $conta->getId() . ")' id='botao-salvar' style='display:none' class='botao-acoes green'>Salvar</a>
         </form>
     ";
 
