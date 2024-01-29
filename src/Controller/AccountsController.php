@@ -18,22 +18,56 @@ class AccountsController
     public static function showUsers()
     {
         $usermodel = new UserModel();
-        $contas = $usermodel->getFirstTenAccoutsByPage(1);
+        if (!isset($_GET['page'])) {
+            $contas = $usermodel->getFirstTenAccoutsByPage(1);
+        } else {
+            $contas = $usermodel->getFirstTenAccoutsByPage($_GET['page']);
+        }
+
         foreach ($contas as $conta) {
-            echo  "
-            <div class='linha'>
-                <p>" . $conta->getId() . "</p>
-                <p>" . $conta->getEmail() . "</p>
-                <p>" . $conta->getNickname() . "</p>
-                <img src='../" . $conta->getImageSrc() . "'>
-                <p>" . $conta->getMoney() . "</p>
-                <p>" . $conta->getClickValue() . "</p>
-                <p>" . $conta->getMultiplier() . "</p>
-                <p>" . $conta->getMinions() . "</p>
-                <a class='botao-acoes blue'>Editar</a>
-                <a class='botao-acoes red'>Remover</a>
-            </div>
+            echo AccountsController::montarLinha($conta);
+        }
+
+    }
+
+    public static function montarLinha($conta)
+    {
+        $informacoes_e_tipo_input_array = array(
+            [$conta->getNickname(), "text"],
+            [$conta->getImageSrc(), "image"],
+            [$conta->getMoney(), "number"],
+            [$conta->getClickValue(), "number"],
+            [$conta->getMultiplier(), "number"],
+            [$conta->getMinions(), "number"]
+        );
+
+        $comecoLinha = "
+        <form id='id_" . $conta->getId() . "' class='linha' method='POST' action='#'>
+            <p class='p_user_info'>" . $conta->getId() . "</p>
+            <p class='p_user_info'>" . $conta->getEmail() . "</p>
+        ";
+
+        $meioLinha = "";
+        foreach($informacoes_e_tipo_input_array as $infos) {
+            if ($infos[1] === "image") {
+                $meioLinha .= "
+                    <img src='../" . $infos[0] . "'>
+                ";
+                continue;
+            }
+            $meioLinha .= "
+                <p class='p_user_info info_editaveis'> " . $infos[0] . "</p>
+                <input style='display:none' class='inputs_edicao' type=" . $infos[1] . " value='" . $infos[0] . "'>
             ";
         }
-    }
+
+        $fimLinha = "
+            <a onclick='edicao(" . $conta->getId() . ")' class='botao-acoes blue'>Editar</a>
+            <a id='botao-remover' class='botao-acoes red'>Remover</a>
+            <a id='botao-salvar' style='display:none' href='#' class='botao-acoes green'>Salvar</a>
+        </form>
+    ";
+
+        return $comecoLinha . $meioLinha . $fimLinha;
+    } 
 }

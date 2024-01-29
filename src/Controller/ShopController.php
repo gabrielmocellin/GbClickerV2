@@ -76,7 +76,8 @@ class ShopController
             'js/Shop/items/Multiplier.js',
             'js/Shop/items/Minions.js',
             'js/util/formatadorNums.js',
-            'js/Notificacao.js'
+            'js/Notificacao.js',
+            'js/Shop/shop.js'
         ];
 
         foreach ($jsSourceUrlArray as $srcUrl) {
