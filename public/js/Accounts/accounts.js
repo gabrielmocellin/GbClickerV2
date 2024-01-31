@@ -1,10 +1,11 @@
 let mini = new miniNotificacao();
+mini.criarNotificacao(150, true); /* USADO PARA TESTES */
 
-function edicao(id_linha) {
-    let linha = document.querySelector(`#id_${id_linha}`);
-
+function edicao(id_linha)
+{
+    let linha      = document.querySelector(`#id_${id_linha}`);
     let paragrafos = linha.querySelectorAll(`#id_${id_linha} p.info_editaveis`);
-    let inputs = linha.querySelectorAll(`#id_${id_linha} input`);
+    let inputs     = linha.querySelectorAll(`#id_${id_linha} input`);
 
     alternarVisualizacaoDeElementos(paragrafos);
     alternarVisualizacaoDeElementos(inputs);
@@ -12,13 +13,15 @@ function edicao(id_linha) {
     alternarBotoesRemoverESalvar(linha);
 }
 
-function alternarVisualizacaoDeElementos(arrayElementos) {
+function alternarVisualizacaoDeElementos(arrayElementos)
+{
     arrayElementos.forEach((elemento) => {
         alterarVisualizacaoDeElemento(elemento);
     })
 }
 
-function alternarBotoesRemoverESalvar(linha) {
+function alternarBotoesRemoverESalvar(linha)
+{
     let botao_salvar = linha.querySelector('#botao-salvar');
     let botao_remover = linha.querySelector('#botao-remover');
 
@@ -26,7 +29,8 @@ function alternarBotoesRemoverESalvar(linha) {
     alterarVisualizacaoDeElemento(botao_remover);
 }
 
-function alterarVisualizacaoDeElemento(elemento) {
+function alterarVisualizacaoDeElemento(elemento)
+{
     if (elemento.style.display === 'none') {
         elemento.style.display = 'block';
     } else {
@@ -34,53 +38,26 @@ function alterarVisualizacaoDeElemento(elemento) {
     }
 }
 
-function salvarEdicao2(id_linha) {
-
+function salvarEdicao(id_linha)
+{
     let linha = document.querySelector(`#id_${id_linha}`);
 
     let dadosEditados = {
-        "id": id_linha,
-        "nickname": linha.querySelector(`input[name="nickname_input_${id_linha}"]`),
-        "clickValue": linha.querySelector(`input[name="clickValue_input_${id_linha}"]`),
-        "money": linha.querySelector(`input[name="money_input_${id_linha}"]`),
-        "multiplier": linha.querySelector(`input[name="multiplier_input_${id_linha}"]`),
-        "minions": linha.querySelector(`input[name="minions_input_${id_linha}"]`),
+        "id":         id_linha,
+        "nickname":   linha.querySelector(`input[name="nickname_input_${id_linha}"]`).value,
+        "clickValue": linha.querySelector(`input[name="clickValue_input_${id_linha}"]`).value,
+        "money":      linha.querySelector(`input[name="money_input_${id_linha}"]`).value,
+        "multiplier": linha.querySelector(`input[name="multiplier_input_${id_linha}"]`).value,
+        "minions":    linha.querySelector(`input[name="minions_input_${id_linha}"]`).value,
     };
 
-    let xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        let statusComuns = xhr.status == 200 || xhr.status == 0;
-        if (!statusComuns) {
-            xhr.abort();
-        }
+    const CONFIG_FETCH_REQUEST = {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(dadosEditados)
     }
 
-    xhr.open('POST', './accounts/save', true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(JSON.stringify(dadosEditados));
-
-    console.log("FIM");
-}
-
-function salvarEdicao(id_linha) {
-    let linha = document.querySelector(`#id_${id_linha}`);
-
-    let dadosEditados = {
-        "id": id_linha,
-        "nickname": linha.querySelector(`input[name="nickname_input_${id_linha}"]`).value,
-        "clickValue": linha.querySelector(`input[name="clickValue_input_${id_linha}"]`).value,
-        "money": linha.querySelector(`input[name="money_input_${id_linha}"]`).value,
-        "multiplier": linha.querySelector(`input[name="multiplier_input_${id_linha}"]`).value,
-        "minions": linha.querySelector(`input[name="minions_input_${id_linha}"]`).value,
-    };
-
-    fetch('./accounts/save', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(dadosEditados)
-    })
+    fetch('./accounts/save', CONFIG_FETCH_REQUEST)
     .then(response => {
         if (!response.ok) {
             throw new Error('Erro ao realizar edição!');
@@ -88,10 +65,10 @@ function salvarEdicao(id_linha) {
         return response.json();
     })
     .then(data => {
-        if (data['resposta']) {
-            mini.criarNotificacao("Conta editada com sucesso!", false);
+        if (data['resposta'] === 0) {
+            mini.criarNotificacao(data['resposta'], false);
         } else {
-            mini.criarNotificacao("Erro ao editar conta!", true);
+            mini.criarNotificacao(data['resposta'], true);
         }
     })
     .catch(error => {

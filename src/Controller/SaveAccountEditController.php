@@ -8,10 +8,6 @@ class SaveAccountEditController
 {
     public static function index()
     {
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            header("location: /erro404");
-        }
-
         if (!isset($_SESSION['email'])) {
             session_start();
         }
@@ -27,11 +23,16 @@ class SaveAccountEditController
 
                 if ($resultadoValidacaoInputs === 0) {
                     $sqlUsuarioPreparado = SaveAccountEditController::montarSql($conexao, $dadosDecodificados);
+
                     if ($sqlUsuarioPreparado->execute()) {
-                        echo json_encode(['resposta' => true]);
+                        echo json_encode(['resposta' => 0]);
+                        return;
+                    } else {
+                        echo json_encode(['resposta' => 100]);
                         return;
                     };
-                    echo json_encode(['resposta' => false]);
+                } else {
+                    echo json_encode(['resposta' => $resultadoValidacaoInputs]);
                     return;
                 }
                 
@@ -71,11 +72,11 @@ class SaveAccountEditController
     public static function validarDados($dados)
     {
         $inputsERespectivosRegex = [
-            'nickname' => ["codigoErro" => 1, "regex" => "/^(?=.*[A-z])[A-z0-9_-]{2,16}$/", "dado" => $dados['nickname']],
-            'clickValue' => ["codigoErro" => 2, "regex" => "/^\d{1,34}$/", "dado" => "" . $dados['clickValue']],
-            'money' => ["codigoErro" => 3, "regex" => "/^\d{1,34}$/", "dado" => "" . $dados['money']],
-            'multiplier' => ["codigoErro" => 4, "regex" => "/^\d{1,34}$/", "dado" => "" . $dados['multiplier']],
-            'minions' => ["codigoErro" => 5, "regex" => "/^\d{1,34}$/", "dado" => "" . $dados['minions']],
+            'nickname'   => ["codigoErro" => 101, "regex" => "/^(?=.*[A-z])[A-z0-9_-]{2,16}$/", "dado" => $dados['nickname']],
+            'clickValue' => ["codigoErro" => 102, "regex" => "/^\d{1,34}$/", "dado" => "" . $dados['clickValue']],
+            'money'      => ["codigoErro" => 103, "regex" => "/^\d{1,34}$/", "dado" => "" . $dados['money']],
+            'multiplier' => ["codigoErro" => 104, "regex" => "/^\d{1,34}$/", "dado" => "" . $dados['multiplier']],
+            'minions'    => ["codigoErro" => 105, "regex" => "/^\d{1,34}$/", "dado" => "" . $dados['minions']]
         ];
 
         foreach ($inputsERespectivosRegex as $inputRegex) {

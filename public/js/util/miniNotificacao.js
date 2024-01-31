@@ -1,20 +1,15 @@
 class miniNotificacao
 {
-    criarNotificacao(texto, isErro) {
-        var container = document.getElementById('container_mini_notificacoes');
-
+    criarNotificacao(codigoErro, isErro) {
+        var container              = document.getElementById('container_mini_notificacoes');
         var notificacaoDivExterior = this.criarDivExterior(isErro);
-    
-        var notificacaoDiv = document.createElement('div');
-        notificacaoDiv.id = 'mini_notificacao_div';
-    
-        var imagemDiv = this.criarImagemAPartirDoTipoDeNotificacao(isErro);
-        var textoH3 = this.criarTexto(texto);
-        
-        notificacaoDiv.appendChild(imagemDiv);
-        notificacaoDiv.appendChild(textoH3);
-        notificacaoDivExterior.appendChild(notificacaoDiv);
-    
+        var notificacaoDivInterior = this.criarDivInterior();
+        var imagemDiv              = this.criarImagemAPartirDoTipoDeNotificacao(isErro);
+        var textoH3                = this.criarTexto(codigoErro);
+
+        notificacaoDivInterior.appendChild(imagemDiv);
+        notificacaoDivInterior.appendChild(textoH3);
+        notificacaoDivExterior.appendChild(notificacaoDivInterior );
         container.appendChild(notificacaoDivExterior);
 
         this.timerRemocaoNotificacao(container, notificacaoDivExterior);
@@ -32,17 +27,24 @@ class miniNotificacao
         return notificacaoDivExterior;
     }
 
-    criarTexto(texto) {
+    criarDivInterior() {
+        let divInterior = document.createElement('div');
+        divInterior.id = 'mini_notificacao_div';
+        return divInterior;
+    }
+
+    criarTexto(codigoErro) {
         var textoH3 = document.createElement('h3');
 
         textoH3.id = 'mini_notificacao_texto';
-        textoH3.innerHTML = texto;
+        textoH3.innerHTML = this.identificarErroRetornandoTexto(codigoErro);
 
         return textoH3;
     }
 
     criarImagemAPartirDoTipoDeNotificacao(isErro) {
         let imagemDiv = document.createElement('div');
+
         imagemDiv.id = 'imagem';
         imagemDiv.alt = 'imagem_status';
 
@@ -55,15 +57,24 @@ class miniNotificacao
         return imagemDiv;
     }
 
+    identificarErroRetornandoTexto(codigoErro) {
+        const erros = {
+            0:   'Conta editada!',
+            100: 'Erro ao salvar no banco!',
+            101: 'Apelido inválido!',
+            102: 'Valor p/clique inválido!',
+            103: 'Dinheiro inválido!',
+            104: 'Multiplicador inválido!',
+            105: 'Minions inválidos!',
+            150: 'Usado apenas para testes!'
+        }
+        return erros[codigoErro];
+    }
+
     timerRemocaoNotificacao(elementoContainer, elemento) {
         const TEMPO_PARA_REMOCAO = 4000;
 
-        setTimeout(() => {
-            elemento.classList.add('remover-notificacao')
-        }, TEMPO_PARA_REMOCAO-1000)
-
-        setTimeout(() => {
-            elementoContainer.removeChild(elemento)
-        }, TEMPO_PARA_REMOCAO)
+        setTimeout(() => { elemento.classList.add('remover-notificacao'); }, TEMPO_PARA_REMOCAO - 1000);
+        setTimeout(() => { elementoContainer.removeChild(elemento); }, TEMPO_PARA_REMOCAO);
     }
 }
