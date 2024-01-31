@@ -1,5 +1,11 @@
 class miniNotificacao
 {
+    erros;
+
+    constructor(erros) {
+        this.erros = erros;
+    }
+
     criarNotificacao(codigoErro, isErro) {
         var container              = document.getElementById('container_mini_notificacoes');
         var notificacaoDivExterior = this.criarDivExterior(isErro);
@@ -58,17 +64,7 @@ class miniNotificacao
     }
 
     identificarErroRetornandoTexto(codigoErro) {
-        const erros = {
-            0:   'Conta editada!',
-            100: 'Erro ao salvar no banco!',
-            101: 'Apelido inválido!',
-            102: 'Valor p/clique inválido!',
-            103: 'Dinheiro inválido!',
-            104: 'Multiplicador inválido!',
-            105: 'Minions inválidos!',
-            150: 'Usado apenas para testes!'
-        }
-        return erros[codigoErro];
+        return this.erros[codigoErro];
     }
 
     timerRemocaoNotificacao(elementoContainer, elemento) {

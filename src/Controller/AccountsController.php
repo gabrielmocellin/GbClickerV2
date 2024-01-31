@@ -45,7 +45,7 @@ class AccountsController
         $comecoLinha = "
         <form id='id_" . $conta->getId() . "' class='linha' method='POST' action='./accounts/save'>
             <p class='p_user_info'>" . $conta->getId() . "</p>
-            <p class='p_user_info'>" . $conta->getEmail() . "</p>
+            <p class='p_user_info' title='" . $conta->getEmail() . "'>" . $conta->getEmail() . "</p>
         ";
 
         $meioLinha = "";
@@ -57,7 +57,7 @@ class AccountsController
                 continue;
             }
             $meioLinha .= "
-                <p class='p_user_info info_editaveis'> " . $infos[0] . "</p>
+                <p class='p_user_info info_editaveis' title='" . $infos[0] . "'> " . $infos[0] . "</p>
                 <input name='" . $infos[2] . "_input_" . $conta->getId() . "' style='display:none' class='inputs_edicao' type=" . $infos[1] . " value='" . $infos[0] . "'>
             ";
         }
