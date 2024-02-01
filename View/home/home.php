@@ -14,6 +14,7 @@
     <main>
         <?php require "util/navbar.php"; ?>
         <div id="clicker-parent-div">
+            <!--
             <div id="left-clicker-content-side">
                 <div class="buff-countdown-div">
                     <img src="img/logo.png">
@@ -26,6 +27,7 @@
                     <p>59:12</p>
                 </div>
             </div>
+            -->
             <div id="middle-clicker-content-side">
                 <div class="clicker-info">
                     <p id='clickValue'></p>
@@ -41,9 +43,11 @@
                     <div id="level-progress-bar"></div>
                 </div>
             </div>
+            <!--
             <div id="right-clicker-content-side">
 
             </div>
+            -->
         </div>
     </main>
     <?php require 'util/importJsScripts.php'; ?>

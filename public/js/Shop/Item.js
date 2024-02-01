@@ -20,7 +20,7 @@ class Item
         this.addBotao        = document.getElementById(`add-${this.id}`);
         this.removeBotao     = document.getElementById(`remove-${this.id}`);
 
-        this.porcentagem     = 0.05;
+        this.porcentagem     = 1.03;
         this.iniciarEventListener();
     }
 
@@ -42,8 +42,6 @@ class Item
         this.addBotao .addEventListener(
             'click',
             () => {
-                console.log(`
-                            Preco atual: ${this.preco}\nQuantidade atual: ${this.quantidade}`);
                 this.gerenciarQuantidade(true);
             }
         );
@@ -59,8 +57,9 @@ class Item
 
     comprar()
     {
-        if (gioco.usuario.getDinheiro() < this.calcularPreco(this.quantidade)) {
-            alert(`Dinheiro insuficiente para [${this.nome}] x${this.quantidade}!`);
+        let preco = this.calcularPreco(this.quantidade);
+        if (gioco.usuario.getDinheiro() < preco) {
+            alert(`Dinheiro insuficiente para ${this.nome} x${this.quantidade}! Preço:${preco}`);
             return;
         }
 
@@ -94,30 +93,31 @@ class Item
     atualizarQuantidade()
     {
         const UM_DECILHAO = 10**33;
-        let novaQuantidade = parseInt(this.quantidadeInput.value);
+        const QUANTIDADE_ANTERIOR = this.quantidade;
+
+        let elementoHTMLPpreco = this.precoP;
+        let valorInputQuantidade = parseInt(this.quantidadeInput.value);
+        let novaQuantidade = valorInputQuantidade;
 
         if (this.validarNovaQuantidade(novaQuantidade)) {
             let novoPreco = this.calcularPreco(novaQuantidade);
 
             if (novoPreco < UM_DECILHAO) {
                 this.quantidade = novaQuantidade;
-                this.precoP.innerText = formatador(novoPreco, 1);
-            } else {
-                this.quantidadeInput.value = this.quantidade;
-                this.precoP.innerText = formatador(this.calcularPreco(this.quantidade), 1);
+                elementoHTMLPpreco.innerText = formatador(novoPreco, 1);
+                return;
             }
-        } else {
-            // Caso não seja um valor válido (Menor que 1 ou NaN),
-            // a quantidade voltará para o último valor válido inserido.
-            this.quantidadeInput.value = this.quantidade;
-            this.precoP.innerText = formatador(this.calcularPreco(this.quantidade), 1);
         }
+        // Caso valor inválido (< 10**33 ou NaN ou < 1):
+        this.quantidadeInput.value = QUANTIDADE_ANTERIOR;
+        elementoHTMLPpreco.innerText = formatador(this.calcularPreco(QUANTIDADE_ANTERIOR), 1);
     }
 
     calcularPreco(novaQuantidade)
     {
         if (novaQuantidade > 1) {
-            let precoCalculado = (this.preco * this.quantidade) + ((1 + this.porcentagem) ** novaQuantidade);
+            // Fórmula Gbex Atualizada: p + (p * n-1) * (t ** n)
+            let precoCalculado = this.preco + this.preco * (novaQuantidade-1) * (this.porcentagem)**(novaQuantidade-1);
             return precoCalculado;
         }
         return this.preco;
@@ -125,7 +125,10 @@ class Item
 
     validarNovaQuantidade(novaQuantidade)
     {
-        if (novaQuantidade != NaN && novaQuantidade >= 1) {
+        if (
+            novaQuantidade != NaN &&
+            novaQuantidade >= 1
+        ) {
             return true;
         };
         return false;

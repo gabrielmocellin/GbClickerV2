@@ -45,6 +45,8 @@ body
     flex-direction: column;
     height: 100vh;
     width: 100vw;
+    overflow-y: hidden;
+    overflow-x: hidden;
     background-color: var(--font-white-color);
 }
 
@@ -194,12 +196,15 @@ img.user_image
 
 #div-menu-navbar
 {
-    position: relative;
+    position: absolute;
+    z-index: 2;
     min-width: 15em;
     overflow-y: auto;
     overflow-x: none;
     background-color: var(--lightGrayGreen);
-    box-shadow: 0px 4px 4px 0px var(--shadow-color);
+    box-shadow: 0px 2px 5px 0px var(--shadow-color);
+    border-top-right-radius: 0.2em;
+    border-bottom-right-radius: 0.2em;
 }
 
 #div-menu-navbar ul li
@@ -251,34 +256,9 @@ div#clicker-parent-div
     flex-direction: row;
 }
 
-div#left-clicker-content-side,
-div#right-clicker-content-side
-{
-    display:flex;
-    align-items: center;
-    flex-direction: column;
-    width: 5%;
-    min-width:50px;
-    padding-top: 2em;
-    gap: 2em;
-}
-
-div#left-clicker-content-side div.buff-countdown-div
-{
-    text-align: center;
-    font-weight: bold;
-    font-family: var(--font-primary);
-}
-
-div#left-clicker-content-side div.buff-countdown-div > img
-{
-    width: 80%;
-    height: auto;
-}
-
 div#middle-clicker-content-side
 {
-    width: 90%;
+    width: 100%;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -294,8 +274,8 @@ div#middle-clicker-content-side
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     width: 100%;
-    gap: 1em;
-    margin: 1em 0 0 0;
+    gap: 2em;
+    padding: 1em 2em;
 }
 
 .clicker-info p
@@ -308,7 +288,7 @@ div#middle-clicker-content-side
     outline: var(--10green) solid 2px;
     word-wrap: normal;
     background-color: white;
-    width: 80%;
+    width: 100%;
 }
 
 .image-clicker-div

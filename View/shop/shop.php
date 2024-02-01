@@ -31,6 +31,5 @@
             var itensArray = Array();
             <?php ShopController::identificarItens($itemsArray); ?>
         </script>
-        <script src='js/Shop/shop.js'></script>
     </body>
 </html>

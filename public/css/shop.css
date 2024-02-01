@@ -10,9 +10,7 @@ div#shop-div
     gap: 5em;
     padding: 5em;
     box-shadow: #888 0 0 0.2em 0;
-    overflow-y: auto;
-    background-color: #ddd;
-    
+    overflow-y: auto;  
 }
 
 .item

@@ -1,8 +1,26 @@
+/* 
+    -=-=-=- { Úteis } -=-=-=-
+*/
+.inputs_edicao {
+    padding: 0.5em 0.25em;
+    width: 100%;
+    border-radius: 0.5em;
+    border: 0.1em solid gray;
+    text-align: center;
+}
+
+.p_user_info {
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 100%;
+    text-overflow: ellipsis;
+}
+
 div#admin
 {
     position: relative;
     display: grid;
-    grid-template-rows: repeat(11, 1fr);
+    grid-template-rows: 1fr 1fr 8fr 1fr;
     grid-template-columns: 1fr;
     background-color: #D9D9D9;
     overflow-y: auto;
@@ -22,6 +40,20 @@ div#admin .header
     letter-spacing: 0.1em;
     background-color: var(--30green);
     border-bottom: 2px solid #aaa;
+}
+
+div#admin .header p
+{
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 100%;
+    text-overflow: ellipsis;
+}
+
+div#admin #linhas_dados_usuarios
+{
+    display: grid;
+    grid-template-rows: repeat(10, 1fr);
 }
 
 div#admin .linha
@@ -49,6 +81,9 @@ div#admin .linha .rank
 
 .botao-acoes
 {
+    border: none;
+    font-family: var(--font-text);
+    text-decoration: none;
     border-radius: 0.3em;
     padding: 0.6em;
     font-weight: bold;
@@ -88,6 +123,16 @@ div#admin .linha .rank
     background-color: darkred;
 }
 
+.green
+{
+    background-color: #33d53e;
+}
+
+.green:hover
+{
+    background-color: rgb(0, 139, 7);
+}
+
 div#admin .linha img
 {
     border-radius: 50%;
@@ -97,27 +142,52 @@ div#admin .linha img
     aspect-ratio: 1;
 }
 
-.first_rank
+div#admin .seletor-paginas
 {
-	background: linear-gradient(-45deg, #ffbb00, rgb(255, 254, 169), #ffbb00);
-	background-size: 250% 250%;
-	animation: fundoRanking 6s ease-in-out infinite;
+    font-size: 0.8em;
+    font-weight: bold;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: repeat(10, 1fr);
+    width: 100%;
 }
 
-@keyframes fundoRanking
+div#admin .seletor-paginas a
 {
-	0%
-    {
-		background-position: 0% 50%;
-	}
+    padding: 1em 2em;
+    display: flex;
+    border-radius: 0.25em;
+    text-decoration: none;
+    color:black;
+    box-shadow: 0px 0px 1px 1px black;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    transition: 0.2s ease-in-out;
+}
 
-	50%
-    {
-		background-position: 100% 50%;
-	}
+div#admin .seletor-paginas a:hover
+{
+    background-color: #bdbcbc;
+    font-size: 1.1em;
+    box-shadow: 0px 0px 3px 1px black;
+}
 
-    100%
+div#admin .seletor-paginas a:active
+{
+    background-color: #9b9a9a;
+    font-size: 1.1em;
+    box-shadow: 0px 0px 3px 1px black;
+}
+
+
+@media (max-width: 800px) or (max-height: 450px)
+{
+    div#admin
     {
-		background-position: 0% 50%;
-	}
+        height: 100%;
+        width: 100%;
+        margin: 0;
+    }
 }
