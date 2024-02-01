@@ -10,7 +10,17 @@ class RankingController
     public static function index()
     {
         $model = LoginController::login();
-        include_once __DIR__ . "\\..\\..\\View\\ranking\\ranking.php";
+        $titulo = 'Ranking';
+        $linksCss = [
+            'css/site.css',
+            'css/adminpages.css',
+            'css/ranking.css'
+        ];
+        $srcJs = [
+            'js/Ranking/ranking.js'
+        ];
+        $conteudoMain = '..\\View\\ranking\\ranking.php';
+        require_once '../src/Components/template.php';
     }
 
     public static function showUsers()

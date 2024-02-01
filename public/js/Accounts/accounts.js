@@ -82,7 +82,7 @@ function salvarEdicao(id_linha)
     })
     .then(data => {
         if (data['resposta'] === 0) {
-            mini.criarNotificacao(data['resposta'], false);
+            mini.criarNotificacao(data['resposta']);
         } else {
             mini.criarNotificacao(data['resposta'], true);
         }

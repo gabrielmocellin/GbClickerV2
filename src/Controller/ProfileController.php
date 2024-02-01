@@ -8,7 +8,26 @@ class ProfileController
     public static function index()
     {
         $model = LoginController::login();
-        
+        $profile = ProfileController::verificarTipoPerfil($model);
+        $linksCss = [
+            'css/profile.css'
+        ];
+        $srcJs = [
+            'js/Profile/profile.js'
+        ];
+        $titulo = 'Perfil | ' . $profile->getNickname();
+        $conteudoMain = '../View/profile/profile.php';
+        require_once '../src/Components/template.php';
+    }
+
+    public static function getProfileInfoById(int $id)
+    {
+        $profileModel = new ProfileModel($id);
+        return $profileModel;
+    }
+
+    public static function verificarTipoPerfil($model)
+    {
         if (isset($_GET['id'])) {
             $profile = ProfileController::getProfileInfoById($_GET['id']);
             if ($profile->getNickname() == NULL) { // Caso o usuário não exista!
@@ -17,12 +36,6 @@ class ProfileController
         } else {
             $profile = ProfileController::getProfileInfoById($model->getId());
         }
-        include_once __DIR__ . '/../../View/profile/profile.php';
-    }
-
-    public static function getProfileInfoById(int $id)
-    {
-        $profileModel = new ProfileModel($id);
-        return $profileModel;
+        return $profile;
     }
 }

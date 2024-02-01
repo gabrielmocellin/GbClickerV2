@@ -6,7 +6,7 @@ class miniNotificacao
         this.erros = erros;
     }
 
-    criarNotificacao(codigoErro, isErro) {
+    criarNotificacao(codigoErro, isErro=false) {
         var container              = document.getElementById('container_mini_notificacoes');
         var notificacaoDivExterior = this.criarDivExterior(isErro);
         var notificacaoDivInterior = this.criarDivInterior();
