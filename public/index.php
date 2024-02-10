@@ -16,6 +16,8 @@
         ProfileController,
         AdminPageController,
         SaveAccountEditController,
+        SavePurchaseController,
+        SaveMoneyController,
         Error404Controller
     };
 
@@ -51,4 +53,5 @@
     } else {
         Error404Controller::index();
     }
+    
     exit();

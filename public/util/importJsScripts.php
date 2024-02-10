@@ -1,11 +1,10 @@
-<script language='JavaScript' src='<?= $GLOBALS['prefix'] ?>js/GerenciadorHeader.js'></script>
-<script language='JavaScript' src='<?= $GLOBALS['prefix'] ?>js/User.js'></script>
-<script language='JavaScript' src='<?= $GLOBALS['prefix'] ?>js/Gioco.js'></script>
-<script language='JavaScript' src='<?= $GLOBALS['prefix'] ?>js/util/miniNotificacao.js'></script>
+<script lang='JavaScript' src='<?= $GLOBALS['prefix'] ?>js/GerenciadorHeader.js'></script>
+<script lang='JavaScript' src='<?= $GLOBALS['prefix'] ?>js/User.js'></script>
+<script lang='JavaScript' src='<?= $GLOBALS['prefix'] ?>js/Gioco.js'></script>
+<script lang='JavaScript' src='<?= $GLOBALS['prefix'] ?>js/util/miniNotificacao.js'></script>
 <script lang='JavaScript' src='<?= $GLOBALS['prefix'] ?>js/util/formatadorNums.js'></script>
-<script language='JavaScript'>
+<script lang='JavaScript'>
   var gerenciadorDoHeader = new GerenciadorHeader();
-  var mini = new miniNotificacao();
   var gioco = new Gioco(
     valorDoClique                     = <?= $model->getClickValue(); ?>,
     dinheiro                          = <?= $model->getMoney(); ?>,

@@ -35,6 +35,12 @@ class ItemModel
         return false;
     }
 
+    public function getById($id)
+    {
+        $itemDao = new ItemDAO();
+        return $itemDao->selectById($id);
+    }
+
     public function getAllItems()
     {
         $itemDao = new ItemDAO();

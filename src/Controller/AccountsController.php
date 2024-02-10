@@ -3,7 +3,6 @@
 namespace GbClicker\Controller;
 
 use GbClicker\DAO\UserDAO;
-
 use GbClicker\Model\UserModel;
 
 class AccountsController
@@ -12,7 +11,16 @@ class AccountsController
     {
         $model = AdminPageController::verifyAdminAccount();
         $contas = [];
-        include __DIR__ . "\\..\\..\\View\\admin\\accounts.php";
+        $titulo = 'ADM | Accounts';
+        $linksCss = [
+            'css/adminpages.css',
+            'css/accounts.css'
+        ];
+        $srcJs = [
+            'js/Accounts/accounts.js'
+        ];
+        $conteudoMain = '..\\View\\admin\\accounts.php';
+        require_once '..\\src\\Components\\template.php';
     }
 
     public static function showUsers()

@@ -1,6 +1,6 @@
 <?php
     return [
-        "GET|/"                     => \GbClicker\Controller\LandingpageController::class,
+        "GET|/"                     => GbClicker\Controller\LandingpageController::class,
         "GET|/login"                => GbClicker\Controller\LoginController::class,
         "GET|/register"             => GbClicker\Controller\RegisterController::class,
         "GET|/logout"               => GbClicker\Controller\LogoutController::class,
@@ -14,6 +14,8 @@
         "GET|/admin/accounts"       => GbClicker\Controller\AccountsController::class,
         "GET|/profile"              => GbClicker\Controller\ProfileController::class,
         "GET|/admin"                => GbClicker\Controller\AdminPageController::class,
-        "GET|/ranking"              => \GbClicker\Controller\RankingController::class,
-        "POST|/admin/accounts/save" => \GbClicker\Controller\SaveAccountEditController::class
+        "GET|/ranking"              => GbClicker\Controller\RankingController::class,
+        "POST|/admin/accounts/save" => GbClicker\Controller\SaveAccountEditController::class,
+        "POST|/shop/purchase"       => GbClicker\Controller\SavePurchaseController::class,
+        "POST|/save/money"          => GbClicker\Controller\SaveMoneyController::class
     ];

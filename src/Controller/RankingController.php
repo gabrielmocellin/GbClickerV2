@@ -12,7 +12,6 @@ class RankingController
         $model = LoginController::login();
         $titulo = 'Ranking';
         $linksCss = [
-            'css/site.css',
             'css/adminpages.css',
             'css/ranking.css'
         ];
@@ -30,14 +29,14 @@ class RankingController
         $usuarios = $rankModel->getArrayInfoRankedPlayers();
         foreach ($usuarios as $usuario) {
             echo  "
-            <div class='linha'>
+            <a class='linha' href='/profile?id=".$usuario->getId()."'>
                 <p class='$class'>" . $usuario->getRank() . "</p>
                 <img src='" . $usuario->getImageSrc() . "'>
                 <p>" . $usuario->getMoney() . "</p>
                 <p>" . $usuario->getClickValue() . "</p>
                 <p>" . $usuario->getMultiplier() . "</p>
                 <p>" . $usuario->getMinions() . "</p>
-            </div>
+            </a>
             ";
             $class = "rank";
         }

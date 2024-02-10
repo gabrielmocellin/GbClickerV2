@@ -10,6 +10,9 @@ let erros = {
 }
 
 let mini = new miniNotificacao(erros);
+window.onload = function() { formatarNumerosNasDivs('.linha p', 1); };
+
+/* Funções utilizadas! */
 
 function edicao(id_linha)
 {
