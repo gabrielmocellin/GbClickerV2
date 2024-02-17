@@ -58,6 +58,7 @@ class Item
     comprar()
     {
         let preco = this.calcularPreco(this.quantidade);
+
         if (gioco.usuario.getDinheiro() < preco) {
             alert(`Dinheiro insuficiente para ${this.nome} x${this.quantidade}! Preço:${preco}`);
             return;

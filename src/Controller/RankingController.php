@@ -10,7 +10,16 @@ class RankingController
     public static function index()
     {
         $model = LoginController::login();
-        include_once __DIR__ . "\\..\\..\\View\\ranking\\ranking.php";
+        $titulo = 'Ranking';
+        $linksCss = [
+            'css/adminpages.css',
+            'css/ranking.css'
+        ];
+        $srcJs = [
+            'js/Ranking/ranking.js'
+        ];
+        $conteudoMain = '..\\View\\ranking\\ranking.php';
+        require_once '../src/Components/template.php';
     }
 
     public static function showUsers()
@@ -20,14 +29,14 @@ class RankingController
         $usuarios = $rankModel->getArrayInfoRankedPlayers();
         foreach ($usuarios as $usuario) {
             echo  "
-            <div class='linha'>
+            <a class='linha' href='/profile?id=".$usuario->getId()."'>
                 <p class='$class'>" . $usuario->getRank() . "</p>
                 <img src='" . $usuario->getImageSrc() . "'>
                 <p>" . $usuario->getMoney() . "</p>
                 <p>" . $usuario->getClickValue() . "</p>
                 <p>" . $usuario->getMultiplier() . "</p>
                 <p>" . $usuario->getMinions() . "</p>
-            </div>
+            </a>
             ";
             $class = "rank";
         }

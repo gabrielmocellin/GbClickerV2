@@ -7,6 +7,10 @@ class HomeController
     public static function index()
     {
         $model = LoginController::login();
-        include_once __DIR__ . '/../../View/home/home.php';
+        $conteudoMain = '../View/home/home.php';
+        $srcJs = [
+            'js/Home/home.js'
+        ];
+        require_once '../src/Components/template.php';
     }
 }

@@ -1,12 +1,12 @@
 class User
 {
-    #valorDoClique;
-    #dinheiro;
-    #multiplicador;
-    #minions;
-    #nivel;
-    #pontosAtuaisDeNivel;
-    #pontosNecessariosParaSubirDeNivel;
+    valorDoClique;
+    dinheiro;
+    multiplicador;
+    minions;
+    nivel;
+    pontosAtuaisDeNivel;
+    pontosNecessariosParaSubirDeNivel;
 
     constructor(
         valorDoClique,
@@ -18,13 +18,13 @@ class User
         pontosNecessariosParaSubirDeNivel
     )
     {
-        this.#valorDoClique = valorDoClique;
-        this.#dinheiro = dinheiro;
-        this.#multiplicador = multiplicador;
-        this.#minions = minions;
-        this.#nivel = nivel;
-        this.#pontosAtuaisDeNivel = pontosAtuaisDeNivel;
-        this.#pontosNecessariosParaSubirDeNivel = pontosNecessariosParaSubirDeNivel;        
+        this.valorDoClique = valorDoClique;
+        this.dinheiro = dinheiro;
+        this.multiplicador = multiplicador;
+        this.minions = minions;
+        this.nivel = nivel;
+        this.pontosAtuaisDeNivel = pontosAtuaisDeNivel;
+        this.pontosNecessariosParaSubirDeNivel = pontosNecessariosParaSubirDeNivel;        
     }
 
     AddDinheiroPorClique()
@@ -57,19 +57,19 @@ class User
     }
 
     // =-=-=-=-=-= Getters =-=-=-=-=-=
-    getValorDoClique()                     { return this.#valorDoClique; }
-    getDinheiro()                          { return this.#dinheiro; }
-    getMultiplicador()                     { return this.#multiplicador; }
-    getMinions()                           { return this.#minions; }
-    getNivel()                             { return this.#nivel; }
-    getPontosAtuaisDeNivel()               { return this.#pontosAtuaisDeNivel; }
-    getPontosNecessariosParaSubirDeNivel() { return this.#pontosNecessariosParaSubirDeNivel; }
+    getValorDoClique()                     { return this.valorDoClique; }
+    getDinheiro()                          { return this.dinheiro; }
+    getMultiplicador()                     { return this.multiplicador; }
+    getMinions()                           { return this.minions; }
+    getNivel()                             { return this.nivel; }
+    getPontosAtuaisDeNivel()               { return this.pontosAtuaisDeNivel; }
+    getPontosNecessariosParaSubirDeNivel() { return this.pontosNecessariosParaSubirDeNivel; }
     // =-=-=-=-=-= Setters =-=-=-=-=-=
-    setValorDoClique(valor)                     { this.#valorDoClique = valor; }
-    setDinheiro(valor)                          { this.#dinheiro = valor; }
-    setMultiplicador(valor)                     { this.#multiplicador = valor; }
-    setMinions(valor)                           { this.#minions = valor; }
-    setNivel(valor)                             { this.#nivel = valor; }
-    setPontosAtuaisDeNivel(valor)               { this.#pontosAtuaisDeNivel = valor; }
-    setPontosNecessariosParaSubirDeNivel(valor) { this.#pontosNecessariosParaSubirDeNivel = valor; }
+    setValorDoClique(valor)                     { this.valorDoClique = valor; }
+    setDinheiro(valor)                          { this.dinheiro = valor; }
+    setMultiplicador(valor)                     { this.multiplicador = valor; }
+    setMinions(valor)                           { this.minions = valor; }
+    setNivel(valor)                             { this.nivel = valor; }
+    setPontosAtuaisDeNivel(valor)               { this.pontosAtuaisDeNivel = valor; }
+    setPontosNecessariosParaSubirDeNivel(valor) { this.pontosNecessariosParaSubirDeNivel = valor; }
 }

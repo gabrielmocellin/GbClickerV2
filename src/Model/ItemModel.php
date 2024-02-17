@@ -35,6 +35,18 @@ class ItemModel
         return false;
     }
 
+    public function getById($id)
+    {
+        $itemDao = new ItemDAO();
+        $arrayItemDaoResult = $itemDao->selectById($id);
+
+        $this->setPreco($arrayItemDaoResult['preco']);
+        $this->setMinimumLevel($arrayItemDaoResult['minimum-level']);
+        $this->setTipo($arrayItemDaoResult['FK_id_tipos_itens']);
+        
+        return $arrayItemDaoResult;
+    }
+
     public function getAllItems()
     {
         $itemDao = new ItemDAO();

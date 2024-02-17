@@ -25,6 +25,8 @@ div#admin .header
 
 div#admin .linha
 {
+    text-decoration: none;
+    color:black;
     font-size: 1em;
     display: grid;
     justify-items: center;
@@ -32,6 +34,11 @@ div#admin .linha
     grid-template-columns: repeat(6, 1fr);
     width: 100%;
     border-bottom: 2px solid #aaa;
+    transition: ease-in-out 0.2s;
+}
+
+.linha:hover{
+    background-color: #999;
 }
 
 div#admin .linha .rank
