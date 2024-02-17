@@ -72,7 +72,7 @@ INSERT INTO `usuario` VALUES
 (8,'gb9@gb.com', '$argon2id$v=19$m=65536,t=4,p=1$UWVNYnd2enlaeGJ4L3UzNw$IpSKA4JKWIB7fVW5X8+DlneHFDAB/ZXpOj1awjv91uI','Gabriel209',1,150,1,0,'img\\uploads\\profile\\65b6991b67877cat_nerd.jpg',1),
 (9,'gb10@gmail.com','$argon2id$v=19$m=65536,t=4,p=1$UWVNYnd2enlaeGJ4L3UzNw$IpSKA4JKWIB7fVW5X8+DlneHFDAB/ZXpOj1awjv91uI','Jobson_PVP_conta',6,1600,9,12,'img\\uploads\\profile\\65b6993b9c2c0my_dad.jpg',1),
 (10,'gb101@gmail.com','$argon2id$v=19$m=65536,t=4,p=1$UWVNYnd2enlaeGJ4L3UzNw$IpSKA4JKWIB7fVW5X8+DlneHFDAB/ZXpOj1awjv91uI','Gabriel210',3,12,3,3,'img\\uploads\\profile\\65b69f2ba19addrakeWtf3.png',1),
-(11,'gb102@gmail.com','$argon2id$v=19$m=65536,t=4,p=1$UWVNYnd2enlaeGJ4L3UzNw$IpSKA4JKWIB7fVW5X8+DlneHFDAB/ZXpOj1awjv91uI','Gabrissauro06',16,38999,15,30,'img\\uploads\\profile\\65b69f40563e2GbAI.jfif',1),
+(11,'gb102@gmail.com','$argon2id$v=19$m=65536,t=4,p=1$UWVNYnd2enlaeGJ4L3UzNw$IpSKA4JKWIB7fVW5X8+DlneHFDAB/ZXpOj1awjv91uI','Gabriel06',16,38999,15,30,'img\\uploads\\profile\\65b69f40563e2GbAI.jfif',1),
 (12,'gb103@gmail.com','$argon2id$v=19$m=65536,t=4,p=1$UWVNYnd2enlaeGJ4L3UzNw$IpSKA4JKWIB7fVW5X8+DlneHFDAB/ZXpOj1awjv91uI','Gbex52',1,1627,1,0,'img\\uploads\\profile\\65b69fce8ca01dennis_pfp.png',1),
 (13,'gb104@gmail.com','$argon2id$v=19$m=65536,t=4,p=1$UWVNYnd2enlaeGJ4L3UzNw$IpSKA4JKWIB7fVW5X8+DlneHFDAB/ZXpOj1awjv91uI','GabrielM6',5,613,3,2,'img\\uploads\\profile\\65b6a0095892ahomem_do_frio.png',1),
 (14,'gb105@gmail.com','$argon2id$v=19$m=65536,t=4,p=1$UWVNYnd2enlaeGJ4L3UzNw$IpSKA4JKWIB7fVW5X8+DlneHFDAB/ZXpOj1awjv91uI','TesteGbex2',1,2100,1,0,'img\\uploads\\profile\\65c7cbe852f7fTremBala.jpg',1),
