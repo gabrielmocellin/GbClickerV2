@@ -93,6 +93,7 @@ class LoginController
                 $_SESSION['email'] = $model->getEmail();
                 return $model;
             case INPUT_LOGIN_CREATE_COOKIE:
+                $email = $_POST['email-input'];
                 $model->setEmail($_POST['email-input']);
                 $model->setPassword($_POST['password-input']);
                 if (!$model->getByEmailAndPassword()) {
@@ -103,14 +104,16 @@ class LoginController
                 $_POST = array();
                 return $model;
             case INPUT_LOGIN:
-                $model->setEmail($_POST['email-input']);
+                $email = $_POST['email-input'];
+                $model->setEmail($email);
                 $model->setPassword($_POST['password-input']);
-                if (!$model->getByEmailAndPassword()) {
-                    return null;
+
+                if ($model->getByEmailAndPassword()) {
+                    $_SESSION['email'] = $email;
+                    $_POST = array();
+                    return $model;
                 };
-                $_SESSION['email'] = $model->getEmail();
-                $_POST = array();
-                return $model;
+                return null;
             default:
                 return null;
         }        

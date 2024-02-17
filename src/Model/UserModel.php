@@ -85,39 +85,40 @@ class UserModel
     public function getByEmailAndPassword()
     {
         $dao = new UserDAO();
-        $dao_returnArray = $dao->selectByEmailAndPassword($this->getEmail(), $this->getPassword());
-        if ($dao_returnArray == null) {
+        $daoResult  = $dao->selectByEmail($this->getEmail());
+        $correctPassword = password_verify($this->getPassword(), $daoResult['password'] ?? '');
+        
+        if (!$correctPassword) {
             return false;
-        } // Caso não tenha encontrado no banco de dados a conta
-        $this->setId($dao_returnArray['id']);
-        $this->setNickname($dao_returnArray['nickname']);
-        $this->setClickValue($dao_returnArray['clickValue']);
-        $this->setMoney($dao_returnArray['money']);
-        $this->setMultiplier($dao_returnArray['multiplier']);
-        $this->setMinions($dao_returnArray['minions']);
-        $this->setImageSrc($dao_returnArray['image_src']);
-        $this->setTipoConta($dao_returnArray['tipo_conta']);
-        $this->setLevelData(new LevelModel($this->getEmail()));
+        }
+
+        $this->setAllUserData($daoResult);
         return true;
     }
 
     public function getByEmail()
     {
         $dao = new UserDAO();
+        $daoResult  = $dao->selectByEmail($this->getEmail());
 
-        $dao_returnArray  = $dao->selectByEmail($this->getEmail());
-        if ($dao_returnArray == null) {
+        if ($daoResult == null) {
             return false;
         }
-        $this->setId($dao_returnArray['id']);
-        $this->setNickname($dao_returnArray['nickname']);
-        $this->setClickValue($dao_returnArray['clickValue']);
-        $this->setMoney($dao_returnArray['money']);
-        $this->setMultiplier($dao_returnArray['multiplier']);
-        $this->setMinions($dao_returnArray['minions']);
-        $this->setImageSrc($dao_returnArray['image_src']);
-        $this->setTipoConta($dao_returnArray['tipo_conta']);
-        $this->setLevelData(new LevelModel($this->email));
+
+        $this->setAllUserData($daoResult);
+    }
+
+    public function setAllUserData($daoResult)
+    {
+        $this->setId($daoResult['id']);
+        $this->setNickname($daoResult['nickname']);
+        $this->setClickValue($daoResult['clickValue']);
+        $this->setMoney($daoResult['money']);
+        $this->setMultiplier($daoResult['multiplier']);
+        $this->setMinions($daoResult['minions']);
+        $this->setImageSrc($daoResult['image_src']);
+        $this->setTipoConta($daoResult['tipo_conta']);
+        $this->setLevelData(new LevelModel($this->getEmail()));
     }
 
     public function updateUserData()

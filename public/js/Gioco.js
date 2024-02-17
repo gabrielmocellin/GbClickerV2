@@ -187,36 +187,8 @@ class Gioco
         }, 1500);
     }
 
-    salvarDadosAtuais()
-    {
-
-        let dadosUsuarioAtuais = {
-            "clickValue":this.usuario.getValorDoClique(),
-            "money":this.usuario.getDinheiro(),
-            "multiplier":this.usuario.getMultiplicador(),
-            "minions":this.usuario.getMinions(),
-            "level":this.usuario.getNivel(),
-            "xp-points":this.usuario.getPontosAtuaisDeNivel(),
-            "max-to-up":this.usuario.getPontosNecessariosParaSubirDeNivel(),
-        };
-
-        let xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function () {
-            let statusComuns = xhr.status == 200 || xhr.status == 0;
-            if (!statusComuns) {
-                console.log("[ERRO] Erro inesperado: " + xhr.status);
-                xhr.abort();
-            }
-        }
-
-        xhr.open('POST', '/home/save', true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.send(JSON.stringify(dadosUsuarioAtuais));
-    }
-
     salvarDinheiro() {
         let dinheiro = this.usuario.getDinheiro();
-
         let dados = {
             "money": dinheiro
         };
@@ -228,6 +200,36 @@ class Gioco
         }
 
         fetch('/save/money', CONFIG_FETCH_REQUEST)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro ao salvar!');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data['resposta'] != 200) {
+                mini.criarNotificacao(data['resposta'], true);
+            }
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+        });
+        
+    }
+
+    salvarItem(itemId, quantidade) {
+        let dados = {
+            'id-item':itemId,
+            'input-quantidade':quantidade
+        };
+
+        const CONFIG_FETCH_REQUEST = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(dados)
+        }
+
+        fetch('/shop/purchase', CONFIG_FETCH_REQUEST)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Erro ao salvar!');

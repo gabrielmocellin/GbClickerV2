@@ -8,8 +8,10 @@
     </section>
     <button class='botao-comprar'>Comprar R$
         <p class='item-price'></p>
-        <input style='display:none' type='number' class='input-preco-unitario' value='<?= $preco ?>'>
-        <input name='preco-total' style='display:none' type='number' class='input-preco-total' value='<?= $preco ?>'>
-        <input name='id-item' style='display:none' type='number' value='<?= $id ?>'>
     </button>
+    <iteminfo style='display:none'>
+        <input type='number' class='input-preco-unitario' value='<?= $preco ?>'>
+        <input name='preco-total' type='number' class='input-preco-total' value='<?= $preco ?>'>
+        <input name='id-item' class='id-item' type='number' value='<?= $id ?>'>
+    </iteminfo>
 </div>

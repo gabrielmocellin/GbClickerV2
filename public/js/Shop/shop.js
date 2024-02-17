@@ -96,6 +96,8 @@ function comprar(item) {
 
     let precoTotal = parseInt(item.querySelector('.input-preco-total').value);
     let dinheiroInsuficiente = gioco.usuario.dinheiro < precoTotal;
+    let quantidade = parseInt(item.querySelector('.input-quantidade').value);
+    let itemId = parseInt(item.querySelector('.id-item').value);
 
     if (dinheiroInsuficiente) {
         mini.criarNotificacao(DINHEIRO_INSUFICIENTE, true);
@@ -104,6 +106,8 @@ function comprar(item) {
 
     gioco.usuario.dinheiro -= precoTotal;
     gioco.salvarDinheiro();
+    gioco.salvarItem(itemId, quantidade);
+
     mini.criarNotificacao(COMPRA_REALIZADA, false);
 
     return;
@@ -116,7 +120,9 @@ const erros = {
     1: 'Sem itens disponíveis!',
     2: 'Erro ao atualizar preco!',
     3: 'Apenas quantidade entre: 1, 1000!',
+    4: 'Erro ao salvar compra!',
     100: 'Compra realizada com sucesso!',
+    201 : "Erro ao iniciar sessão!"
 };
 
 var mini = new miniNotificacao(erros);

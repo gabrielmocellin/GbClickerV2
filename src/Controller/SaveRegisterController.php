@@ -9,7 +9,7 @@ class SaveRegisterController
     public static function index()
     {
         if (SaveRegisterController::validarInputs()) {
-            $path = SaveRegisterController::salvarImagemLocalmente($_FILES['image_src']);
+            $path = self::retornarPathImagem();
             $model = new UserModel();
             $model->construtor(
                 $_POST['email-input'],
@@ -20,6 +20,7 @@ class SaveRegisterController
             
             try {
                 if ($model->save()) {
+                    self::salvarImagemLocalmente($model->getImageSrc());
                     header("location: /login?aviso=0");
                     return;
                 };
@@ -92,11 +93,14 @@ class SaveRegisterController
     public static function validarImagemInput($imagem)
     {
         $tiposPermitidos = ["image/jpeg", "image/jpg", "image/png"];
+
         if (in_array($imagem['type'], $tiposPermitidos)) {
             return true;
         }
+
         $imagem['error'] = UPLOAD_ERR_NO_FILE;
         SaveRegisterController::validarErrosNoUploadDaImagem($imagem);
+
         return false;
     }
 
@@ -120,15 +124,26 @@ class SaveRegisterController
         }
     }
 
-    public static function salvarImagemLocalmente($imagem)
+    public static function salvarImagemLocalmente($pathCompleto)
     {
-        $pathRelativo = "img\\uploads\\profile\\";
-        $nomeImagem = uniqid() . basename($imagem['name']);
-        $pathCompleto = __DIR__ . "\\..\\..\\public\\$pathRelativo" . $nomeImagem;
-        if (!move_uploaded_file($imagem['tmp_name'], $pathCompleto)) {
+        $nomeTemporarioImagem = $_FILES['image_src']['tmp_name'];
+        $isImageSaved = move_uploaded_file($nomeTemporarioImagem, $pathCompleto);
+
+        if (!$isImageSaved) {
             header("location: /register?aviso=7");
             exit();
         };
+
+        return true;
+    }
+
+    public static function retornarPathImagem()
+    {
+        $imagem = $_FILES['image_src'];
+        $pathRelativo = "img\\uploads\\profile\\";
+        $nomeImagem = uniqid() . basename($imagem['name']);
+        $pathCompleto = __DIR__ . "\\..\\..\\public\\$pathRelativo" . $nomeImagem;
+
         return $pathRelativo . $nomeImagem;
     }
 

@@ -1,7 +1,7 @@
-<?php 
-    $titulo       = isset($titulo)? $titulo : 'Gb Clicker';
-    $linksCss     = isset($linksCss)? $linksCss : [''];
-    $srcJs        = isset($srcJs)? $srcJs : [''];
+<?php
+    $titulo = isset($titulo)? $titulo : 'Gb Clicker';
+    $linksCss = isset($linksCss)? $linksCss : [''];
+    $srcJs = isset($srcJs)? $srcJs : [''];
     $conteudoMain = isset($conteudoMain)? $conteudoMain : '';
 
     function montarLinks($linksCss)
@@ -31,24 +31,15 @@
     <title><?= $titulo ?></title>
 </head>
 <body>
-    <?php
-        require_once('util/header.php');
-        //require_once($GLOBALS['prefix'] . 'util/header.php');
-    ?>
+    <?php require_once('util/header.php'); ?>
     <main>
         <?php
             require_once('util/navbar.php');
             require_once('util/miniNotificacao.php');
             require_once($conteudoMain);
-            /* require_once($GLOBALS['prefix'] . 'util/navbar.php');
-            require_once($GLOBALS['prefix'] . 'util/miniNotificacao.php');
-            require_once($GLOBALS['prefix'] . $conteudoMain); */
         ?>
     </main>
-    <?php
-        require_once('util/importJsScripts.php');
-        //require_once($GLOBALS['prefix'] . 'util/importJsScripts.php');
-    ?>
+    <?php require_once('util/importJsScripts.php'); ?>
     <?php montarScripts($srcJs); ?>
 </body>
 </html>
