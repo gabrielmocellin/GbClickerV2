@@ -59,11 +59,12 @@ function atualizarQuantidade(item, novaQuantidade) {
     let inputPrecoTotal = item.querySelector('.input-preco-total');
     let pItemPrice = item.querySelector('.item-price');
     let preco = calcularPreco(item, novaQuantidade);
+    let precoFormatado = formatador(preco, 1);
 
     let novaQuantidadeValida = validarQuantidade(novaQuantidade);
 
     if (novaQuantidadeValida) {
-        pItemPrice.innerText = preco;
+        pItemPrice.innerText = precoFormatado;
         inputPrecoTotal.value = preco;
         return true;
     }
@@ -71,7 +72,7 @@ function atualizarQuantidade(item, novaQuantidade) {
     preco = calcularPreco(item, UNIDADE);
 
     inputQuantidade.value = UNIDADE;
-    pItemPrice.innerText = preco;
+    pItemPrice.innerText = precoFormatado;
     inputPrecoTotal.value = preco;
     
     mini.criarNotificacao(3, true);
@@ -111,8 +112,6 @@ function comprar(item) {
 
     return;
 }
-
-window.onload = () => formatarNumerosNasDivs('p.item-price', 1);
 
 const erros = {
     0: 'Dinheiro insuficiente!',

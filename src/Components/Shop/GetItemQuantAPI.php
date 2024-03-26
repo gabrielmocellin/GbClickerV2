@@ -13,10 +13,10 @@
             $email = filter_var($_GET['email'], FILTER_SANITIZE_EMAIL);
             $resultItem = self::getItemType($id);
  
-            if ($resultItem['status'] && $resultItem['resultado'] != null) {
+            if ($resultItem['status'] && $resultItem['resultado'] !== null) {
                 $resultUser = self::getUserItemAmount($resultItem['resultado'], $email);
 
-                if ($resultUser['status'] && $resultUser['resultado'] != null) {
+                if ($resultUser['status'] && $resultUser['resultado'] !== null) {
                     echo json_encode(['quantidade' => $resultUser['resultado']]);
                     exit();
                 }
