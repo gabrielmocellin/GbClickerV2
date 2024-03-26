@@ -14,13 +14,15 @@ class SavePurchaseController
     public static function index()
     {
         $sessaoInicializada = self::verificarSessao();
+        
         if ($sessaoInicializada) {
+
             $userModel = self::montarModeloUsuario();
             $dadosArray = self::verificarConteudoJson();
 
             if ($dadosArray != null) {
 
-                $itemModel = self::montarModeloItem($dadosArray['id-item']);
+                $itemModel = self::setUpItemModelById($dadosArray['id-item']);
                 $resultadoSql = self::executarSql($itemModel, $userModel, $dadosArray['input-quantidade']);
 
                 if ($resultadoSql) {
@@ -32,7 +34,8 @@ class SavePurchaseController
                 exit();
             }
         }
-
+        echo json_encode(['resposta' => self::ERRO_AO_SALVAR_COMPRA]);
+        exit();
     }
 
     public static function montarModeloUsuario()
@@ -43,10 +46,10 @@ class SavePurchaseController
         return $userModel;
     }
 
-    public static function montarModeloItem($id)
+    public static function setUpItemModelById($id)
     {
         $itemModel = new ItemModel();
-        $itemModel = $itemModel->getById($id);
+        $itemModel->getById($id);
         return $itemModel;
     }
 
@@ -62,18 +65,23 @@ class SavePurchaseController
 
     public static function verificarConteudoJson()
     {
-        if ($_SERVER['CONTENT_TYPE'] == "application/json") {
+        $contentIsJson = $_SERVER['CONTENT_TYPE'] == "application/json";
+
+        if ($contentIsJson) {
+
             $dadosRecebidos = file_get_contents("php://input");
             $dadosDecodificados = json_decode($dadosRecebidos, true);
+
             return $dadosDecodificados;
         }
+
         return null;
     }
 
     public static function executarSql($itemModel, $userModel, $quantidade) {
         $conexao = Conexao::criarConexao();
         $email = $userModel->getEmail();
-        $typeIdItem = $itemModel['FK_id_tipos_itens'];
+        $typeIdItem = $itemModel->getTipo();
           
         $mapItemType = [
             1 => 'clickValue',

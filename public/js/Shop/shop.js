@@ -14,7 +14,6 @@ function montarArrayItens() {
 function validarQuantidade(quantidade) {
     const QUANTIDADE_MAX = 1000;
     let valorAbsoluto = Math.abs(quantidade);
-
     let isValid = (quantidade != NaN && quantidade >= 1 && valorAbsoluto < QUANTIDADE_MAX);
 
     return isValid;
@@ -68,6 +67,7 @@ function atualizarQuantidade(item, novaQuantidade) {
     }
 
     preco = calcularPreco(item, UNIDADE);
+
     inputQuantidade.value = UNIDADE;
     pItemPrice.innerText = preco;
     inputPrecoTotal.value = preco;
@@ -107,8 +107,6 @@ function comprar(item) {
     gioco.usuario.dinheiro -= precoTotal;
     gioco.salvarDinheiro();
     gioco.salvarItem(itemId, quantidade);
-
-    mini.criarNotificacao(COMPRA_REALIZADA, false);
 
     return;
 }

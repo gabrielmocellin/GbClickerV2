@@ -38,13 +38,8 @@ class ItemModel
     public function getById($id)
     {
         $itemDao = new ItemDAO();
-        $arrayItemDaoResult = $itemDao->selectById($id);
-
-        $this->setPreco($arrayItemDaoResult['preco']);
-        $this->setMinimumLevel($arrayItemDaoResult['minimum-level']);
-        $this->setTipo($arrayItemDaoResult['FK_id_tipos_itens']);
-        
-        return $arrayItemDaoResult;
+        $itemInfo = $itemDao->selectById($id);
+        $this->fillItemModel($itemInfo);
     }
 
     public function getAllItems()
@@ -56,7 +51,18 @@ class ItemModel
     public function getAllTypes()
     {
         $itemDao = new ItemDao();
-        return $itemDao->selectTipos();
+        return $itemDao->selectAllItemTypes();
+    }
+
+    public function fillItemModel($data)
+    {
+        $this->setId($data['id']);
+        $this->setImageSrc($data['image_src']);
+        $this->setPreco($data['preco']);
+        $this->setDescricao($data['descricao']);
+        $this->setQuantidade($data['quantidade']);
+        $this->setMinimumLevel($data['minimum_level']);
+        $this->setTipo($data['FK_id_tipos_itens']);
     }
 
     // =-=-=-=-= GETTERS =-=-=-=-=
@@ -101,6 +107,11 @@ class ItemModel
     }
 
     // =-=-=-=-= SETTERS =-=-=-=-=
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
     public function setNome($nome)
     {
         $this->nome = $nome;

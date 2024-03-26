@@ -237,8 +237,10 @@ class Gioco
             return response.json();
         })
         .then(data => {
-            if (data['resposta'] != 200) {
+            if (data['resposta'] != 100) {
                 mini.criarNotificacao(data['resposta'], true);
+            } else {
+                mini.criarNotificacao(data['resposta'], false);
             }
         })
         .catch(error => {

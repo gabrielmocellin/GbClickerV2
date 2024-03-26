@@ -27,7 +27,7 @@ class ItemDAO extends Dao implements IDAO
 
     public function selectById($id)
     {
-        $sql = "SELECT preco, minimum_level, quantidade, FK_id_tipos_itens FROM itens WHERE id = $id;";
+        $sql = "SELECT * FROM itens WHERE id = $id;";
         $sql_result = $this->conexao->query($sql);
         $sql_result = $sql_result->fetch(\PDO::FETCH_ASSOC);
         return $sql_result;
@@ -41,11 +41,13 @@ class ItemDAO extends Dao implements IDAO
         return $sql_result;
     }
 
-    public function selectTipos()
+    public function selectAllItemTypes()
     {
         $sql = "SELECT * FROM tipos_itens";
+
         $sql_result = $this->conexao->query($sql);
         $sql_result = $sql_result->fetchAll(\PDO::FETCH_ASSOC);
+
         return $sql_result;
 
     }
