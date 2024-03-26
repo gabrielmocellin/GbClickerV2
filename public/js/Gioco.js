@@ -36,7 +36,6 @@ class Gioco
 
             if (possuiMinions) {
                 this.usuario.AddDinheiroPorMinion();
-                this.AtualizarValorNoElemento("user_money_p", this.usuario.getDinheiro(), " R$ ");
                 this.salvarDinheiro();
             }
 
@@ -209,6 +208,8 @@ class Gioco
         .then(data => {
             if (data['resposta'] != 200) {
                 mini.criarNotificacao(data['resposta'], true);
+            } else {
+                this.AtualizarValorNoElemento("user_money_p", this.usuario.getDinheiro(), " R$ "); // Atualizando o dinheiro atual do usuário
             }
         })
         .catch(error => {
