@@ -60,7 +60,9 @@ function atualizarQuantidade(item, novaQuantidade) {
     let pItemPrice = item.querySelector('.item-price');
     let preco = calcularPreco(item, novaQuantidade);
 
-    if (validarQuantidade(novaQuantidade)) {
+    let novaQuantidadeValida = validarQuantidade(novaQuantidade);
+
+    if (novaQuantidadeValida) {
         pItemPrice.innerText = preco;
         inputPrecoTotal.value = preco;
         return true;
@@ -82,7 +84,7 @@ function calcularPreco(item, novaQuantidade) {
     let precoUnitario = parseInt(PRECO_UNITARIO_INPUT.value);
     let precoCalculado = precoUnitario;
 
-    for (let i = 1; i < novaQuantidade; i++) {
+    for (let i = 1; i < novaQuantidade; i ++) {
         precoUnitario += precoUnitario * PORCENTAGEM_POR_UNIDADE;
         precoCalculado += precoUnitario;
     }
@@ -92,7 +94,6 @@ function calcularPreco(item, novaQuantidade) {
 
 function comprar(item) {
     const DINHEIRO_INSUFICIENTE = 0;
-    const COMPRA_REALIZADA = 100;
 
     let precoTotal = parseInt(item.querySelector('.input-preco-total').value);
     let dinheiroInsuficiente = gioco.usuario.dinheiro < precoTotal;

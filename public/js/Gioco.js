@@ -218,6 +218,8 @@ class Gioco
     }
 
     salvarItem(itemId, quantidade) {
+        const COMPRA_REALIZADA = 100;
+
         let dados = {
             'id-item':itemId,
             'input-quantidade':quantidade
@@ -237,7 +239,7 @@ class Gioco
             return response.json();
         })
         .then(data => {
-            if (data['resposta'] != 100) {
+            if (data['resposta'] != COMPRA_REALIZADA) {
                 mini.criarNotificacao(data['resposta'], true);
             } else {
                 mini.criarNotificacao(data['resposta'], false);

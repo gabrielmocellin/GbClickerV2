@@ -3,6 +3,8 @@
 
     $routes = require_once __DIR__ . '/../config/routes.php';
 
+    use GbClicker\Components\Shop\GetItemQuantAPI;
+
     use GbClicker\Controller\{
         AccountsController,
         LandingpageController,
