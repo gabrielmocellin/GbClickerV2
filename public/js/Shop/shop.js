@@ -14,7 +14,12 @@ function montarArrayItens() {
 function validarQuantidade(quantidade) {
     const QUANTIDADE_MAX = 1000;
     let valorAbsoluto = Math.abs(quantidade);
-    let isValid = (quantidade != NaN && quantidade >= 1 && valorAbsoluto < QUANTIDADE_MAX);
+
+    let isValid = (
+        quantidade != NaN &&
+        quantidade >= 1 &&
+        valorAbsoluto < QUANTIDADE_MAX
+    );
 
     return isValid;
 }
@@ -25,11 +30,11 @@ function adicionarEventListeners(itensArray) {
         return false;
     }
 
-    itensArray.forEach((item) => {
+    itensArray.forEach(async (item) => {
         ativarEventListenerInput(item);
-        atualizarQuantidade(item, 1);
+        await atualizarQuantidade(item, 1);
         ativarEventListenerCompra(item);
-    })
+    });
 }
 
 function ativarEventListenerCompra(item) {
@@ -53,44 +58,57 @@ function pegarQuantidadeInput(input) {
     return parseInt(input.value);
 }
 
-function atualizarQuantidade(item, novaQuantidade) {
-    const UNIDADE = 1;
+async function atualizarQuantidade(item, novaQuantidade) {
     let inputQuantidade = item.querySelector('.input-quantidade');
     let inputPrecoTotal = item.querySelector('.input-preco-total');
     let pItemPrice = item.querySelector('.item-price');
-    let preco = calcularPreco(item, novaQuantidade);
-    let precoFormatado = formatador(preco, 1);
-
     let novaQuantidadeValida = validarQuantidade(novaQuantidade);
 
     if (novaQuantidadeValida) {
-        pItemPrice.innerText = precoFormatado;
+        let preco = await calcularPreco(item, novaQuantidade);
+        let precoFormatado = formatador(preco, 1); 
         inputPrecoTotal.value = preco;
+        pItemPrice.innerText = precoFormatado;
+
         return true;
     }
 
-    preco = calcularPreco(item, UNIDADE);
+    let preco = await calcularPreco(item, 1);
+    let precoFormatado = formatador(preco, 1);
 
-    inputQuantidade.value = UNIDADE;
+    inputQuantidade.value = 1;
     pItemPrice.innerText = precoFormatado;
     inputPrecoTotal.value = preco;
     
     mini.criarNotificacao(3, true);
+
     return false;
 }
 
-function calcularPreco(item, novaQuantidade) {
+async function calcularPreco(item, novaQuantidade) {
     const PORCENTAGEM_POR_UNIDADE = 0.03;
     const PRECO_UNITARIO_INPUT = item.querySelector('.input-preco-unitario');
-    let precoUnitario = parseInt(PRECO_UNITARIO_INPUT.value);
-    let precoCalculado = precoUnitario;
 
-    for (let i = 1; i < novaQuantidade; i ++) {
-        precoUnitario += precoUnitario * PORCENTAGEM_POR_UNIDADE;
-        precoCalculado += precoUnitario;
+    let precoUnitarioDoInput = parseInt(PRECO_UNITARIO_INPUT.value);
+    let precoUnitario = await calcularPrecoDaProximaUnidade(item, precoUnitarioDoInput);
+
+    precoUnitario = (precoUnitario * novaQuantidade) + (precoUnitario * PORCENTAGEM_POR_UNIDADE * (novaQuantidade - 1));
+
+    return parseInt(precoUnitario);
+}
+
+async function calcularPrecoDaProximaUnidade(item, precoUnitario) {
+    const PORCENTAGEM_POR_UNIDADE = 0.03;
+    let itemId = parseInt(item.querySelector('.id-item').value);
+    let quantidadeAtual = await gioco.getUserItemAmount(itemId);
+
+    if (quantidadeAtual === 0) {
+        quantidadeAtual = 1;
     }
-    
-    return parseInt(precoCalculado);
+
+    precoUnitario = (precoUnitario * quantidadeAtual) + (precoUnitario * PORCENTAGEM_POR_UNIDADE * (quantidadeAtual - 1));
+
+    return precoUnitario;
 }
 
 function comprar(item) {
@@ -120,7 +138,9 @@ const erros = {
     3: 'Apenas quantidade entre: 1, 1000!',
     4: 'Erro ao salvar compra!',
     100: 'Compra realizada com sucesso!',
-    201 : "Erro ao iniciar sessão!"
+    201: "Erro ao iniciar sessão!",
+    4005: "Usuário não encontrado!",
+    4004: "Item não encontrado!",
 };
 
 var mini = new miniNotificacao(erros);
