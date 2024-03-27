@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap'); /* font-family: 'Inter', sans-serif; */
 @import url('https://fonts.googleapis.com/css2?family=Kanit&display=swap'); /* font-family: 'Kanit', sans-serif; */
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans&display=swap'); /* font-family: 'DM Sans', sans-serif; */
-:root{
+:root {
     --darkGreen: #00331E;
     --60green:#D9EDDF;
     --30green:#609D7C;
@@ -15,7 +15,7 @@
 
 
 /* =-=-=-=-= Reset =-=-=-=-= */
-*{
+* {
     margin: 0;
     padding: 0;
     outline: none;
@@ -26,18 +26,15 @@
 
 
 /* =-=-= Body =-=-= */
-body{
+body {
     font-family: var(--font-primary);
-    width: 100vw;
-    height: 100vh;
-    min-height: 650px;
     background: var(--60green);
     position: relative;
 }
 
 
 /* =-=-= Header =-=-= */
-header{
+header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -45,11 +42,10 @@ header{
     top:0;
     color: white;
     background: var(--30green);
-    height: 10%; 
-    max-height: 2em;
+    height: max(10%, 2rem);
     width: 100%;
     font-size: 2.5em;
-    padding: 0px 2em;
+    padding: 0 2em;
     box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
 }
 
@@ -65,7 +61,7 @@ main{
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: min(90%, calc((100%) - 2em));    
+    height: 100%;
 }
 
 

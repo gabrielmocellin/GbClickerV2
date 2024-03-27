@@ -1,78 +1,121 @@
 main{
     flex-direction: column;
-    gap:5%;
 }
 
-/* =-=-= Apresentação =-=-= */
-#apresentacao_div{
-    display: flex; flex-direction: row;
-    width: 40%;
-    background: var(--30green);
-    box-shadow: 0px 0px 5px;
-    overflow-y:auto;
-    border-radius: 1em;
-}
-
-#apresentacao_div .texto{
-    padding: 1em;
-    font-family: var(--font-text);
-    color: var(--60green);
-}
-
-/* =-=-= Atualizações DIV =-=-= */
-#atualizacoes_div{
-    display:flex;
+section.apresentacao-jogo {
+    padding: 5% 10%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background-color: rgb(220, 220, 220);
     align-items: center;
+}
+
+section.apresentacao-jogo > img {
+    aspect-ratio: 1;
+    width: 25%;
+    border-radius: 50%;
+    box-shadow: 0px 0px 0.5rem 0.25rem rgb(89, 89, 89);
+    justify-self: center;
+    background-color: rgb(165, 165, 165);
+}
+
+section.apresentacao-jogo > div.container-textos {
+    display: flex;
     flex-direction: column;
-    background: var(--30green);
-    overflow-x: hidden;
-    overflow-y: scroll;
-    width:60%; height: 70%;
-    box-shadow: 0px 0px 5px;
-    border-radius: 1em;
-    row-gap: 2em;
+    gap: 1rem;
+    font-size: 1em;
 }
 
-.titulo_atualizacoes_div{
+section.apresentacao-jogo > div.container-textos > h1 {
     text-align: center;
-    position: sticky;
-    font-weight: bold;
-    top:0;
-    width: 100%;
     font-size: 2em;
-    color: var(--30green);
-    background-color: whitesmoke;
-    font-family: 'Zilla Slab', serif;
 }
 
-/* =-=-= Atualização =-=-= */
-.atualizacao{
-    display:flex; justify-content: center; align-items: center; flex-direction: column;
-    min-height:500px;
-    width:80%;
+/* -=-=-=-=-=- SECTION -=-=-=-=-=- */
+section.perguntas-frequentes {
+    border-top: 0.25em rgb(180, 180, 180) solid;
+    background-color: var(--30green);
+    width: 100%;
+    font-size: 1.5em;
+    display: grid;
+    padding: 5% 10%;
     gap: 1em;
 }
 
-.atualizacao_data{
+section.perguntas-frequentes > h1 {
     text-align: center;
-    width:100%; padding: 1em;
-    font-size: 1em; font-family: 'Zilla Slab', serif; font-weight: bold; color:#00331E;
+    color: #efefef;
 }
 
-.atualizacao_imagem{
-    display: block;
-    height: auto; width: 80%;
-    object-fit: contain;
-    aspect-ratio: 16/9;
-    border-radius: 1em;
+section.perguntas-frequentes > details {
+    width: 50%;
+    justify-self: center;
+    border-radius: 0.5rem;
+    background-color: lightgray;
 }
 
-.listaDeMudancas{
+section.perguntas-frequentes > details > summary {
+    background-color: #efefef;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    padding: 0.5rem;
+}
+
+section.perguntas-frequentes > details > p {
+    margin:  0 0 1rem 0;
+    padding: 1rem;
+}
+
+footer {
+    border-top: 0.25em rgb(150, 150, 150) solid;
+    background-color: gray;
+    width: 100%;
+    padding: 1em;
+    font-size: 1.5em;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+}
+
+section.redes-sociais {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+section.redes-sociais a {
+    text-decoration: none;
+    color: black;
+    display: flex;
+    align-items: center;
+    padding: 0.2em;
+    gap: 1em;
+}
+
+section.redes-sociais a > img {
+    aspect-ratio: 1;
+    width: 1em;
+}
+
+section.copyright {
+    color: #efefef;
+    word-spacing: 0.5em;
+    display: flex;
+    align-items: center;
+    font-size: 0.8em;
+}
+
+section.copyright > p {
+    text-align: center;
     width: 100%;
 }
 
-.textoMudanca{
-    width: 100%;
-    word-wrap: break-word;
-    font-family: 'DM Sans', sans-serif;
+@media (max-width: 720px){
+
+    section.apresentacao-jogo > img {
+        width: 50%;
+    }
+
+    section.perguntas-frequentes > details {
+        width: 90%;
+    }
 }
