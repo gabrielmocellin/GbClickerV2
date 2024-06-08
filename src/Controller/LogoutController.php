@@ -6,8 +6,8 @@ class LogoutController
 {
     public static function index()
     {
-        LogoutController::destruirSessao();
-        LogoutController::destruirCookie();
+        self::destruirSessao();
+        self::destruirCookie();
         header("location: /login?aviso=2");
     }
 

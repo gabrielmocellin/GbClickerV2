@@ -4,6 +4,7 @@ namespace GbClicker\Controller;
 
 use GbClicker\Model\UserModel;
 use GbClicker\Conexao\Conexao;
+use GbClicker\Controller\LoginController;
 
 class SaveMoneyController
 {
@@ -13,22 +14,25 @@ class SaveMoneyController
 
     public static function index()
     {
-        $sessaoInicializada = self::verificarSessao();
-        if ($sessaoInicializada) {
-            $userModel = self::montarModeloUsuario();
-            $dadosArray = self::verificarConteudoJson();
-
-            if ($dadosArray != null) {
-                $resultadoSql = self::executarSql($dadosArray['money'], $userModel->getEmail());
-                if ($resultadoSql) {
-                    echo json_encode(['resposta' => self::DINHEIRO_SALVO]);
-                    exit();
-                }
-                echo json_encode(['resposta' => self::ERRO_AO_SALVAR_DINHEIRO]);
-                exit();
-            }
+        if (!LoginController::isUserLogged()) {
+            echo json_encode(['resposta' => self::ERRO_AO_INICIAR_SESSAO]);
+            return false;
         }
 
+        $userModel = self::montarModeloUsuario();
+        $dadosArray = self::verificarConteudoJson();
+
+        if ($dadosArray != null) {
+            $resultadoSql = self::executarSql($dadosArray['money'], $userModel->getEmail());
+
+            if ($resultadoSql) {
+                echo json_encode(['resposta' => self::DINHEIRO_SALVO]);
+                exit;
+            }
+
+            echo json_encode(['resposta' => self::ERRO_AO_SALVAR_DINHEIRO]);
+            exit;
+        }
     }
 
     public static function montarModeloUsuario()
@@ -37,16 +41,6 @@ class SaveMoneyController
         $userModel->setEmail($_SESSION['email']);
         $userModel->getByEmail();
         return $userModel;
-    }
-
-    public static function verificarSessao()
-    {
-        session_start();
-        if (!isset($_SESSION['email'])) {
-            echo json_encode(['resposta' => self::ERRO_AO_INICIAR_SESSAO]);
-            return false;
-        }
-        return true;
     }
 
     public static function verificarConteudoJson()

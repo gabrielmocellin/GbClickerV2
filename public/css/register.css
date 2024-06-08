@@ -1,7 +1,11 @@
+body {
+    height: 100vh;
+}
+
 form#register-form{
     display:flex;
-    height: 80%;
-    width: 80%;
+    height: 70%;
+    width: 70%;
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
 }
 
@@ -128,7 +132,7 @@ div#inputs-div{
 }
 
 /* =-=-= Media query's =-=-= */
-@media (max-width: 720px){
+@media (max-width: 720px) or (max-height: 625px) {
     body{
         font-size: 0.7rem;
     }

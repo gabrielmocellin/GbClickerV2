@@ -10,6 +10,12 @@ class RankingController
     public static function index()
     {
         $model = LoginController::login();
+        
+        if ($model == null) {
+            header("location: /login?aviso=1", true);
+            exit;
+        }
+
         $titulo = 'Ranking';
         $linksCss = [
             'css/adminpages.css',

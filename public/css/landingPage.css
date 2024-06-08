@@ -6,7 +6,7 @@ section.apresentacao-jogo {
     padding: 5% 10%;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    background-color: rgb(220, 220, 220);
+    background-color: #efefef;
     align-items: center;
 }
 
@@ -23,17 +23,17 @@ section.apresentacao-jogo > div.container-textos {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    font-size: 1em;
+    font-size: 1.5em;
 }
 
 section.apresentacao-jogo > div.container-textos > h1 {
     text-align: center;
-    font-size: 2em;
+    font-size: 1.5em;
 }
 
 /* -=-=-=-=-=- SECTION -=-=-=-=-=- */
 section.perguntas-frequentes {
-    border-top: 0.25em rgb(180, 180, 180) solid;
+    border-top: 0.1em rgb(180, 180, 180) solid;
     background-color: var(--30green);
     width: 100%;
     font-size: 1.5em;
@@ -58,7 +58,8 @@ section.perguntas-frequentes > details > summary {
     background-color: #efefef;
     border-radius: 0.5rem;
     font-weight: bold;
-    padding: 0.5rem;
+    padding: 1em;
+    cursor: pointer;
 }
 
 section.perguntas-frequentes > details > p {
@@ -67,8 +68,8 @@ section.perguntas-frequentes > details > p {
 }
 
 footer {
-    border-top: 0.25em rgb(150, 150, 150) solid;
-    background-color: gray;
+    border-top: 0.1em rgb(180, 180, 180) solid;
+    background-color: rgb(150, 150, 150);
     width: 100%;
     padding: 1em;
     font-size: 1.5em;
@@ -98,7 +99,6 @@ section.redes-sociais a > img {
 
 section.copyright {
     color: #efefef;
-    word-spacing: 0.5em;
     display: flex;
     align-items: center;
     font-size: 0.8em;

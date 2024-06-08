@@ -20,12 +20,12 @@
                 <h1>
                     Sobre:
                 </h1>
-                <h3>
+                <p>
                     GbClicker é um projeto de um jogo do gênero "Idle", onde o jogador deve conquistar dinheiro clicando no 
                     Gb. Com o dinheiro recebido, é possível aprimorar os multiplicadores atuais e/ou comprar trabalhadores 
                     (minions) para que "trabalhem" por você de maneira automática. Entre agora e conquiste o top #1 no 
                     ranking entre os jogadores do GbClicker!
-                </h3>
+                </p>
             </div>
             <img title='Logo' alt='Logo do GbClicker' src='img/favicon.png'>
         </section>
