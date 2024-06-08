@@ -21,7 +21,6 @@ class LoginController
         );
 
         if ($loggedIn) {
-            error_log($_SESSION['email']);
             header("location: /home");
             exit;
         }
@@ -63,11 +62,9 @@ class LoginController
         if (isset($_COOKIE['email-logado'])) { // COOKIE LOGIN
             $model->setEmail($_COOKIE['email-logado']);
             $model->getByEmail();
-            error_log("PROBLEMA NO SESSION COOKIE");
         } elseif (isset($_SESSION['email'])) { // SESSION LOGIN
             $model->setEmail($_SESSION['email']);
             $model->getByEmail();
-            error_log("PROBLEMA NO SESSION LOGIN");
         } elseif (
             isset($_POST['email-input']) &&
             isset($_POST['password-input'])
@@ -75,7 +72,6 @@ class LoginController
             $model->setEmail($_POST['email-input']);
             $model->setPassword($_POST['password-input']);
             if (!$model->dataFoundByEmailAndPassword()) {
-                error_log("PROBLEMA NO INPUT LOGIN");
                 return null;
             };
             if (isset($_POST['cookie-checkbox'])) {
@@ -83,11 +79,9 @@ class LoginController
             }
             $_POST = array();
         } else {
-            error_log("DEU PAU GERAL");
             return null;
         }
         $_SESSION['email'] = $model->getEmail();
-        error_log("Esse é o email: " . $_SESSION['email']);
         return $model;
     }
 }

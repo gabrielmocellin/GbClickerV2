@@ -107,8 +107,6 @@ class SaveAccountEditController
 
     public static function identificarErros(Exception $exception)
     {
-        error_log("CHEGOU AQUI! [" . $exception->getCode() . "]");
-        error_log("Era pra ser igual = [" . self::SQLSTATE_DUPLICATED_PRIMARY_OR_UNIQUE . "]");
         if ($exception->getCode() == self::SQLSTATE_DUPLICATED_PRIMARY_OR_UNIQUE) {
             return self::DUPLICATED_NICKNAME;
         }
