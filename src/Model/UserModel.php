@@ -82,7 +82,7 @@ class UserModel
         
     }
 
-    public function getByEmailAndPassword()
+    public function dataFoundByEmailAndPassword()
     {
         $dao = new UserDAO();
         $daoResult  = $dao->selectByEmail($this->getEmail());

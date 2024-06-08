@@ -8,6 +8,12 @@ class ProfileController
     public static function index()
     {
         $model = LoginController::login();
+        
+        if ($model == null) {
+            header("location: /login?aviso=1", true);
+            exit;
+        }
+        
         $profile = ProfileController::verificarTipoPerfil($model);
         $linksCss = [
             'css/profile.css'

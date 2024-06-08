@@ -6,40 +6,36 @@ use GbClicker\Model\UserModel;
 
 class LoginController
 {
+    const COOKIE_LOGIN = 1;
+    const SESSION_LOGIN = 2;
+    const INPUT_LOGIN_CREATE_COOKIE = 3;
+    const INPUT_LOGIN = 4;
+
     public static function index()
     {
         session_start();
-        if (session_status() == 2) {
-            if (
-                (isset($_SESSION['email']) || isset($_COOKIE['email-logado'])) &&
-                session_status() == 2 &&
-                !isset($_GET['aviso'])
-            ) {
-                header("location: /home");
-            }
+
+        $loggedIn = (
+            session_status() == 2 && 
+            (isset($_SESSION['email']) || isset($_COOKIE['email-logado']))
+        );
+
+        if ($loggedIn) {
+            header("location: /home");
+            exit;
         }
+
         include_once __DIR__ . '/../../View/login/login.php';
     }
 
     public static function login()
     {
-        define("COOKIE_LOGIN", 1);
-        define("SESSION_LOGIN", 2);
-        define("INPUT_LOGIN_CREATE_COOKIE", 3);
-        define("INPUT_LOGIN", 4);
-
-        LoginController::verificarSessao();
-        $tipoLogin = LoginController::verificarTipoLogin();
-        $model = LoginController::efetuarLoginAPartirDoTipo($tipoLogin);
-
-        if ($model == null) {
-            header("location: /login?aviso=1");
-        }
-
+        session_start();
+        $model = LoginController::returnModelDataFromLoginType();
         return $model;
     }
 
-    public static function verificarAvisos()
+    public static function dispararAvisos()
     {
         if (isset($_GET['aviso'])) {
             $codigoDoAviso = $_GET['aviso'];
@@ -47,75 +43,45 @@ class LoginController
         }
     }
 
-    public static function verificarSessao()
+    public static function isUserLogged()
     {
-        session_start();
-        if (session_status() !== 2) {
-            header("location: /login?erro=3");
+        if(session_status() != PHP_SESSION_ACTIVE){
+            session_start();
         }
+
+        if (isset($_SESSION['email'])) {
+            return true;
+        }
+        return false;
     }
 
-    public static function verificarTipoLogin()
+    public static function returnModelDataFromLoginType()
     {
-        if (isset($_COOKIE['email-logado'])) {
-            return COOKIE_LOGIN;
-        } elseif (isset($_SESSION['email'])) {
-            return SESSION_LOGIN;
+        $model = new UserModel();
+
+        if (isset($_COOKIE['email-logado'])) { // COOKIE LOGIN
+            $model->setEmail($_COOKIE['email-logado']);
+            $model->getByEmail();
+        } elseif (isset($_SESSION['email'])) { // SESSION LOGIN
+            $model->setEmail($_SESSION['email']);
+            $model->getByEmail();
         } elseif (
             isset($_POST['email-input']) &&
             isset($_POST['password-input'])
         ) {
-            if (
-                isset($_POST['cookie-checkbox']) &&
-                $_POST['cookie-checkbox'] === 'on'
-            ) {
-                return INPUT_LOGIN_CREATE_COOKIE;
-            }
-            return INPUT_LOGIN;
-        } else {
-            return 0;
-        }
-    }
-
-    public static function efetuarLoginAPartirDoTipo($tipoLogin)
-    {
-        $model = new UserModel();
-
-        switch ($tipoLogin){
-            case COOKIE_LOGIN:
-                $model->setEmail($_COOKIE['email-logado']);
-                $model->getByEmail();
-                $_SESSION['email'] = $model->getEmail();
-                return $model;
-            case SESSION_LOGIN:
-                $model->setEmail($_SESSION['email']);
-                $model->getByEmail();
-                $_SESSION['email'] = $model->getEmail();
-                return $model;
-            case INPUT_LOGIN_CREATE_COOKIE:
-                $email = $_POST['email-input'];
-                $model->setEmail($_POST['email-input']);
-                $model->setPassword($_POST['password-input']);
-                if (!$model->getByEmailAndPassword()) {
-                    return null;
-                };
+            $model->setEmail($_POST['email-input']);
+            $model->setPassword($_POST['password-input']);
+            if (!$model->dataFoundByEmailAndPassword()) {
+                return null;
+            };
+            if (isset($_POST['cookie-checkbox'])) {
                 setcookie("email-logado", $model->getEmail(), time()+86400);
-                $_SESSION['email'] = $model->getEmail();
-                $_POST = array();
-                return $model;
-            case INPUT_LOGIN:
-                $email = $_POST['email-input'];
-                $model->setEmail($email);
-                $model->setPassword($_POST['password-input']);
-
-                if ($model->getByEmailAndPassword()) {
-                    $_SESSION['email'] = $email;
-                    $_POST = array();
-                    return $model;
-                };
-                return null;
-            default:
-                return null;
-        }        
+            }
+            $_POST = array();
+        } else {
+            return null;
+        }
+        $_SESSION['email'] = $model->getEmail();
+        return $model;
     }
 }

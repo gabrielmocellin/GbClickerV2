@@ -6,22 +6,40 @@
     class GetItemQuantAPI {
         const USER_NOT_FOUND = 4005;
         const ITEM_NOT_FOUND = 4004;
+        const INVALID_SESSION = 201;
+        const COMPLETE = 200;
 
         public static function index()
         {
+            session_start();
+            if (!isset($_SESSION['email'])) {
+                echo json_encode(['resposta' => self::INVALID_SESSION]);
+                exit();
+            }
+
             $id = filter_var($_GET['item_id'], FILTER_SANITIZE_NUMBER_INT);
-            $email = filter_var($_GET['email'], FILTER_SANITIZE_EMAIL);
+            $email = filter_var($_SESSION['email'], FILTER_SANITIZE_EMAIL);
             $resultItem = self::getItemType($id);
  
             if ($resultItem['status'] && $resultItem['resultado'] !== null) {
                 $resultUser = self::getUserItemAmount($resultItem['resultado'], $email);
 
                 if ($resultUser['status'] && $resultUser['resultado'] !== null) {
-                    echo json_encode(['quantidade' => $resultUser['resultado']]);
+
+                    echo json_encode(
+                        [
+                            'quantidade' => $resultUser['resultado'],
+                            'resposta' => self::COMPLETE
+                        ]
+                    );
+
                     exit();
                 }
 
-                echo json_encode(['resposta' => self::USER_NOT_FOUND]);
+                echo json_encode(
+                    ['resposta' => self::USER_NOT_FOUND]
+                );
+
                 exit();
             }
             echo json_encode(['resposta' => self::ITEM_NOT_FOUND]);

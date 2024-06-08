@@ -12,6 +12,12 @@ class ShopController
     public static function index()
     {
         $model = LoginController::login();
+        
+        if ($model == null) {
+            header("location: /login?aviso=1", true);
+            exit;
+        }
+
         $itemsArray = ShopController::pegarItens();
         $titulo = 'Shop';
 

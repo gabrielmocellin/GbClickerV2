@@ -250,4 +250,31 @@ class Gioco
             console.error('Erro:', error);
         });
     }
+
+    async getUserItemAmount(itemId) {
+        let dados = {
+            "item_id": itemId
+        };
+
+        const CONFIG_FETCH_REQUEST = {
+            method: 'GET',
+            headers: {'Content-Type': 'application/json'},
+        }
+
+        return await fetch(`/get/item_quant_by_id?item_id=${itemId}`, CONFIG_FETCH_REQUEST)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro ao resgatar quantidade de itens do usuário!');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data['resposta'] !== 200) {
+                mini.criarNotificacao(data['resposta'], true);
+                console.log(itemId);
+            } else {
+                return data['quantidade'];
+            }
+        }).catch(error => { console.error('Erro:', error); })
+    }
 }

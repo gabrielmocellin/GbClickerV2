@@ -15,9 +15,17 @@ class AdminPageController
     public static function verifyAdminAccount()
     {
         $model = LoginController::login();
+
+        if ($model == null) {
+            header("location: /login?aviso=1", true);
+            exit;
+        }
+
         if ($model->getTipoConta() === "ADMIN") {
             return $model;
         }
-        header("location: \\login?aviso=4");
+
+        header("location: \\login?aviso=4", true);
+        exit;
     }
 }
