@@ -1,35 +1,60 @@
 <?php
 
-# Essa classe deve ser utilizada para o salvamento de informações no banco e recebimento dessas informações
-
 namespace Gbclicker\Model;
 
 use GbClicker\DAO\UserDao;
-use GbClicker\Model\{LevelModel, UpgradesInfoModel, UserCredentialsModel};
+use GbClicker\Model\LevelModel;
 
-class UserModel
+class UserModelBackup
 {
     public $id;
-    public $userCredentials;
+    public $email;
+    public $password;
     public $nickname;
+    public $clickValue;
+    public $money;
+    public $multiplier;
+    public $minions;
     public $image_src;
+    public $level_data;
     public $tipo_conta;
-    public $upgradesInfo;
     public $rows;
 
-    public function __construct()
-    {
-        $this->userCredentials = new UserCredentialsModel();
-        $this->upgradesInfo = new UpgradesInfoModel();
+    public function construtor(
+        $email,
+        $password,
+        $nickname,
+        $image,
+        $clickValue = 1,
+        $money = 0,
+        $multiplier = 1,
+        $minions = 0,
+        $tipo_conta = 1
+    ) {
+        $this->setEmail($email);
+        $this->setPassword($password);
+        $this->setNickname($nickname);
+        $this->setImageSrc($image);
+        $this->setClickValue($clickValue);
+        $this->setMoney($money);
+        $this->setMultiplier($multiplier);
+        $this->setMinions($minions);
+        $this->setTipoConta($tipo_conta);
     }
 
-    # Aqui os dados do usuário serão enviados para o DataAcessObject a fim de
-    # tentar armazenar as informações no banco de dados, retornando true
-    # caso tenha dado certo o salvamento e false ao dar errado.
     public function save()
     {
         $dao = new UserDAO();
-        return $dao->insert($this);
+        if ($dao->insert($this)) {
+            return true;
+        }
+        return false;
+    }
+
+    public function getAllRows()
+    {
+        $dao = new UserDAO();
+        $this->rows = $dao->select();
     }
 
     public function getFirstTenAccoutsByPage(int $page)
@@ -58,9 +83,6 @@ class UserModel
     }
 
     public function dataFoundByEmailAndPassword()
-    # Essa função é utilizada para setar em um objeto UserModel
-    # com as informações retornadas do banco de dados CASO a senha
-    # seja correspondente com o email informado. 
     {
         $dao = new UserDAO();
         $daoResult  = $dao->selectByEmail($this->getEmail());
@@ -84,7 +106,6 @@ class UserModel
         }
 
         $this->setAllUserData($daoResult);
-        return true;
     }
 
     public function setAllUserData($daoResult)
@@ -97,22 +118,13 @@ class UserModel
         $this->setMinions($daoResult['minions']);
         $this->setImageSrc($daoResult['image_src']);
         $this->setTipoConta($daoResult['tipo_conta']);
-        $this->setLevelData(new LevelModel(
-            $daoResult['level'],
-            $daoResult['xp_points'],
-            $daoResult['max_to_up']
-        ));
+        $this->setLevelData(new LevelModel($this->getEmail()));
     }
 
     public function updateUserData()
     {
         $dao = new UserDAO();
         $dao->update($this);
-    }
-
-    public function incrementXpPoints($xpPoints = 1)
-    {
-        $this->getLevelData()->incrementXpPoints($xpPoints);
     }
 
     // =-=-=-=-= GETTERS =-=-=-=-=
@@ -123,12 +135,12 @@ class UserModel
 
     public function getEmail()
     {
-        return $this->userCredentials->getEmail();
+        return $this->email;
     }
 
     public function getPassword()
     {
-        return $this->userCredentials->getPassword();
+        return $this->password;
     }
 
     public function getNickname()
@@ -138,27 +150,27 @@ class UserModel
 
     public function getClickValue()
     {
-        return $this->upgradesInfo->getClickValue();
+        return $this->clickValue;
     }
 
     public function getMoney()
     {
-        return $this->upgradesInfo->getMoney();
+        return $this->money;
     }
 
     public function getMultiplier()
     {
-        return $this->upgradesInfo->getMultiplier();
+        return $this->multiplier;
     }
 
     public function getMinions()
     {
-        return $this->upgradesInfo->getMinions();
+        return $this->minions;
     }
 
     public function getLevelData()
     {
-        return $this->upgradesInfo->levelData;
+        return $this->level_data;
     }
 
     public function getImageSrc()
@@ -171,21 +183,6 @@ class UserModel
         return $this->tipo_conta;
     }
 
-    public function getLevel()
-    {
-        return $this->upgradesInfo->getLevel();
-    }
-
-    public function getXpPoints()
-    {
-        return $this->upgradesInfo->getXpPoints();
-    }
-
-    public function getMaxToUp()
-    {
-        return $this->upgradesInfo->getMaxToUp();
-    }
-
 
     // =-=-=-=-= SETTERS =-=-=-=-=
     public function setId($id)
@@ -195,12 +192,12 @@ class UserModel
 
     public function setEmail($email)
     {
-        $this->userCredentials->setEmail($email);
+        $this->email = $email;
     }
 
     public function setPassword($password)
     {
-        $this->userCredentials->setPassword($password);
+        $this->password = $password;
     }
 
     public function setNickname($nickname)
@@ -210,27 +207,27 @@ class UserModel
 
     public function setClickValue($clickValue)
     {
-        $this->upgradesInfo->setClickValue($clickValue);
+        $this->clickValue = $clickValue;
     }
 
     public function setMoney($money)
     {
-        $this->upgradesInfo->setMoney($money);
+        $this->money = $money;
     }
 
     public function setMultiplier($multiplier)
     {
-        $this->upgradesInfo->setMultiplier($multiplier);
+        $this->multiplier = $multiplier;
     }
 
     public function setMinions($minions)
     {
-        $this->upgradesInfo->setMinions($minions);
+        $this->minions = $minions;
     }
 
-    public function setLevelData($levelData)
+    public function setLevelData($level_data)
     {
-        $this->upgradesInfo->setLevelData($levelData);
+        $this->level_data = $level_data;
     }
 
     public function setImageSrc($image_src)

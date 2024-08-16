@@ -14,41 +14,40 @@ window.onload = function() { formatarNumerosNasDivs('.linha p', 1); };
 
 /* Funções utilizadas! */
 
-function edicao(id_linha)
-{
-    let linha      = document.querySelector(`#id_${id_linha}`);
-    let paragrafos = linha.querySelectorAll(`#id_${id_linha} p.info_editaveis`);
-    let inputs     = linha.querySelectorAll(`#id_${id_linha} input`);
-
-    alternarVisualizacaoDeElementos(paragrafos);
-    alternarVisualizacaoDeElementos(inputs);
-
-    alternarBotoesRemoverESalvar(linha);
-}
-
-function alternarVisualizacaoDeElementos(arrayElementos)
-{
-    arrayElementos.forEach((elemento) => {
-        alterarVisualizacaoDeElemento(elemento);
-    })
-}
-
-function alternarBotoesRemoverESalvar(linha)
-{
-    let botao_salvar = linha.querySelector('#botao-salvar');
-    let botao_remover = linha.querySelector('#botao-remover');
-
-    alterarVisualizacaoDeElemento(botao_salvar);
-    alterarVisualizacaoDeElemento(botao_remover);
-}
-
-function alterarVisualizacaoDeElemento(elemento)
+function alternarVisualizacaoElemento(elemento)
 {
     if (elemento.style.display === 'none') {
         elemento.style.display = 'block';
     } else {
         elemento.style.display = 'none';
     }
+}
+
+function alternarVisualizacaoListaElementos(arrayElementos)
+{
+    arrayElementos.forEach((elemento) => {
+        alternarVisualizacaoElemento(elemento);
+    })
+}
+
+function alternarEntreRemoverESalvar(linha)
+{
+    let botao_salvar = linha.querySelector('#botao-salvar');
+    let botao_remover = linha.querySelector('#botao-remover');
+
+    alternarVisualizacaoElemento(botao_salvar);
+    alternarVisualizacaoElemento(botao_remover);
+}
+
+function edicao(id_linha)
+{
+    let linha      = document.querySelector(`#id_${id_linha}`);
+    let paragrafos = linha.querySelectorAll(`#id_${id_linha} p.info_editaveis`);
+    let inputs     = linha.querySelectorAll(`#id_${id_linha} input`);
+
+    alternarVisualizacaoListaElementos(paragrafos);
+    alternarVisualizacaoListaElementos(inputs);
+    alternarEntreRemoverESalvar(linha);
 }
 
 function salvarEdicao(id_linha)

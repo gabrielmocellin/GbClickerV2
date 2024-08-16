@@ -4,41 +4,36 @@ namespace GbClicker\DAO;
 
 class UserDAO extends Dao implements IDAO
 {
+    public function register($registerModel) {
+        $userSQLPrepared = $this->prepareUserSQL($registerModel);
+        $levelSQLPrepared = $this->prepareLevelSQL($registerModel);
+
+        if($this->conexao->beginTransaction()) {
+
+            if ($userSQLPrepared->execute() && $levelSQLPrepared->execute()) {
+                $this->conexao->commit();
+                return true;
+            }
+
+            $this->conexao->rollBack();
+        }
+
+        return false;
+    }
+
     public function insert($model)
     {
         $sqlUser = "INSERT INTO usuario (
-                email,
-                password,
-                nickname,
-                clickValue,
-                money,
-                multiplier,
-                minions,
-                image_src,
-                FK_id_tipos_contas
+                email, password, nickname, clickValue, money, multiplier, minions, image_src, FK_id_tipos_contas
             ) VALUES (
-                :email,
-                :password,
-                :nickname,
-                :clickValue,
-                :money,
-                :multiplier,
-                :minions,
-                :image_src,
-                1
+                :email, :password, :nickname, :clickValue, :money, :multiplier, :minions, :image_src, :FK_id_tipos_contas
             )";
 
         $sqlLevel = "INSERT INTO nivel (
-                FK_user_email,
-                level,
-                xp_points,
-                max_to_up
+                FK_user_email, level, xp_points, max_to_up
             ) VALUES (
-                    :FK_user_email,
-                    1,
-                    0,
-                    10
-                )";
+                :FK_user_email, 1, 0, 10
+            )";
 
         $transacao = $this->conexao->beginTransaction();
         $sqlUsuarioPreparado = $this->prepararSqlUser($sqlUser, $model);
@@ -109,6 +104,64 @@ class UserDAO extends Dao implements IDAO
         $sqlPreparado->execute();
     }
 
+    public function prepareUserSQL($registerModel)
+    {
+        $userSQL = "INSERT INTO usuario (email,
+            password,
+            nickname,
+            clickValue,
+            money,
+            multiplier,
+            minions,
+            image_src,
+            FK_id_tipos_contas)
+        VALUES (:email,
+            :password,
+            :nickname,
+            :clickValue,
+            :money,
+            :multiplier,
+            :minions,
+            :image_src,
+            :FK_id_tipos_contas
+        )";
+        
+        $userSQLPrepared = $this->conexao->prepare($userSQL);
+        $encryptedPassword = $this->encryptPassword($registerModel->getUserCredentials()->getPassword());
+
+        $userSQLPrepared->bindValue(":email", $registerModel->getUserCredentials()->getEmail(), \PDO::PARAM_STR);
+        $userSQLPrepared->bindValue(":password", $encryptedPassword, \PDO::PARAM_STR);
+        $userSQLPrepared->bindValue(":clickValue", $registerModel->getUpgradesInfo()->getClickValue(), \PDO::PARAM_INT);
+        $userSQLPrepared->bindValue(":money", $registerModel->getUpgradesInfo()->getMoney(), \PDO::PARAM_INT);
+        $userSQLPrepared->bindValue(":multiplier", $registerModel->getUpgradesInfo()->getMultiplier(), \PDO::PARAM_INT);
+        $userSQLPrepared->bindValue(":minions", $registerModel->getUpgradesInfo()->getMinions(), \PDO::PARAM_INT);
+        $userSQLPrepared->bindValue(":nickname", $registerModel->getNickname(), \PDO::PARAM_STR);
+        $userSQLPrepared->bindValue(":image_src", $registerModel->getImageSrc(), \PDO::PARAM_STR);
+        $userSQLPrepared->bindValue(":FK_id_tipos_contas", $registerModel->getTipoConta(), \PDO::PARAM_INT);
+
+
+        return $userSQLPrepared;
+
+    }
+
+    public function prepareLevelSQL($registerModel)
+    {
+        $levelSQL = "INSERT INTO nivel (
+            FK_user_email, level, xp_points, max_to_up
+        ) VALUES (
+            :FK_user_email, :level, :xp_points, :max_to_up
+        )";
+
+        $levelSQLPrepared = $this->conexao->prepare($levelSQL);
+
+        $levelSQLPrepared->bindValue(":FK_user_email", $registerModel->getUserCredentials()->getEmail(), \PDO::PARAM_STR);
+        $levelSQLPrepared->bindValue(":level", $registerModel->getUpgradesInfo()->getLevelData()->getLevel(), \PDO::PARAM_INT);
+        $levelSQLPrepared->bindValue(":xp_points", $registerModel->getUpgradesInfo()->getLevelData()->getXpPoints(), \PDO::PARAM_INT);
+        $levelSQLPrepared->bindValue(":max_to_up", $registerModel->getUpgradesInfo()->getLevelData()->getMaxToUp(), \PDO::PARAM_INT);
+        
+        return $levelSQLPrepared;
+    }
+
     public function prepararSqlUser($sql, $model)
     {
         $sqlUsuarioPreparado = $this->conexao->prepare($sql);
@@ -142,5 +195,11 @@ class UserDAO extends Dao implements IDAO
         $senhaCriptografada = password_hash($senha, PASSWORD_ARGON2ID);
         $model->setPassword($senhaCriptografada);
         return $senhaCriptografada;
+    }
+
+    public function encryptPassword($password)
+    {
+        $encryptedPassword = password_hash($password, PASSWORD_ARGON2ID);
+        return $encryptedPassword;
     }
 }

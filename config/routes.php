@@ -19,4 +19,7 @@
         "POST|/shop/purchase"       => GbClicker\Controller\SavePurchaseController::class,
         "POST|/save/money"          => GbClicker\Controller\SaveMoneyController::class,
         "GET|/get/item_quant_by_id" => GbClicker\Components\Shop\GetItemQuantAPI::class,
+        "GET|/get/user_info"        => GbClicker\Components\Home\GetUserInfoAPI::class,
+        "POST|/post/click_save"     => GbClicker\Controller\ClickController::class,
+        "POST|/post/minions_money"  => GbClicker\Controller\MinionsMoneyController::class,
     ];

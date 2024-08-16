@@ -15,12 +15,9 @@ class LoginController
     {
         session_start();
 
-        $loggedIn = (
-            session_status() == 2 && 
-            (isset($_SESSION['email']) || isset($_COOKIE['email-logado']))
-        );
+        $isLoggedIn = session_status() == 2 && (isset($_SESSION['email']) || isset($_COOKIE['email-logado']));
 
-        if ($loggedIn) {
+        if ($isLoggedIn) {
             header("location: /home");
             exit;
         }
@@ -56,8 +53,12 @@ class LoginController
     }
 
     public static function returnModelDataFromLoginType()
+    # Essa função é utilizada para popular com os dados recuperados do banco o
+    # objeto UserModel. Caso os dados não tenham sido encontrados, será retornado "null",
+    # caso tenham sido encontrados os dados, o objeto preenchido será retornado.
     {
         $model = new UserModel();
+        
 
         if (isset($_COOKIE['email-logado'])) { // COOKIE LOGIN
             $model->setEmail($_COOKIE['email-logado']);
@@ -71,17 +72,16 @@ class LoginController
         ) {
             $model->setEmail($_POST['email-input']);
             $model->setPassword($_POST['password-input']);
-            if (!$model->dataFoundByEmailAndPassword()) {
-                return null;
-            };
-            if (isset($_POST['cookie-checkbox'])) {
-                setcookie("email-logado", $model->getEmail(), time()+86400);
-            }
-            $_POST = array();
+
+            if (!$model->dataFoundByEmailAndPassword()){ return null; }
+            if (isset($_POST['cookie-checkbox'])){ setcookie("email-logado", $model->getEmail(), time()+86400); }
+
+            $_POST = array(); # Limpando os dados armazenados na superglobal $_POST
         } else {
             return null;
         }
         $_SESSION['email'] = $model->getEmail();
+        
         return $model;
     }
 }

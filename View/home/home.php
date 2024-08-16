@@ -7,7 +7,7 @@
             <p id='minions'></p>
         </div>
         <div id="clicker-img-div" class="image-clicker-div">
-            <img draggable="false" src="img/logo.png" id="clicker-img" onclick="gioco.ClickOnClicker(event)">
+            <img draggable="false" src="img/logo.png" id="clicker-img" onclick="clickOnClicker(event)">
         </div>
         <div class="level-progress-div">
             <p id="level-info-p"></p>

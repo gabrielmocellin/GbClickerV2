@@ -16,7 +16,7 @@ class Formulario
         this.userRegex = /^(?=.*[A-z])[A-z0-9_-]{2,16}$/;
         this.passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,16}$/;
 
-        this.imgVerified = false;
+        this.imgVerified = true;
 
         this.initEventListenerImg();
     }
@@ -45,18 +45,11 @@ class Formulario
             notificationMsg.push("Senhas não coincidem!")
         }
 
-        if (this.imgInput.files.length == 0) {
-            notificationMsg.push("Imagem não selecionada!");
-        } else if (this.imgVerified == false) {
+        if (this.imgInput.files.length > 0 && this.imgVerified == false) {
             notificationMsg.push("Imagem inválida!");
         }
         
-        if (notificationMsg.length > 0) {
-            return notificationMsg;
-        }
-        
-        this.form.submit();
-
+        return notificationMsg;
     }
     //Validações de inputs presentes no formulário.
     validateImg()

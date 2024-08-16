@@ -144,8 +144,8 @@ const erros = {
 };
 
 var mini = new miniNotificacao(erros);
-let itensArray = montarArrayItens();
-adicionarEventListeners(itensArray);
+//let itensArray = montarArrayItens();
+//adicionarEventListeners(itensArray);
 
 
 /*

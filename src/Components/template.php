@@ -31,6 +31,7 @@
     <title><?= $titulo ?></title>
 </head>
 <body>
+    <?php require_once('util/loader.php'); ?>
     <?php require_once('util/header.php'); ?>
     <main>
         <?php

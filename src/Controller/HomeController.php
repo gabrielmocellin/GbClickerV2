@@ -14,9 +14,7 @@ class HomeController
         }
         
         $conteudoMain = '../View/home/home.php';
-        $srcJs = [
-            'js/Home/home.js'
-        ];
+        $srcJs = ['js/Home/home.js'];
         require_once '../src/Components/template.php';
     }
 }

@@ -20,7 +20,9 @@
         SaveAccountEditController,
         SavePurchaseController,
         SaveMoneyController,
-        Error404Controller
+        Error404Controller,
+        MinionsMoneyController,
+        ClickController
     };
 
     use GbClicker\Model\{

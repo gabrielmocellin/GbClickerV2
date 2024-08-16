@@ -43,8 +43,13 @@ class miniNotificacao
         var textoH3 = document.createElement('h3');
 
         textoH3.id = 'mini_notificacao_texto';
-        textoH3.innerHTML = this.identificarErroRetornandoTexto(codigoErro);
 
+        if (typeof codigoErro == 'string') {
+            textoH3.innerHTML = codigoErro;
+        } else {
+            textoH3.innerHTML = this.identificarErroRetornandoTexto(codigoErro);
+        }
+        
         return textoH3;
     }
 

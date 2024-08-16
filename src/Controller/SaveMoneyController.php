@@ -23,7 +23,8 @@ class SaveMoneyController
         $dadosArray = self::verificarConteudoJson();
 
         if ($dadosArray != null) {
-            $resultadoSql = self::executarSql($dadosArray['money'], $userModel->getEmail());
+            $newMoney = $dadosArray['money'] + ($dadosArray['clickValue'] * $dadosArray['multiplier']);
+            $resultadoSql = self::executarSql($newMoney, $userModel->getEmail());
 
             if ($resultadoSql) {
                 echo json_encode(['resposta' => self::DINHEIRO_SALVO]);

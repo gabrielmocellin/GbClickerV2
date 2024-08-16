@@ -1,4 +1,4 @@
-class GerenciadorHeader
+class GerenciadorNavbar
 {
     constructor()
     {

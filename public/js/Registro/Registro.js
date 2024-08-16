@@ -16,7 +16,14 @@ class Registro
     {
         this.submitBtn.addEventListener('click', (event) => {
             event.preventDefault();
-            this.notification.iniciarNotificacao(this.form.validateInputs());
+            let notificationMessages = this.form.validateInputs();
+            let isNotificationMessagesEmpty = (notificationMessages.length == 0)
+            
+            if (isNotificationMessagesEmpty) {
+                this.form.form.submit();
+            } else {
+                this.notification.iniciarNotificacao(notificationMessages);
+            }
         });
     }
     
