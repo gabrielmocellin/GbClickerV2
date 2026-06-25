@@ -54,11 +54,14 @@ class SaveMoneyController
         return null;
     }
 
-    public static function executarSql($money, $email) {
+    public static function executarSql($money, $email)
+    {
         $conexao = Conexao::criarConexao();
-        $sql = "UPDATE usuario SET money = $money WHERE email = '$email'";
-        $sqlPreparado = $conexao->prepare($sql);
+        $sql = 'UPDATE usuario SET money = :money WHERE email = :email';
+        $stmt = $conexao->prepare($sql);
+        $stmt->bindValue(':money', $money, \PDO::PARAM_INT);
+        $stmt->bindValue(':email', $email, \PDO::PARAM_STR);
 
-        return $sqlPreparado->execute();
+        return $stmt->execute();
     }
 }

@@ -2,9 +2,9 @@
     <img class='item-img' src='<?= $imageSrc ?>'>
     <p class='item-name'><?= $nome ?></p>
     <section class='botoes-manipulacao-input'>
-        <button id='add' class='add'>+</button>
+        <button class='add'>+</button>
         <input name='input-quantidade' type='number' class='input-quantidade' value='<?= $quantidade ?>'>
-        <button id='remove' class='remove'>-</button>
+        <button class='remove'>-</button>
     </section>
     <button class='botao-comprar'>Comprar R$
         <p class='item-price'></p>

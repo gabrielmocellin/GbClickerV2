@@ -37,7 +37,10 @@ class RankingController
             echo  "
             <a class='linha' href='/profile?id=".$usuario->getId()."'>
                 <p class='$class'>" . $usuario->getRank() . "</p>
-                <img src='" . $usuario->getImageSrc() . "'>
+                <div class='jogador'>
+                    <img src='" . $usuario->getImageSrc() . "'>
+                    <p class='jogador-nome'>" . $usuario->getNickname() . "</p>
+                </div>
                 <p>" . $usuario->getMoney() . "</p>
                 <p>" . $usuario->getClickValue() . "</p>
                 <p>" . $usuario->getMultiplier() . "</p>

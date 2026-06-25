@@ -31,6 +31,7 @@ function adicionarEventListeners(itensArray) {
     }
 
     itensArray.forEach(async (item) => {
+        ativarEventListenerBotoesQuantidade(item);
         ativarEventListenerInput(item);
         await atualizarQuantidade(item, 1);
         ativarEventListenerCompra(item);
@@ -54,8 +55,103 @@ function ativarEventListenerInput(item) {
     );
 }
 
+function ativarEventListenerBotoesQuantidade(item) {
+    const inputQuantidade = item.querySelector('.input-quantidade');
+    const botaoAdicionar = item.querySelector('.add');
+    const botaoRemover = item.querySelector('.remove');
+
+    botaoAdicionar.addEventListener('click', async () => {
+        const quantidadeAtual = pegarQuantidadeInput(inputQuantidade) || 1;
+        const novaQuantidade = quantidadeAtual + 1;
+        inputQuantidade.value = novaQuantidade;
+        await atualizarQuantidade(item, novaQuantidade);
+    });
+
+    botaoRemover.addEventListener('click', async () => {
+        const quantidadeAtual = pegarQuantidadeInput(inputQuantidade) || 1;
+        const novaQuantidade = Math.max(1, quantidadeAtual - 1);
+        inputQuantidade.value = novaQuantidade;
+        await atualizarQuantidade(item, novaQuantidade);
+    });
+}
+
 function pegarQuantidadeInput(input) {
     return parseInt(input.value);
+}
+
+async function getUserInfoToShop() {
+    const CONFIG_GET_USER_INFO = { method: 'GET' };
+    return await fetch('/get/user_info', CONFIG_GET_USER_INFO)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error('Erro ao buscar dados do usuario!');
+            }
+            return response.json();
+        })
+        .then((data) => (data['resposta'] === 200 ? data : null))
+        .catch((error) => {
+            console.error('Erro:', error);
+            return null;
+        });
+}
+
+async function getUserItemAmount(itemId) {
+    const CONFIG_FETCH_REQUEST = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+    };
+
+    return await fetch(`/get/item_quant_by_id?item_id=${itemId}`, CONFIG_FETCH_REQUEST)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error('Erro ao resgatar quantidade de itens do usuario!');
+            }
+            return response.json();
+        })
+        .then((data) => {
+            if (data['resposta'] !== 200) {
+                mini.criarNotificacao(data['resposta'], true);
+                return null;
+            }
+            return data['quantidade'];
+        })
+        .catch((error) => {
+            console.error('Erro:', error);
+            return null;
+        });
+}
+
+async function salvarItem(itemId, quantidade) {
+    const COMPRA_REALIZADA = 100;
+    const dados = {
+        'id-item': itemId,
+        'input-quantidade': quantidade,
+    };
+
+    const CONFIG_FETCH_REQUEST = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(dados),
+    };
+
+    return await fetch('/shop/purchase', CONFIG_FETCH_REQUEST)
+        .then((response) => response.ok ? response.json() : null)
+        .then((data) => {
+            if (data == null) {
+                return false;
+            }
+            if (data['resposta'] !== COMPRA_REALIZADA) {
+                mini.criarNotificacao(data['resposta'], true);
+                return false;
+            }
+
+            mini.criarNotificacao(data['resposta'], false);
+            return true;
+        })
+        .catch((error) => {
+            console.error('Erro:', error);
+            return false;
+        });
 }
 
 async function atualizarQuantidade(item, novaQuantidade) {
@@ -86,49 +182,56 @@ async function atualizarQuantidade(item, novaQuantidade) {
 }
 
 async function calcularPreco(item, novaQuantidade) {
-    const PORCENTAGEM_POR_UNIDADE = 0.03;
+    const FATOR_CRESCIMENTO = 1.03;
     const PRECO_UNITARIO_INPUT = item.querySelector('.input-preco-unitario');
 
     let precoUnitarioDoInput = parseInt(PRECO_UNITARIO_INPUT.value);
-    let precoUnitario = await calcularPrecoDaProximaUnidade(item, precoUnitarioDoInput);
-
-    precoUnitario = (precoUnitario * novaQuantidade) + (precoUnitario * PORCENTAGEM_POR_UNIDADE * (novaQuantidade - 1));
-
-    return parseInt(precoUnitario);
-}
-
-async function calcularPrecoDaProximaUnidade(item, precoUnitario) {
-    const PORCENTAGEM_POR_UNIDADE = 0.03;
     let itemId = parseInt(item.querySelector('.id-item').value);
-    let quantidadeAtual = await gioco.getUserItemAmount(itemId);
+    let quantidadeAtual = await getUserItemAmount(itemId);
 
-    if (quantidadeAtual === 0) {
-        quantidadeAtual = 1;
+    if (quantidadeAtual == null || quantidadeAtual < 0) {
+        quantidadeAtual = 0;
     }
 
-    precoUnitario = (precoUnitario * quantidadeAtual) + (precoUnitario * PORCENTAGEM_POR_UNIDADE * (quantidadeAtual - 1));
+    const primeiroTermo = precoUnitarioDoInput * (FATOR_CRESCIMENTO ** quantidadeAtual);
+    const somaProgressao = (FATOR_CRESCIMENTO ** novaQuantidade - 1) / (FATOR_CRESCIMENTO - 1);
+    const precoTotal = primeiroTermo * somaProgressao;
 
-    return precoUnitario;
+    if (!Number.isFinite(precoTotal)) {
+        return Number.MAX_SAFE_INTEGER;
+    }
+
+    return Math.ceil(precoTotal);
 }
 
-function comprar(item) {
+async function comprar(item) {
     const DINHEIRO_INSUFICIENTE = 0;
 
     let precoTotal = parseInt(item.querySelector('.input-preco-total').value);
-    let dinheiroInsuficiente = gioco.usuario.dinheiro < precoTotal;
     let quantidade = parseInt(item.querySelector('.input-quantidade').value);
     let itemId = parseInt(item.querySelector('.id-item').value);
+    let userInfo = await getUserInfoToShop();
+    
+    if (userInfo == null) {
+        mini.criarNotificacao(201, true);
+        return;
+    }
+
+    let dinheiroAtual = parseInt(userInfo['money']);
+    let dinheiroInsuficiente = dinheiroAtual < precoTotal;
 
     if (dinheiroInsuficiente) {
         mini.criarNotificacao(DINHEIRO_INSUFICIENTE, true);
         return;
     }
 
-    gioco.usuario.dinheiro -= precoTotal;
-    gioco.salvarDinheiro();
-    gioco.salvarItem(itemId, quantidade);
+    let compraRealizada = await salvarItem(itemId, quantidade);
+    if (!compraRealizada) {
+        return;
+    }
 
-    return;
+    item.querySelector('.input-quantidade').value = 1;
+    await atualizarQuantidade(item, 1);
 }
 
 const erros = {
@@ -138,28 +241,12 @@ const erros = {
     3: 'Apenas quantidade entre: 1, 1000!',
     4: 'Erro ao salvar compra!',
     100: 'Compra realizada com sucesso!',
+    200: "Sessão inválida!",
     201: "Erro ao iniciar sessão!",
     4005: "Usuário não encontrado!",
     4004: "Item não encontrado!",
 };
 
 var mini = new miniNotificacao(erros);
-//let itensArray = montarArrayItens();
-//adicionarEventListeners(itensArray);
-
-
-/*
-function calcularPreco2(item, novaQuantidade) {
-    const PORCENTAGEM_POR_UNIDADE = 1.03;
-    const QUANTIDADE_ADICIONADA   = (novaQuantidade - 1);
-    let precoUnitarioInput = item.querySelector('.input-preco-unitario');
-    let precoUnitario = parseInt(precoUnitarioInput.value);
-
-    if (novaQuantidade === 1) {
-        return parseInt(precoUnitario);
-    }
-
-    let precoCalculado = precoUnitario + (precoUnitario * QUANTIDADE_ADICIONADA) * (PORCENTAGEM_POR_UNIDADE ** QUANTIDADE_ADICIONADA);
-    return parseInt(precoCalculado);
-}
-*/
+let itensArray = montarArrayItens();
+adicionarEventListeners(itensArray);

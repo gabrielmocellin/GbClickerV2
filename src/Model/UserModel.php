@@ -4,7 +4,7 @@
 
 namespace Gbclicker\Model;
 
-use GbClicker\DAO\UserDao;
+use GbClicker\DAO\UserDAO;
 use GbClicker\Model\{LevelModel, UpgradesInfoModel, UserCredentialsModel};
 
 class UserModel
@@ -34,10 +34,11 @@ class UserModel
 
     public function getFirstTenAccoutsByPage(int $page)
     {
-        $fim    = $page * 10;
-        $inicio = $fim - 10;
-        $dao    = new UserDAO();
-        $contas = $dao->selectTenPerPage($inicio, $fim);
+        $page = max(1, $page);
+        $limit = 10;
+        $offset = ($page - 1) * $limit;
+        $dao = new UserDAO();
+        $contas = $dao->selectTenPerPage($offset, $limit);
         $contas = UserModel::elementosResultadosDeQueryParaUserModel($contas);
         return $contas;
     }

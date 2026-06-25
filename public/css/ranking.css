@@ -2,7 +2,7 @@ div#admin
 {
     position: relative;
     display: grid;
-    grid-template-rows: repeat(11, 1fr);
+    grid-template-rows: auto auto repeat(10, minmax(0, 1fr));
     grid-template-columns: 1fr;
     background-color: #D9D9D9;
     overflow-y: auto;
@@ -60,6 +60,25 @@ div#admin .linha img
     object-fit: cover;
     height: 3em;
     aspect-ratio: 1;
+}
+
+div#admin .linha .jogador
+{
+    width: min(18rem, 95%);
+    display: grid;
+    grid-template-columns: 3em 1fr;
+    align-items: center;
+    justify-content: start;
+    gap: 0.6em;
+}
+
+div#admin .linha .jogador-nome
+{
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: left;
 }
 
 .first_rank

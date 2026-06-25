@@ -2,28 +2,38 @@
 div#shop-div
 {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(13.5rem, 15.8rem));
+    grid-auto-rows: minmax(12.2rem, auto);
+    justify-content: center;
+    align-content: start;
     width: 100%;
     height: 100%;
     font-family: "DM Sans";
-    gap: 5em;
-    padding: 2em 15em;
+    gap: 1.25em;
+    padding: 1.2em 1.4em 1.8em;
     box-shadow: #888 0 0 0.2em 0;
     overflow-y: auto;
 }
 
 .item
 {
-    padding: 1em;
-    background-color: var(--lightGrayGreen);
+    padding: 0.85em 0.85em 0.9em;
+    background: linear-gradient(180deg, #a6b9af 0%, var(--lightGrayGreen) 100%);
     display: grid;
-    grid-template-rows: 1fr 1fr 0.5fr 1fr;
+    grid-template-rows: auto auto auto auto;
     justify-items: center;
     align-items: center;
-    border: 0.5em solid #3b5142;
-    border-radius: 1em;
-    box-shadow: inset black 0 0 0.4em 0;
+    gap: 0.25em;
+    border: 0.2em solid #3b5142;
+    border-radius: 0.8em;
+    box-shadow: inset rgba(0, 0, 0, 0.25) 0 0 0.35em 0, rgba(22, 34, 27, 0.2) 0 8px 20px -12px;
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.item:hover
+{
+    transform: translateY(-2px);
+    box-shadow: inset rgba(0, 0, 0, 0.22) 0 0 0.35em 0, rgba(22, 34, 27, 0.34) 0 12px 26px -14px;
 }
 
 /* Imagem do ITEM */
@@ -31,20 +41,23 @@ div#shop-div
 {
     border-radius: 50%;
     height: auto;
-    width: 4em;
+    width: 3.3em;
     aspect-ratio: 1;
     background-color: #efefef;
-    box-shadow: black 0 0.3em 0.3em 0;
+    border: 0.12em solid rgba(255, 255, 255, 0.8);
+    box-shadow: rgba(0, 0, 0, 0.35) 0 0.35em 0.35em 0;
 }
 
 /* Nome do ITEM */
 .item-name
 {
     text-align: center;
-    color: black;
+    color: #1e2a22;
     font-weight: bold;
-    font-size: 1.5em;
+    font-size: 1.02em;
     word-wrap: break-word;
+    line-height: 1.05;
+    min-height: 1.6em;
 }
 
 /* Botões que manipulam o valor do INPUT */
@@ -52,22 +65,26 @@ div#shop-div
 {
     align-items: center;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    gap: 0.75em;
     width: 100%;
-    height: 100%;
-    font-size: 1em;
+    font-size: 0.92em;
 }
 
 /* Input de QUANTIDADE */
-.item input
+.item .input-quantidade
 {
     font-family: "DM Sans";
     text-align: center;
     outline: none;
-    border: none;
-    background-color: transparent;
+    border: 0.15em solid rgba(59, 81, 66, 0.35);
+    background-color: rgba(255, 255, 255, 0.32);
+    border-radius: 0.38em;
     font-weight: bold;
     font-size: 1em;
+    width: 2.5em;
+    padding: 0.08em 0.08em;
+    color: #233128;
 }
 
 input[type="number"]::-webkit-inner-spin-button,
@@ -103,20 +120,27 @@ input[type="number"] {
 .botoes-manipulacao-input button
 {
 
-    width: 2em;
-    height: 2em;
-    font-size: 1em;
+    width: 1.45em;
+    height: 1.45em;
+    font-size: 0.9em;
     outline: none;
     border: none;
     cursor: pointer;
     font-weight: bold;
     color: white;
     border-radius: 50%;
-    transition: linear 0.1s;
+    transition: transform 0.09s linear, filter 0.09s linear, box-shadow 0.09s linear;
+    box-shadow: rgba(0, 0, 0, 0.25) 0 0.12em 0.2em 0;
+}
+
+.botoes-manipulacao-input button:hover
+{
+    filter: brightness(1.08);
 }
 
 .botoes-manipulacao-input button:active
 {
+    transform: scale(0.95);
     box-shadow: inset black 0 0 0.2em 0;
 }
 
@@ -125,24 +149,35 @@ input[type="number"] {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #A3C1A2;
-    color: white;
+    gap: 0.25em;
+    min-width: 7.2em;
+    background: linear-gradient(180deg, #f3b95b 0%, #de8c25 100%);
+    color: #fff7ea;
     font-weight: bold;
-    border: white solid 2px;
-    padding: 0.5em;
-    border-radius: 0.5em;
+    border: rgba(255, 236, 204, 0.85) solid 2px;
+    padding: 0.28em 0.52em;
+    border-radius: 0.42em;
     cursor: pointer;
-    transition: linear 0.1s;
-    font-size: 1em;
+    transition: transform 0.1s linear, filter 0.1s linear, box-shadow 0.1s linear;
+    font-size: 0.74em;
+    box-shadow: rgba(136, 70, 8, 0.35) 0 0.2em 0.35em 0;
+}
+
+.botao-comprar .item-price
+{
+    margin: 0;
+    color: #fff5e6;
+    text-shadow: 0 1px 0 rgba(80, 36, 3, 0.35);
 }
 
 .botao-comprar:hover
 {
-    background-color: var(--30green);
+    filter: brightness(1.05);
 }
 
 .botao-comprar:active
 {
+    transform: scale(0.98);
     box-shadow: inset black 0 0 0.2em 0;
 }
 
@@ -150,7 +185,8 @@ input[type="number"] {
 {
     div#shop-div
     {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(12.8rem, 15.2rem));
+        padding: 1.1em 1em 1.6em;
     }
 }
 
@@ -159,5 +195,8 @@ input[type="number"] {
     div#shop-div
     {
         grid-template-columns: 1fr;
+        justify-content: stretch;
+        padding: 0.9em 0.8em 1.3em;
+        gap: 0.9em;
     }
 }

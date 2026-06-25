@@ -70,30 +70,36 @@ class UserDAO extends Dao implements IDAO
         return $sqlPreparado->fetch(\PDO::FETCH_ASSOC);
     }
 
-    public function selectTenPerPage(int $inicio, int $fim)
+    public function selectTenPerPage(int $offset, int $limit)
     {
-        $sql = "SELECT usuario.id, usuario.email, usuario.nickname, usuario.image_src, usuario.clickValue,
+        $sql = 'SELECT usuario.id, usuario.email, usuario.nickname, usuario.image_src, usuario.clickValue,
         usuario.money, usuario.multiplier, usuario.minions, nivel.level, tipos_contas.nome
         FROM usuario
-        JOIN nivel
-        JOIN tipos_contas
-        WHERE usuario.email = nivel.FK_user_email
-        AND usuario.FK_id_tipos_contas = tipos_contas.id
-        AND tipos_contas.id = 1
-        ORDER BY money DESC LIMIT $inicio, $fim;
-        ";
-        $sqlPreparado = $this->conexao->query($sql);
-        return $sqlPreparado->fetchAll(\PDO::FETCH_ASSOC);
+        INNER JOIN nivel ON usuario.email = nivel.FK_user_email
+        INNER JOIN tipos_contas ON usuario.FK_id_tipos_contas = tipos_contas.id
+        WHERE tipos_contas.id = 1
+        ORDER BY usuario.money DESC
+        LIMIT :offset, :limit';
+        $stmt = $this->conexao->prepare($sql);
+        $stmt->bindValue(':offset', $offset, \PDO::PARAM_INT);
+        $stmt->bindValue(':limit', $limit, \PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public function selectByEmail(string $email)
     {
-        /*$sql = "SELECT * FROM usuario JOIN nivel 
-        WHERE usuario.email = nivel.FK_user_email and usuario.email = '$email'";*/
-        $sql = "SELECT usuario.*, nivel.*, tipos_contas.nome AS tipo_conta FROM usuario JOIN nivel JOIN tipos_contas
-        WHERE usuario.email = nivel.FK_user_email AND usuario.FK_id_tipos_contas = tipos_contas.id AND usuario.email =  '$email';";
-        $sqlPreparado = $this->conexao->query($sql);
-        return $sqlPreparado->fetch(\PDO::FETCH_ASSOC);
+        $sql = 'SELECT usuario.*, nivel.*, tipos_contas.nome AS tipo_conta
+            FROM usuario
+            INNER JOIN nivel ON usuario.email = nivel.FK_user_email
+            INNER JOIN tipos_contas ON usuario.FK_id_tipos_contas = tipos_contas.id
+            WHERE usuario.email = :email';
+        $stmt = $this->conexao->prepare($sql);
+        $stmt->bindValue(':email', $email, \PDO::PARAM_STR);
+        $stmt->execute();
+
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
     public function delete($identifier)

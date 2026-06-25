@@ -27,10 +27,12 @@ class ItemDAO extends Dao implements IDAO
 
     public function selectById($id)
     {
-        $sql = "SELECT * FROM itens WHERE id = $id;";
-        $sql_result = $this->conexao->query($sql);
-        $sql_result = $sql_result->fetch(\PDO::FETCH_ASSOC);
-        return $sql_result;
+        $sql = 'SELECT * FROM itens WHERE id = :id';
+        $stmt = $this->conexao->prepare($sql);
+        $stmt->bindValue(':id', $id, \PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 
     public function select()

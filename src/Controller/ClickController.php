@@ -45,16 +45,23 @@ class ClickController
         return $userModel;
     }
 
-    public static function executarSql($levelData, $money, $email) {
+    public static function executarSql($levelData, $money, $email)
+    {
         $conexao = Conexao::criarConexao();
-        $newLevel = $levelData->getLevel();
-        $newXpPoints = $levelData->getXpPoints();
-        $newMaxToUp = $levelData->getMaxToUp();
-        $sql = "UPDATE usuario, nivel 
-            SET usuario.money = $money, nivel.level = $newLevel, nivel.xp_points = $newXpPoints, nivel.max_to_up = $newMaxToUp 
-            WHERE usuario.email = nivel.FK_user_email AND usuario.email = '$email'";
-        $sqlPreparado = $conexao->prepare($sql);
+        $sql = 'UPDATE usuario, nivel
+            SET usuario.money = :money,
+                nivel.level = :level,
+                nivel.xp_points = :xp_points,
+                nivel.max_to_up = :max_to_up
+            WHERE usuario.email = nivel.FK_user_email
+              AND usuario.email = :email';
+        $stmt = $conexao->prepare($sql);
+        $stmt->bindValue(':money', $money, \PDO::PARAM_INT);
+        $stmt->bindValue(':level', $levelData->getLevel(), \PDO::PARAM_INT);
+        $stmt->bindValue(':xp_points', $levelData->getXpPoints(), \PDO::PARAM_INT);
+        $stmt->bindValue(':max_to_up', $levelData->getMaxToUp(), \PDO::PARAM_INT);
+        $stmt->bindValue(':email', $email, \PDO::PARAM_STR);
 
-        return $sqlPreparado->execute();
+        return $stmt->execute();
     }
 }

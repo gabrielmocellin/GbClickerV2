@@ -45,11 +45,16 @@ class MinionsMoneyController
         return $userModel;
     }
 
-    public static function executarSql($minionsMoney, $email) {
+    public static function executarSql($minionsMoney, $email)
+    {
         $conexao = Conexao::criarConexao();
-        $sql = "UPDATE usuario SET usuario.money = usuario.money + $minionsMoney WHERE usuario.email = '$email'";
-        $sqlPreparado = $conexao->prepare($sql);
+        $sql = 'UPDATE usuario
+            SET usuario.money = usuario.money + :minionsMoney
+            WHERE usuario.email = :email';
+        $stmt = $conexao->prepare($sql);
+        $stmt->bindValue(':minionsMoney', $minionsMoney, \PDO::PARAM_INT);
+        $stmt->bindValue(':email', $email, \PDO::PARAM_STR);
 
-        return $sqlPreparado->execute();
+        return $stmt->execute();
     }
 }

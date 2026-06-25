@@ -6,7 +6,7 @@
     </div>
     <div class='header'>
         <p>Rank</p>
-        <p>Foto</p>
+        <p>Jogador</p>
         <p>R$</p>
         <p>V.Clique</p>
         <p>Mult</p>

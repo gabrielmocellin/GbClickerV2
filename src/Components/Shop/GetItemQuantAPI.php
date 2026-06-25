@@ -9,6 +9,9 @@
         const INVALID_SESSION = 201;
         const COMPLETE = 200;
 
+        /** Colunas permitidas em usuario (alinha com tipos_itens.classificacao). */
+        private const COLUNAS_USUARIO_PERMITIDAS = ['clickValue', 'multiplier', 'minions'];
+
         public static function index()
         {
             session_start();
@@ -51,8 +54,9 @@
             $conexao = Conexao::criarConexao();
 
             $sqlClassificacao = "SELECT classificacao
-                FROM tipos_itens
-                WHERE tipos_itens.id = :id;
+                FROM itens
+                INNER JOIN tipos_itens ON tipos_itens.id = itens.FK_id_tipos_itens
+                WHERE itens.id = :id;
             ";
 
             $stmt = $conexao->prepare($sqlClassificacao);
@@ -74,10 +78,17 @@
 
         public static function getUserItemAmount(string $item_type, string $email)
         {
+            if (!in_array($item_type, self::COLUNAS_USUARIO_PERMITIDAS, true)) {
+                return [
+                    'status' => false,
+                    'resultado' => null,
+                ];
+            }
+
             $conexao = Conexao::criarConexao();
-            $sql = "SELECT $item_type
-            FROM usuario 
-            WHERE email = :email;";
+            $sql = 'SELECT `' . $item_type . '`
+            FROM usuario
+            WHERE email = :email';
 
             $stmt = $conexao->prepare($sql);
             $stmt->bindParam(':email', $email, \PDO::PARAM_STR);

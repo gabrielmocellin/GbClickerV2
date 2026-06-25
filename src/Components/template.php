@@ -14,7 +14,7 @@
     function montarScripts($srcJs)
     {
         foreach ($srcJs as $src) {
-            echo "<script lang='JavaScript' src='" . $GLOBALS['prefix'] . $src . "'></script>";
+            echo "<script src='" . $GLOBALS['prefix'] . $src . "'></script>";
         }
     }
 
