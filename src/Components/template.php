@@ -7,14 +7,14 @@
     function montarLinks($linksCss)
     {
         foreach ($linksCss as $link) {
-            echo "<link rel='stylesheet' href='" . $GLOBALS['prefix'] . $link . "'>";
+            echo "<link rel='stylesheet' href='/" . $link . "'>";
         }
     }
 
     function montarScripts($srcJs)
     {
         foreach ($srcJs as $src) {
-            echo "<script src='" . $GLOBALS['prefix'] . $src . "'></script>";
+            echo "<script src='/". $src . "'></script>";
         }
     }
 
@@ -25,8 +25,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="img/favicon.png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="stylesheet" href='<?= $GLOBALS['prefix'] . 'css/site.css' ?>' />
-    <link rel="stylesheet" href='<?= $GLOBALS['prefix'] . 'css/miniNotificacao.css' ?>' />
+    <link rel="stylesheet" href='/css/site.css' />
+    <link rel="stylesheet" href='/css/miniNotificacao.css' />
     <?php montarLinks($linksCss); ?>
     <title><?= $titulo ?></title>
 </head>

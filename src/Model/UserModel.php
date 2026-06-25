@@ -2,7 +2,7 @@
 
 # Essa classe deve ser utilizada para o salvamento de informações no banco e recebimento dessas informações
 
-namespace Gbclicker\Model;
+namespace GbClicker\Model;
 
 use GbClicker\DAO\UserDAO;
 use GbClicker\Model\{LevelModel, UpgradesInfoModel, UserCredentialsModel};

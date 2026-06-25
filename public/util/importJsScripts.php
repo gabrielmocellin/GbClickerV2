@@ -1,9 +1,9 @@
-<script lang='JavaScript' src='<?= $GLOBALS['prefix'] ?>js/GerenciadorNavbar.js'></script>
-<script lang='JavaScript' src='<?= $GLOBALS['prefix'] ?>js/User.js'></script>
-<script lang='JavaScript' src='<?= $GLOBALS['prefix'] ?>js/util/miniNotificacao.js'></script>
-<script lang='JavaScript' src='<?= $GLOBALS['prefix'] ?>js/util/formatadorNums.js'></script>
-<script lang='JavaScript' src='<?= $GLOBALS['prefix'] ?>js/UserInfoManager.js'></script>
-<script lang='JavaScript' src='<?= $GLOBALS['prefix'] ?>js/jogo.js'></script>
+<script lang='JavaScript' src='/js/GerenciadorNavbar.js'></script>
+<script lang='JavaScript' src='/js/User.js'></script>
+<script lang='JavaScript' src='/js/util/miniNotificacao.js'></script>
+<script lang='JavaScript' src='/js/util/formatadorNums.js'></script>
+<script lang='JavaScript' src='/js/UserInfoManager.js'></script>
+<script lang='JavaScript' src='/js/jogo.js'></script>
 <script lang='JavaScript'>
   var gerenciadorNavbar = new GerenciadorNavbar();
   const userInfoManager = new UserInfoManager();
