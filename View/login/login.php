@@ -1,7 +1,5 @@
 <?php
 
-    use GbClicker\Controller\LoginController;
-
 ?><!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -50,6 +48,6 @@
     <script lang="JavaScript" src="js/Login/Formulario.js"></script> 
     <script lang="JavaScript" src="js/Login/Login.js"></script>
     <script>var login = new Login();</script>
-    <?php LoginController::dispararAvisos(); ?>
+    <?php $this->dispararAvisos(); ?>
 </body>
 </html>

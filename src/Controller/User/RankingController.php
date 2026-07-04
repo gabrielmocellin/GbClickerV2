@@ -1,8 +1,8 @@
 <?php
 
-namespace GbClicker\Controller;
+namespace GbClicker\Controller\User;
 
-use GbClicker\Controller\LoginController;
+use GbClicker\Controller\Auth\LoginController;
 use GbClicker\Model\RankModel;
 
 class RankingController

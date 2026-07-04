@@ -1,5 +1,5 @@
 <?php
-    namespace GbClicker\Components\Shop;
+    namespace GbClicker\Controller\Api;
 
     use GbClicker\Conexao\Conexao;
 

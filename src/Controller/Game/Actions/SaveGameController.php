@@ -1,6 +1,6 @@
 <?php
 
-namespace GbClicker\Controller;
+namespace GbClicker\Controller\Game\Actions;
 
 use GbClicker\Conexao\Conexao;
 

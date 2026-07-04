@@ -1,9 +1,9 @@
 <?php
 
-namespace GbClicker\Controller\AdminController;
+namespace GbClicker\Controller\Admin\Actions;
 
 use GbClicker\Model\ItemModel;
-use GbClicker\Controller\AdminPageController;
+use GbClicker\Controller\Admin\AdminPageController;
 
 class SaveItemController
 {

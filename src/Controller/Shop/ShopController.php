@@ -1,11 +1,12 @@
 <?php
 
-namespace GbClicker\Controller;
+namespace GbClicker\Controller\Shop;
 
 use GbClicker\Model\{
     UserModel,
     ItemModel
 };
+use GbClicker\Controller\Auth\LoginController;
 
 class ShopController
 {

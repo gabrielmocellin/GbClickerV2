@@ -1,6 +1,6 @@
 <?php
 
-namespace GbClicker\Controller;
+namespace GbClicker\Controller\Auth;
 
 use GbClicker\Model\UserModel;
 use GbClicker\Http\Request;
@@ -31,7 +31,7 @@ class LoginController
             exit;
         }
 
-        include_once __DIR__ . '/../../View/login/login.php';
+        include_once __DIR__ . '/../../../View/login/login.php';
     }
 
     public function login()

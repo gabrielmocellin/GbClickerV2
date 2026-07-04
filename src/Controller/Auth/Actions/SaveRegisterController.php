@@ -1,6 +1,6 @@
 <?php
 
-namespace GbClicker\Controller;
+namespace GbClicker\Controller\Auth\Actions;
 
 use GbClicker\Model\{UserModel, RegisterModel, UserCredentialsModel, ImageModel};
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace GbClicker\Controller;
+namespace GbClicker\Controller\Shop\Actions;
 
 use GbClicker\Service\PurchaseService;
 use GbClicker\Http\Request;

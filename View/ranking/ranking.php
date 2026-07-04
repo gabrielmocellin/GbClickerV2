@@ -1,5 +1,5 @@
 <?php
-    use GbClicker\Controller\RankingController;
+
 ?><div id='admin'>
     <div class='top'>
             <h1 class='boas_vindas'>TOP 10 Magnatas</h1>
@@ -12,5 +12,5 @@
         <p>Mult</p>
         <p>Minions</p>
     </div>
-    <?php RankingController::showUsers(); ?>
+    <?php $this->showUsers(); ?>
 </div>

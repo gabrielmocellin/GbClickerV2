@@ -1,8 +1,8 @@
 <?php
 
-namespace GbClicker\Controller;
+namespace GbClicker\Controller\Admin;
 
-use GbClicker\Controller\LoginController;
+use GbClicker\Controller\Auth\LoginController;
 
 class AdminPageController
 {
@@ -16,7 +16,7 @@ class AdminPageController
     public function index()
     {
         $model = $this->verifyAdminAccount();
-        include_once __DIR__ . "\\..\\..\\View\\admin\\admin.php";
+        include_once __DIR__ . "\\..\\..\\..\\View\\admin\\admin.php";
     }
 
     public function verifyAdminAccount()

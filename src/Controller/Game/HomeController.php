@@ -1,6 +1,7 @@
 <?php
 
-namespace GbClicker\Controller;
+namespace GbClicker\Controller\Game;
+use GbClicker\Controller\Auth\LoginController;
 
 class HomeController
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace GbClicker\Controller\AdminController;
+namespace GbClicker\Controller\Admin;
 
 use GbClicker\DAO\UserDAO;
 use GbClicker\Model\UserModel;
-use GbClicker\Controller\AdminPageController;
+use GbClicker\Controller\Admin\AdminPageController;
 
 class AccountsController
 {

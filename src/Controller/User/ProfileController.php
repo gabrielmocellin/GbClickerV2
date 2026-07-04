@@ -1,7 +1,8 @@
 <?php
 
-namespace GbClicker\Controller;
+namespace GbClicker\Controller\User;
 use GbClicker\Model\ProfileModel;
+use GbClicker\Controller\Auth\LoginController;
 
 class ProfileController
 {

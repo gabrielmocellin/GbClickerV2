@@ -1,6 +1,6 @@
 <?php
 
-namespace GbClicker\Controller;
+namespace GbClicker\Controller\Admin\Actions;
 
 use Exception;
 use GbClicker\Conexao\Conexao;

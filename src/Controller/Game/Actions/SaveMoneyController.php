@@ -1,10 +1,10 @@
 <?php
 
-namespace GbClicker\Controller;
+namespace GbClicker\Controller\Game\Actions;
 
 use GbClicker\Model\UserModel;
 use GbClicker\Conexao\Conexao;
-use GbClicker\Controller\LoginController;
+use GbClicker\Controller\Auth\LoginController;
 
 class SaveMoneyController
 {

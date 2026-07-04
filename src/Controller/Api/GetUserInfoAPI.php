@@ -1,5 +1,5 @@
 <?php
-    namespace GbClicker\Components\Home;
+    namespace GbClicker\Controller\Api;
 
     use GbClicker\Conexao\Conexao;
     use GbClicker\Model\UserModel;

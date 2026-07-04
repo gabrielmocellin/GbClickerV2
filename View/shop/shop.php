@@ -1,6 +1,8 @@
 <?php
-    /** @var GbClicker\Model\UserModel $model */
-    use GbClicker\Controller\ShopController;  
+    /** 
+     * @var GbClicker\Model\UserModel $model 
+     * @var array $itemsArray */
+    use GbClicker\Controller\Shop\ShopController;  
 ?><div id="shop-div">
     <?php $this->mostrarItens($itemsArray, $model->getLevel()); ?>
 </div>

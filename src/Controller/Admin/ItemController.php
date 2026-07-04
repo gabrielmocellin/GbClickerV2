@@ -1,6 +1,6 @@
 <?php
 
-namespace GbClicker\Controller;
+namespace GbClicker\Controller\Admin;
 
 use GbClicker\Model\ItemModel;
 
@@ -18,6 +18,6 @@ class ItemController
         $model = $this->adminPageController->verifyAdminAccount();
         $itemModel = new ItemModel();
         $tipos = $itemModel->getAllTypes();
-        include __DIR__ . "\\..\\..\\View\\admin\\addItems.php";
+        include __DIR__ . "\\..\\..\\..\\View\\admin\\addItems.php";
     }
 }
