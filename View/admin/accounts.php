@@ -3,29 +3,29 @@
 ?><div id='admin'>
     <div class='top'>
         <h1 class='boas_vindas'>Gerenciar Contas</h1>
+        <form method='GET' action='/admin/accounts' class='search-bar'>
+            <input type='text' name='search' placeholder='Buscar por Email ou Nickname' value='<?= htmlspecialchars($_GET['search'] ?? '', ENT_QUOTES) ?>'>
+            <button type='submit' class='botao-acoes blue'>Buscar</button>
+            <?php if (!empty($_GET['search'])): ?>
+                <a href='/admin/accounts' class='botao-acoes red'>Limpar</a>
+            <?php endif; ?>
+        </form>
     </div>
-    <div class='header'>
-        <p>ID</p>
-        <p>Email</p>
-        <p>Nickname</p>
-        <p>Foto</p>
-        <p>R$</p>
-        <p>Valor p/Clique</p>
-        <p>Multiplicador</p>
-        <p>Minions</p>
-        <p>Ações</p>
+    <div class='table-wrapper'>
+        <div class='table-container'>
+            <div class='header'>
+                <p>ID</p>
+                <p>Email</p>
+                <p>Nickname</p>
+                <p>Foto</p>
+                <p>R$</p>
+                <p>Valor p/Clique</p>
+                <p>Multiplicador</p>
+                <p>Minions</p>
+                <p>Ações</p>
+            </div>
+            <?php $this->showUsers(); ?>
+        </div>
     </div>
-    <?php $this->showUsers(); ?>
-    <section class='seletor-paginas'>
-        <a href='/admin/accounts?page=1'>1</a>
-        <a href='/admin/accounts?page=2'>2</a>
-        <a href='/admin/accounts?page=3'>3</a>
-        <a href='/admin/accounts?page=4'>4</a>
-        <a href='/admin/accounts?page=5'>5</a>
-        <a href='/admin/accounts?page=6'>6</a>
-        <a href='/admin/accounts?page=7'>7</a>
-        <a href='/admin/accounts?page=8'>8</a>
-        <a href='/admin/accounts?page=9'>9</a>
-        <a>...</a>
-    </section>
+    <?php $this->showPagination(); ?>
 </div>

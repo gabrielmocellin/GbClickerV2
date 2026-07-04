@@ -37,34 +37,66 @@ class AccountsController
     public function showUsers()
     {
         $usermodel = new UserModel();
-        if (!$this->request->hasGet('page')) {
-            $contas = $usermodel->getFirstTenAccoutsByPage(1);
-        } else {
-            $contas = $usermodel->getFirstTenAccoutsByPage($this->request->get('page'));
-        }
+        $page = $this->request->get('page') ?? 1;
+        $search = $this->request->get('search') ?? '';
+        
+        $contas = $usermodel->getFirstTenAccoutsByPage((int)$page, $search);
+        
         echo "<div id='linhas_dados_usuarios'>";
         foreach ($contas as $conta) {
             echo $this->montarLinhas($conta);
         }
         echo "</div>";
+    }
 
+    public function showPagination()
+    {
+        $usermodel = new UserModel();
+        $search = $this->request->get('search') ?? '';
+        $total = $usermodel->countTotalAccounts($search);
+        
+        $totalPages = ceil($total / 10);
+        $currentPage = (int)($this->request->get('page') ?? 1);
+        
+        $searchQuery = !empty($search) ? '&search=' . urlencode($search) : '';
+
+        echo "<section class='seletor-paginas'>";
+        if ($totalPages <= 1) {
+            echo "<a href='/admin/accounts?page=1{$searchQuery}' class='active'>1</a>";
+        } else {
+            for ($i = 1; $i <= $totalPages; $i++) {
+                $activeClass = ($i === $currentPage) ? "class='active'" : "";
+                echo "<a href='/admin/accounts?page={$i}{$searchQuery}' {$activeClass}>{$i}</a>";
+            }
+        }
+        echo "</section>";
     }
 
     public function montarLinhas($conta)
     {
+        $nickname = htmlspecialchars((string)$conta->getNickname(), ENT_QUOTES, 'UTF-8');
+        $imageSrc = htmlspecialchars((string)$conta->getImageSrc(), ENT_QUOTES, 'UTF-8');
+        $money = htmlspecialchars((string)$conta->getMoney(), ENT_QUOTES, 'UTF-8');
+        $clickValue = htmlspecialchars((string)$conta->getClickValue(), ENT_QUOTES, 'UTF-8');
+        $multiplier = htmlspecialchars((string)$conta->getMultiplier(), ENT_QUOTES, 'UTF-8');
+        $minions = htmlspecialchars((string)$conta->getMinions(), ENT_QUOTES, 'UTF-8');
+
         $informacoes_e_tipo_input_array = array(
-            [$conta->getNickname(), "text", "nickname"],
-            [$conta->getImageSrc(), "image", "imagesrc"],
-            [$conta->getMoney(), "number", "money"],
-            [$conta->getClickValue(), "number", "clickValue"],
-            [$conta->getMultiplier(), "number", "multiplier"],
-            [$conta->getMinions(), "number", "minions"]
+            [$nickname, "text", "nickname"],
+            [$imageSrc, "image", "imagesrc"],
+            [$money, "number", "money"],
+            [$clickValue, "number", "clickValue"],
+            [$multiplier, "number", "multiplier"],
+            [$minions, "number", "minions"]
         );
 
+        $id = htmlspecialchars((string)$conta->getId(), ENT_QUOTES, 'UTF-8');
+        $email = htmlspecialchars((string)$conta->getEmail(), ENT_QUOTES, 'UTF-8');
+
         $comecoLinha = "
-        <form id='id_" . $conta->getId() . "' class='linha' method='POST' action='./accounts/save'>
-            <p class='p_user_info'>" . $conta->getId() . "</p>
-            <p class='p_user_info' title='" . $conta->getEmail() . "'>" . $conta->getEmail() . "</p>
+        <form id='id_" . $id . "' class='linha' method='POST' action='./accounts/save'>
+            <p class='p_user_info'>" . $id . "</p>
+            <p class='p_user_info' title='" . $email . "'>" . $email . "</p>
         ";
 
         $meioLinha = "";
@@ -82,9 +114,11 @@ class AccountsController
         }
 
         $fimLinha = "
-            <a onclick='edicao(" . $conta->getId() . ")' class='botao-acoes blue'>Editar</a>
-            <a id='botao-remover' class='botao-acoes red'>Remover</a>
-            <a onclick='salvarEdicao(" . $conta->getId() . ")' id='botao-salvar' style='display:none' class='botao-acoes green'>Salvar</a>
+            <div class='acoes-container'>
+                <a onclick='edicao(" . $id . ")' class='botao-acoes blue'>Editar</a>
+                <a id='botao-remover' onclick='removerConta(" . $id . ")' class='botao-acoes red'>Remover</a>
+                <a onclick='salvarEdicao(" . $id . ")' id='botao-salvar' style='display:none' class='botao-acoes green'>Salvar</a>
+            </div>
         </form>
     ";
 

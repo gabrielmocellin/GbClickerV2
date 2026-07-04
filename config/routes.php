@@ -16,6 +16,7 @@
         "GET|/admin"                => GbClicker\Controller\Admin\AdminPageController::class,
         "GET|/ranking"              => GbClicker\Controller\User\RankingController::class,
         "POST|/admin/accounts/save" => GbClicker\Controller\Admin\Actions\SaveAccountEditController::class,
+        "POST|/admin/accounts/delete" => GbClicker\Controller\Admin\Actions\DeleteAccountController::class,
         "POST|/shop/purchase"       => GbClicker\Controller\Shop\Actions\SavePurchaseController::class,
         "POST|/save/money"          => GbClicker\Controller\Game\Actions\SaveMoneyController::class,
         "GET|/get/item_quant_by_id" => GbClicker\Controller\Api\GetItemQuantAPI::class,

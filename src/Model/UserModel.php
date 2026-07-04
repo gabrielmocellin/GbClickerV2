@@ -32,15 +32,21 @@ class UserModel
         return $dao->insert($this);
     }
 
-    public function getFirstTenAccoutsByPage(int $page)
+    public function getFirstTenAccoutsByPage(int $page, string $search = '')
     {
         $page = max(1, $page);
         $limit = 10;
         $offset = ($page - 1) * $limit;
         $dao = new UserDAO();
-        $contas = $dao->selectTenPerPage($offset, $limit);
+        $contas = $dao->selectTenPerPage($offset, $limit, $search);
         $contas = UserModel::elementosResultadosDeQueryParaUserModel($contas);
         return $contas;
+    }
+
+    public function countTotalAccounts(string $search = ''): int
+    {
+        $dao = new UserDAO();
+        return $dao->countTotalAccounts($search);
     }
 
     public static function elementosResultadosDeQueryParaUserModel($resultado)

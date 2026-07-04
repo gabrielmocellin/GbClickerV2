@@ -85,6 +85,21 @@ function salvarEdicao(id_linha)
     .then(data => {
         if (data['resposta'] === 0) {
             mini.criarNotificacao(data['resposta']);
+            
+            let paragrafos = linha.querySelectorAll(`p.info_editaveis`);
+            if (paragrafos.length === 5) {
+                paragrafos[0].innerText = nicknameInput.value;
+                paragrafos[0].title = nicknameInput.value;
+                
+                paragrafos[1].innerText = moneyInput.value;
+                paragrafos[2].innerText = clickValueInput.value;
+                paragrafos[3].innerText = multiplierInput.value;
+                paragrafos[4].innerText = minionsInput.value;
+                
+                formatarNumerosNasDivs(`#id_${id_linha} p`, 1);
+            }
+            
+            edicao(id_linha);
         } else {
             mini.criarNotificacao(data['resposta'], true);
         }
@@ -92,4 +107,40 @@ function salvarEdicao(id_linha)
     .catch(error => {
         console.error('Erro:', error);
     });
+}
+
+function removerConta(id_linha)
+{
+    if (confirm('Tem certeza que deseja remover esta conta? Esta ação não pode ser desfeita.')) {
+        const payload = { "id": id_linha };
+        const CONFIG_FETCH_REQUEST = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(payload)
+        };
+
+        fetch('./accounts/delete', CONFIG_FETCH_REQUEST)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro ao deletar conta!');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data['resposta'] === 0) {
+                alert('Conta removida com sucesso!');
+                // Remove a linha da tabela
+                let linha = document.querySelector(`#id_${id_linha}`);
+                if (linha) {
+                    linha.remove();
+                }
+            } else {
+                alert('Erro ao remover conta: ' + (data['message'] || 'Erro desconhecido.'));
+            }
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+            alert('Erro de comunicação com o servidor.');
+        });
+    }
 }
