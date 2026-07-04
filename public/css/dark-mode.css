@@ -1,0 +1,136 @@
+html.dark-mode {
+    --font-white-color: #1a1a1a;
+    --darkGreen: #1e2822;
+    --60green: #90a597;
+    --30green: #3d6851;
+    --shadow-color: #111;
+}
+
+html.dark-mode body {
+    background-color: var(--font-white-color);
+    color: #e0e0e0;
+}
+
+html.dark-mode .config-container,
+html.dark-mode div#admin,
+html.dark-mode div#profile {
+    background-color: #2b2b2b !important;
+    border: 1px solid #444 !important;
+}
+
+html.dark-mode .config-option,
+html.dark-mode div#admin .top,
+html.dark-mode div#admin .bottom,
+html.dark-mode div#profile .top,
+html.dark-mode div#profile .bottom,
+html.dark-mode div#admin .table-wrapper,
+html.dark-mode div#admin .header,
+html.dark-mode .table-container,
+html.dark-mode .clicker-info p {
+    background-color: #333 !important;
+    border-color: #444 !important;
+    box-shadow: none !important;
+}
+
+html.dark-mode h1,
+html.dark-mode h2,
+html.dark-mode p,
+html.dark-mode .profile-nickname,
+html.dark-mode .config-info h2,
+html.dark-mode .config-info p {
+    color: #e0e0e0 !important;
+}
+
+html.dark-mode input,
+html.dark-mode select {
+    background-color: #444 !important;
+    color: white !important;
+    border-color: #555 !important;
+}
+
+html.dark-mode #loader-background {
+    background-color: #1a1a1a !important;
+}
+
+html.dark-mode div#admin .linha {
+    border-bottom: 1px solid #444 !important;
+}
+
+html.dark-mode div#admin .linha:hover {
+    background-color: #444 !important;
+}
+
+html.dark-mode .shop-item,
+html.dark-mode .item {
+    background: #333 !important;
+    border: 1px solid #444 !important;
+    box-shadow: inset rgba(0, 0, 0, 0.5) 0 0 0.35em 0, rgba(0, 0, 0, 0.5) 0 8px 20px -12px !important;
+}
+
+html.dark-mode .item img {
+    background-color: #222 !important;
+    border-color: #444 !important;
+}
+
+html.dark-mode .item .input-quantidade {
+    background-color: #222 !important;
+    color: #e0e0e0 !important;
+    border-color: #555 !important;
+}
+
+html.dark-mode .bulk-btn {
+    color: #e0e0e0 !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+html.dark-mode .bulk-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+html.dark-mode .bulk-max {
+    color: #ffd199 !important;
+    background-color: rgba(222, 140, 37, 0.2) !important;
+    border-color: rgba(222, 140, 37, 0.4) !important;
+}
+
+html.dark-mode .botao-comprar {
+    background: linear-gradient(180deg, #bd8534 0%, #995c11 100%) !important;
+    border-color: #bd8534 !important;
+    color: #f1f1f1 !important;
+}
+
+html.dark-mode .item-level-req {
+    background-color: #522222 !important;
+    color: #ff9e9e !important;
+    border-color: #8c2b2b !important;
+}
+
+html.dark-mode #navbar {
+    background-color: #222 !important;
+    color: #e0e0e0 !important;
+    border-right: 1px solid #444 !important;
+}
+
+html.dark-mode #navbar a {
+    color: #e0e0e0 !important;
+}
+
+html.dark-mode #navbar a:hover {
+    background-color: #333 !important;
+}
+
+html.dark-mode .counter-number {
+    color: white !important;
+}
+
+html.dark-mode div#admin .seletor-paginas a {
+    background-color: #333 !important;
+    color: #e0e0e0 !important;
+    box-shadow: 0px 0px 1px 1px #111 !important;
+}
+
+html.dark-mode div#admin .seletor-paginas a:hover,
+html.dark-mode div#admin .seletor-paginas a.active {
+    background-color: #555 !important;
+}
