@@ -1,15 +1,23 @@
 <?php
 
-namespace GbClicker\Controller;
+namespace GbClicker\Controller\AdminController;
 
 use GbClicker\DAO\UserDAO;
 use GbClicker\Model\UserModel;
+use GbClicker\Controller\AdminPageController;
 
 class AccountsController
 {
+
+    private AdminPageController $adminPageController;
+
+    public function __construct(AdminPageController $adminPageController)
+    {
+        $this->adminPageController = $adminPageController;
+    }
     public function index()
     {
-        $model = (new AdminPageController())->verifyAdminAccount();
+        $model = $this->adminPageController->verifyAdminAccount();
         $contas = [];
         $titulo = 'ADM | Accounts';
         $linksCss = [

@@ -4,9 +4,16 @@ namespace GbClicker\Controller;
 
 class HomeController
 {
+
+    private LoginController $loginController;
+
+    public function __construct(LoginController $loginController)
+    {
+        $this->loginController = $loginController;
+    }
     public function index()
     {
-        $model = (new LoginController())->login();
+        $model = $this->loginController->login();
         
         if ($model == null) {
             header("location: /login?aviso=1", true);

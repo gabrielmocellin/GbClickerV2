@@ -23,6 +23,15 @@ class PurchaseService
         3 => 'minions',
     ];
 
+    private ItemDAO $itemDao;
+    private \GbClicker\DAO\UserDAO $userDao;
+
+    public function __construct(ItemDAO $itemDao, \GbClicker\DAO\UserDAO $userDao)
+    {
+        $this->itemDao = $itemDao;
+        $this->userDao = $userDao;
+    }
+
     /**
      * @return array{resposta:int,mensagem:string}
      */
@@ -34,24 +43,25 @@ class PurchaseService
 
         $userModel = new UserModel();
         $userModel->setEmail($email);
+        // FIXME: Model loading should ideally also be handled by DAO, but keeping this simple for now.
         if (!$userModel->getByEmail()) {
             return $this->result(self::ERRO_AO_INICIAR_SESSAO, 'Usuario nao encontrado.');
         }
 
-        $itemDao = new ItemDAO();
-        $itemData = $itemDao->selectById($itemId);
+        $itemData = $this->itemDao->selectById($itemId);
         if ($itemData === false || $itemData === null) {
             return $this->result(self::ITEM_NOT_FOUND, 'Item nao encontrado.');
         }
 
         $itemType = self::MAP_ITEM_TYPE[(int) ($itemData['FK_id_tipos_itens'] ?? 0)] ?? null;
         if ($itemType === null) {
-            return $this->result(self::ITEM_NOT_FOUND, 'Item invalido.');
+            return $this->result(self::ERRO_AO_SALVAR_COMPRA, 'Tipo de item desconhecido.');
         }
 
+        $precoBase = (int) $itemData['preco'];
         $precoTotal = $this->calcularPrecoTotal(
-            (int) $itemData['preco'],
-            (int) $quantidade,
+            $precoBase,
+            $quantidade,
             (int) $userModel->{'get' . ucfirst($itemType)}()
         );
 
@@ -64,8 +74,7 @@ class PurchaseService
             return $this->result(self::DINHEIRO_INSUFICIENTE, 'Dinheiro insuficiente.');
         }
 
-        $userDao = new \GbClicker\DAO\UserDAO();
-        $atualizado = $userDao->updateMoneyAndItem($email, $precoTotal, $itemType, $quantidade);
+        $atualizado = $this->userDao->updateMoneyAndItem($email, $precoTotal, $itemType, $quantidade);
 
         if (!$atualizado) {
             return $this->result(self::ERRO_AO_SALVAR_COMPRA, 'Nao foi possivel concluir a compra.');

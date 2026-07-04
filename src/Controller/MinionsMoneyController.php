@@ -8,6 +8,13 @@ use GbClicker\Controller\LoginController;
 
 class MinionsMoneyController
 {
+
+    private LoginController $loginController;
+
+    public function __construct(LoginController $loginController)
+    {
+        $this->loginController = $loginController;
+    }
     const DINHEIRO_SALVO = 200;
     const ERRO_AO_INICIAR_SESSAO = 201;
     const ERRO_AO_SALVAR_DINHEIRO = 202;
@@ -20,7 +27,7 @@ class MinionsMoneyController
         # Então o valor correspondente aos minions deve ser adicionado ao dinheiro do usuário.
         # A seguir são executados o SQL que salva o dinheiro após a alteração.
 
-        if (!(new LoginController())->isUserLogged()) {
+        if (!$this->loginController->isUserLogged()) {
             echo json_encode(['resposta' => self::ERRO_AO_INICIAR_SESSAO]);
             return false;
         }

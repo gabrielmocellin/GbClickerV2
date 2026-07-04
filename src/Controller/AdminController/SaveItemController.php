@@ -7,9 +7,16 @@ use GbClicker\Controller\AdminPageController;
 
 class SaveItemController
 {
+
+    private AdminPageController $adminPageController;
+
+    public function __construct(AdminPageController $adminPageController)
+    {
+        $this->adminPageController = $adminPageController;
+    }
     public function index()
     {
-        $model = (new AdminPageController())->verifyAdminAccount();
+        $model = $this->adminPageController->verifyAdminAccount();
         if ($model == false) {
             header("location: \\login?aviso=1");
             return;

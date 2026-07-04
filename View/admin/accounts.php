@@ -1,6 +1,5 @@
 <?php
     /** @var GbClicker\Model\UserModel $model */
-    use GbClicker\Controller\AccountsController;
 ?><div id='admin'>
     <div class='top'>
         <h1 class='boas_vindas'>Gerenciar Contas</h1>
@@ -16,7 +15,7 @@
         <p>Minions</p>
         <p>Ações</p>
     </div>
-    <?php AccountsController::showUsers(); ?>
+    <?php $this->showUsers(); ?>
     <section class='seletor-paginas'>
         <a href='/admin/accounts?page=1'>1</a>
         <a href='/admin/accounts?page=2'>2</a>

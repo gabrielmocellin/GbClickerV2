@@ -6,9 +6,16 @@ use GbClicker\Model\ItemModel;
 
 class ItemController
 {
+
+    private AdminPageController $adminPageController;
+
+    public function __construct(AdminPageController $adminPageController)
+    {
+        $this->adminPageController = $adminPageController;
+    }
     public function index()
     {
-        $model = (new AdminPageController())->verifyAdminAccount();
+        $model = $this->adminPageController->verifyAdminAccount();
         $itemModel = new ItemModel();
         $tipos = $itemModel->getAllTypes();
         include __DIR__ . "\\..\\..\\View\\admin\\addItems.php";

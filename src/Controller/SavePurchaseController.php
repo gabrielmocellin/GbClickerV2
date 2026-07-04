@@ -1,45 +1,57 @@
 <?php
 
 namespace GbClicker\Controller;
+
 use GbClicker\Service\PurchaseService;
+use GbClicker\Http\Request;
+use GbClicker\Http\Session;
 
 class SavePurchaseController
 {
+    private PurchaseService $purchaseService;
+    private Request $request;
+    private Session $session;
+
+    public function __construct(PurchaseService $purchaseService, Request $request, Session $session)
+    {
+        $this->purchaseService = $purchaseService;
+        $this->request = $request;
+        $this->session = $session;
+    }
+
     public function index()
     {
-        if (!self::verificarSessao()) {
-            self::jsonResponse([
+        if (!$this->verificarSessao()) {
+            $this->jsonResponse([
                 'resposta' => PurchaseService::ERRO_AO_INICIAR_SESSAO,
                 'mensagem' => 'Sessao invalida.',
             ]);
             return;
         }
 
-        $payload = self::verificarConteudoJson();
+        $payload = $this->verificarConteudoJson();
         if ($payload === null) {
-            self::jsonResponse([
+            $this->jsonResponse([
                 'resposta' => PurchaseService::ERRO_AO_SALVAR_COMPRA,
                 'mensagem' => 'Payload invalido.',
             ]);
-            return false;
+            return;
         }
 
         $itemId = (int) ($payload['id-item'] ?? 0);
         $quantidade = (int) ($payload['input-quantidade'] ?? 0);
 
-        $service = new PurchaseService();
-        $resultado = $service->purchase($_SESSION['email'], $itemId, $quantidade);
-        self::jsonResponse($resultado);
-        return true;
+        $resultado = $this->purchaseService->purchase($this->session->get('email'), $itemId, $quantidade);
+        $this->jsonResponse($resultado);
     }
 
     public function verificarConteudoJson()
     {
+        // Ideally Request class should provide headers, but we read php://input here for raw JSON body
         $contentType = $_SERVER['CONTENT_TYPE'] ?? '';
         $contentIsJson = stripos($contentType, 'application/json') === 0;
 
         if ($contentIsJson) {
-
             $dadosRecebidos = file_get_contents("php://input");
             $dadosDecodificados = json_decode($dadosRecebidos, true);
 
@@ -53,16 +65,12 @@ class SavePurchaseController
         return null;
     }
 
-    private static function verificarSessao(): bool
+    private function verificarSessao(): bool
     {
-        if (session_status() !== PHP_SESSION_ACTIVE) {
-
-        }
-
-        return isset($_SESSION['email']);
+        return $this->session->has('email');
     }
 
-    private static function jsonResponse(array $payload): void
+    private function jsonResponse(array $payload): void
     {
         header('Content-Type: application/json; charset=utf-8');
         echo json_encode($payload);

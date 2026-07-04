@@ -3,6 +3,8 @@
 namespace GbClicker\Controller;
 
 use GbClicker\Model\UserModel;
+use GbClicker\Http\Request;
+use GbClicker\Http\Session;
 
 class LoginController
 {
@@ -11,11 +13,18 @@ class LoginController
     const INPUT_LOGIN_CREATE_COOKIE = 3;
     const INPUT_LOGIN = 4;
 
+    private Request $request;
+    private Session $session;
+
+    public function __construct(Request $request, Session $session)
+    {
+        $this->request = $request;
+        $this->session = $session;
+    }
+
     public function index()
     {
-
-
-        $isLoggedIn = session_status() == 2 && (isset($_SESSION['email']) || isset($_COOKIE['email-logado']));
+        $isLoggedIn = $this->session->has('email') || $this->request->hasCookie('email-logado');
 
         if ($isLoggedIn) {
             header("location: /home");
@@ -27,60 +36,50 @@ class LoginController
 
     public function login()
     {
-
         $model = $this->returnModelDataFromLoginType();
         return $model;
     }
 
     public function dispararAvisos()
     {
-        if (isset($_GET['aviso'])) {
-            $codigoDoAviso = $_GET['aviso'];
+        if ($this->request->hasGet('aviso')) {
+            $codigoDoAviso = $this->request->get('aviso');
             echo "<script>login.verificarAvisos('$codigoDoAviso')</script>";
         }
     }
 
     public function isUserLogged()
     {
-        if(session_status() != PHP_SESSION_ACTIVE){
-
-        }
-
-        if (isset($_SESSION['email'])) {
+        if ($this->session->has('email')) {
             return true;
         }
         return false;
     }
 
     public function returnModelDataFromLoginType()
-    # Essa função é utilizada para popular com os dados recuperados do banco o
-    # objeto UserModel. Caso os dados não tenham sido encontrados, será retornado "null",
-    # caso tenham sido encontrados os dados, o objeto preenchido será retornado.
     {
         $model = new UserModel();
         
-
-        if (isset($_COOKIE['email-logado'])) { // COOKIE LOGIN
-            $model->setEmail($_COOKIE['email-logado']);
+        if ($this->request->hasCookie('email-logado')) { // COOKIE LOGIN
+            $model->setEmail($this->request->cookie('email-logado'));
             $model->getByEmail();
-        } elseif (isset($_SESSION['email'])) { // SESSION LOGIN
-            $model->setEmail($_SESSION['email']);
+        } elseif ($this->session->has('email')) { // SESSION LOGIN
+            $model->setEmail($this->session->get('email'));
             $model->getByEmail();
         } elseif (
-            isset($_POST['email-input']) &&
-            isset($_POST['password-input'])
+            $this->request->hasPost('email-input') &&
+            $this->request->hasPost('password-input')
         ) {
-            $model->setEmail($_POST['email-input']);
-            $model->setPassword($_POST['password-input']);
+            $model->setEmail($this->request->post('email-input'));
+            $model->setPassword($this->request->post('password-input'));
 
             if (!$model->dataFoundByEmailAndPassword()){ return null; }
-            if (isset($_POST['cookie-checkbox'])){ setcookie("email-logado", $model->getEmail(), time()+86400); }
-
-            $_POST = array(); # Limpando os dados armazenados na superglobal $_POST
+            if ($this->request->hasPost('cookie-checkbox')){ setcookie("email-logado", $model->getEmail(), time()+86400); }
         } else {
             return null;
         }
-        $_SESSION['email'] = $model->getEmail();
+        
+        $this->session->set('email', $model->getEmail());
         
         return $model;
     }
