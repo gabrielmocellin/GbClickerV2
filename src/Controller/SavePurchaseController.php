@@ -5,7 +5,7 @@ use GbClicker\Service\PurchaseService;
 
 class SavePurchaseController
 {
-    public static function index()
+    public function index()
     {
         if (!self::verificarSessao()) {
             self::jsonResponse([
@@ -33,7 +33,7 @@ class SavePurchaseController
         return true;
     }
 
-    public static function verificarConteudoJson()
+    public function verificarConteudoJson()
     {
         $contentType = $_SERVER['CONTENT_TYPE'] ?? '';
         $contentIsJson = stripos($contentType, 'application/json') === 0;
@@ -56,7 +56,7 @@ class SavePurchaseController
     private static function verificarSessao(): bool
     {
         if (session_status() !== PHP_SESSION_ACTIVE) {
-            session_start();
+
         }
 
         return isset($_SESSION['email']);

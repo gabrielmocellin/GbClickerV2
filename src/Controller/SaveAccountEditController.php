@@ -17,10 +17,10 @@ class SaveAccountEditController
     const DUPLICATED_NICKNAME = 106;
     const SQLSTATE_DUPLICATED_PRIMARY_OR_UNIQUE = 23000;
 
-    public static function index()
+    public function index()
     {
         if (!isset($_SESSION['email'])) {
-            session_start();
+
         }
 
         if ($_SERVER['CONTENT_TYPE'] == "application/json") {
@@ -30,10 +30,10 @@ class SaveAccountEditController
             
             if ($dadosDecodificados != null) {
                 $conexao = Conexao::criarConexao();
-                $resultadoValidacaoInputs = SaveAccountEditController::validarDados($dadosDecodificados);
+                $resultadoValidacaoInputs = $this->validarDados($dadosDecodificados);
 
                 if ($resultadoValidacaoInputs === self::EDIT_SUCESS) {
-                    $sqlUsuarioPreparado = SaveAccountEditController::montarSql($conexao, $dadosDecodificados);
+                    $sqlUsuarioPreparado = $this->montarSql($conexao, $dadosDecodificados);
                     try {
                         if ($sqlUsuarioPreparado->execute()) {
                             echo json_encode(['resposta' => self::EDIT_SUCESS]);
@@ -43,7 +43,7 @@ class SaveAccountEditController
                             return;
                         };
                     } catch (Exception $exception) {
-                        echo json_encode(['resposta' => SaveAccountEditController::identificarErros($exception)]);
+                        echo json_encode(['resposta' => $this->identificarErros($exception)]);
                         return;
                     }
                 } else {
@@ -55,7 +55,7 @@ class SaveAccountEditController
         }
     }
 
-    public static function montarSql($conexao, $dados)
+    public function montarSql($conexao, $dados)
     {
         $sql = "UPDATE usuario
                 SET nickname=:nickname,
@@ -84,7 +84,7 @@ class SaveAccountEditController
         return $sqlPreparado;
     }
 
-    public static function validarDados($dados)
+    public function validarDados($dados)
     {
         $inputsERespectivosRegex = [
             'nickname'   => ["codigoErro" => self::INVALID_NICKNAME, "regex" => "/^(?=.*[A-z])[A-z0-9_-]{2,16}$/", "dado" => $dados['nickname']],
@@ -105,7 +105,7 @@ class SaveAccountEditController
         return 0;
     }
 
-    public static function identificarErros(Exception $exception)
+    public function identificarErros(Exception $exception)
     {
         if ($exception->getCode() == self::SQLSTATE_DUPLICATED_PRIMARY_OR_UNIQUE) {
             return self::DUPLICATED_NICKNAME;

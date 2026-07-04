@@ -1,5 +1,9 @@
 <?php
 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use GbClicker\Controller\Error404Controller;
@@ -11,17 +15,12 @@ $serverMethod = $_SERVER['REQUEST_METHOD'];
 $key = "$serverMethod|$path";
 
 if (array_key_exists($key, $routes)) {
-    $prefixChangesNeeded = (substr_count($path, '/') - 1);
-    $GLOBALS['prefix'] = '';
-
-    for ($i = 0; $i < $prefixChangesNeeded; $i++) {
-        $GLOBALS['prefix'] .= '../';
-    }
-
     $controllerClass = $routes[$key];
-    $controllerClass::index();
+    $controller = new $controllerClass();
+    $controller->index();
 } else {
-    Error404Controller::index();
+    $errorController = new Error404Controller();
+    $errorController->index();
 }
 
 exit();

@@ -1,6 +1,6 @@
 <?php
 
-namespace Gbclicker\Model;
+namespace GbClicker\Model;
 
 use GbClicker\DAO\UserDao;
 use GbClicker\Model\{LevelModel, UpgradesInfoModel, UserCredentialsModel};

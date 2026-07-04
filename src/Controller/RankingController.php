@@ -7,9 +7,9 @@ use GbClicker\Model\RankModel;
 
 class RankingController
 {
-    public static function index()
+    public function index()
     {
-        $model = LoginController::login();
+        $model = (new LoginController())->login();
         
         if ($model == null) {
             header("location: /login?aviso=1", true);
@@ -28,7 +28,7 @@ class RankingController
         require_once '../src/Components/template.php';
     }
 
-    public static function showUsers()
+    public function showUsers()
     {
         $rankModel = new RankModel();
         $class = "rank first_rank";

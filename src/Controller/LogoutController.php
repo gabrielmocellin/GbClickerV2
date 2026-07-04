@@ -4,21 +4,21 @@ namespace GbClicker\Controller;
 
 class LogoutController
 {
-    public static function index()
+    public function index()
     {
         self::destruirSessao();
         self::destruirCookie();
         header("location: /login?aviso=2");
     }
 
-    public static function destruirSessao()
+    public function destruirSessao()
     {
-        session_start();
+
         session_unset();
         session_destroy();
     }
 
-    public static function destruirCookie()
+    public function destruirCookie()
     {
         if (isset($_COOKIE['email-logado'])) {
             setcookie("email-logado", "", time() - 3600);

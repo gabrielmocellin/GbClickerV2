@@ -6,15 +6,15 @@ use GbClicker\Controller\LoginController;
 
 class AdminPageController
 {
-    public static function index()
+    public function index()
     {
-        $model = AdminPageController::verifyAdminAccount();
+        $model = (new AdminPageController())->verifyAdminAccount();
         include_once __DIR__ . "\\..\\..\\View\\admin\\admin.php";
     }
 
-    public static function verifyAdminAccount()
+    public function verifyAdminAccount()
     {
-        $model = LoginController::login();
+        $model = (new LoginController())->login();
 
         if ($model == null) {
             header("location: /login?aviso=1", true);

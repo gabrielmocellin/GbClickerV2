@@ -7,16 +7,16 @@ use GbClicker\Controller\AdminPageController;
 
 class SaveItemController
 {
-    public static function index()
+    public function index()
     {
-        $model = AdminPageController::verifyAdminAccount();
+        $model = (new AdminPageController())->verifyAdminAccount();
         if ($model == false) {
             header("location: \\login?aviso=1");
             return;
         }
 
         if (isset($_FILES['image_src'])) {
-            $dirFile = SaveItemController::salvarImagemLocalmente($_FILES['image_src']);
+            $dirFile = $this->salvarImagemLocalmente($_FILES['image_src']);
             if ($dirFile !== false) { // Pegando o arquivo que está temporário e salvando em uma pasta dentro do projeto
                 $item = new ItemModel();
                 $item->construtor(
@@ -35,7 +35,7 @@ class SaveItemController
         }
     }
 
-    public static function salvarImagemLocalmente($imagem)
+    public function salvarImagemLocalmente($imagem)
     {
         $pathRelativo = "img\\uploads\\items\\";
         $pathCompleto = __DIR__ . "\\..\\..\\..\\public\\$pathRelativo" . basename($imagem['name']);

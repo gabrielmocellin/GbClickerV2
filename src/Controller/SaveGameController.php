@@ -6,7 +6,7 @@ use GbClicker\Conexao\Conexao;
 
 class SaveGameController
 {
-    public static function index()
+    public function index()
     {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             header('Location: /erro404');
@@ -14,7 +14,7 @@ class SaveGameController
         }
 
         if (session_status() !== PHP_SESSION_ACTIVE) {
-            session_start();
+
         }
 
         if (!isset($_SESSION['email'])) {

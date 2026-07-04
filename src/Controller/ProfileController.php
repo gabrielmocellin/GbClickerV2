@@ -5,16 +5,16 @@ use GbClicker\Model\ProfileModel;
 
 class ProfileController
 {
-    public static function index()
+    public function index()
     {
-        $model = LoginController::login();
+        $model = (new LoginController())->login();
         
         if ($model == null) {
             header("location: /login?aviso=1", true);
             exit;
         }
         
-        $profile = ProfileController::verificarTipoPerfil($model);
+        $profile = $this->verificarTipoPerfil($model);
         $linksCss = [
             'css/profile.css'
         ];
@@ -26,21 +26,21 @@ class ProfileController
         require_once '../src/Components/template.php';
     }
 
-    public static function getProfileInfoById(int $id)
+    public function getProfileInfoById(int $id)
     {
         $profileModel = new ProfileModel($id);
         return $profileModel;
     }
 
-    public static function verificarTipoPerfil($model)
+    public function verificarTipoPerfil($model)
     {
         if (isset($_GET['id'])) {
-            $profile = ProfileController::getProfileInfoById($_GET['id']);
+            $profile = $this->getProfileInfoById($_GET['id']);
             if ($profile->getNickname() == NULL) { // Caso o usuário não exista!
                 header("location: \\profile");
             }
         } else {
-            $profile = ProfileController::getProfileInfoById($model->getId());
+            $profile = $this->getProfileInfoById($model->getId());
         }
         return $profile;
     }

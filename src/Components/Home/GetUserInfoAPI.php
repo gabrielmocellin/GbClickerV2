@@ -11,7 +11,7 @@
         const INVALID_SESSION = 201;
         const COMPLETE = 200;
 
-        public static function index()
+        public function index()
         {
             self::loginVerify();
             $email = filter_var($_SESSION['email'], FILTER_SANITIZE_EMAIL);
@@ -43,9 +43,8 @@
             exit();
         }
 
-        public static function loginVerify()
+        public function loginVerify()
         {
-            session_start();
             if (!isset($_SESSION['email'])) {
                 echo json_encode(['resposta' => self::INVALID_SESSION]);
                 exit();

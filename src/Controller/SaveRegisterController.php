@@ -6,7 +6,7 @@ use GbClicker\Model\{UserModel, RegisterModel, UserCredentialsModel, ImageModel}
 
 class SaveRegisterController
 {
-    public static function index()
+    public function index()
     {
         if (self::validarInputs()) {
             $imageModel = new ImageModel($_FILES);
@@ -36,7 +36,7 @@ class SaveRegisterController
         }
     }
 
-    public static function areRequiredFieldsFilled()
+    public function areRequiredFieldsFilled()
     {
         $requiredFieldsFilled = isset($_POST['email-input']) && 
         isset($_POST['password-input']) && 
@@ -45,7 +45,7 @@ class SaveRegisterController
         return $requiredFieldsFilled;
     }
 
-    public static function validarInputs()
+    public function validarInputs()
     {
         $areFieldsValid = self::areRequiredFieldsFilled() &&
         self::validarEmailInput($_POST['email-input']) &&
@@ -59,7 +59,7 @@ class SaveRegisterController
         return true;
     }
 
-    public static function validarEmailInput($emailValue)
+    public function validarEmailInput($emailValue)
     {
         $result = filter_var($emailValue, FILTER_VALIDATE_EMAIL);
         if ($result === false) {
@@ -69,7 +69,7 @@ class SaveRegisterController
         return true;
     }
 
-    public static function validarSenhaInput($senhaValue)
+    public function validarSenhaInput($senhaValue)
     {
         $pattern = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,16}$/";
         $result = preg_match($pattern, $senhaValue);
@@ -80,7 +80,7 @@ class SaveRegisterController
         return $result;
     }
 
-    public static function validarNicknameInput($nicknameValue)
+    public function validarNicknameInput($nicknameValue)
     {
         $pattern = "/^(?=.*[A-z])[A-z0-9_-]{2,16}$/";
         $result = preg_match($pattern, $nicknameValue);

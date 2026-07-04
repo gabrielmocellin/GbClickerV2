@@ -4,12 +4,12 @@ namespace GbClicker\Controller;
 
 class RegisterController
 {
-    public static function index()
+    public function index()
     {
         include __DIR__ . "/../../View/register/register.php";
     }
 
-    public static function verificarAvisos()
+    public function verificarAvisos()
     {
         if (isset($_GET['aviso'])) {
             $codigoDoAviso = $_GET['aviso'];

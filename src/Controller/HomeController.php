@@ -4,9 +4,9 @@ namespace GbClicker\Controller;
 
 class HomeController
 {
-    public static function index()
+    public function index()
     {
-        $model = LoginController::login();
+        $model = (new LoginController())->login();
         
         if ($model == null) {
             header("location: /login?aviso=1", true);

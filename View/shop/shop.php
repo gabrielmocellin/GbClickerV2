@@ -2,5 +2,5 @@
     /** @var GbClicker\Model\UserModel $model */
     use GbClicker\Controller\ShopController;  
 ?><div id="shop-div">
-    <?php ShopController::mostrarItens($itemsArray); ?>
+    <?php $this->mostrarItens($itemsArray, $model->getLevel()); ?>
 </div>

@@ -9,16 +9,16 @@ use GbClicker\Model\{
 
 class ShopController
 {
-    public static function index()
+    public function index()
     {
-        $model = LoginController::login();
+        $model = (new LoginController())->login();
         
         if ($model == null) {
             header("location: /login?aviso=1", true);
             exit;
         }
 
-        $itemsArray = ShopController::pegarItens();
+        $itemsArray = $this->pegarItens();
         $titulo = 'Shop';
 
         $linksCss = [
@@ -26,10 +26,6 @@ class ShopController
         ];
 
         $srcJs = [
-            'js/Shop/Item.js',
-            'js/Shop/items/ClickValue.js',
-            'js/Shop/items/Multiplier.js',
-            'js/Shop/items/Minions.js',
             'js/util/formatadorNums.js',
             'js/Shop/shop.js'
         ];
@@ -39,14 +35,14 @@ class ShopController
         require_once '../src/Components/template.php';
     }
 
-    public static function pegarItens()
+    public function pegarItens()
     {
         $itemModel = new ItemModel();
         $itemsArray = $itemModel->getAllItems();
         return $itemsArray;
     }
 
-    public static function mostrarItens($itemsArray)
+    public function mostrarItens($itemsArray, $userLevel = 0)
     {
         if (!empty($itemsArray)) {
             foreach ($itemsArray as $item) {
@@ -56,6 +52,7 @@ class ShopController
                 $nome = $item['nome'];
                 $quantidade = $item['quantidade'];
                 $preco = $item['preco'];
+                $minimumLevel = $item['minimum_level'] ?? 1;
 
                 include ('../src/Components/Shop/item.php');
             }

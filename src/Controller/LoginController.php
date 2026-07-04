@@ -11,9 +11,9 @@ class LoginController
     const INPUT_LOGIN_CREATE_COOKIE = 3;
     const INPUT_LOGIN = 4;
 
-    public static function index()
+    public function index()
     {
-        session_start();
+
 
         $isLoggedIn = session_status() == 2 && (isset($_SESSION['email']) || isset($_COOKIE['email-logado']));
 
@@ -25,14 +25,14 @@ class LoginController
         include_once __DIR__ . '/../../View/login/login.php';
     }
 
-    public static function login()
+    public function login()
     {
-        session_start();
-        $model = LoginController::returnModelDataFromLoginType();
+
+        $model = $this->returnModelDataFromLoginType();
         return $model;
     }
 
-    public static function dispararAvisos()
+    public function dispararAvisos()
     {
         if (isset($_GET['aviso'])) {
             $codigoDoAviso = $_GET['aviso'];
@@ -40,10 +40,10 @@ class LoginController
         }
     }
 
-    public static function isUserLogged()
+    public function isUserLogged()
     {
         if(session_status() != PHP_SESSION_ACTIVE){
-            session_start();
+
         }
 
         if (isset($_SESSION['email'])) {
@@ -52,7 +52,7 @@ class LoginController
         return false;
     }
 
-    public static function returnModelDataFromLoginType()
+    public function returnModelDataFromLoginType()
     # Essa função é utilizada para popular com os dados recuperados do banco o
     # objeto UserModel. Caso os dados não tenham sido encontrados, será retornado "null",
     # caso tenham sido encontrados os dados, o objeto preenchido será retornado.

@@ -12,14 +12,14 @@ class ClickController
     const ERRO_AO_INICIAR_SESSAO = 201;
     const ERRO_AO_SALVAR_DINHEIRO = 202;
 
-    public static function index()
+    public function index()
     {
         # Aqui nós primeiro devemos verificar se o usuário está logado (possui uma sessão válida).
         # Caso tenha uma sessão inválida, será retornado um código de erro para inicializar uma notificação ao usuário.
         # Caso contrário, os dados do usuário são resgatados do banco com base no email logado.
         # Então o novo valor do dinheiro do usuário será calculado e será adicionado um ponto de "XP".
         # A seguir serão executados o SQL que salvará o nível e o dinheiro após o clique.
-        if (!LoginController::isUserLogged()) {
+        if (!(new LoginController())->isUserLogged()) {
             echo json_encode(['resposta' => self::ERRO_AO_INICIAR_SESSAO]);
             return false;
         }
@@ -37,7 +37,7 @@ class ClickController
         exit;
     }
 
-    public static function montarModeloUsuario()
+    public function montarModeloUsuario()
     {
         $userModel = new UserModel();
         $userModel->setEmail($_SESSION['email']);
@@ -45,7 +45,7 @@ class ClickController
         return $userModel;
     }
 
-    public static function executarSql($levelData, $money, $email)
+    public function executarSql($levelData, $money, $email)
     {
         $conexao = Conexao::criarConexao();
         $sql = 'UPDATE usuario, nivel

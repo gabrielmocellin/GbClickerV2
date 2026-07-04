@@ -208,4 +208,21 @@ class UserDAO extends Dao implements IDAO
         $encryptedPassword = password_hash($password, PASSWORD_ARGON2ID);
         return $encryptedPassword;
     }
+
+    public function updateMoneyAndItem(string $email, int $precoTotal, string $itemType, int $quantidade): bool
+    {
+        $sql = "UPDATE usuario
+            SET money = money - :precoTotal,
+                `{$itemType}` = `{$itemType}` + :quantidade
+            WHERE email = :email
+              AND money >= :precoTotal";
+
+        $stmt = $this->conexao->prepare($sql);
+        $stmt->bindValue(':precoTotal', $precoTotal, \PDO::PARAM_INT);
+        $stmt->bindValue(':quantidade', $quantidade, \PDO::PARAM_INT);
+        $stmt->bindValue(':email', $email, \PDO::PARAM_STR);
+        $stmt->execute();
+
+        return $stmt->rowCount() > 0;
+    }
 }

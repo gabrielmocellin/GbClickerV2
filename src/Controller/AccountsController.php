@@ -7,9 +7,9 @@ use GbClicker\Model\UserModel;
 
 class AccountsController
 {
-    public static function index()
+    public function index()
     {
-        $model = AdminPageController::verifyAdminAccount();
+        $model = (new AdminPageController())->verifyAdminAccount();
         $contas = [];
         $titulo = 'ADM | Accounts';
         $linksCss = [
@@ -23,7 +23,7 @@ class AccountsController
         require_once '..\\src\\Components\\template.php';
     }
 
-    public static function showUsers()
+    public function showUsers()
     {
         $usermodel = new UserModel();
         if (!isset($_GET['page'])) {
@@ -33,13 +33,13 @@ class AccountsController
         }
         echo "<div id='linhas_dados_usuarios'>";
         foreach ($contas as $conta) {
-            echo AccountsController::montarLinhas($conta);
+            echo $this->montarLinhas($conta);
         }
         echo "</div>";
 
     }
 
-    public static function montarLinhas($conta)
+    public function montarLinhas($conta)
     {
         $informacoes_e_tipo_input_array = array(
             [$conta->getNickname(), "text", "nickname"],

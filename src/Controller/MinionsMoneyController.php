@@ -12,7 +12,7 @@ class MinionsMoneyController
     const ERRO_AO_INICIAR_SESSAO = 201;
     const ERRO_AO_SALVAR_DINHEIRO = 202;
 
-    public static function index()
+    public function index()
     {
         # Aqui nós primeiro devemos verificar se o usuário está logado (possui uma sessão válida).
         # Caso tenha uma sessão inválida, será retornado um código de erro para inicializar uma notificação ao usuário.
@@ -20,7 +20,7 @@ class MinionsMoneyController
         # Então o valor correspondente aos minions deve ser adicionado ao dinheiro do usuário.
         # A seguir são executados o SQL que salva o dinheiro após a alteração.
 
-        if (!LoginController::isUserLogged()) {
+        if (!(new LoginController())->isUserLogged()) {
             echo json_encode(['resposta' => self::ERRO_AO_INICIAR_SESSAO]);
             return false;
         }
@@ -37,7 +37,7 @@ class MinionsMoneyController
         exit;
     }
 
-    public static function montarModeloUsuario()
+    public function montarModeloUsuario()
     {
         $userModel = new UserModel();
         $userModel->setEmail($_SESSION['email']);
@@ -45,7 +45,7 @@ class MinionsMoneyController
         return $userModel;
     }
 
-    public static function executarSql($minionsMoney, $email)
+    public function executarSql($minionsMoney, $email)
     {
         $conexao = Conexao::criarConexao();
         $sql = 'UPDATE usuario

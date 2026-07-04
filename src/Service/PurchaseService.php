@@ -55,24 +55,19 @@ class PurchaseService
             (int) $userModel->{'get' . ucfirst($itemType)}()
         );
 
+        $minimumLevel = (int) ($itemData['minimum_level'] ?? 1);
+        if ((int) $userModel->getLevel() < $minimumLevel) {
+            return $this->result(self::ERRO_AO_SALVAR_COMPRA, 'Nivel insuficiente para comprar este item.');
+        }
+
         if ((int) $userModel->getMoney() < $precoTotal) {
             return $this->result(self::DINHEIRO_INSUFICIENTE, 'Dinheiro insuficiente.');
         }
 
-        $sql = "UPDATE usuario
-            SET money = money - :precoTotal,
-                `{$itemType}` = `{$itemType}` + :quantidade
-            WHERE email = :email
-              AND money >= :precoTotal";
+        $userDao = new \GbClicker\DAO\UserDAO();
+        $atualizado = $userDao->updateMoneyAndItem($email, $precoTotal, $itemType, $quantidade);
 
-        $conexao = Conexao::criarConexao();
-        $stmt = $conexao->prepare($sql);
-        $stmt->bindValue(':precoTotal', $precoTotal, \PDO::PARAM_INT);
-        $stmt->bindValue(':quantidade', $quantidade, \PDO::PARAM_INT);
-        $stmt->bindValue(':email', $email, \PDO::PARAM_STR);
-        $stmt->execute();
-
-        if ($stmt->rowCount() < 1) {
+        if (!$atualizado) {
             return $this->result(self::ERRO_AO_SALVAR_COMPRA, 'Nao foi possivel concluir a compra.');
         }
 

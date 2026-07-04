@@ -32,6 +32,7 @@ function adicionarEventListeners(itensArray) {
 
     itensArray.forEach(async (item) => {
         ativarEventListenerBotoesQuantidade(item);
+        ativarEventListenerBulk(item);
         ativarEventListenerInput(item);
         await atualizarQuantidade(item, 1);
         ativarEventListenerCompra(item);
@@ -73,6 +74,59 @@ function ativarEventListenerBotoesQuantidade(item) {
         inputQuantidade.value = novaQuantidade;
         await atualizarQuantidade(item, novaQuantidade);
     });
+}
+
+function ativarEventListenerBulk(item) {
+    const inputQuantidade = item.querySelector('.input-quantidade');
+    const bulkBtns = item.querySelectorAll('.bulk-btn');
+
+    bulkBtns.forEach(btn => {
+        btn.addEventListener('click', async () => {
+            const amount = btn.getAttribute('data-amount');
+            let novaQuantidade = 1;
+
+            if (amount === 'max') {
+                novaQuantidade = await calcularQuantidadeMaxima(item);
+            } else {
+                novaQuantidade = parseInt(amount);
+            }
+
+            inputQuantidade.value = novaQuantidade;
+            await atualizarQuantidade(item, novaQuantidade);
+        });
+    });
+}
+
+async function calcularQuantidadeMaxima(item) {
+    const FATOR_CRESCIMENTO = 1.03;
+    const PRECO_UNITARIO_INPUT = item.querySelector('.input-preco-unitario');
+    let precoBase = parseInt(PRECO_UNITARIO_INPUT.value);
+    
+    let itemId = parseInt(item.querySelector('.id-item').value);
+    let quantidadeAtual = await getUserItemAmount(itemId);
+    if (quantidadeAtual == null || quantidadeAtual < 0) {
+        quantidadeAtual = 0;
+    }
+
+    let userInfo = await getUserInfoToShop();
+    if (userInfo == null) return 1;
+
+    let moneyAtual = parseInt(userInfo['money']);
+
+    // M = P * 1.03^Q * ((1.03^N - 1) / 0.03)
+    // (0.03 * M) / (P * 1.03^Q) + 1 = 1.03^N
+    // N = Math.floor( Math.log10(...) / Math.log10(1.03) )
+
+    let denominador = precoBase * (FATOR_CRESCIMENTO ** quantidadeAtual);
+    if (denominador === 0) return 1;
+
+    let interiorLog = ((0.03 * moneyAtual) / denominador) + 1;
+    let maxN = Math.floor(Math.log10(interiorLog) / Math.log10(FATOR_CRESCIMENTO));
+
+    if (maxN < 1) maxN = 1;
+    if (maxN > 1000) maxN = 1000;
+
+    return maxN;
 }
 
 function pegarQuantidadeInput(input) {

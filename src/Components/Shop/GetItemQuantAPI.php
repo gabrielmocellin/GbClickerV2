@@ -12,9 +12,8 @@
         /** Colunas permitidas em usuario (alinha com tipos_itens.classificacao). */
         private const COLUNAS_USUARIO_PERMITIDAS = ['clickValue', 'multiplier', 'minions'];
 
-        public static function index()
+        public function index()
         {
-            session_start();
             if (!isset($_SESSION['email'])) {
                 echo json_encode(['resposta' => self::INVALID_SESSION]);
                 exit();
@@ -49,7 +48,7 @@
             exit();
         }
 
-        public static function getItemType(int $id)
+        public function getItemType(int $id)
         {
             $conexao = Conexao::criarConexao();
 
@@ -76,7 +75,7 @@
             ];
         }
 
-        public static function getUserItemAmount(string $item_type, string $email)
+        public function getUserItemAmount(string $item_type, string $email)
         {
             if (!in_array($item_type, self::COLUNAS_USUARIO_PERMITIDAS, true)) {
                 return [

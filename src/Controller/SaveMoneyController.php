@@ -12,9 +12,9 @@ class SaveMoneyController
     const ERRO_AO_INICIAR_SESSAO = 201;
     const ERRO_AO_SALVAR_DINHEIRO = 202;
 
-    public static function index()
+    public function index()
     {
-        if (!LoginController::isUserLogged()) {
+        if (!(new LoginController())->isUserLogged()) {
             echo json_encode(['resposta' => self::ERRO_AO_INICIAR_SESSAO]);
             return false;
         }
@@ -36,7 +36,7 @@ class SaveMoneyController
         }
     }
 
-    public static function montarModeloUsuario()
+    public function montarModeloUsuario()
     {
         $userModel = new UserModel();
         $userModel->setEmail($_SESSION['email']);
@@ -44,7 +44,7 @@ class SaveMoneyController
         return $userModel;
     }
 
-    public static function verificarConteudoJson()
+    public function verificarConteudoJson()
     {
         if ($_SERVER['CONTENT_TYPE'] == "application/json") {
             $dadosRecebidos = file_get_contents("php://input");
@@ -54,7 +54,7 @@ class SaveMoneyController
         return null;
     }
 
-    public static function executarSql($money, $email)
+    public function executarSql($money, $email)
     {
         $conexao = Conexao::criarConexao();
         $sql = 'UPDATE usuario SET money = :money WHERE email = :email';
