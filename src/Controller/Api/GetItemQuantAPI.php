@@ -2,6 +2,8 @@
     namespace GbClicker\Controller\Api;
 
     use GbClicker\Conexao\Conexao;
+    use GbClicker\Http\Request;
+    use GbClicker\Http\Session;
 
     class GetItemQuantAPI {
         const USER_NOT_FOUND = 4005;
@@ -9,22 +11,31 @@
         const INVALID_SESSION = 201;
         const COMPLETE = 200;
 
+        private Session $session;
+        private Request $request;
+
+        public function __construct(Session $session, Request $request)
+        {
+            $this->session = $session;
+            $this->request = $request;
+        }
+
         /** Colunas permitidas em usuario (alinha com tipos_itens.classificacao). */
         private const COLUNAS_USUARIO_PERMITIDAS = ['clickValue', 'multiplier', 'minions'];
 
         public function index()
         {
-            if (!isset($_SESSION['email'])) {
+            if (!$this->session->has('email')) {
                 echo json_encode(['resposta' => self::INVALID_SESSION]);
                 exit();
             }
 
-            $id = filter_var($_GET['item_id'], FILTER_SANITIZE_NUMBER_INT);
-            $email = filter_var($_SESSION['email'], FILTER_SANITIZE_EMAIL);
-            $resultItem = self::getItemType($id);
+            $id = filter_var($this->request->get('item_id'), FILTER_SANITIZE_NUMBER_INT);
+            $email = filter_var($this->session->get('email'), FILTER_SANITIZE_EMAIL);
+            $resultItem = $this->getItemType($id);
  
             if ($resultItem['status'] && $resultItem['resultado'] !== null) {
-                $resultUser = self::getUserItemAmount($resultItem['resultado'], $email);
+                $resultUser = $this->getUserItemAmount($resultItem['resultado'], $email);
 
                 if ($resultUser['status'] && $resultUser['resultado'] !== null) {
 

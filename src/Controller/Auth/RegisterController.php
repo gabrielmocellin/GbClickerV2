@@ -2,8 +2,17 @@
 
 namespace GbClicker\Controller\Auth;
 
+use GbClicker\Http\Request;
+
 class RegisterController
 {
+    private Request $request;
+
+    public function __construct(Request $request)
+    {
+        $this->request = $request;
+    }
+
     public function index()
     {
         include __DIR__ . "/../../View/register/register.php";
@@ -11,8 +20,8 @@ class RegisterController
 
     public function verificarAvisos()
     {
-        if (isset($_GET['aviso'])) {
-            $codigoDoAviso = $_GET['aviso'];
+        if ($this->request->hasGet('aviso')) {
+            $codigoDoAviso = $this->request->get('aviso');
             echo "<script>registro.verificarAvisos('$codigoDoAviso')</script>";
         }
     }

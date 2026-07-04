@@ -5,15 +5,18 @@ namespace GbClicker\Controller\Game\Actions;
 use GbClicker\Model\UserModel;
 use GbClicker\Conexao\Conexao;
 use GbClicker\Controller\Auth\LoginController;
+use GbClicker\Http\Session;
 
 class ClickController
 {
 
     private LoginController $loginController;
+    private Session $session;
 
-    public function __construct(LoginController $loginController)
+    public function __construct(LoginController $loginController, Session $session)
     {
         $this->loginController = $loginController;
+        $this->session = $session;
     }
     const DINHEIRO_SALVO = 200;
     const ERRO_AO_INICIAR_SESSAO = 201;
@@ -31,10 +34,10 @@ class ClickController
             return false;
         }
 
-        $userModel = self::montarModeloUsuario();
+        $userModel = $this->montarModeloUsuario();
         $newMoney = $userModel->getMoney() + $userModel->getClickValue() * $userModel->getMultiplier();
         $userModel->incrementXpPoints();
-        $resultadoSql = self::executarSql($userModel->getLevelData(), $newMoney, $userModel->getEmail());
+        $resultadoSql = $this->executarSql($userModel->getLevelData(), $newMoney, $userModel->getEmail());
 
         if ($resultadoSql) {
             echo json_encode(['resposta' => self::DINHEIRO_SALVO]);
@@ -47,7 +50,7 @@ class ClickController
     public function montarModeloUsuario()
     {
         $userModel = new UserModel();
-        $userModel->setEmail($_SESSION['email']);
+        $userModel->setEmail($this->session->get('email'));
         $userModel->getByEmail();
         return $userModel;
     }

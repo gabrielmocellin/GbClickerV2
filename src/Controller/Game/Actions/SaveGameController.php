@@ -3,24 +3,34 @@
 namespace GbClicker\Controller\Game\Actions;
 
 use GbClicker\Conexao\Conexao;
+use GbClicker\Http\Request;
+use GbClicker\Http\Session;
 
 class SaveGameController
 {
+    private Request $request;
+    private Session $session;
+
+    public function __construct(Request $request, Session $session)
+    {
+        $this->request = $request;
+        $this->session = $session;
+    }
+
     public function index()
     {
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        if ($this->request->getMethod() !== 'POST') {
             header('Location: /erro404');
             exit;
         }
 
-        if (session_status() !== PHP_SESSION_ACTIVE) {
 
-        }
 
-        if (!isset($_SESSION['email'])) {
+        if (!$this->session->has('email')) {
             return;
         }
 
+        // TODO: abstract headers into Request
         $contentType = $_SERVER['CONTENT_TYPE'] ?? '';
         if (stripos($contentType, 'application/json') !== 0) {
             return;
@@ -46,7 +56,7 @@ class SaveGameController
         $conexao = Conexao::criarConexao();
         $sqlUsuarioPreparado = $conexao->prepare($sql);
 
-        $email = $_SESSION['email'];
+        $email = $this->session->get('email');
         $clickValue = $dadosDecodificados['clickValue'];
         $money = $dadosDecodificados['money'];
         $multiplier = $dadosDecodificados['multiplier'];

@@ -5,15 +5,18 @@ namespace GbClicker\Controller\Game\Actions;
 use GbClicker\Model\UserModel;
 use GbClicker\Conexao\Conexao;
 use GbClicker\Controller\Auth\LoginController;
+use GbClicker\Http\Session;
 
 class SaveMoneyController
 {
 
     private LoginController $loginController;
+    private Session $session;
 
-    public function __construct(LoginController $loginController)
+    public function __construct(LoginController $loginController, Session $session)
     {
         $this->loginController = $loginController;
+        $this->session = $session;
     }
     const DINHEIRO_SALVO = 200;
     const ERRO_AO_INICIAR_SESSAO = 201;
@@ -26,12 +29,12 @@ class SaveMoneyController
             return false;
         }
 
-        $userModel = self::montarModeloUsuario();
-        $dadosArray = self::verificarConteudoJson();
+        $userModel = $this->montarModeloUsuario();
+        $dadosArray = $this->verificarConteudoJson();
 
         if ($dadosArray != null) {
             $newMoney = $dadosArray['money'] + ($dadosArray['clickValue'] * $dadosArray['multiplier']);
-            $resultadoSql = self::executarSql($newMoney, $userModel->getEmail());
+            $resultadoSql = $this->executarSql($newMoney, $userModel->getEmail());
 
             if ($resultadoSql) {
                 echo json_encode(['resposta' => self::DINHEIRO_SALVO]);
@@ -46,13 +49,14 @@ class SaveMoneyController
     public function montarModeloUsuario()
     {
         $userModel = new UserModel();
-        $userModel->setEmail($_SESSION['email']);
+        $userModel->setEmail($this->session->get('email'));
         $userModel->getByEmail();
         return $userModel;
     }
 
     public function verificarConteudoJson()
     {
+        // TODO: abstract headers into Request
         if ($_SERVER['CONTENT_TYPE'] == "application/json") {
             $dadosRecebidos = file_get_contents("php://input");
             $dadosDecodificados = json_decode($dadosRecebidos, true);

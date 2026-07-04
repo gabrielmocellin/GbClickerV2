@@ -3,15 +3,24 @@
 namespace GbClicker\Controller\Auth\Actions;
 
 use GbClicker\Model\{UserModel, RegisterModel, UserCredentialsModel, ImageModel};
+use GbClicker\Http\Request;
 
 class SaveRegisterController
 {
+    private Request $request;
+
+    public function __construct(Request $request)
+    {
+        $this->request = $request;
+    }
+
     public function index()
     {
-        if (self::validarInputs()) {
+        if ($this->validarInputs()) {
+            // TODO: abstract $_FILES into Request
             $imageModel = new ImageModel($_FILES);
-            $userCredentials = new UserCredentialsModel($_POST['email-input'], $_POST['password-input']);
-            $registerModel = new RegisterModel($userCredentials, $_POST['nickname-input'], $imageModel->path);
+            $userCredentials = new UserCredentialsModel($this->request->post('email-input'), $this->request->post('password-input'));
+            $registerModel = new RegisterModel($userCredentials, $this->request->post('nickname-input'), $imageModel->path);
             
             try {
                 $isImageSaved = $imageModel->isImageSaved;
@@ -38,19 +47,19 @@ class SaveRegisterController
 
     public function areRequiredFieldsFilled()
     {
-        $requiredFieldsFilled = isset($_POST['email-input']) && 
-        isset($_POST['password-input']) && 
-        isset($_POST['nickname-input']);
+        $requiredFieldsFilled = $this->request->hasPost('email-input') && 
+        $this->request->hasPost('password-input') && 
+        $this->request->hasPost('nickname-input');
 
         return $requiredFieldsFilled;
     }
 
     public function validarInputs()
     {
-        $areFieldsValid = self::areRequiredFieldsFilled() &&
-        self::validarEmailInput($_POST['email-input']) &&
-        self::validarSenhaInput($_POST['password-input']) &&
-        self::validarNicknameInput($_POST['nickname-input']);
+        $areFieldsValid = $this->areRequiredFieldsFilled() &&
+        $this->validarEmailInput($this->request->post('email-input')) &&
+        $this->validarSenhaInput($this->request->post('password-input')) &&
+        $this->validarNicknameInput($this->request->post('nickname-input'));
 
         if (!$areFieldsValid) {
             return false;

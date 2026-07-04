@@ -3,15 +3,18 @@
 namespace GbClicker\Controller\User;
 use GbClicker\Model\ProfileModel;
 use GbClicker\Controller\Auth\LoginController;
+use GbClicker\Http\Request;
 
 class ProfileController
 {
 
     private LoginController $loginController;
+    private Request $request;
 
-    public function __construct(LoginController $loginController)
+    public function __construct(LoginController $loginController, Request $request)
     {
         $this->loginController = $loginController;
+        $this->request = $request;
     }
     public function index()
     {
@@ -42,8 +45,8 @@ class ProfileController
 
     public function verificarTipoPerfil($model)
     {
-        if (isset($_GET['id'])) {
-            $profile = $this->getProfileInfoById($_GET['id']);
+        if ($this->request->hasGet('id')) {
+            $profile = $this->getProfileInfoById($this->request->get('id'));
             if ($profile->getNickname() == NULL) { // Caso o usuário não exista!
                 header("location: \\profile");
             }

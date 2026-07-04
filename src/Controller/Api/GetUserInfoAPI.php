@@ -2,6 +2,7 @@
     namespace GbClicker\Controller\Api;
 
     use GbClicker\Conexao\Conexao;
+    use GbClicker\Http\Session;
     use GbClicker\Model\UserModel;
 
     class GetUserInfoAPI {
@@ -11,10 +12,17 @@
         const INVALID_SESSION = 201;
         const COMPLETE = 200;
 
+        private Session $session;
+
+        public function __construct(Session $session)
+        {
+            $this->session = $session;
+        }
+
         public function index()
         {
-            self::loginVerify();
-            $email = filter_var($_SESSION['email'], FILTER_SANITIZE_EMAIL);
+            $this->loginVerify();
+            $email = filter_var($this->session->get('email'), FILTER_SANITIZE_EMAIL);
             $model = new UserModel();
             $model->setEmail($email);
 
@@ -45,7 +53,7 @@
 
         public function loginVerify()
         {
-            if (!isset($_SESSION['email'])) {
+            if (!$this->session->has('email')) {
                 echo json_encode(['resposta' => self::INVALID_SESSION]);
                 exit();
             }

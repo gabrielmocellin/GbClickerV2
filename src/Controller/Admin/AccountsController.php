@@ -5,15 +5,18 @@ namespace GbClicker\Controller\Admin;
 use GbClicker\DAO\UserDAO;
 use GbClicker\Model\UserModel;
 use GbClicker\Controller\Admin\AdminPageController;
+use GbClicker\Http\Request;
 
 class AccountsController
 {
 
     private AdminPageController $adminPageController;
+    private Request $request;
 
-    public function __construct(AdminPageController $adminPageController)
+    public function __construct(AdminPageController $adminPageController, Request $request)
     {
         $this->adminPageController = $adminPageController;
+        $this->request = $request;
     }
     public function index()
     {
@@ -34,10 +37,10 @@ class AccountsController
     public function showUsers()
     {
         $usermodel = new UserModel();
-        if (!isset($_GET['page'])) {
+        if (!$this->request->hasGet('page')) {
             $contas = $usermodel->getFirstTenAccoutsByPage(1);
         } else {
-            $contas = $usermodel->getFirstTenAccoutsByPage($_GET['page']);
+            $contas = $usermodel->getFirstTenAccoutsByPage($this->request->get('page'));
         }
         echo "<div id='linhas_dados_usuarios'>";
         foreach ($contas as $conta) {

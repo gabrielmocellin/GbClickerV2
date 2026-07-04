@@ -2,25 +2,36 @@
 
 namespace GbClicker\Controller\Auth\Actions;
 
+use GbClicker\Http\Request;
+use GbClicker\Http\Session;
+
 class LogoutController
 {
+    private Session $session;
+    private Request $request;
+
+    public function __construct(Session $session, Request $request)
+    {
+        $this->session = $session;
+        $this->request = $request;
+    }
+
     public function index()
     {
-        self::destruirSessao();
-        self::destruirCookie();
+        $this->destruirSessao();
+        $this->destruirCookie();
         header("location: /login?aviso=2");
     }
 
     public function destruirSessao()
     {
 
-        session_unset();
-        session_destroy();
+        $this->session->destroy();
     }
 
     public function destruirCookie()
     {
-        if (isset($_COOKIE['email-logado'])) {
+        if ($this->request->hasCookie('email-logado')) {
             setcookie("email-logado", "", time() - 3600);
         }
     }

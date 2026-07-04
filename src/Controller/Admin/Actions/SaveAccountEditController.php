@@ -4,9 +4,16 @@ namespace GbClicker\Controller\Admin\Actions;
 
 use Exception;
 use GbClicker\Conexao\Conexao;
+use GbClicker\Http\Session;
 
 class SaveAccountEditController
 {
+    private Session $session;
+
+    public function __construct(Session $session)
+    {
+        $this->session = $session;
+    }
     const EDIT_SUCESS = 0;
     const GENERIC_DATABASE_ERROR = 100;
     const INVALID_NICKNAME = 101;
@@ -19,10 +26,11 @@ class SaveAccountEditController
 
     public function index()
     {
-        if (!isset($_SESSION['email'])) {
+        if (!$this->session->has('email')) {
 
         }
 
+        // TODO: abstract headers into Request
         if ($_SERVER['CONTENT_TYPE'] == "application/json") {
 
             $dadosRecebidos = file_get_contents("php://input");
