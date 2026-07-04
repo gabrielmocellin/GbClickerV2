@@ -1,0 +1,62 @@
+<?php
+    namespace GbClicker\Controller\Api;
+
+    use GbClicker\Conexao\Conexao;
+    use GbClicker\Http\Session;
+    use GbClicker\Model\UserModel;
+
+    class GetUserInfoAPI {
+        # Essa classe será utilizada para retornar as informações do usuário
+        # a partir do email logado armazenado na SESSION
+        const USER_NOT_FOUND = 4005;
+        const INVALID_SESSION = 201;
+        const COMPLETE = 200;
+
+        private Session $session;
+
+        public function __construct(Session $session)
+        {
+            $this->session = $session;
+        }
+
+        public function index()
+        {
+            $this->loginVerify();
+            $email = filter_var($this->session->get('email'), FILTER_SANITIZE_EMAIL);
+            $model = new UserModel();
+            $model->setEmail($email);
+
+            if ($model->getByEmail()) {
+                echo json_encode(
+                    [
+                        'nickname' => $model->getNickname(),
+                        'money' => $model->getMoney(),
+                        'clickValue' => $model->getClickValue(),
+                        'multiplier' => $model->getMultiplier(),
+                        'minions' => $model->getMinions(),
+                        'level' => $model->getLevel(),
+                        'xp_points' => $model->getXpPoints(),
+                        'max_to_up' => $model->getMaxToUp(),
+                        'resposta' => self::COMPLETE
+                    ]
+                );
+
+                exit();
+            }
+
+            echo json_encode(
+                ['resposta' => self::USER_NOT_FOUND]
+            );
+
+            exit();
+        }
+
+        public function loginVerify()
+        {
+            if (!$this->session->has('email')) {
+                echo json_encode(['resposta' => self::INVALID_SESSION]);
+                exit();
+            }
+        }
+
+    }

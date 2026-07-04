@@ -77,7 +77,7 @@ class UserDAO extends Dao implements IDAO
         FROM usuario
         INNER JOIN nivel ON usuario.email = nivel.FK_user_email
         INNER JOIN tipos_contas ON usuario.FK_id_tipos_contas = tipos_contas.id
-        WHERE tipos_contas.id = 1
+        WHERE tipos_contas.id = 1 OR tipos_contas.id = 2 # Seleciona apenas contas normais e contas de administrador
         ORDER BY usuario.money DESC
         LIMIT :offset, :limit';
         $stmt = $this->conexao->prepare($sql);

@@ -1,25 +1,33 @@
 <?php
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use GbClicker\Controller\Error404Controller;
 
+use GbClicker\Core\Container;
+use GbClicker\Http\Request;
+use GbClicker\Http\Session;
+
 $routes = require_once __DIR__ . '/../config/routes.php';
 
-$path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$serverMethod = $_SERVER['REQUEST_METHOD'];
+$container = new Container();
+$request = new Request();
+$session = new Session();
+
+$container->set(Request::class, $request);
+$container->set(Session::class, $session);
+
+$path = $request->getPath();
+$serverMethod = $request->getMethod();
 $key = "$serverMethod|$path";
 
 if (array_key_exists($key, $routes)) {
     $controllerClass = $routes[$key];
-    $controller = new $controllerClass();
+    $controller = $container->get($controllerClass);
     $controller->index();
 } else {
-    $errorController = new Error404Controller();
+    $errorController = $container->get(Error404Controller::class);
     $errorController->index();
 }
 

@@ -1,0 +1,93 @@
+<?php
+
+namespace GbClicker\Controller\Admin;
+
+use GbClicker\DAO\UserDAO;
+use GbClicker\Model\UserModel;
+use GbClicker\Controller\Admin\AdminPageController;
+use GbClicker\Http\Request;
+
+class AccountsController
+{
+
+    private AdminPageController $adminPageController;
+    private Request $request;
+
+    public function __construct(AdminPageController $adminPageController, Request $request)
+    {
+        $this->adminPageController = $adminPageController;
+        $this->request = $request;
+    }
+    public function index()
+    {
+        $model = $this->adminPageController->verifyAdminAccount();
+        $contas = [];
+        $titulo = 'ADM | Accounts';
+        $linksCss = [
+            'css/adminpages.css',
+            'css/accounts.css'
+        ];
+        $srcJs = [
+            'js/Accounts/accounts.js'
+        ];
+        $conteudoMain = '..\\View\\admin\\accounts.php';
+        require_once '..\\src\\Components\\template.php';
+    }
+
+    public function showUsers()
+    {
+        $usermodel = new UserModel();
+        if (!$this->request->hasGet('page')) {
+            $contas = $usermodel->getFirstTenAccoutsByPage(1);
+        } else {
+            $contas = $usermodel->getFirstTenAccoutsByPage($this->request->get('page'));
+        }
+        echo "<div id='linhas_dados_usuarios'>";
+        foreach ($contas as $conta) {
+            echo $this->montarLinhas($conta);
+        }
+        echo "</div>";
+
+    }
+
+    public function montarLinhas($conta)
+    {
+        $informacoes_e_tipo_input_array = array(
+            [$conta->getNickname(), "text", "nickname"],
+            [$conta->getImageSrc(), "image", "imagesrc"],
+            [$conta->getMoney(), "number", "money"],
+            [$conta->getClickValue(), "number", "clickValue"],
+            [$conta->getMultiplier(), "number", "multiplier"],
+            [$conta->getMinions(), "number", "minions"]
+        );
+
+        $comecoLinha = "
+        <form id='id_" . $conta->getId() . "' class='linha' method='POST' action='./accounts/save'>
+            <p class='p_user_info'>" . $conta->getId() . "</p>
+            <p class='p_user_info' title='" . $conta->getEmail() . "'>" . $conta->getEmail() . "</p>
+        ";
+
+        $meioLinha = "";
+        foreach($informacoes_e_tipo_input_array as $infos) {
+            if ($infos[1] === "image") {
+                $meioLinha .= "
+                    <img src='../" . $infos[0] . "'>
+                ";
+                continue;
+            }
+            $meioLinha .= "
+                <p class='p_user_info info_editaveis' title='" . $infos[0] . "'> " . $infos[0] . "</p>
+                <input name='" . $infos[2] . "_input_" . $conta->getId() . "' style='display:none' class='inputs_edicao' type=" . $infos[1] . " value='" . $infos[0] . "'>
+            ";
+        }
+
+        $fimLinha = "
+            <a onclick='edicao(" . $conta->getId() . ")' class='botao-acoes blue'>Editar</a>
+            <a id='botao-remover' class='botao-acoes red'>Remover</a>
+            <a onclick='salvarEdicao(" . $conta->getId() . ")' id='botao-salvar' style='display:none' class='botao-acoes green'>Salvar</a>
+        </form>
+    ";
+
+        return $comecoLinha . $meioLinha . $fimLinha;
+    } 
+}

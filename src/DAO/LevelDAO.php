@@ -28,6 +28,7 @@ class LevelDAO extends Dao implements IDAO
     {
         $sql = 'SELECT level, xp_points, max_to_up FROM nivel
             WHERE FK_user_email = :email';
+            
         $stmt = $this->conexao->prepare($sql);
         $stmt->bindValue(':email', $FK_user_email, \PDO::PARAM_STR);
         $stmt->execute();
