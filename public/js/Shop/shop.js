@@ -218,7 +218,7 @@ async function atualizarQuantidade(item, novaQuantidade) {
         let preco = await calcularPreco(item, novaQuantidade);
         let precoFormatado = formatador(preco, 1); 
         inputPrecoTotal.value = preco;
-        pItemPrice.innerText = precoFormatado;
+        if (pItemPrice != null) pItemPrice.innerText = precoFormatado;
 
         return true;
     }
@@ -227,7 +227,7 @@ async function atualizarQuantidade(item, novaQuantidade) {
     let precoFormatado = formatador(preco, 1);
 
     inputQuantidade.value = 1;
-    pItemPrice.innerText = precoFormatado;
+    if (pItemPrice != null) pItemPrice.innerText = precoFormatado;
     inputPrecoTotal.value = preco;
     
     mini.criarNotificacao(3, true);

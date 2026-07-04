@@ -28,6 +28,12 @@
     <link rel="stylesheet" href='/css/site.css' />
     <link rel="stylesheet" href='/css/miniNotificacao.css' />
     <?php montarLinks($linksCss); ?>
+    <link rel="stylesheet" href='/css/dark-mode.css' />
+    <script>
+        if (localStorage.getItem('gbclicker_night_mode') === 'true') {
+            document.documentElement.classList.add('dark-mode');
+        }
+    </script>
     <title><?= $titulo ?></title>
 </head>
 <body>

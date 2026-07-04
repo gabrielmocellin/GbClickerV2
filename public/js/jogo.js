@@ -57,7 +57,9 @@ const createNewCounterElement = (e, money) => {
 const clickOnClicker = async (e) => {
     if(saveClick()) {
         let data = await getUserInfo();
-        createNewCounterElement(e, data['clickValue'] * data['multiplier']);
+        if (localStorage.getItem('gbclicker_hide_feedback') !== 'true') {
+            createNewCounterElement(e, data['clickValue'] * data['multiplier']);
+        }
         updateAllGameInfo();
     }
 }

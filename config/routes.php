@@ -23,4 +23,5 @@
         "GET|/get/user_info"        => GbClicker\Controller\Api\GetUserInfoAPI::class,
         "POST|/post/click_save"     => GbClicker\Controller\Game\Actions\ClickController::class,
         "POST|/post/minions_money"  => GbClicker\Controller\Game\Actions\MinionsMoneyController::class,
+        "GET|/config"               => GbClicker\Controller\User\ConfigController::class,
     ];

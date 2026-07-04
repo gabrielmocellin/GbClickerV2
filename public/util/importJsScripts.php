@@ -1,5 +1,4 @@
 <script lang='JavaScript' src='/js/GerenciadorNavbar.js'></script>
-<script lang='JavaScript' src='/js/User.js'></script>
 <script lang='JavaScript' src='/js/util/miniNotificacao.js'></script>
 <script lang='JavaScript' src='/js/util/formatadorNums.js'></script>
 <script lang='JavaScript' src='/js/UserInfoManager.js'></script>

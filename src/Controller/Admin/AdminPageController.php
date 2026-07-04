@@ -16,7 +16,10 @@ class AdminPageController
     public function index()
     {
         $model = $this->verifyAdminAccount();
-        include_once __DIR__ . "\\..\\..\\..\\View\\admin\\admin.php";
+        $titulo = 'Admin';
+        $linksCss = ['css/admin.css', 'css/adminpages.css'];
+        $conteudoMain = '../View/admin/admin.php';
+        require_once '../src/Components/template.php';
     }
 
     public function verifyAdminAccount()
