@@ -70,22 +70,53 @@ class UserDAO extends Dao implements IDAO
         return $sqlPreparado->fetch(\PDO::FETCH_ASSOC);
     }
 
-    public function selectTenPerPage(int $offset, int $limit)
+    public function selectTenPerPage(int $offset, int $limit, string $search = '')
     {
+        $searchSql = '';
+        if (!empty($search)) {
+            $searchSql = ' AND (usuario.email LIKE :search OR usuario.nickname LIKE :search) ';
+        }
+
         $sql = 'SELECT usuario.id, usuario.email, usuario.nickname, usuario.image_src, usuario.clickValue,
         usuario.money, usuario.multiplier, usuario.minions, nivel.level, tipos_contas.nome
         FROM usuario
         INNER JOIN nivel ON usuario.email = nivel.FK_user_email
         INNER JOIN tipos_contas ON usuario.FK_id_tipos_contas = tipos_contas.id
-        WHERE tipos_contas.id = 1 OR tipos_contas.id = 2 # Seleciona apenas contas normais e contas de administrador
+        WHERE (tipos_contas.id = 1 OR tipos_contas.id = 2) ' . $searchSql . '
         ORDER BY usuario.money DESC
         LIMIT :offset, :limit';
+        
         $stmt = $this->conexao->prepare($sql);
         $stmt->bindValue(':offset', $offset, \PDO::PARAM_INT);
         $stmt->bindValue(':limit', $limit, \PDO::PARAM_INT);
+        if (!empty($search)) {
+            $stmt->bindValue(':search', '%' . $search . '%', \PDO::PARAM_STR);
+        }
         $stmt->execute();
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function countTotalAccounts(string $search = ''): int
+    {
+        $searchSql = '';
+        if (!empty($search)) {
+            $searchSql = ' AND (usuario.email LIKE :search OR usuario.nickname LIKE :search) ';
+        }
+
+        $sql = 'SELECT COUNT(usuario.id) as total
+        FROM usuario
+        INNER JOIN tipos_contas ON usuario.FK_id_tipos_contas = tipos_contas.id
+        WHERE (tipos_contas.id = 1 OR tipos_contas.id = 2) ' . $searchSql;
+
+        $stmt = $this->conexao->prepare($sql);
+        if (!empty($search)) {
+            $stmt->bindValue(':search', '%' . $search . '%', \PDO::PARAM_STR);
+        }
+        $stmt->execute();
+
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return (int) $result['total'];
     }
 
     public function selectByEmail(string $email)
