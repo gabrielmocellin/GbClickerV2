@@ -7,12 +7,12 @@
                 <label for="descricao">Descrição:<input name="descricao" id="descricao" required></input></label>
                 <label for="preco">Preço:<input type="text" name="preco" id="preco" required></label>
                 <label for="minimum_level">Nível:<input type="text" name="minimum_level" id="minimum_level" required></label>
-                <label for="quantidade">Quantidade:<input type="text" name="quantidade" id="quantidade" required></label>
+                <label for="efeito_valor">Efeito (valor por unidade):<input type="number" name="efeito_valor" id="efeito_valor" min="1" value="1" required></label>
                 <label for="tipo">Tipo:
                     <?php if (!empty($tipos)) { ?>
                         <select name="tipo">
                             <?php foreach ($tipos as $tipo): ?>
-                                <option value='<?= $tipo['id'] ?>'><?= $tipo['classificacao'] ?></option>
+                                <option value='<?= $tipo['id'] ?>'><?= $tipo['efeito'] ?></option>
                             <?php endforeach; ?>
                         </select>
                     <?php } else {echo "Sem Tipos!";}?>
@@ -28,4 +28,26 @@
             let preview = document.getElementById('preview');
             preview.src = URL.createObjectURL(input.files[0]);
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const erros = {
+                1: 'Erro ao salvar item no banco de dados!',
+                2: 'Erro ao processar imagem!',
+                7: 'Erro ao mover arquivo de imagem no servidor!',
+                100: 'Item criado com sucesso!'
+            };
+            
+            if (typeof miniNotificacao !== 'undefined') {
+                const mini = new miniNotificacao(erros);
+                
+                if (params.has('erroImagem')) {
+                    mini.criarNotificacao(parseInt(params.get('erroImagem')), true);
+                } else if (params.has('erro')) {
+                    mini.criarNotificacao(parseInt(params.get('erro')), true);
+                } else if (params.has('sucesso')) {
+                    mini.criarNotificacao(100, false);
+                }
+            }
+        });
     </script>

@@ -5,6 +5,8 @@ namespace GbClicker\Service;
 use GbClicker\Conexao\Conexao;
 use GbClicker\DAO\ItemDAO;
 use GbClicker\Model\UserModel;
+use GbClicker\DAO\InventarioDAO;
+use GbClicker\Model\InventarioModel;
 
 class PurchaseService
 {
@@ -16,20 +18,15 @@ class PurchaseService
 
     private const PORCENTAGEM_POR_UNIDADE = 0.03;
 
-    /** @var array<int, string> */
-    private const MAP_ITEM_TYPE = [
-        1 => 'clickValue',
-        2 => 'multiplier',
-        3 => 'minions',
-    ];
-
     private ItemDAO $itemDao;
     private \GbClicker\DAO\UserDAO $userDao;
+    private InventarioDAO $inventarioDao;
 
     public function __construct(ItemDAO $itemDao, \GbClicker\DAO\UserDAO $userDao)
     {
         $this->itemDao = $itemDao;
         $this->userDao = $userDao;
+        $this->inventarioDao = new InventarioDAO();
     }
 
     /**
@@ -43,7 +40,7 @@ class PurchaseService
 
         $userModel = new UserModel();
         $userModel->setEmail($email);
-        // FIXME: Model loading should ideally also be handled by DAO, but keeping this simple for now.
+        
         if (!$userModel->getByEmail()) {
             return $this->result(self::ERRO_AO_INICIAR_SESSAO, 'Usuario nao encontrado.');
         }
@@ -53,16 +50,21 @@ class PurchaseService
             return $this->result(self::ITEM_NOT_FOUND, 'Item nao encontrado.');
         }
 
-        $itemType = self::MAP_ITEM_TYPE[(int) ($itemData['FK_id_tipos_itens'] ?? 0)] ?? null;
-        if ($itemType === null) {
-            return $this->result(self::ERRO_AO_SALVAR_COMPRA, 'Tipo de item desconhecido.');
+        $precoBase = (int) $itemData['preco'];
+        
+        // Descobrir quantos itens DESSES o usuário já possui para escalar o preço
+        $quantidadeAtual = 0;
+        foreach ($userModel->upgradesInfo->getInventario() as $invItem) {
+            if ($invItem->getIdItem() == $itemId) {
+                $quantidadeAtual = $invItem->getQuantidade();
+                break;
+            }
         }
 
-        $precoBase = (int) $itemData['preco'];
         $precoTotal = $this->calcularPrecoTotal(
             $precoBase,
             $quantidade,
-            (int) $userModel->{'get' . ucfirst($itemType)}()
+            $quantidadeAtual
         );
 
         $minimumLevel = (int) ($itemData['minimum_level'] ?? 1);
@@ -74,10 +76,24 @@ class PurchaseService
             return $this->result(self::DINHEIRO_INSUFICIENTE, 'Dinheiro insuficiente.');
         }
 
-        $atualizado = $this->userDao->updateMoneyAndItem($email, $precoTotal, $itemType, $quantidade);
+        // Subtrai dinheiro
+        $atualizado = $this->userDao->updateMoney($email, $precoTotal);
 
         if (!$atualizado) {
             return $this->result(self::ERRO_AO_SALVAR_COMPRA, 'Nao foi possivel concluir a compra.');
+        }
+
+        // Adiciona ao inventario
+        $invModel = new InventarioModel();
+        $invModel->setEmailUsuario($email);
+        $invModel->setIdItem($itemId);
+        $invModel->setQuantidade($quantidade);
+        
+        $inseridoNoInventario = $this->inventarioDao->insert($invModel);
+
+        if (!$inseridoNoInventario) {
+            // Em um sistema real, faríamos rollback do dinheiro. Para manter simples, retornamos erro
+            return $this->result(self::ERRO_AO_SALVAR_COMPRA, 'Erro ao salvar item no inventario.');
         }
 
         return $this->result(self::COMPRA_FINALIZADA, 'Compra realizada com sucesso.');

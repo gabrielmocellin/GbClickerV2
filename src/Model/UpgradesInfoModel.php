@@ -2,36 +2,64 @@
 
 namespace GbClicker\Model;
 
-use GbClicker\DAO\UserDao;
-use GbClicker\Model\LevelModel;
+use GbClicker\DAO\InventarioDAO;
 
 class UpgradesInfoModel
 {
-    public $clickValue;
     public $money;
-    public $multiplier;
-    public $minions;
     public $levelData;
+    
+    /** @var InventarioModel[] */
+    public $inventario = [];
+    
+    public $statusCalculados = [
+        'clickValue' => 1,
+        'multiplier' => 1,
+        'minions' => 0
+    ];
 
     function __construct(
-        $clickValue = 1,
         $money = 0,
-        $multiplier = 1,
-        $minions = 0,
-        $levelData = new LevelModel()
+        $levelData = null
     ) {
-        $this->setClickValue($clickValue);
+        if ($levelData === null) {
+            $levelData = new LevelModel();
+        }
         $this->setMoney($money);
-        $this->setMultiplier($multiplier);
-        $this->setMinions($minions);
         $this->setLevelData($levelData);
     }
-
+    
+    public function carregarInventario(string $emailUsuario)
+    {
+        $dao = new InventarioDAO();
+        $this->inventario = $dao->selectByUserEmail($emailUsuario);
+        $this->calcularStatus();
+    }
+    
+    public function calcularStatus()
+    {
+        // Reseta os status para a base
+        $this->statusCalculados = [
+            'clickValue' => 1,
+            'multiplier' => 1,
+            'minions' => 0
+        ];
+        
+        foreach ($this->inventario as $item) {
+            $efeito = $item->getEfeito();
+            $valorAgregado = $item->getEfeitoValor() * $item->getQuantidade();
+            
+            if (!isset($this->statusCalculados[$efeito])) {
+                $this->statusCalculados[$efeito] = 0;
+            }
+            $this->statusCalculados[$efeito] += $valorAgregado;
+        }
+    }
 
     // =-=-=-=-= GETTERS =-=-=-=-=
     public function getClickValue()
     {
-        return $this->clickValue;
+        return $this->statusCalculados['clickValue'] ?? 1;
     }
 
     public function getMoney()
@@ -41,39 +69,33 @@ class UpgradesInfoModel
 
     public function getMultiplier()
     {
-        return $this->multiplier;
+        return $this->statusCalculados['multiplier'] ?? 1;
     }
 
     public function getMinions()
     {
-        return $this->minions;
+        return $this->statusCalculados['minions'] ?? 0;
     }
 
     public function getLevelData()
     {
         return $this->levelData;
     }
-
-
-    // =-=-=-=-= SETTERS =-=-=-=-=
-    public function setClickValue($clickValue)
+    
+    public function getInventario()
     {
-        $this->clickValue = $clickValue;
+        return $this->inventario;
     }
 
+    public function getStatusCalculados()
+    {
+        return $this->statusCalculados;
+    }
+
+    // =-=-=-=-= SETTERS =-=-=-=-=
     public function setMoney($money)
     {
         $this->money = $money;
-    }
-
-    public function setMultiplier($multiplier)
-    {
-        $this->multiplier = $multiplier;
-    }
-
-    public function setMinions($minions)
-    {
-        $this->minions = $minions;
     }
 
     public function setLevelData(LevelModel $levelData)

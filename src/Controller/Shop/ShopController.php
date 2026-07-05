@@ -50,17 +50,41 @@ class ShopController
         return $itemsArray;
     }
 
-    public function mostrarItens($itemsArray, $userLevel = 0)
+    public function mostrarItens($itemsArray, UserModel $userModel = null)
     {
+        $userLevel = $userModel ? $userModel->getLevel() : 0;
+        $inventario = $userModel ? $userModel->upgradesInfo->inventario : [];
+        
         if (!empty($itemsArray)) {
             foreach ($itemsArray as $item) {
                 $id = $item['id'];
                 $descricao = $item['descricao'];
                 $imageSrc = $item['image_src'];
                 $nome = $item['nome'];
-                $quantidade = $item['quantidade'];
+                $efeito_valor = $item['efeito_valor'];
                 $preco = $item['preco'];
                 $minimumLevel = $item['minimum_level'] ?? 1;
+                
+                $efeitoString = "+{$efeito_valor}";
+                if (isset($item['efeito'])) {
+                    if ($item['efeito'] == 'clickValue') {
+                        $efeitoString = "+{$efeito_valor} por Clique";
+                    } elseif ($item['efeito'] == 'minion') {
+                        $efeitoString = "+{$efeito_valor}/s (Automático)";
+                    } elseif ($item['efeito'] == 'multiplier') {
+                        $efeitoString = "+{$efeito_valor} Multiplicador Global";
+                    } else {
+                        $efeitoString = "+{$efeito_valor} {$item['efeito']}";
+                    }
+                }
+                
+                $quantidadePossuida = 0;
+                foreach ($inventario as $invItem) {
+                    if ($invItem->getIdItem() == $id) {
+                        $quantidadePossuida = $invItem->getQuantidade();
+                        break;
+                    }
+                }
 
                 include ('../src/Components/Shop/item.php');
             }

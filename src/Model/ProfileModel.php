@@ -3,14 +3,13 @@
 namespace GbClicker\Model;
 
 use GbClicker\DAO\ProfileDao;
+use GbClicker\Model\UpgradesInfoModel;
 
 class ProfileModel
 {
     public $nickname;
-    public $clickValue;
+    private UpgradesInfoModel $upgradesInfo;
     public $money;
-    public $multiplier;
-    public $minions;
     public $image_src;
     public $level;
     public $id;
@@ -22,13 +21,14 @@ class ProfileModel
         $profileInfo = $profileDao->selectByIdentifier($id);
         $this->id = $id;
         $this->nickname = $profileInfo['nickname'];
-        $this->clickValue = $profileInfo['clickValue'];
         $this->money = $profileInfo['money'];
-        $this->multiplier = $profileInfo['multiplier'];
-        $this->minions = $profileInfo['minions'];
-        $this->image_src = $profileInfo['image_src'];;
+        $this->image_src = $profileInfo['image_src'];
         $this->level = $profileInfo['level'];
         $this->rank = intval($profileInfo['rank_atual']) + 1;
+
+        $this->upgradesInfo = new UpgradesInfoModel();
+        // Carrega inventário para calcular as propriedades dinâmicas
+        $this->upgradesInfo->carregarInventario($profileInfo['email']);
     }
 
     // =-=-=-=-= GETTERS =-=-=-=-=
@@ -44,7 +44,7 @@ class ProfileModel
 
     public function getClickValue()
     {
-        return $this->clickValue;
+        return $this->upgradesInfo->getClickValue();
     }
 
     public function getMoney()
@@ -54,12 +54,12 @@ class ProfileModel
 
     public function getMultiplier()
     {
-        return $this->multiplier;
+        return $this->upgradesInfo->getMultiplier();
     }
 
     public function getMinions()
     {
-        return $this->minions;
+        return $this->upgradesInfo->getMinions();
     }
 
     public function getLevel()

@@ -92,7 +92,7 @@ div#admin .header
 {
     width: 100%;
     display: grid;
-    grid-template-columns: 0.5fr 1.5fr 1fr 1fr 1fr 1fr 1fr 1fr 2fr;
+    grid-template-columns: 0.5fr 1.5fr 1fr 1fr 1fr 2fr;
     justify-items: center;
     align-items: center;
     color: white;
@@ -150,7 +150,7 @@ div#admin .linha
     display: grid;
     justify-items: center;
     align-items: center;
-    grid-template-columns: 0.5fr 1.5fr 1fr 1fr 1fr 1fr 1fr 1fr 2fr;
+    grid-template-columns: 0.5fr 1.5fr 1fr 1fr 1fr 2fr;
     width: 100%;
     border-bottom: 1px solid #eee;
     padding: 10px 0;

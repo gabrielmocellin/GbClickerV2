@@ -67,26 +67,17 @@ class SaveAccountEditController
     {
         $sql = "UPDATE usuario
                 SET nickname=:nickname,
-                clickValue=:clickValue,
-                money=:money,
-                multiplier=:multiplier,
-                minions=:minions
+                money=:money
                 WHERE id = :id;";
 
         $sqlPreparado = $conexao->prepare($sql);
 
         $id         = $dados['id'];
         $nickname   = $dados['nickname'];
-        $clickValue = $dados['clickValue'];
         $money      = $dados['money'];
-        $multiplier = $dados['multiplier'];
-        $minions    = $dados['minions'];
 
         $sqlPreparado->bindParam(':nickname', $nickname, \PDO::PARAM_STR);
-        $sqlPreparado->bindParam(':clickValue', $clickValue, \PDO::PARAM_INT);
         $sqlPreparado->bindParam(':money', $money, \PDO::PARAM_INT);
-        $sqlPreparado->bindParam(':multiplier', $multiplier, \PDO::PARAM_INT);
-        $sqlPreparado->bindParam(':minions', $minions, \PDO::PARAM_INT);
         $sqlPreparado->bindParam(':id', $id, \PDO::PARAM_INT);
 
         return $sqlPreparado;
@@ -96,10 +87,7 @@ class SaveAccountEditController
     {
         $inputsERespectivosRegex = [
             'nickname'   => ["codigoErro" => self::INVALID_NICKNAME, "regex" => "/^(?=.*[A-z])[A-z0-9_-]{2,16}$/", "dado" => $dados['nickname']],
-            'clickValue' => ["codigoErro" => self::INVALID_CLICK_VALUE, "regex" => "/^\d{1,34}$/", "dado" => "" . $dados['clickValue']],
-            'money'      => ["codigoErro" => self::INVALID_MONEY, "regex" => "/^\d{1,34}$/", "dado" => "" . $dados['money']],
-            'multiplier' => ["codigoErro" => self::INVALID_MULTIPLIER, "regex" => "/^\d{1,34}$/", "dado" => "" . $dados['multiplier']],
-            'minions'    => ["codigoErro" => self::INVALID_MINIONS, "regex" => "/^\d{1,34}$/", "dado" => "" . $dados['minions']]
+            'money'      => ["codigoErro" => self::INVALID_MONEY, "regex" => "/^\d{1,34}$/", "dado" => "" . $dados['money']]
         ];
 
         foreach ($inputsERespectivosRegex as $inputRegex) {

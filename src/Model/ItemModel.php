@@ -11,17 +11,17 @@ class ItemModel
     public $descricao;
     public $preco;
     public $minimum_level;
-    public $quantidade;
+    public $efeito_valor;
     public $image_src;
     public $tipo;
     
-    public function construtor($nm, $desc, $pr, $min, $qt, $im, $tp)
+    public function construtor($nm, $desc, $pr, $min, $ef_val, $im, $tp)
     {
         $this->setNome($nm);
         $this->setDescricao($desc);
         $this->setPreco($pr);
         $this->setMinimumLevel($min);
-        $this->setQuantidade($qt);
+        $this->setEfeitoValor($ef_val);
         $this->setImageSrc($im);
         $this->setTipo($tp);
     }
@@ -60,7 +60,7 @@ class ItemModel
         $this->setImageSrc($data['image_src']);
         $this->setPreco($data['preco']);
         $this->setDescricao($data['descricao']);
-        $this->setQuantidade($data['quantidade']);
+        $this->setEfeitoValor($data['efeito_valor']);
         $this->setMinimumLevel($data['minimum_level']);
         $this->setTipo($data['FK_id_tipos_itens']);
     }
@@ -91,9 +91,9 @@ class ItemModel
         return $this->minimum_level;
     }
 
-    public function getQuantidade()
+    public function getEfeitoValor()
     {
-        return $this->quantidade;
+        return $this->efeito_valor;
     }
 
     public function getImageSrc()
@@ -131,9 +131,9 @@ class ItemModel
         $this->minimum_level = $minimum_level;
     }
 
-    public function setQuantidade($quantidade)
+    public function setEfeitoValor($efeito_valor)
     {
-        $this->quantidade = $quantidade;
+        $this->efeito_valor = $efeito_valor;
     }
 
     public function setImageSrc($image_src)

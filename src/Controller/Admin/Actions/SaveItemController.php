@@ -35,24 +35,28 @@ class SaveItemController
                     $this->request->post('descricao'),
                     $this->request->post('preco'),
                     $this->request->post('minimum_level'),
-                    $this->request->post('quantidade'),
+                    $this->request->post('efeito_valor'),
                     $dirFile,
                     $this->request->post('tipo')
                 );
                 if ($item->save()) {
-                    header('location: \\admin\\items');
+                    header('location: /admin/items?sucesso=1');
+                } else {
+                    header('location: /admin/items?erro=1');
                 }
+            } else {
+                header('location: /admin/items?erro=2');
             }
         }
     }
 
     public function salvarImagemLocalmente($imagem)
     {
-        $pathRelativo = "img\\uploads\\items\\";
-        $pathCompleto = __DIR__ . "\\..\\..\\..\\public\\$pathRelativo" . basename($imagem['name']);
+        $pathRelativo = "img/uploads/items/";
+        $pathCompleto = __DIR__ . "/../../../../public/" . $pathRelativo . basename($imagem['name']);
         if (!move_uploaded_file($imagem['tmp_name'], $pathCompleto)) {
-            header("location: \\admin\\items?erroImagem=7");
-            return;
+            header("location: /admin/items?erroImagem=7");
+            return false;
         };
         return $pathRelativo . basename($imagem['name']);
     }

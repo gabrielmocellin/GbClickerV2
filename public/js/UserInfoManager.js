@@ -10,6 +10,7 @@ class UserInfoManager
         
             if (contidoNaPagina) {
                 elementoHtml.textContent = prefixo + numeroFormatado + sufixo;
+                elementoHtml.setAttribute('data-raw-value', valor);
             }
         }
 
