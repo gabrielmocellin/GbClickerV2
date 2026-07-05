@@ -24,9 +24,9 @@ class UserDAO extends Dao implements IDAO
     public function insert($model)
     {
         $sqlUser = "INSERT INTO usuario (
-                email, password, nickname, clickValue, money, multiplier, minions, image_src, FK_id_tipos_contas
+                email, password, nickname, money, image_src, FK_id_tipos_contas
             ) VALUES (
-                :email, :password, :nickname, :clickValue, :money, :multiplier, :minions, :image_src, :FK_id_tipos_contas
+                :email, :password, :nickname, :money, :image_src, :FK_id_tipos_contas
             )";
 
         $sqlLevel = "INSERT INTO nivel (
@@ -50,15 +50,11 @@ class UserDAO extends Dao implements IDAO
 
     public function update($model)
     {
-        $sql = "UPDATE usuario SET clickValue=:clickValue, money=:money, multiplier=:multiplier, minions=:minions 
-        WHERE email = :email";
+        $sql = "UPDATE usuario SET money=:money WHERE email = :email";
         $sqlPreparado = $this->conexao->prepare($sql);
 
         $sqlPreparado->bindValue(':email', $model->getEmail(), \PDO::PARAM_STR);
-        $sqlPreparado->bindValue(':clickValue', $model->getClickValue(), \PDO::PARAM_STR);
         $sqlPreparado->bindValue(':money', $model->getMoney(), \PDO::PARAM_INT);
-        $sqlPreparado->bindValue(':multiplier', $model->getMultiplier(), \PDO::PARAM_INT);
-        $sqlPreparado->bindValue(':minions', $model->getMinions(), \PDO::PARAM_INT);
 
         $sqlPreparado->execute();
     }
@@ -77,8 +73,9 @@ class UserDAO extends Dao implements IDAO
             $searchSql = ' AND (usuario.email LIKE :search OR usuario.nickname LIKE :search) ';
         }
 
-        $sql = 'SELECT usuario.id, usuario.email, usuario.nickname, usuario.image_src, usuario.clickValue,
-        usuario.money, usuario.multiplier, usuario.minions, nivel.level, tipos_contas.nome
+        // Removidos clickValue, multiplier, minions da listagem simples
+        $sql = 'SELECT usuario.id, usuario.email, usuario.nickname, usuario.image_src,
+        usuario.money, nivel.level, tipos_contas.nome
         FROM usuario
         INNER JOIN nivel ON usuario.email = nivel.FK_user_email
         INNER JOIN tipos_contas ON usuario.FK_id_tipos_contas = tipos_contas.id
@@ -146,19 +143,13 @@ class UserDAO extends Dao implements IDAO
         $userSQL = "INSERT INTO usuario (email,
             password,
             nickname,
-            clickValue,
             money,
-            multiplier,
-            minions,
             image_src,
             FK_id_tipos_contas)
         VALUES (:email,
             :password,
             :nickname,
-            :clickValue,
             :money,
-            :multiplier,
-            :minions,
             :image_src,
             :FK_id_tipos_contas
         )";
@@ -168,14 +159,10 @@ class UserDAO extends Dao implements IDAO
 
         $userSQLPrepared->bindValue(":email", $registerModel->getUserCredentials()->getEmail(), \PDO::PARAM_STR);
         $userSQLPrepared->bindValue(":password", $encryptedPassword, \PDO::PARAM_STR);
-        $userSQLPrepared->bindValue(":clickValue", $registerModel->getUpgradesInfo()->getClickValue(), \PDO::PARAM_INT);
         $userSQLPrepared->bindValue(":money", $registerModel->getUpgradesInfo()->getMoney(), \PDO::PARAM_INT);
-        $userSQLPrepared->bindValue(":multiplier", $registerModel->getUpgradesInfo()->getMultiplier(), \PDO::PARAM_INT);
-        $userSQLPrepared->bindValue(":minions", $registerModel->getUpgradesInfo()->getMinions(), \PDO::PARAM_INT);
         $userSQLPrepared->bindValue(":nickname", $registerModel->getNickname(), \PDO::PARAM_STR);
         $userSQLPrepared->bindValue(":image_src", $registerModel->getImageSrc(), \PDO::PARAM_STR);
         $userSQLPrepared->bindValue(":FK_id_tipos_contas", $registerModel->getTipoConta(), \PDO::PARAM_INT);
-
 
         return $userSQLPrepared;
 
@@ -208,11 +195,9 @@ class UserDAO extends Dao implements IDAO
         $sqlUsuarioPreparado->bindValue(':email', $model->getEmail(), \PDO::PARAM_STR);
         $sqlUsuarioPreparado->bindValue(':password', $model->getPassword(), \PDO::PARAM_STR);
         $sqlUsuarioPreparado->bindValue(':nickname', $model->getNickname(), \PDO::PARAM_STR);
-        $sqlUsuarioPreparado->bindValue(':clickValue', $model->getClickValue(), \PDO::PARAM_STR);
         $sqlUsuarioPreparado->bindValue(':money', $model->getMoney(), \PDO::PARAM_INT);
-        $sqlUsuarioPreparado->bindValue(':multiplier', $model->getMultiplier(), \PDO::PARAM_INT);
-        $sqlUsuarioPreparado->bindValue(':minions', $model->getMinions(), \PDO::PARAM_INT);
         $sqlUsuarioPreparado->bindValue(':image_src', $model->getImageSrc(), \PDO::PARAM_STR);
+        $sqlUsuarioPreparado->bindValue(':FK_id_tipos_contas', $model->getTipoConta() ?? 1, \PDO::PARAM_INT);
 
         return $sqlUsuarioPreparado;
     }
@@ -240,20 +225,19 @@ class UserDAO extends Dao implements IDAO
         return $encryptedPassword;
     }
 
-    public function updateMoneyAndItem(string $email, int $precoTotal, string $itemType, int $quantidade): bool
+    public function updateMoney(string $email, int $precoTotal): bool
     {
         $sql = "UPDATE usuario
-            SET money = money - :precoTotal,
-                `{$itemType}` = `{$itemType}` + :quantidade
+            SET money = money - :precoTotal
             WHERE email = :email
               AND money >= :precoTotal";
 
         $stmt = $this->conexao->prepare($sql);
         $stmt->bindValue(':precoTotal', $precoTotal, \PDO::PARAM_INT);
-        $stmt->bindValue(':quantidade', $quantidade, \PDO::PARAM_INT);
         $stmt->bindValue(':email', $email, \PDO::PARAM_STR);
         $stmt->execute();
 
         return $stmt->rowCount() > 0;
     }
 }
+

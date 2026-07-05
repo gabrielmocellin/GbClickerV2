@@ -6,7 +6,7 @@ class ProfileDAO extends Dao
 {
     public function selectByIdentifier($identifier)
     {
-        $sql = "SELECT nickname, clickValue, money, multiplier, minions, image_src, nivel.level,
+        $sql = "SELECT usuario.email, nickname, money, image_src, nivel.level,
         (SELECT COUNT(*) FROM usuario WHERE money > (SELECT money FROM usuario WHERE id = :idFirst)) AS rank_atual
         FROM usuario JOIN nivel where usuario.id = :idSecond AND usuario.email = nivel.FK_user_email";
 

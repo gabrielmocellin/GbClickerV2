@@ -2,10 +2,7 @@ let erros = {
     0:   'Conta editada!',
     100: 'Erro ao salvar no banco!',
     101: 'Apelido inválido!',
-    102: 'Valor p/clique inválido!',
     103: 'Dinheiro inválido!',
-    104: 'Multiplicador inválido!',
-    105: 'Minions inválidos!',
     106: 'Apelido duplicado!'
 }
 
@@ -54,19 +51,13 @@ function salvarEdicao(id_linha)
 {
     let linha = document.querySelector(`#id_${id_linha}`);
 
-    let nicknameInput   = linha.querySelector(`input[name="nickname_input_${id_linha}"]`);
-    let clickValueInput = linha.querySelector(`input[name="clickValue_input_${id_linha}"]`);
-    let moneyInput      = linha.querySelector(`input[name="money_input_${id_linha}"]`);
-    let multiplierInput = linha.querySelector(`input[name="multiplier_input_${id_linha}"]`);
-    let minionsInput    = linha.querySelector(`input[name="minions_input_${id_linha}"]`);
+    let nicknameInput = linha.querySelector(`input[name="nickname_input_${id_linha}"]`);
+    let moneyInput    = linha.querySelector(`input[name="money_input_${id_linha}"]`);
 
     let dadosEditados = {
-        "id":         id_linha,
-        "nickname":   nicknameInput.value,
-        "clickValue": clickValueInput.value,
-        "money":      moneyInput.value,
-        "multiplier": multiplierInput.value,
-        "minions":    minionsInput.value,
+        "id":       id_linha,
+        "nickname": nicknameInput.value,
+        "money":    moneyInput.value,
     };
 
     const CONFIG_FETCH_REQUEST = {
@@ -87,14 +78,10 @@ function salvarEdicao(id_linha)
             mini.criarNotificacao(data['resposta']);
             
             let paragrafos = linha.querySelectorAll(`p.info_editaveis`);
-            if (paragrafos.length === 5) {
+            if (paragrafos.length >= 2) {
                 paragrafos[0].innerText = nicknameInput.value;
                 paragrafos[0].title = nicknameInput.value;
-                
                 paragrafos[1].innerText = moneyInput.value;
-                paragrafos[2].innerText = clickValueInput.value;
-                paragrafos[3].innerText = multiplierInput.value;
-                paragrafos[4].innerText = minionsInput.value;
                 
                 formatarNumerosNasDivs(`#id_${id_linha} p`, 1);
             }
@@ -129,7 +116,6 @@ function removerConta(id_linha)
         .then(data => {
             if (data['resposta'] === 0) {
                 alert('Conta removida com sucesso!');
-                // Remove a linha da tabela
                 let linha = document.querySelector(`#id_${id_linha}`);
                 if (linha) {
                     linha.remove();

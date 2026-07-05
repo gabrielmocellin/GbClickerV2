@@ -31,7 +31,7 @@ function adicionarEventListeners(itensArray) {
     }
 
     itensArray.forEach(async (item) => {
-        ativarEventListenerBotoesQuantidade(item);
+
         ativarEventListenerBulk(item);
         ativarEventListenerInput(item);
         await atualizarQuantidade(item, 1);
@@ -56,25 +56,7 @@ function ativarEventListenerInput(item) {
     );
 }
 
-function ativarEventListenerBotoesQuantidade(item) {
-    const inputQuantidade = item.querySelector('.input-quantidade');
-    const botaoAdicionar = item.querySelector('.add');
-    const botaoRemover = item.querySelector('.remove');
 
-    botaoAdicionar.addEventListener('click', async () => {
-        const quantidadeAtual = pegarQuantidadeInput(inputQuantidade) || 1;
-        const novaQuantidade = quantidadeAtual + 1;
-        inputQuantidade.value = novaQuantidade;
-        await atualizarQuantidade(item, novaQuantidade);
-    });
-
-    botaoRemover.addEventListener('click', async () => {
-        const quantidadeAtual = pegarQuantidadeInput(inputQuantidade) || 1;
-        const novaQuantidade = Math.max(1, quantidadeAtual - 1);
-        inputQuantidade.value = novaQuantidade;
-        await atualizarQuantidade(item, novaQuantidade);
-    });
-}
 
 function ativarEventListenerBulk(item) {
     const inputQuantidade = item.querySelector('.input-quantidade');
@@ -212,6 +194,7 @@ async function atualizarQuantidade(item, novaQuantidade) {
     let inputQuantidade = item.querySelector('.input-quantidade');
     let inputPrecoTotal = item.querySelector('.input-preco-total');
     let pItemPrice = item.querySelector('.item-price');
+    let botaoComprar = item.querySelector('.botao-comprar');
     let novaQuantidadeValida = validarQuantidade(novaQuantidade);
 
     if (novaQuantidadeValida) {
@@ -219,6 +202,15 @@ async function atualizarQuantidade(item, novaQuantidade) {
         let precoFormatado = formatador(preco, 1); 
         inputPrecoTotal.value = preco;
         if (pItemPrice != null) pItemPrice.innerText = precoFormatado;
+        
+        let userInfo = await getUserInfoToShop();
+        if (userInfo != null) {
+            if (parseInt(userInfo['money']) < preco) {
+                botaoComprar.classList.add('unaffordable');
+            } else {
+                botaoComprar.classList.remove('unaffordable');
+            }
+        }
 
         return true;
     }
@@ -229,6 +221,15 @@ async function atualizarQuantidade(item, novaQuantidade) {
     inputQuantidade.value = 1;
     if (pItemPrice != null) pItemPrice.innerText = precoFormatado;
     inputPrecoTotal.value = preco;
+    
+    let userInfo = await getUserInfoToShop();
+    if (userInfo != null) {
+        if (parseInt(userInfo['money']) < preco) {
+            botaoComprar.classList.add('unaffordable');
+        } else {
+            botaoComprar.classList.remove('unaffordable');
+        }
+    }
     
     mini.criarNotificacao(3, true);
 
@@ -283,9 +284,27 @@ async function comprar(item) {
     if (!compraRealizada) {
         return;
     }
+    
+    // Atualiza visualmente a quantidade possuída
+    let tagPossui = item.querySelector('.quantity-owned');
+    if (tagPossui) {
+        let currentOwned = parseInt(tagPossui.innerText);
+        tagPossui.innerText = currentOwned + quantidade;
+    }
 
     item.querySelector('.input-quantidade').value = 1;
     await atualizarQuantidade(item, 1);
+    
+    // Atualiza outras cartas para checar se podem ser compradas após a perda de dinheiro
+    let itensArray = montarArrayItens();
+    if (itensArray) {
+        itensArray.forEach(async (otherItem) => {
+            if (otherItem !== item) {
+                let currentQtd = pegarQuantidadeInput(otherItem.querySelector('.input-quantidade')) || 1;
+                await atualizarQuantidade(otherItem, currentQtd);
+            }
+        });
+    }
 }
 
 const erros = {
@@ -304,3 +323,40 @@ const erros = {
 var mini = new miniNotificacao(erros);
 let itensArray = montarArrayItens();
 adicionarEventListeners(itensArray);
+
+// Observer para reavaliar os botões de compra quando o dinheiro muda (via renda passiva)
+const moneyElement = document.getElementById('user_money_p');
+if (moneyElement && itensArray) {
+    const observer = new MutationObserver(() => {
+        // Pega o valor exato (bruto) que o script de atualização agora coloca, 
+        // ou tenta extrair do texto caso falhe
+        let rawMoneyAttr = moneyElement.getAttribute('data-raw-value');
+        let currentMoney = 0;
+        
+        if (rawMoneyAttr) {
+            currentMoney = parseFloat(rawMoneyAttr);
+        } else {
+            let moneyString = moneyElement.textContent.replace(/[^0-9.]/g, '');
+            currentMoney = parseFloat(moneyString);
+        }
+        
+        if (isNaN(currentMoney)) return;
+        
+        // Atualiza todos os botões se baseando no novo dinheiro
+        itensArray.forEach((item) => {
+            let inputPrecoTotal = item.querySelector('.input-preco-total');
+            let botaoComprar = item.querySelector('.botao-comprar');
+            
+            if (inputPrecoTotal && botaoComprar) {
+                let precoTotal = parseInt(inputPrecoTotal.value);
+                if (currentMoney < precoTotal) {
+                    botaoComprar.classList.add('unaffordable');
+                } else {
+                    botaoComprar.classList.remove('unaffordable');
+                }
+            }
+        });
+    });
+
+    observer.observe(moneyElement, { characterData: true, childList: true, subtree: true, attributes: true });
+}

@@ -77,17 +77,11 @@ class AccountsController
         $nickname = htmlspecialchars((string)$conta->getNickname(), ENT_QUOTES, 'UTF-8');
         $imageSrc = htmlspecialchars((string)$conta->getImageSrc(), ENT_QUOTES, 'UTF-8');
         $money = htmlspecialchars((string)$conta->getMoney(), ENT_QUOTES, 'UTF-8');
-        $clickValue = htmlspecialchars((string)$conta->getClickValue(), ENT_QUOTES, 'UTF-8');
-        $multiplier = htmlspecialchars((string)$conta->getMultiplier(), ENT_QUOTES, 'UTF-8');
-        $minions = htmlspecialchars((string)$conta->getMinions(), ENT_QUOTES, 'UTF-8');
 
         $informacoes_e_tipo_input_array = array(
             [$nickname, "text", "nickname"],
             [$imageSrc, "image", "imagesrc"],
             [$money, "number", "money"],
-            [$clickValue, "number", "clickValue"],
-            [$multiplier, "number", "multiplier"],
-            [$minions, "number", "minions"]
         );
 
         $id = htmlspecialchars((string)$conta->getId(), ENT_QUOTES, 'UTF-8');

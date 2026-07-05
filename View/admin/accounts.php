@@ -19,9 +19,6 @@
                 <p>Nickname</p>
                 <p>Foto</p>
                 <p>R$</p>
-                <p>Valor p/Clique</p>
-                <p>Multiplicador</p>
-                <p>Minions</p>
                 <p>Ações</p>
             </div>
             <?php $this->showUsers(); ?>

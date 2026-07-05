@@ -98,10 +98,7 @@ class UserModel
     {
         $this->setId($daoResult['id']);
         $this->setNickname($daoResult['nickname']);
-        $this->setClickValue($daoResult['clickValue']);
         $this->setMoney($daoResult['money']);
-        $this->setMultiplier($daoResult['multiplier']);
-        $this->setMinions($daoResult['minions']);
         $this->setImageSrc($daoResult['image_src']);
         $this->setTipoConta($daoResult['tipo_conta']);
         $this->setLevelData(new LevelModel(
@@ -109,6 +106,9 @@ class UserModel
             $daoResult['xp_points'],
             $daoResult['max_to_up']
         ));
+        
+        // Agora carrega o inventário para calcular dinamicamente
+        $this->upgradesInfo->carregarInventario($this->getEmail());
     }
 
     public function updateUserData()
@@ -215,24 +215,9 @@ class UserModel
         $this->nickname = $nickname;
     }
 
-    public function setClickValue($clickValue)
-    {
-        $this->upgradesInfo->setClickValue($clickValue);
-    }
-
     public function setMoney($money)
     {
         $this->upgradesInfo->setMoney($money);
-    }
-
-    public function setMultiplier($multiplier)
-    {
-        $this->upgradesInfo->setMultiplier($multiplier);
-    }
-
-    public function setMinions($minions)
-    {
-        $this->upgradesInfo->setMinions($minions);
     }
 
     public function setLevelData($levelData)

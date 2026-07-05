@@ -20,9 +20,6 @@
             $this->request = $request;
         }
 
-        /** Colunas permitidas em usuario (alinha com tipos_itens.classificacao). */
-        private const COLUNAS_USUARIO_PERMITIDAS = ['clickValue', 'multiplier', 'minions'];
-
         public function index()
         {
             if (!$this->session->has('email')) {
@@ -32,89 +29,39 @@
 
             $id = filter_var($this->request->get('item_id'), FILTER_SANITIZE_NUMBER_INT);
             $email = filter_var($this->session->get('email'), FILTER_SANITIZE_EMAIL);
-            $resultItem = $this->getItemType($id);
- 
-            if ($resultItem['status'] && $resultItem['resultado'] !== null) {
-                $resultUser = $this->getUserItemAmount($resultItem['resultado'], $email);
+            
+            $resultUser = $this->getUserItemAmount($id, $email);
 
-                if ($resultUser['status'] && $resultUser['resultado'] !== null) {
-
-                    echo json_encode(
-                        [
-                            'quantidade' => $resultUser['resultado'],
-                            'resposta' => self::COMPLETE
-                        ]
-                    );
-
-                    exit();
-                }
-
+            if ($resultUser['status']) {
                 echo json_encode(
-                    ['resposta' => self::USER_NOT_FOUND]
+                    [
+                        'quantidade' => $resultUser['resultado'] ?? 0,
+                        'resposta' => self::COMPLETE
+                    ]
                 );
-
                 exit();
             }
-            echo json_encode(['resposta' => self::ITEM_NOT_FOUND]);
+
+            echo json_encode(['resposta' => self::USER_NOT_FOUND]);
             exit();
         }
 
-        public function getItemType(int $id)
+        public function getUserItemAmount(int $item_id, string $email)
         {
             $conexao = Conexao::criarConexao();
-
-            $sqlClassificacao = "SELECT classificacao
-                FROM itens
-                INNER JOIN tipos_itens ON tipos_itens.id = itens.FK_id_tipos_itens
-                WHERE itens.id = :id;
-            ";
-
-            $stmt = $conexao->prepare($sqlClassificacao);
-            $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
-            $executouSql = $stmt->execute();
-            $resultado = $stmt->fetch(\PDO::FETCH_ASSOC);
-
-            $resultadoIsEmpty = ($resultado == null);
-
-            if ($resultadoIsEmpty) {
-                $resultado = ['classificacao' => null];
-            }
-
-            return [
-                'status' => $executouSql,
-                'resultado' => $resultado['classificacao']
-            ];
-        }
-
-        public function getUserItemAmount(string $item_type, string $email)
-        {
-            if (!in_array($item_type, self::COLUNAS_USUARIO_PERMITIDAS, true)) {
-                return [
-                    'status' => false,
-                    'resultado' => null,
-                ];
-            }
-
-            $conexao = Conexao::criarConexao();
-            $sql = 'SELECT `' . $item_type . '`
-            FROM usuario
-            WHERE email = :email';
+            $sql = 'SELECT quantidade
+            FROM inventario
+            WHERE FK_user_email = :email AND FK_item_id = :item_id';
 
             $stmt = $conexao->prepare($sql);
             $stmt->bindParam(':email', $email, \PDO::PARAM_STR);
+            $stmt->bindParam(':item_id', $item_id, \PDO::PARAM_INT);
             $executouSql = $stmt->execute();
-            $resultado = $stmt->fetch();
-
-
-            $resultadoIsEmpty = ($resultado == null);
-
-            if ($resultadoIsEmpty) {
-                $resultado = [$item_type => null];
-            }
+            $resultado = $stmt->fetch(\PDO::FETCH_ASSOC);
 
             return [
                 'status' => $executouSql,
-                'resultado' => $resultado[$item_type]
+                'resultado' => $resultado ? (int)$resultado['quantidade'] : 0
             ];
         }
     }

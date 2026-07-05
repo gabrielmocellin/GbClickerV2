@@ -15,7 +15,7 @@ class RegisterController
 
     public function index()
     {
-        include __DIR__ . "/../../View/register/register.php";
+        include __DIR__ . "/../../../View/register/register.php";
     }
 
     public function verificarAvisos()
