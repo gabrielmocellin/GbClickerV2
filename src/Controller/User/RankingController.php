@@ -3,16 +3,18 @@
 namespace GbClicker\Controller\User;
 
 use GbClicker\Controller\Auth\LoginController;
-use GbClicker\Model\RankModel;
+use GbClicker\Service\ProfileService;
 
 class RankingController
 {
 
     private LoginController $loginController;
+    private ProfileService $profileService;
 
-    public function __construct(LoginController $loginController)
+    public function __construct(LoginController $loginController, ProfileService $profileService)
     {
         $this->loginController = $loginController;
+        $this->profileService = $profileService;
     }
     public function index()
     {
@@ -37,9 +39,8 @@ class RankingController
 
     public function showUsers()
     {
-        $rankModel = new RankModel();
         $class = "rank first_rank";
-        $usuarios = $rankModel->getArrayInfoRankedPlayers();
+        $usuarios = $this->profileService->getRankedPlayers();
         foreach ($usuarios as $usuario) {
             echo  "
             <a class='linha' href='/profile?id=".$usuario->getId()."'>

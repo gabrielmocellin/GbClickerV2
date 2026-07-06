@@ -2,7 +2,7 @@
 
 namespace GbClicker\Model;
 
-use GbClicker\DAO\UserDao;
+
 use GbClicker\Model\{LevelModel, UpgradesInfoModel, UserCredentialsModel};
 
 class RegisterModel
@@ -28,16 +28,7 @@ class RegisterModel
         $this->setImageSrc($image_src);
     }
 
-    public function save()
-    {
-        $dao = new UserDAO();
 
-        if ($dao->register($this)) {
-            return true;
-        }
-
-        return false;
-    }
 
     // =-=-=-=-= GETTERS =-=-=-=-=
     public function getId()

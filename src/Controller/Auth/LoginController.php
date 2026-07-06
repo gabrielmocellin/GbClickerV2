@@ -3,6 +3,7 @@
 namespace GbClicker\Controller\Auth;
 
 use GbClicker\Model\UserModel;
+use GbClicker\Service\UserService;
 use GbClicker\Http\Request;
 use GbClicker\Http\Session;
 
@@ -15,11 +16,13 @@ class LoginController
 
     private Request $request;
     private Session $session;
+    private UserService $userService;
 
-    public function __construct(Request $request, Session $session)
+    public function __construct(Request $request, Session $session, UserService $userService)
     {
         $this->request = $request;
         $this->session = $session;
+        $this->userService = $userService;
     }
 
     public function index()
@@ -58,28 +61,32 @@ class LoginController
 
     public function returnModelDataFromLoginType()
     {
-        $model = new UserModel();
+        $model = null;
         
         if ($this->request->hasCookie('email-logado')) { // COOKIE LOGIN
-            $model->setEmail($this->request->cookie('email-logado'));
-            $model->getByEmail();
+            $email = $this->request->cookie('email-logado');
+            $model = $this->userService->findByEmail($email);
         } elseif ($this->session->has('email')) { // SESSION LOGIN
-            $model->setEmail($this->session->get('email'));
-            $model->getByEmail();
+            $email = $this->session->get('email');
+            $model = $this->userService->findByEmail($email);
         } elseif (
             $this->request->hasPost('email-input') &&
             $this->request->hasPost('password-input')
         ) {
-            $model->setEmail($this->request->post('email-input'));
-            $model->setPassword($this->request->post('password-input'));
+            $email = $this->request->post('email-input');
+            $password = $this->request->post('password-input');
+            
+            $model = $this->userService->authenticateByEmailAndPassword($email, $password);
 
-            if (!$model->dataFoundByEmailAndPassword()){ return null; }
+            if (!$model){ return null; }
             if ($this->request->hasPost('cookie-checkbox')){ setcookie("email-logado", $model->getEmail(), time()+86400); }
         } else {
             return null;
         }
         
-        $this->session->set('email', $model->getEmail());
+        if ($model) {
+            $this->session->set('email', $model->getEmail());
+        }
         
         return $model;
     }

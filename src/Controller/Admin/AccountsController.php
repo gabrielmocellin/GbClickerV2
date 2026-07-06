@@ -4,6 +4,7 @@ namespace GbClicker\Controller\Admin;
 
 use GbClicker\DAO\UserDAO;
 use GbClicker\Model\UserModel;
+use GbClicker\Service\UserService;
 use GbClicker\Controller\Admin\AdminPageController;
 use GbClicker\Http\Request;
 
@@ -12,11 +13,13 @@ class AccountsController
 
     private AdminPageController $adminPageController;
     private Request $request;
+    private UserService $userService;
 
-    public function __construct(AdminPageController $adminPageController, Request $request)
+    public function __construct(AdminPageController $adminPageController, Request $request, UserService $userService)
     {
         $this->adminPageController = $adminPageController;
         $this->request = $request;
+        $this->userService = $userService;
     }
     public function index()
     {
@@ -36,11 +39,10 @@ class AccountsController
 
     public function showUsers()
     {
-        $usermodel = new UserModel();
         $page = $this->request->get('page') ?? 1;
         $search = $this->request->get('search') ?? '';
         
-        $contas = $usermodel->getFirstTenAccoutsByPage((int)$page, $search);
+        $contas = $this->userService->listPaginated((int)$page, $search);
         
         echo "<div id='linhas_dados_usuarios'>";
         foreach ($contas as $conta) {
@@ -51,9 +53,8 @@ class AccountsController
 
     public function showPagination()
     {
-        $usermodel = new UserModel();
         $search = $this->request->get('search') ?? '';
-        $total = $usermodel->countTotalAccounts($search);
+        $total = $this->userService->countAccounts($search);
         
         $totalPages = ceil($total / 10);
         $currentPage = (int)($this->request->get('page') ?? 1);

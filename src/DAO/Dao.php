@@ -12,4 +12,9 @@ class Dao
     {
         $this->conexao = Conexao::criarConexao();
     }
+
+    public function getConexao()
+    {
+        return $this->conexao;
+    }
 }

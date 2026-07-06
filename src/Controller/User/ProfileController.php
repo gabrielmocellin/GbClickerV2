@@ -3,6 +3,7 @@
 namespace GbClicker\Controller\User;
 use GbClicker\Model\ProfileModel;
 use GbClicker\Controller\Auth\LoginController;
+use GbClicker\Service\ProfileService;
 use GbClicker\Http\Request;
 
 class ProfileController
@@ -10,11 +11,13 @@ class ProfileController
 
     private LoginController $loginController;
     private Request $request;
+    private ProfileService $profileService;
 
-    public function __construct(LoginController $loginController, Request $request)
+    public function __construct(LoginController $loginController, Request $request, ProfileService $profileService)
     {
         $this->loginController = $loginController;
         $this->request = $request;
+        $this->profileService = $profileService;
     }
     public function index()
     {
@@ -39,8 +42,7 @@ class ProfileController
 
     public function getProfileInfoById(int $id)
     {
-        $profileModel = new ProfileModel($id);
-        return $profileModel;
+        return $this->profileService->findById($id);
     }
 
     public function verificarTipoPerfil($model)

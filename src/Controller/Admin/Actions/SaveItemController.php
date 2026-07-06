@@ -3,6 +3,7 @@
 namespace GbClicker\Controller\Admin\Actions;
 
 use GbClicker\Model\ItemModel;
+use GbClicker\Service\ItemService;
 use GbClicker\Http\Request;
 use GbClicker\Controller\Admin\AdminPageController;
 
@@ -11,11 +12,13 @@ class SaveItemController
 
     private AdminPageController $adminPageController;
     private Request $request;
+    private ItemService $itemService;
 
-    public function __construct(AdminPageController $adminPageController, Request $request)
+    public function __construct(AdminPageController $adminPageController, Request $request, ItemService $itemService)
     {
         $this->adminPageController = $adminPageController;
         $this->request = $request;
+        $this->itemService = $itemService;
     }
     public function index()
     {
@@ -39,7 +42,7 @@ class SaveItemController
                     $dirFile,
                     $this->request->post('tipo')
                 );
-                if ($item->save()) {
+                if ($this->itemService->save($item)) {
                     header('location: /admin/items?sucesso=1');
                 } else {
                     header('location: /admin/items?erro=1');

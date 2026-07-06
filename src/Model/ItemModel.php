@@ -2,7 +2,7 @@
 
 namespace GbClicker\Model;
 
-use GbClicker\DAO\ItemDao;
+
 
 class ItemModel
 {
@@ -26,33 +26,7 @@ class ItemModel
         $this->setTipo($tp);
     }
 
-    public function save()
-    {
-        $dao = new ItemDAO();
-        if ($dao->insert($this)) {
-            return true;
-        }
-        return false;
-    }
 
-    public function getById($id)
-    {
-        $itemDao = new ItemDAO();
-        $itemInfo = $itemDao->selectById($id);
-        $this->fillItemModel($itemInfo);
-    }
-
-    public function getAllItems()
-    {
-        $itemDao = new ItemDAO();
-        return $itemDao->select();
-    }
-
-    public function getAllTypes()
-    {
-        $itemDao = new ItemDao();
-        return $itemDao->selectAllItemTypes();
-    }
 
     public function fillItemModel($data)
     {
@@ -63,6 +37,7 @@ class ItemModel
         $this->setEfeitoValor($data['efeito_valor']);
         $this->setMinimumLevel($data['minimum_level']);
         $this->setTipo($data['FK_id_tipos_itens']);
+        $this->setEfeito($data['efeito']);
     }
 
     // =-=-=-=-= GETTERS =-=-=-=-=
@@ -106,6 +81,11 @@ class ItemModel
         return $this->tipo;
     }
 
+    public function getEfeito()
+    {
+        return $this->tipo;
+    }
+
     // =-=-=-=-= SETTERS =-=-=-=-=
     public function setId($id)
     {
@@ -144,5 +124,10 @@ class ItemModel
     public function setTipo($tipo)
     {
         $this->tipo = $tipo;
+    }
+
+    public function setEfeito($efeito)
+    {
+        $this->tipo = $efeito;
     }
 }

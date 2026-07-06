@@ -2,8 +2,7 @@
 
 namespace GbClicker\Controller\Game\Actions;
 
-use GbClicker\Model\UserModel;
-use GbClicker\Conexao\Conexao;
+use GbClicker\Service\UserService;
 use GbClicker\Controller\Auth\LoginController;
 use GbClicker\Http\Session;
 
@@ -12,11 +11,13 @@ class ClickController
 
     private LoginController $loginController;
     private Session $session;
+    private UserService $userService;
 
-    public function __construct(LoginController $loginController, Session $session)
+    public function __construct(LoginController $loginController, Session $session, UserService $userService)
     {
         $this->loginController = $loginController;
         $this->session = $session;
+        $this->userService = $userService;
     }
     const DINHEIRO_SALVO = 200;
     const ERRO_AO_INICIAR_SESSAO = 201;
@@ -34,10 +35,19 @@ class ClickController
             return false;
         }
 
-        $userModel = $this->montarModeloUsuario();
+        $userModel = $this->userService->findByEmail($this->session->get('email'));
+        if (!$userModel) {
+            echo json_encode(['resposta' => self::ERRO_AO_INICIAR_SESSAO]);
+            return false;
+        }
+        
         $newMoney = $userModel->getMoney() + $userModel->getClickValue() * $userModel->getMultiplier();
         $userModel->incrementXpPoints();
-        $resultadoSql = $this->executarSql($userModel->getLevelData(), $newMoney, $userModel->getEmail());
+        $resultadoSql = $this->userService->updateMoneyAndLevel(
+            $userModel->getEmail(), 
+            $newMoney, 
+            $userModel->upgradesInfo->getLevelData()
+        );
 
         if ($resultadoSql) {
             echo json_encode(['resposta' => self::DINHEIRO_SALVO]);
@@ -47,31 +57,4 @@ class ClickController
         exit;
     }
 
-    public function montarModeloUsuario()
-    {
-        $userModel = new UserModel();
-        $userModel->setEmail($this->session->get('email'));
-        $userModel->getByEmail();
-        return $userModel;
-    }
-
-    public function executarSql($levelData, $money, $email)
-    {
-        $conexao = Conexao::criarConexao();
-        $sql = 'UPDATE usuario, nivel
-            SET usuario.money = :money,
-                nivel.level = :level,
-                nivel.xp_points = :xp_points,
-                nivel.max_to_up = :max_to_up
-            WHERE usuario.email = nivel.FK_user_email
-              AND usuario.email = :email';
-        $stmt = $conexao->prepare($sql);
-        $stmt->bindValue(':money', $money, \PDO::PARAM_INT);
-        $stmt->bindValue(':level', $levelData->getLevel(), \PDO::PARAM_INT);
-        $stmt->bindValue(':xp_points', $levelData->getXpPoints(), \PDO::PARAM_INT);
-        $stmt->bindValue(':max_to_up', $levelData->getMaxToUp(), \PDO::PARAM_INT);
-        $stmt->bindValue(':email', $email, \PDO::PARAM_STR);
-
-        return $stmt->execute();
-    }
 }

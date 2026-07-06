@@ -4,7 +4,6 @@
 
 namespace GbClicker\Model;
 
-use GbClicker\DAO\UserDAO;
 use GbClicker\Model\{LevelModel, UpgradesInfoModel, UserCredentialsModel};
 
 class UserModel
@@ -23,76 +22,7 @@ class UserModel
         $this->upgradesInfo = new UpgradesInfoModel();
     }
 
-    # Aqui os dados do usuário serão enviados para o DataAcessObject a fim de
-    # tentar armazenar as informações no banco de dados, retornando true
-    # caso tenha dado certo o salvamento e false ao dar errado.
-    public function save()
-    {
-        $dao = new UserDAO();
-        return $dao->insert($this);
-    }
 
-    public function getFirstTenAccoutsByPage(int $page, string $search = '')
-    {
-        $page = max(1, $page);
-        $limit = 10;
-        $offset = ($page - 1) * $limit;
-        $dao = new UserDAO();
-        $contas = $dao->selectTenPerPage($offset, $limit, $search);
-        $contas = UserModel::elementosResultadosDeQueryParaUserModel($contas);
-        return $contas;
-    }
-
-    public function countTotalAccounts(string $search = ''): int
-    {
-        $dao = new UserDAO();
-        return $dao->countTotalAccounts($search);
-    }
-
-    public static function elementosResultadosDeQueryParaUserModel($resultado)
-    {
-        $contas = array_map(
-            function ($conta) {
-                $contaCriada = new UserModel();
-                $contaCriada->setEmail($conta['email']);
-                $contaCriada->getByEmail();
-                return $contaCriada;
-            }, $resultado
-        );
-
-        return $contas;
-        
-    }
-
-    public function dataFoundByEmailAndPassword()
-    # Essa função é utilizada para setar em um objeto UserModel
-    # com as informações retornadas do banco de dados CASO a senha
-    # seja correspondente com o email informado. 
-    {
-        $dao = new UserDAO();
-        $daoResult  = $dao->selectByEmail($this->getEmail());
-        $correctPassword = password_verify($this->getPassword(), $daoResult['password'] ?? '');
-        
-        if (!$correctPassword) {
-            return false;
-        }
-
-        $this->setAllUserData($daoResult);
-        return true;
-    }
-
-    public function getByEmail()
-    {
-        $dao = new UserDAO();
-        $daoResult  = $dao->selectByEmail($this->getEmail());
-
-        if ($daoResult == null) {
-            return false;
-        }
-
-        $this->setAllUserData($daoResult);
-        return true;
-    }
 
     public function setAllUserData($daoResult)
     {
@@ -107,15 +37,10 @@ class UserModel
             $daoResult['max_to_up']
         ));
         
-        // Agora carrega o inventário para calcular dinamicamente
-        $this->upgradesInfo->carregarInventario($this->getEmail());
+
     }
 
-    public function updateUserData()
-    {
-        $dao = new UserDAO();
-        $dao->update($this);
-    }
+
 
     public function incrementXpPoints($xpPoints = 1)
     {

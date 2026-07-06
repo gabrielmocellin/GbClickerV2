@@ -3,15 +3,18 @@
 namespace GbClicker\Controller\Auth\Actions;
 
 use GbClicker\Model\{UserModel, RegisterModel, UserCredentialsModel, ImageModel};
+use GbClicker\Service\RegisterService;
 use GbClicker\Http\Request;
 
 class SaveRegisterController
 {
     private Request $request;
+    private RegisterService $registerService;
 
-    public function __construct(Request $request)
+    public function __construct(Request $request, RegisterService $registerService)
     {
         $this->request = $request;
+        $this->registerService = $registerService;
     }
 
     public function index()
@@ -24,7 +27,7 @@ class SaveRegisterController
             
             try {
                 $isImageSaved = $imageModel->isImageSaved;
-                if ($isImageSaved && $registerModel->save()) {
+                if ($isImageSaved && $this->registerService->register($registerModel)) {
                     header("location: /login?aviso=0", true);
                     return;
                 } else {

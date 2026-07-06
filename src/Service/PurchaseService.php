@@ -4,9 +4,9 @@ namespace GbClicker\Service;
 
 use GbClicker\Conexao\Conexao;
 use GbClicker\DAO\ItemDAO;
-use GbClicker\Model\UserModel;
 use GbClicker\DAO\InventarioDAO;
 use GbClicker\Model\InventarioModel;
+use GbClicker\Service\UserService;
 
 class PurchaseService
 {
@@ -21,12 +21,14 @@ class PurchaseService
     private ItemDAO $itemDao;
     private \GbClicker\DAO\UserDAO $userDao;
     private InventarioDAO $inventarioDao;
+    private UserService $userService;
 
-    public function __construct(ItemDAO $itemDao, \GbClicker\DAO\UserDAO $userDao)
+    public function __construct(ItemDAO $itemDao, \GbClicker\DAO\UserDAO $userDao, InventarioDAO $inventarioDao, UserService $userService)
     {
         $this->itemDao = $itemDao;
         $this->userDao = $userDao;
-        $this->inventarioDao = new InventarioDAO();
+        $this->inventarioDao = $inventarioDao;
+        $this->userService = $userService;
     }
 
     /**
@@ -38,10 +40,9 @@ class PurchaseService
             return $this->result(self::ERRO_AO_SALVAR_COMPRA, 'Quantidade invalida.');
         }
 
-        $userModel = new UserModel();
-        $userModel->setEmail($email);
+        $userModel = $this->userService->findByEmail($email);
         
-        if (!$userModel->getByEmail()) {
+        if (!$userModel) {
             return $this->result(self::ERRO_AO_INICIAR_SESSAO, 'Usuario nao encontrado.');
         }
 

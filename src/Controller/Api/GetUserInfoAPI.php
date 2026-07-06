@@ -1,9 +1,9 @@
 <?php
     namespace GbClicker\Controller\Api;
 
-    use GbClicker\Conexao\Conexao;
     use GbClicker\Http\Session;
     use GbClicker\Model\UserModel;
+    use GbClicker\Service\UserService;
 
     class GetUserInfoAPI {
         # Essa classe será utilizada para retornar as informações do usuário
@@ -13,20 +13,22 @@
         const COMPLETE = 200;
 
         private Session $session;
+        private UserService $userService;
 
-        public function __construct(Session $session)
+        public function __construct(Session $session, UserService $userService)
         {
             $this->session = $session;
+            $this->userService = $userService;
         }
 
         public function index()
         {
             $this->loginVerify();
             $email = filter_var($this->session->get('email'), FILTER_SANITIZE_EMAIL);
-            $model = new UserModel();
-            $model->setEmail($email);
+            
+            $model = $this->userService->findByEmail($email);
 
-            if ($model->getByEmail()) {
+            if ($model) {
                 echo json_encode(
                     [
                         'nickname' => $model->getNickname(),

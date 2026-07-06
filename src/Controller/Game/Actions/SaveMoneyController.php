@@ -2,8 +2,7 @@
 
 namespace GbClicker\Controller\Game\Actions;
 
-use GbClicker\Model\UserModel;
-use GbClicker\Conexao\Conexao;
+use GbClicker\Service\UserService;
 use GbClicker\Controller\Auth\LoginController;
 use GbClicker\Http\Session;
 
@@ -12,11 +11,13 @@ class SaveMoneyController
 
     private LoginController $loginController;
     private Session $session;
+    private UserService $userService;
 
-    public function __construct(LoginController $loginController, Session $session)
+    public function __construct(LoginController $loginController, Session $session, UserService $userService)
     {
         $this->loginController = $loginController;
         $this->session = $session;
+        $this->userService = $userService;
     }
     const DINHEIRO_SALVO = 200;
     const ERRO_AO_INICIAR_SESSAO = 201;
@@ -29,12 +30,18 @@ class SaveMoneyController
             return false;
         }
 
-        $userModel = $this->montarModeloUsuario();
+        $userModel = $this->userService->findByEmail($this->session->get('email'));
+        if (!$userModel) {
+            echo json_encode(['resposta' => self::ERRO_AO_INICIAR_SESSAO]);
+            return false;
+        }
+
         $dadosArray = $this->verificarConteudoJson();
 
         if ($dadosArray != null) {
             $newMoney = $dadosArray['money'] + ($dadosArray['clickValue'] * $dadosArray['multiplier']);
-            $resultadoSql = $this->executarSql($newMoney, $userModel->getEmail());
+            $userModel->setMoney($newMoney);
+            $resultadoSql = $this->userService->updateMoney($userModel);
 
             if ($resultadoSql) {
                 echo json_encode(['resposta' => self::DINHEIRO_SALVO]);
@@ -46,14 +53,6 @@ class SaveMoneyController
         }
     }
 
-    public function montarModeloUsuario()
-    {
-        $userModel = new UserModel();
-        $userModel->setEmail($this->session->get('email'));
-        $userModel->getByEmail();
-        return $userModel;
-    }
-
     public function verificarConteudoJson()
     {
         // TODO: abstract headers into Request
@@ -63,16 +62,5 @@ class SaveMoneyController
             return $dadosDecodificados;
         }
         return null;
-    }
-
-    public function executarSql($money, $email)
-    {
-        $conexao = Conexao::criarConexao();
-        $sql = 'UPDATE usuario SET money = :money WHERE email = :email';
-        $stmt = $conexao->prepare($sql);
-        $stmt->bindValue(':money', $money, \PDO::PARAM_INT);
-        $stmt->bindValue(':email', $email, \PDO::PARAM_STR);
-
-        return $stmt->execute();
     }
 }

@@ -2,8 +2,7 @@
 
 namespace GbClicker\Controller\Game\Actions;
 
-use GbClicker\Model\UserModel;
-use GbClicker\Conexao\Conexao;
+use GbClicker\Service\UserService;
 use GbClicker\Controller\Auth\LoginController;
 use GbClicker\Http\Session;
 
@@ -12,11 +11,13 @@ class MinionsMoneyController
 
     private LoginController $loginController;
     private Session $session;
+    private UserService $userService;
 
-    public function __construct(LoginController $loginController, Session $session)
+    public function __construct(LoginController $loginController, Session $session, UserService $userService)
     {
         $this->loginController = $loginController;
         $this->session = $session;
+        $this->userService = $userService;
     }
     const DINHEIRO_SALVO = 200;
     const ERRO_AO_INICIAR_SESSAO = 201;
@@ -35,9 +36,18 @@ class MinionsMoneyController
             return false;
         }
 
-        $userModel = $this->montarModeloUsuario();
+        $userModel = $this->userService->findByEmail($this->session->get('email'));
+        if (!$userModel) {
+            echo json_encode(['resposta' => self::ERRO_AO_INICIAR_SESSAO]);
+            return false;
+        }
+
         $minionsMoney = $userModel->getMinions() * $userModel->getMultiplier();
-        $resultadoSql = $this->executarSql($minionsMoney, $userModel->getEmail());
+        if ($minionsMoney > 0) {
+            $resultadoSql = $this->userService->addMoney($userModel->getEmail(), $minionsMoney);
+        } else {
+            $resultadoSql = true; // No minions, no need to update but it's a success
+        }
 
         if ($resultadoSql) {
             echo json_encode(['resposta' => self::DINHEIRO_SALVO]);
@@ -47,24 +57,4 @@ class MinionsMoneyController
         exit;
     }
 
-    public function montarModeloUsuario()
-    {
-        $userModel = new UserModel();
-        $userModel->setEmail($this->session->get('email'));
-        $userModel->getByEmail();
-        return $userModel;
-    }
-
-    public function executarSql($minionsMoney, $email)
-    {
-        $conexao = Conexao::criarConexao();
-        $sql = 'UPDATE usuario
-            SET usuario.money = usuario.money + :minionsMoney
-            WHERE usuario.email = :email';
-        $stmt = $conexao->prepare($sql);
-        $stmt->bindValue(':minionsMoney', $minionsMoney, \PDO::PARAM_INT);
-        $stmt->bindValue(':email', $email, \PDO::PARAM_STR);
-
-        return $stmt->execute();
-    }
 }

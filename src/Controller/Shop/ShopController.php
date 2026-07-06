@@ -2,20 +2,20 @@
 
 namespace GbClicker\Controller\Shop;
 
-use GbClicker\Model\{
-    UserModel,
-    ItemModel
-};
+use GbClicker\Model\UserModel;
 use GbClicker\Controller\Auth\LoginController;
+use GbClicker\Service\ItemService;
 
 class ShopController
 {
 
     private LoginController $loginController;
+    private ItemService $itemService;
 
-    public function __construct(LoginController $loginController)
+    public function __construct(LoginController $loginController, ItemService $itemService)
     {
         $this->loginController = $loginController;
+        $this->itemService = $itemService;
     }
     public function index()
     {
@@ -45,15 +45,28 @@ class ShopController
 
     public function pegarItens()
     {
-        $itemModel = new ItemModel();
-        $itemsArray = $itemModel->getAllItems();
+        // Precisamos retornar array pois a view espera array
+        $items = $this->itemService->findAll();
+        $itemsArray = [];
+        foreach ($items as $item) {
+            $itemsArray[] = [
+                'id' => $item->getId(),
+                'descricao' => $item->getDescricao(),
+                'image_src' => $item->getImageSrc(),
+                'nome' => $item->getNome(),
+                'efeito_valor' => $item->getEfeitoValor(),
+                'preco' => $item->getPreco(),
+                'minimum_level' => $item->getMinimumLevel(),
+                'efeito' => $item->getEfeito()
+            ];
+        }
         return $itemsArray;
     }
 
     public function mostrarItens($itemsArray, UserModel $userModel = null)
     {
         $userLevel = $userModel ? $userModel->getLevel() : 0;
-        $inventario = $userModel ? $userModel->upgradesInfo->inventario : [];
+        $inventario = $userModel ? $userModel->upgradesInfo->getInventario() : [];
         
         if (!empty($itemsArray)) {
             foreach ($itemsArray as $item) {

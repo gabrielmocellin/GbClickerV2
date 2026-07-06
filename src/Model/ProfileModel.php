@@ -2,7 +2,6 @@
 
 namespace GbClicker\Model;
 
-use GbClicker\DAO\ProfileDao;
 use GbClicker\Model\UpgradesInfoModel;
 
 class ProfileModel
@@ -13,22 +12,11 @@ class ProfileModel
     public $image_src;
     public $level;
     public $id;
-    public $rank;
+    public $email;
 
-    function __construct($id)
+    function __construct()
     {
-        $profileDao = new ProfileDao();
-        $profileInfo = $profileDao->selectByIdentifier($id);
-        $this->id = $id;
-        $this->nickname = $profileInfo['nickname'];
-        $this->money = $profileInfo['money'];
-        $this->image_src = $profileInfo['image_src'];
-        $this->level = $profileInfo['level'];
-        $this->rank = intval($profileInfo['rank_atual']) + 1;
-
         $this->upgradesInfo = new UpgradesInfoModel();
-        // Carrega inventário para calcular as propriedades dinâmicas
-        $this->upgradesInfo->carregarInventario($profileInfo['email']);
     }
 
     // =-=-=-=-= GETTERS =-=-=-=-=
@@ -75,5 +63,51 @@ class ProfileModel
     public function getRank()
     {
         return $this->rank;
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function getUpgradesInfo()
+    {
+        return $this->upgradesInfo;
+    }
+
+    // =-=-=-=-= SETTERS =-=-=-=-=
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    public function setNickname($nickname)
+    {
+        $this->nickname = $nickname;
+    }
+
+    public function setMoney($money)
+    {
+        $this->money = $money;
+    }
+
+    public function setImageSrc($image_src)
+    {
+        $this->image_src = $image_src;
+    }
+
+    public function setLevel($level)
+    {
+        $this->level = $level;
+    }
+
+    public function setRank($rank)
+    {
+        $this->rank = $rank;
+    }
+
+    public function setEmail($email)
+    {
+        $this->email = $email;
     }
 }

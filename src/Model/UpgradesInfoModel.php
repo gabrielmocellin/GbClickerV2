@@ -2,7 +2,6 @@
 
 namespace GbClicker\Model;
 
-use GbClicker\DAO\InventarioDAO;
 
 class UpgradesInfoModel
 {
@@ -29,10 +28,9 @@ class UpgradesInfoModel
         $this->setLevelData($levelData);
     }
     
-    public function carregarInventario(string $emailUsuario)
+    public function carregarInventario(array $inventario)
     {
-        $dao = new InventarioDAO();
-        $this->inventario = $dao->selectByUserEmail($emailUsuario);
+        $this->inventario = $inventario;
         $this->calcularStatus();
     }
     

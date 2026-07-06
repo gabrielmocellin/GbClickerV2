@@ -56,7 +56,38 @@ class UserDAO extends Dao implements IDAO
         $sqlPreparado->bindValue(':email', $model->getEmail(), \PDO::PARAM_STR);
         $sqlPreparado->bindValue(':money', $model->getMoney(), \PDO::PARAM_INT);
 
-        $sqlPreparado->execute();
+        return $sqlPreparado->execute();
+    }
+    
+    public function updateMoneyAndLevel($email, $money, $levelData)
+    {
+        $sql = 'UPDATE usuario, nivel
+            SET usuario.money = :money,
+                nivel.level = :level,
+                nivel.xp_points = :xp_points,
+                nivel.max_to_up = :max_to_up
+            WHERE usuario.email = nivel.FK_user_email
+              AND usuario.email = :email';
+        $stmt = $this->conexao->prepare($sql);
+        $stmt->bindValue(':money', $money, \PDO::PARAM_INT);
+        $stmt->bindValue(':level', $levelData->getLevel(), \PDO::PARAM_INT);
+        $stmt->bindValue(':xp_points', $levelData->getXpPoints(), \PDO::PARAM_INT);
+        $stmt->bindValue(':max_to_up', $levelData->getMaxToUp(), \PDO::PARAM_INT);
+        $stmt->bindValue(':email', $email, \PDO::PARAM_STR);
+
+        return $stmt->execute();
+    }
+    
+    public function addMoney($email, $amount)
+    {
+        $sql = 'UPDATE usuario
+            SET usuario.money = usuario.money + :amount
+            WHERE usuario.email = :email';
+        $stmt = $this->conexao->prepare($sql);
+        $stmt->bindValue(':amount', $amount, \PDO::PARAM_INT);
+        $stmt->bindValue(':email', $email, \PDO::PARAM_STR);
+
+        return $stmt->execute();
     }
 
     public function select()
